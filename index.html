@@ -5,35 +5,64 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name=viewport content="width=device-width, initial-scale=1">
-    <meta name="title" content="Our life">
-    <meta name="description" content="Our life">
-    <meta name="keywords" content="Our life">
-
-    <title>Our life</title>
+    <meta name="title" content="Nguyễn Thiên Tứ & Dương Thúy Vy - Nguyen Thien Tu & Duong Thuy Vy">
+    <meta name="description" content="Nguyễn Thiên Tứ & Dương Thúy Vy - Nguyen Thien Tu & Duong Thuy Vy">
+    <meta name="keywords" content="Nguyễn Thiên Tứ & Dương Thúy Vy - Nguyen Thien Tu & Duong Thuy Vy">
+    <title>Nguyễn Thiên Tứ & Dương Thúy Vy - Nguyen Thien Tu & Duong Thuy Vy</title>
 </head>
 
 <body>
-    <header>
-        <div ng-controller="slideShowController">
-            <md-card layout="column" layout-align="center center" style="padding-bottom: 10px">
-                <jk-carousel data="dataArray" item-template-url="'./views/slideshow.html'" auto-slide="true"
-                    auto-slide-time="2000" current-index="0">
-                </jk-carousel>
-            </md-card>
+    <div id="loading">
+        <div id="indicator">
+            <div class="flower"></div>
+            <div class="hearts"></div>
+            <p class="error"></p>
         </div>
-        <nav>
-            <a href="#!/">Home</a>
-        </nav>
+    </div>
+    <header ng-controller="slideShowController">
+        <section class="bg-dark hero position-relative pb-5">
+            <div class="hero-bg">
+                <div class="hero-bg-img" ng-repeat="item in dataArray" ng-style="animation($index)">
+                    <img ng-src="{{item.src}}">
+                </div>
+                <!-- <div class="hero-bg-img" style="animation: 18s heroAnimation linear infinite">
+                    <img src="//olitvn.com/images/hero-1.jpg">
+                </div>
+                <div class="hero-bg-img" style="animation: 18s heroAnimation linear 6s infinite">
+                    <img src="//olitvn.com/images/hero-2.jpg">
+                </div>
+                <div class="hero-bg-img" style="animation: 18s heroAnimation linear 12s infinite">
+                    <img src="//olitvn.com/images/hero-3.jpg">
+                </div> -->
+            </div>
+            <div class="hero-content">
+                <div class="text-center">
+                    <h2 class="display-4 bg-danger m-5 p-2">Our Life</h2>
+                    <h1 class="display-1 text-white">
+                        <p class="p-3">Nguyễn Thiên Tứ</p>
+                        <p class="p-3 text-danger">♥</p>
+                        <p class="p-3">Dương Thúy Vy</p>
+                    </h1>
+                </div>
+            </div>
+        </section>
     </header>
-    <main>
+    <main class="container pt-5">
         <div ng-view></div>
     </main>
-    <footer>Nguyen Thien Tu ♥ Duong Thuy Vy</footer>
-
+    <div class="img-line"></div>
+    <footer>
+        NGUYỄN THIÊN TỨ <span class="text-danger">♥</span> DƯƠNG THÚY VY
+    </footer>
+    <div class="balloons"></div>
     <!-- Css libary-->
     <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/1.1.22/angular-material.min.css">
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/angular-jk-carousel@0.5.0/dist/jk-carousel.min.css">
+    <!-- <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/1.1.22/angular-material.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/angular-jk-carousel@0.5.0/dist/jk-carousel.min.css"> -->
+    <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/loading.css">
+    <link rel="stylesheet" href="./assets/css/hero.css">
 
     <!-- JS libary -->
     <script src="//code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -42,17 +71,17 @@
 
     <!-- Angular Material Dependencies -->
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-animate.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-aria.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-messages.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-route.js"></script>
+    <!-- <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-animate.min.js"></script> -->
+    <!-- <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-aria.min.js"></script> -->
+    <!-- <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-messages.min.js"></script> -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-route.min.js"></script>
 
     <!-- Angular Material Javascript now available via Google CDN; version 1.1.22 used here -->
     <script src="//ajax.googleapis.com/ajax/libs/angular_material/1.1.22/angular-material.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/angular-jk-carousel@0.5.0/dist/jk-carousel.min.js"></script>
 
     <!-- Script -->
-    <script src="./assets/js/common.js"></script>
+    <script src="./assets/js/app.js"></script>
     <script src="./controller/slideshow.js"></script>
     <script src="./controller/wedding.js"></script>
     <script src="./controller/error.js"></script>
