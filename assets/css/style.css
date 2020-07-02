@@ -42,4 +42,5 @@ footer {
     z-index: 99999;
     background-repeat: no-repeat;
     background-position: 0px -100px;
+    opacity: 0.25
 }

@@ -9,7 +9,7 @@ const lstScreen = [
     },
 ];
 
-let app = angular.module("myApp", ["ngRoute", 'jkAngularCarousel']);
+let app = angular.module("myApp", ["ngRoute"]);
 app.config(function ($routeProvider) {
     lstScreen.forEach(value => {
         $routeProvider.when(value.url, {

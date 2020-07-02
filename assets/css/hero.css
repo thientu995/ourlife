@@ -3,22 +3,37 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    background-position: center;
+    height: 100vh;
+    min-height: 1000px;
+    overflow: hidden;
+}
+
+.hero-bg-main{
+    background-position: center bottom;
     background-repeat: no-repeat;
     background-size: cover;
-    background-attachment: fixed;
-    overflow: hidden;
-    background-image: url(https://demo.createx.studio/createx/img/homepages/theme-presentation/hero-bg-back.jpg)
+    background-attachment: scroll;
+    background-image: url(../img/20200627/_DSC1385.jpg);
+    filter: blur(5px);
+    -webkit-filter: blur(5px);
+    width: 100%;
+    height: 100%;
+    position: absolute;
 }
 
 .hero-content {
     margin-top: -100vmax;
     position: relative;
+    display: flex;
+    height: calc(100vh + 100vmax);
+    width: 100%;
+    background-color: rgba(0, 0, 0, .5);
 }
 
-.hero-content h1 * {
-    background-color: rgba(0, 0, 0, .14);
+.hero-content h1{
+    margin-top: 10vmax !important;
+    width: 100%;
+    height: 100%;
 }
 
 .hero-bg {
@@ -31,8 +46,8 @@
     content: "";
     left: 0;
     right: 0;
-    height: 95vmax;
-    top: calc(100vmax - 300px);
+    /* height: 95vmax;
+    top: calc(100vmax - 300px); */
 }
 
 .hero-bg-img {
