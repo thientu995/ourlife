@@ -5,7 +5,7 @@ const rimraf = require('rimraf');
 const javaScriptObfuscator = require('javascript-obfuscator');
 const miniCSS = require("mini-css");
 const { FILE } = require('dns');
-const folderNameRelease = '.release';
+const folderNameRelease = 'docs';
 const pathHome = path.join(__dirname, '../');
 const pathFolderRelease = path.join(pathHome, folderNameRelease);
 
@@ -13,7 +13,7 @@ if (fs.existsSync(pathFolderRelease)) {
     rimraf.sync(pathFolderRelease);
 }
 
-recursive(pathHome, ['node_modules', '**/.*'], function (err, files) {
+recursive(pathHome, ['node_modules', '**/.*', 'docs'], function (err, files) {
     fs.mkdirSync(pathFolderRelease);
     files.forEach(file => {
         let sourceRelease = pathFolderRelease;
