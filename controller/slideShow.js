@@ -1,14 +1,13 @@
-app.controller("slideShowController", function ($scope, $http) {
+app.controller("slideShowController", ['$scope', '$http', '$window', '$timeout', '$interval', function ($scope, $http, $window, $timeout, $interval) {
     $scope.dataArray = [];
+    const timeChange = 4;
     $scope.animation = function (index) {
-        console.log($scope.dataArray)
-        let timeChange = 5;
-        let totalTime = $scope.dataArray.length * timeChange * timeChange;
         return {
-            'animation': totalTime + 's hero' + (Math.floor(Math.random() * 3)) + ' linear ' + index * timeChange + 's infinite',
+            'animation-delay': index * timeChange + 's',
+            'animation-duration': $scope.dataArray.length * timeChange + 's',
         };
     }
-    // $http.get('/data/slideshow.json').then(value => {
-    //     $scope.dataArray = value.data;
-    // });
-});
+    $http.get('/data/slideshow.json').then(value => {
+        $scope.dataArray = value.data;
+    });
+}]);

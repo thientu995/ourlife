@@ -16,65 +16,32 @@ if (fs.existsSync(pathFolderRelease)) {
 recursive(pathHome, ['node_modules', '**/.*'], function (err, files) {
     fs.mkdirSync(pathFolderRelease);
     files.forEach(file => {
+        let sourceRelease = pathFolderRelease;
         let pfileName = file.replace(pathHome, '').indexOf('\\');
         if (pfileName < 0) {
-            copyFileSync(file, pathFolderRelease);
+            copyFileSync(file, sourceRelease);
         }
         else {
-            copyFolderRecursiveSync(path.dirname(file), pathFolderRelease);
-            obfuscator();
+            let source = path.dirname(file);
+            sourceRelease = source.replace(pathHome, pathFolderRelease + "\\");
+            copyFileSync(file, sourceRelease);
         }
     });
+    obfuscator();
 });
 
 function copyFileSync(source, target) {
-
-    var targetFile = target;
-
-    //if target is a directory a new file with the same name will be created
-    if (fs.existsSync(target)) {
-        if (fs.lstatSync(target).isDirectory()) {
-            targetFile = path.join(target, path.basename(source));
-        }
-    }
-
-    fs.writeFileSync(targetFile, fs.readFileSync(source));
-}
-
-function copyFolderRecursiveSync(source, target) {
-    let files = [];
-
-    //check if folder needs to be created or integrated
-    let targetFolder = target;//path.join(target, path.basename(source));
-    let curFolder = source.replace(pathHome, '');
-    let arrFolder = curFolder.split('\\');
-    if (arrFolder.length > 0) {
-        arrFolder.forEach(value => {
-            targetFolder = path.join(targetFolder, value);
-            if (!fs.existsSync(targetFolder)) {
-                fs.mkdirSync(targetFolder);
-            }
-        });
-    }
-
-    //copy
-    if (fs.lstatSync(source).isDirectory()) {
-        files = fs.readdirSync(source);
-        files.forEach(function (file) {
-            let curSource = path.join(source, file);
-            if (fs.lstatSync(curSource).isDirectory()) {
-                copyFolderRecursiveSync(curSource, targetFolder);
-            } else {
-                copyFileSync(curSource, targetFolder);
-            }
-        });
-    }
+    fs.mkdirSync(target, { recursive: true });
+    fs.writeFileSync(path.join(target, path.basename(source)), fs.readFileSync(source));
 }
 
 function obfuscator() {
     recursive(pathFolderRelease, [], function (err, files) {
         files.forEach(file => {
             const extName = path.extname(file);
+            if (file.lastIndexOf('.min' + extName) > 0) {
+                return;
+            }
             switch (extName) {
                 case '.js':
                     obfJS(file);
@@ -97,28 +64,28 @@ function obfuscator() {
 }
 
 function obfJS(file) {
-    miniCSS(null, file, true);
-    // let contents = fs.readFileSync(file, 'utf8');
-    // let ret = javaScriptObfuscator.obfuscate(contents, {
-    //     compact: true,
-    //     controlFlowFlattening: false,
-    //     deadCodeInjection: false,
-    //     debugProtection: false,
-    //     debugProtectionInterval: false,
-    //     disableConsoleOutput: true,
-    //     identifierNamesGenerator: 'hexadecimal',
-    //     log: false,
-    //     renameGlobals: false,
-    //     rotateStringArray: true,
-    //     selfDefending: true,
-    //     shuffleStringArray: true,
-    //     splitStrings: false,
-    //     stringArray: true,
-    //     stringArrayEncoding: false,
-    //     stringArrayThreshold: 0.75,
-    //     unicodeEscapeSequence: false
-    // });
-    // fs.writeFileSync(file, ret);
+    // miniCSS(null, file, true);
+    let contents = fs.readFileSync(file, 'utf8');
+    let ret = javaScriptObfuscator.obfuscate(contents, {
+        compact: true,
+        controlFlowFlattening: false,
+        deadCodeInjection: false,
+        debugProtection: false,
+        debugProtectionInterval: false,
+        disableConsoleOutput: true,
+        identifierNamesGenerator: 'hexadecimal',
+        log: false,
+        renameGlobals: false,
+        rotateStringArray: true,
+        selfDefending: true,
+        shuffleStringArray: true,
+        splitStrings: false,
+        stringArray: false,
+        stringArrayEncoding: false,
+        stringArrayThreshold: 0.75,
+        unicodeEscapeSequence: false
+    });
+    fs.writeFileSync(file, ret);
 }
 
 function obgCSS(file) {

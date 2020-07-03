@@ -1,20 +1,28 @@
 /* @import url("//fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,700|Amatic+SC:400,700"); */
 
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Cardo&display=swap'); */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
     margin: 0;
     padding: 0;
     border: 0;
-    font-family: 'Dancing Script', cursive;
     font-size: 100%;
     word-break: break-word;
     vertical-align: baseline;
 }
 
-body {
-    font-size: 20px;
-    background-color: #DECCB5;
-    color: #fff
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Dancing Script', cursive;
+}
+
+html, body {
+    height: 100vh;
+    font-family: 'Dancing Script', cursive;
+    /* font-size: 25px; */
+    background-color: rgba(222, 204, 181, 0.1);
+    color: #612d7f;
 }
 
 .img-line {
@@ -27,12 +35,13 @@ body {
 }
 
 footer {
-    height: 500px;
+    height: 250px;
     padding-top: 25px;
     padding-left: 25%;
 }
 
 .balloons {
+    display: none;
     width: 90px;
     height: 300px;
     position: fixed;
@@ -42,5 +51,34 @@ footer {
     z-index: 99999;
     background-repeat: no-repeat;
     background-position: 0px -100px;
-    opacity: 0.25
+    opacity: 0.25;
+}
+
+.site-logo {
+    border-radius: 3px;
+    border: 1px solid #612d7f;
+    font-size: 15px;
+    font-family: "Montserrat", sans-serif;
+    color: #1d1d1d;
+    position: absolute;
+    padding: 6px 10px;
+}
+
+.site-logo:after {
+    font-family: 'FontAwesome';
+    content: "\f004";
+    position: absolute;
+    font-size: 15px;
+    top: 25px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    text-align: center;
+    color: #612d7f;
+}
+
+.site-logo span {
+    color: #000;
+    font-weight: bold;
+    font-family: "Dancing Script", cursive;
 }

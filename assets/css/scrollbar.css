@@ -1,0 +1,39 @@
+.simplebar-scrollbar:after {
+    font-family: 'FontAwesome';
+    content: "\f004";
+    position: relative;
+    opacity: 1;
+    color: red;
+}
+
+.simplebar-scrollbar:before {
+    background-color: red;
+}
+
+.simplebar-track.simplebar-vertical {
+    width: 15px;
+}
+
+.simplebar-track.simplebar-vertical .simplebar-scrollbar:before {
+    width: 4px;
+    left: 6px;
+}
+
+.simplebar-track.simplebar-vertical .simplebar-scrollbar:after {
+    bottom: -5px;
+    position: absolute;
+}
+
+.simplebar-track.simplebar-horizontal {
+    height: 15px;
+}
+
+.simplebar-track.simplebar-horizontal .simplebar-scrollbar:before {
+    height: 4px;
+    top: 6px;
+}
+
+.simplebar-track.simplebar-horizontal .simplebar-scrollbar:after {
+    top: -5;
+    position: absolute;
+}
