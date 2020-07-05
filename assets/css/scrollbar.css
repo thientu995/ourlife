@@ -10,12 +10,16 @@
     background-color: red;
 }
 
+.simplebar-scrollbar.simplebar-visible:before{
+    opacity: .25;
+}
+
 .simplebar-track.simplebar-vertical {
     width: 15px;
 }
 
 .simplebar-track.simplebar-vertical .simplebar-scrollbar:before {
-    width: 4px;
+    width: 5px;
     left: 6px;
 }
 
@@ -29,11 +33,12 @@
 }
 
 .simplebar-track.simplebar-horizontal .simplebar-scrollbar:before {
-    height: 4px;
+    height: 5px;
     top: 6px;
 }
 
 .simplebar-track.simplebar-horizontal .simplebar-scrollbar:after {
-    top: -5;
+    top: -5px;
+    right: 3px;
     position: absolute;
 }

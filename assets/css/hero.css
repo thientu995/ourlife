@@ -8,26 +8,24 @@
     overflow: hidden;
 }
 
-.hero-bg-main {
+.hero-bg-main, .hero-bg-main div {
     background-position: center bottom;
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: scroll;
-    background-image: url(../img/20200627/_DSC1385.jpg);
-    filter: blur(5px);
+    /* filter: blur(5px); */
     width: 100%;
     height: 100%;
     position: absolute;
 }
 
-.hero-bg-main img {
+.hero-bg-main div {
     width: 100%;
     height: 100%;
     position: absolute;
     opacity: 0;
     animation-name: heroAnimation;
-    animation-duration: 16s;
-    animation-timing-function: ease-in;
+    animation-timing-function: ease-in-out;
     animation-iteration-count: infinite;
     filter: none;
 }
@@ -37,13 +35,13 @@
     display: flex;
     height: 100%;
     width: 100%;
-    background-color: rgba(0, 0, 0, .5);
+    background-color: rgba(0, 0, 0, .7);
 }
 
 .hero-content h1 {
-    /* margin-top: 10vmax !important; */
+    margin-top: 10vmax !important;
     width: 100%;
-    height: 100%;
+    height: calc(100% - 10vmax);
 }
 
 .hero-bg {
@@ -62,10 +60,13 @@
 }
 
 @keyframes heroAnimation {
+    0%{
+        opacity: 0;
+    }
     25% {
         opacity: 1;
     }
-    40% {
+    75% {
         opacity: 0;
     }
 }

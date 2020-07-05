@@ -109,11 +109,12 @@ function elasticSliderLoad() {
 
 
         initX = mouseX;
+        
         e.preventDefault();
         if (Math.abs(transX) >= curSlide.offsetWidth - 30) {
 
-            document.removeEventListener('mousemove', slideMouseMove, false);
-            document.removeEventListener('touchmove', slideMouseMove, false);
+            document.removeEventListener('mousemove', slideMouseMove, {passive:false});
+            document.removeEventListener('touchmove', slideMouseMove, {passive:false});
             curSlide.style.transition = 'ease 0.2s';
             curSlide.style.opacity = 0;
             prevSlide = curSlide;
@@ -157,8 +158,8 @@ function elasticSliderLoad() {
             j++;
         }
 
-        document.removeEventListener('mousemove', slideMouseMove, false);
-        document.removeEventListener('touchmove', slideMouseMove, false);
+        document.removeEventListener('mousemove', slideMouseMove, {passive:false});
+        document.removeEventListener('touchmove', slideMouseMove, {passive:false});
 
     }
 }

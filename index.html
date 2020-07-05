@@ -9,6 +9,7 @@
     <meta name="description" content="Nguyễn Thiên Tứ & Dương Thúy Vy - Nguyen Thien Tu & Duong Thuy Vy">
     <meta name="keywords" content="Nguyễn Thiên Tứ & Dương Thúy Vy - Nguyen Thien Tu & Duong Thuy Vy">
     <title>Nguyễn Thiên Tứ & Dương Thúy Vy - Nguyen Thien Tu & Duong Thuy Vy</title>
+    <link rel="stylesheet" href="./assets/css/loading.css">
 </head>
 
 <body>
@@ -21,26 +22,30 @@
     </div>
     <header ng-controller="slideShowController">
         <section class="bg-dark hero position-relative">
-            <div class="hero-bg-main">
-                <img class="slide" ng-repeat="item in dataArray" ng-src="{{item.src}}" ng-style="animation($index)">
+            <div class="hero-bg-main" ng-style="heroBg()">
+                <div class="slide" ng-repeat="item in dataArray" ng-style="animation(this)"></div>
             </div>
             <div class="hero-content text-center">
                 <!-- <h2 class="display-4 bg-danger m-5 p-2" style="opacity: .5;"> Life</h2> -->
                 <h1 class="display-1 m-auto text-white">
                     <p class="p-3">Nguyễn Thiên Tứ</p>
-                    <p class="p-3 text-danger">♥</p>
+                    <div class="countdown-heart" id="countdown">00 : 00 : 00 : 00</div>
                     <p class="p-3">Dương Thúy Vy</p>
                 </h1>
             </div>
         </section>
     </header>
-    <div class="img-line" style="width: 1000px;"></div>
+    <!-- <div class="img-line"></div> -->
+    <div class="img-line"></div>
     <main class="container pt-5">
         <div ng-view></div>
     </main>
     <div class="img-line"></div>
-    <footer ng-controller="footerController">
-        <div class="site-logo">Tứ <span>&</span> Vy</div>
+    <footer ng-controller="footerController" ng-style="image()" class="p-4">
+        <div style="width: 300px;margin:auto">
+            <div class="site-logo" style="font-size: 100%;">Tứ <span>&</span> Vy</div>
+        </div>
+        <div>{{text}}</div>
     </footer>
     <div class="balloons"></div>
     <!-- Css libary-->
@@ -51,20 +56,24 @@
     <link rel="stylesheet" href="./libs/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/scrollbar.css">
     <link rel="stylesheet" href="./assets/css/style.css">
-    <link rel="stylesheet" href="./assets/css/loading.css">
     <link rel="stylesheet" href="./assets/css/hero.css">
     <link rel="stylesheet" href="./assets/css/elasticSlider.css">
     <link rel="stylesheet" href="./assets/css/scrollSlider.css">
+    <link rel="stylesheet" href="./assets/css/horizontalTimeline.css">
+    <link rel="stylesheet" href="./assets/css/countdownHeart.css">
 
+    <!-- <script src="//www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+    <script src="//www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
+    <script src="//www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script> -->
+    <script src="//www.gstatic.com/firebasejs/7.15.5/firebase.js"></script>
     <!-- Angular -->
-    <script src="//cdn.firebase.com/js/client/2.2.2/firebase.js"></script>
-
     <script src="./libs/angularjs/angular.min.js"></script>
+    <script src="./libs/angularjs/angular-sanitize.min.js"></script>
     <!-- <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-animate.min.js"></script> -->
     <!-- <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-aria.min.js"></script> -->
     <!-- <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-messages.min.js"></script> -->
     <script src="./libs/angularjs/angular-route.min.js"></script>
-    <script src="./libs/angularjs/angularfire.min.js"></script>
+    <!-- <script src="./libs/angularjs/angularfire.min.js"></script> -->
 
 
     <!-- <script src="//ajax.googleapis.com/ajax/libs/angular_material/1.1.22/angular-material.min.js"></script> -->
@@ -74,13 +83,16 @@
     <script src="./libs/jquery/jquery-3.5.1.min.js"></script>
     <script src="./libs/popper.min.js"></script>
     <script src="./libs/bootstrap/bootstrap.min.js"></script>
-    <script src="./libs/custom/elasticSlider.js"></script>
 
+    <script src="./libs/custom/elasticSlider.js"></script>
+    <script src="./libs/custom/horizontalTimeline.js"></script>
+    <script src="./libs/custom/countdown.js"></script>
     <!-- Script -->
     <script src="./app.js"></script>
+    <script src="./app.cmfunc.js"></script>
     <script src="./controller/slideShow.js"></script>
     <script src="./controller/footer.js"></script>
-    <script src="./controller/wedding.js"></script>
+    <script src="./controller/timeline.js"></script>
     <script src="./controller/error.js"></script>
 </body>
 
