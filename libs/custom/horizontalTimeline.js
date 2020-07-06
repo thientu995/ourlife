@@ -4,7 +4,7 @@ class horizontalTimeline {
     }
     init() {
         var timelines = $('.cd-horizontal-timeline'),
-            eventsMinDistance = 60 * 1.5;
+            eventsMinDistance = 60;
 
         (timelines.length > 0) && initTimeline(timelines);
 
@@ -18,7 +18,7 @@ class horizontalTimeline {
                 timelineComponents['fillingLine'] = timelineComponents['eventsWrapper'].children('.filling-line');
                 timelineComponents['timelineEvents'] = timelineComponents['eventsWrapper'].find('a');
                 timelineComponents['timelineDates'] = parseDate(timelineComponents['timelineEvents']);
-                timelineComponents['eventsMinLapse'] = minLapse(timelineComponents['timelineDates']);
+                timelineComponents['eventsMinLapse'] = Math.abs(minLapse(timelineComponents['timelineDates']));
                 timelineComponents['timelineNavigation'] = timeline.find('.cd-timeline-navigation');
                 timelineComponents['eventsContent'] = timeline.children('.events-content');
 
@@ -72,8 +72,8 @@ class horizontalTimeline {
 
         function updateSlide(timelineComponents, timelineTotWidth, string) {
             //retrieve translateX value of timelineComponents['eventsWrapper']
-            var translateValue = getTranslateValue(timelineComponents['eventsWrapper']),
-                wrapperWidth = Number(timelineComponents['timelineWrapper'].css('width').replace('px', ''));
+            // var translateValue = getTranslateValue(timelineComponents['eventsWrapper']),
+            //     wrapperWidth = Number(timelineComponents['timelineWrapper'].css('width').replace('px', ''));
             //translate the timeline to the left('next')/right('prev') 
             // if (string == 'next') {
             //     translateTimeline(timelineComponents, translateValue - wrapperWidth + eventsMinDistance, wrapperWidth - timelineTotWidth);
@@ -101,6 +101,7 @@ class horizontalTimeline {
             }
         }
 
+        var timelineTranslateOld = null;
         function updateTimelinePosition(string, event, timelineComponents, timelineTotWidth) {
             //translate timeline to the left/right according to the position of the selected event
             var eventStyle = window.getComputedStyle(event.get(0), null),
@@ -112,6 +113,12 @@ class horizontalTimeline {
             if ((string == 'next' && eventLeft > timelineWidth - timelineTranslate) || (string == 'prev' && eventLeft < -timelineTranslate)) {
                 translateTimeline(timelineComponents, -eventLeft + timelineWidth / 2, timelineWidth - timelineTotWidth);
             }
+            else {
+                if (timelineTranslateOld != timelineTranslate) {
+                    translateTimeline(timelineComponents, -eventLeft + timelineWidth / 2, timelineWidth - timelineTotWidth);
+                }
+            }
+            timelineTranslateOld = timelineTranslate;
         }
 
         function translateTimeline(timelineComponents, value, totWidth) {
@@ -120,8 +127,8 @@ class horizontalTimeline {
             value = (!(typeof totWidth === 'undefined') && value < totWidth) ? totWidth : value; //do not translate more than timeline width
             setTransformValue(eventsWrapper, 'translateX', value + 'px');
             //update navigation arrows visibility
-            (value == 0) ? timelineComponents['timelineNavigation'].find('.prev').addClass('inactive'): timelineComponents['timelineNavigation'].find('.prev').removeClass('inactive');
-            (value == totWidth) ? timelineComponents['timelineNavigation'].find('.next').addClass('inactive'): timelineComponents['timelineNavigation'].find('.next').removeClass('inactive');
+            (value == 0) ? timelineComponents['timelineNavigation'].find('.prev').addClass('inactive') : timelineComponents['timelineNavigation'].find('.prev').removeClass('inactive');
+            (value == totWidth) ? timelineComponents['timelineNavigation'].find('.next').addClass('inactive') : timelineComponents['timelineNavigation'].find('.next').removeClass('inactive');
         }
 
         function updateFilling(selectedEvent, filling, totWidth) {
@@ -135,10 +142,15 @@ class horizontalTimeline {
         }
 
         function setDatePosition(timelineComponents, min) {
+            let leftOld = 0;
             for (let i = 0; i < timelineComponents['timelineDates'].length; i++) {
-                var distance = daydiff(timelineComponents['timelineDates'][0], timelineComponents['timelineDates'][i]),
-                    distanceNorm = Math.round(distance / (timelineComponents['eventsMinLapse'] == 0 ? 1: timelineComponents['eventsMinLapse'])) + 2;
-                timelineComponents['timelineEvents'].eq(i).css('left', distanceNorm * min + 'px');
+                var index = i == 0 ? 0 : (i + timelineComponents['timelineDates'].length - 1) % timelineComponents['timelineDates'].length,
+                    timelineWidth = Math.round(Number(timelineComponents['timelineWrapper'].css('width').replace('px', '')) / 4),
+                    distance = daydiff(timelineComponents['timelineDates'][index], timelineComponents['timelineDates'][i]),
+                    distanceNorm = Math.round(distance / (timelineComponents['eventsMinLapse'] == 0 ? 1 : timelineComponents['eventsMinLapse'])) + 2,
+                    width = (distanceNorm + leftOld) + min;
+                leftOld = width + (i == 0 ? 0 : timelineWidth);
+                timelineComponents['timelineEvents'].eq(i).css('left', leftOld + 'px');
             }
         }
 
@@ -182,10 +194,10 @@ class horizontalTimeline {
         function getTranslateValue(timeline) {
             var timelineStyle = window.getComputedStyle(timeline.get(0), null),
                 timelineTranslate = timelineStyle.getPropertyValue("-webkit-transform") ||
-                timelineStyle.getPropertyValue("-moz-transform") ||
-                timelineStyle.getPropertyValue("-ms-transform") ||
-                timelineStyle.getPropertyValue("-o-transform") ||
-                timelineStyle.getPropertyValue("transform");
+                    timelineStyle.getPropertyValue("-moz-transform") ||
+                    timelineStyle.getPropertyValue("-ms-transform") ||
+                    timelineStyle.getPropertyValue("-o-transform") ||
+                    timelineStyle.getPropertyValue("transform");
 
             if (timelineTranslate.indexOf('(') >= 0) {
                 var timelineTranslate = timelineTranslate.split('(')[1];
@@ -211,9 +223,10 @@ class horizontalTimeline {
         function parseDate(events) {
             var dateArrays = [];
             events.each(function () {
-                var dateComp = new Date($(this).data('date') * 1e3).toLocaleDateString("en-US").split('/'),
-                    newDate = new Date(dateComp[2], dateComp[1] - 1, dateComp[0]);
-                dateArrays.push(newDate);
+                // var dateComp = new Date($(this).data('date') * 1e3).toLocaleDateString("en-US").split('/'),
+                //     newDate = new Date(dateComp[2], dateComp[1], dateComp[0]);
+                // console.log($(this).data('date'), new Date($(this).data('date') * 1e3))
+                dateArrays.push(new Date($(this).data('date') * 1e3));
             });
             return dateArrays;
         }

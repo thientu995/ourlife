@@ -1,8 +1,10 @@
-<!-- <div class="elasticSlider">
-	<div class="slide" ng-repeat="item in dataArray">
-		<img ng-src="{{item.src.getUrlImage()}}" ng-init="$last && elasticSliderLoad()" />
+<section>
+	<h1 class="section-title">Summary Image</h1>
+	<div class="elastic-slider my-elastic-slider">
+		<div ng-style="styleElasticSliderLoad(item)" ng-repeat="item in dataArray" ng-init="$last && elasticSliderLoad()"></div>
 	</div>
-</div> -->
+</section>
+
 <section>
 	<h1 class="section-title">Bride & Groom</h1>
 	<div class="row">
@@ -22,7 +24,6 @@
 			<div class="events-wrapper">
 				<div class="events">
 					<ol>
-						<!-- <li><a href="#0" data-date="14/06/2016" class="selected">June 14</a></li> -->
 						<li ng-repeat="item in dataTimeline" ng-init="$last && loadTimeLine()">
 							<a href="#0" data-date="{{item.date.seconds}}"
 								class="{{$first ? 'selected': ''}}">{{item.value}}</a>
@@ -45,18 +46,11 @@
 					<em ng-bind-html="item.description"></em>
 					<div class="">
 						<div class="col-md-5 col-sm-12">
-							<img width="100%" class="float-md-left mr-5" ng-src="{{item.img.getUrlImage()}}" />
+							<!-- <img width="100%" class="float-md-left mr-5" ng-src="{{item.img.getUrlImage()}}" /> -->
 						</div>
 						<p class="col-12 text-justify drop-caps" ng-bind-html="item.content"></p>
 					</div>
 				</li>
-				<!-- <li class="selected" data-date="14/06/2016">
-				<h2>TK</h2>
-				<em>June 14th, 2016</em>
-				<p>
-					AMA issues CSAPH 2-A-16, “Human Environmental Effects of LED Community Lighting.”
-				</p>
-			</li> -->
 			</ol>
 		</div>
 	</div>

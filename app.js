@@ -1,4 +1,13 @@
-const lstScreen = [{
+const lstController = [
+    {
+        url: 'slideShow',
+        controller: 'slideShow'
+    },
+    {
+        url: 'footer',
+        controller: 'footer'
+    },
+    {
         url: '/',
         controller: 'timeline'
     },
@@ -7,11 +16,30 @@ const lstScreen = [{
         controller: 'error'
     },
 ];
-
-new SimpleBar(document.getElementsByTagName('body')[0], {
-    autoHide: false
-});
-
+const lstLibs = [
+    //Angular
+    './libs/angularjs/angular-sanitize.min.js',
+    './libs/angularjs/angular-route.min.js',
+    //jQuery
+    './libs/popper.min.js',
+    './libs/snap.svg-min.js',
+    './libs/bootstrap/bootstrap.min.js',
+    //Custom
+    './libs/custom/elasticSlider.js',
+    './libs/custom/horizontalTimeline.js',
+    './libs/custom/countdown.js'
+];
+const lstCss = [
+    './assets/css/scrollbar.css',
+    './libs/font-awesome-4.7.0/css/font-awesome.min.css',
+    './libs/bootstrap/bootstrap.min.css',
+    './assets/css/hero.css',
+    './assets/css/elasticSlider.css',
+    './assets/css/scrollSlider.css',
+    './assets/css/horizontalTimeline.css',
+    './assets/css/countdownHeart.css',
+    './assets/css/style.css',
+];
 firebase.initializeApp({
     apiKey: "AIzaSyBcJ-Sc3Sc4cGVJBsy-51Sx-XFkux_6wHA",
     authDomain: "ourlife-t4vn.firebaseapp.com",
@@ -22,25 +50,36 @@ firebase.initializeApp({
     appId: "1:655110589783:web:263f20d1fe4d4b02f94212",
     measurementId: "G-FB8LEED8SN"
 });
+const app = angular.module(document.querySelector('body').id, ['ngRoute', 'ngSanitize']);
 const databaseProject = firebase.firestore();
+window.addEventListener('DOMContentLoaded', function () {
+    new SimpleBar(document.querySelector('body'), { autoHide: false });
+    let promises = [];
+    lstLibs.forEach(value => { promises.push(createScript(value)); });
+    promises.push(createScript('./app.cmfunc.js'));
+    promises.push(createScript('./app.config.js'));
+    lstController.forEach(value => { promises.push(createScript('./controller/' + value.controller + '.js')); });
+    lstCss.forEach(value => { createStyle(value) });
 
-const app = angular.module('myApp', ['ngRoute', 'ngSanitize']);
-app.config(['$routeProvider', function ($routeProvider) {
-    lstScreen.forEach(value => {
-        $routeProvider.when(value.url, {
-            templateUrl: './views/' + value.controller + '.html',
-            controller: value.controller + 'Controller'
+    Promise.all(promises).then(angular.bootstrap.bind(null, document, [document.querySelector('body').id]));
+    return;
+    function createScript(src) {
+        let promise = new Promise(function (resolve, reject) {
+            let script = document.createElement('script');
+            script = document.createElement('script');
+            script.defer = 'defer';
+            script.setAttribute('src', src);
+            script.addEventListener('load', resolve.bind(null, script));
+            document.querySelector('body').appendChild(script);
+            return script;
         });
-    })
-    $routeProvider.otherwise('/');;
-}]);
-app.run(['$window', '$rootScope', '$http', function ($window, $rootScope, $http) {
-    databaseProject.collection('setting').doc('tagMeta').get().then(doc => {
-        const data = doc.data();
-        $rootScope.pageTitle = data.title;
-        $rootScope.pageDescription = data.description;
-        $window.document.querySelector('title').innerHTML = $rootScope.pageTitle;
-    });
+        return promise;
+    }
 
-    $window.document.getElementById('loading').style.display = 'none';
-}]);
+    function createStyle(src) {
+        let link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = src;
+        document.querySelector('body').appendChild(link);
+    }
+});

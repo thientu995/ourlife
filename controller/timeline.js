@@ -1,13 +1,19 @@
 app.controller("timelineController", ['$scope', '$http', function ($scope, $http) {
     $scope.elasticSliderLoad = function () {
-        elasticSliderLoad();
+        new ElasticSlider('.my-elastic-slider', { maxStretch: 100, bezierLen: 80 });
         return true;
     };
-    // databaseProject.collection('slideshow').get().then(col => {
-    //     $scope.$apply(function () {
-    //         $scope.dataArray = col.docs.map(doc => doc.data())
-    //     });
-    // });
+    $scope.styleElasticSliderLoad = function (item) {
+        return {
+            'background-image': 'url(' + item.src.getUrlImage() + ')'
+        }
+    }
+
+    databaseProject.collection('slideshow').get().then(col => {
+        $scope.$apply(function () {
+            $scope.dataArray = col.docs.map(doc => doc.data())
+        });
+    });
 
     databaseProject.collection('portfolio').get().then(col => {
         $scope.$apply(function () {
@@ -23,7 +29,6 @@ app.controller("timelineController", ['$scope', '$http', function ($scope, $http
             $scope.dataTimeline = col.docs.map(doc => doc.data()).sort((a, b) => {
                 return a.date.seconds - b.date.seconds
             });
-            console.log($scope.dataTimeline)
         });
     });
 
