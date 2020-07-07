@@ -1,1 +1,22 @@
-{ "main":".build/statup.js","scripts":{"start":"node .","build":"node ./.build/release.js" },"dependencies":{"express":"^4.17.1","fs-extra":"^9.0.1","javascript-obfuscator":"^1.2.2","mini-css":"^1.0.3","recursive-readdir":"^2.2.2","rimraf":"^3.0.2" }}
+{
+    "main": "./index.js",
+    "scripts": {
+        "start": "node ./",
+        "build": "node ./.build/release.js",
+        "deploy": "node ./.build/release.js && firebase deploy"
+    },
+    "engines": {
+        "node": "10"
+    },
+    "dependencies": {
+        "express": "^4.17.1",
+        "firebase-admin": "^8.13.0",
+        "firebase-functions": "^3.7.0",
+        "fs-extra": "^9.0.1",
+        "javascript-obfuscator": "^1.2.2",
+        "mini-css": "^1.0.3",
+        "recursive-readdir": "^2.2.2",
+        "request": "^2.88.2",
+        "rimraf": "^3.0.2"
+    }
+}

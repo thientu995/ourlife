@@ -51,6 +51,7 @@ firebase.initializeApp({
     measurementId: "G-FB8LEED8SN"
 });
 const app = angular.module(document.querySelector('body').id, ['ngRoute', 'ngSanitize']);
+
 const databaseProject = firebase.firestore();
 window.addEventListener('DOMContentLoaded', function () {
     new SimpleBar(document.querySelector('body'), { autoHide: false });

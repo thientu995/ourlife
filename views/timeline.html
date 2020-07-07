@@ -1,7 +1,12 @@
 <section>
 	<h1 class="section-title">Summary Image</h1>
-	<div class="elastic-slider my-elastic-slider">
-		<div ng-style="styleElasticSliderLoad(item)" ng-repeat="item in dataArray" ng-init="$last && elasticSliderLoad()"></div>
+	<div class="row">
+		<div class="elastic-slider my-elastic-slider col-12">
+			<div ng-repeat="item in dataArray">
+				<img width="100%" height="auto" ng-src="{{item.getUrlImage()}}"
+					ng-init="$last && elasticSliderLoad()" />
+			</div>
+		</div>
 	</div>
 </section>
 

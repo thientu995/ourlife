@@ -1,15 +1,16 @@
 const path = require('path');
 const express = require('express');
+const functions = require('firebase-functions');
 let host = 'http://localhost';
 let port = 0;
 const start = (process.platform == 'darwin' ? 'open' : process.platform == 'win32' ? 'start' : 'xdg-open');
 
 const app = express();
-const pathHome = path.join(__dirname, '../');
+const pathHome = path.join(__dirname, './');
 app.use(express.static(pathHome));
-app.get('/', function (req, res) {
-    res.sendFile(path.join(pathHome, './index.html'));
-});
+
+app.get('/', require('./.build/route/index'));
+app.get('/googlePhoto', require('./.build/route/googlePhoto'));
 
 const server = app.listen(port, function () {
     // host = server.address().address;
@@ -17,3 +18,5 @@ const server = app.listen(port, function () {
     console.log('App running: ' + host + ':' + port);
     require('child_process').exec(start + ' ' + host + ':' + port);
 });
+
+exports.app = functions.https.onRequest(app);

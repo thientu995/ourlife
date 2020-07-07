@@ -4,7 +4,6 @@ const recursive = require('recursive-readdir');
 const rimraf = require('rimraf');
 const javaScriptObfuscator = require('javascript-obfuscator');
 const miniCSS = require("mini-css");
-const { FILE } = require('dns');
 const folderNameRelease = 'docs';
 const pathHome = path.join(__dirname, '../');
 const pathFolderRelease = path.join(pathHome, folderNameRelease);
@@ -13,7 +12,7 @@ if (fs.existsSync(pathFolderRelease)) {
     rimraf.sync(pathFolderRelease);
 }
 
-recursive(pathHome, ['node_modules', '**/.*', 'docs'], function (err, files) {
+recursive(pathHome, ['docs'], function (err, files) {
     fs.mkdirSync(pathFolderRelease);
     files.forEach(file => {
         let sourceRelease = pathFolderRelease;
@@ -36,7 +35,7 @@ function copyFileSync(source, target) {
 }
 
 function obfuscator() {
-    recursive(pathFolderRelease, [], function (err, files) {
+    recursive(pathFolderRelease, ['node_modules'], function (err, files) {
         files.forEach(file => {
             const extName = path.extname(file);
             if (file.lastIndexOf('.min' + extName) > 0) {
@@ -52,9 +51,9 @@ function obfuscator() {
                 case '.html':
                     obgHTML(file);
                     break;
-                case '.json':
-                    obgJSON(file);
-                    break;
+                // case '.json':
+                //     obgJSON(file);
+                //     break;
                 default:
                     break;
             }

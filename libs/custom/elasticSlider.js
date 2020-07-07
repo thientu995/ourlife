@@ -31,19 +31,29 @@ ElasticSlider.prototype = {
 
     initButton: function () {
         let self = this;
-        let button = document.createElement('button');
-        button.classList.add('left');
+        let button = document.createElement('a');
+        button.href = '#0';
+        button.classList.add('navigation', 'left');
         button.onclick = function () {
-            self.width = -self.maxStretch;
-            self.nextAnimation();
+            if (event.preventDefault)
+                event.preventDefault();
+            else
+                event.returnValue = false;
+            self.width = self.maxStretch;
+            self.prevAnimation();
         }
         this.el.appendChild(button);
 
-        button = document.createElement('button');
-        button.classList.add('right');
+        button = document.createElement('a');
+        button.href = '#0';
+        button.classList.add('navigation', 'right');
         button.onclick = function () {
-            self.width = self.maxStretch;
-            self.prevAnimation();
+            if (event.preventDefault)
+                event.preventDefault();
+            else
+                event.returnValue = false;
+            self.width = -self.maxStretch;
+            self.nextAnimation();
         }
         this.el.appendChild(button);
     },

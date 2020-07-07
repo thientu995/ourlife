@@ -6,10 +6,16 @@
       "**/.*",
       "**/node_modules/**"
     ],
+    "appAssociation": "AUTO",
+    "cleanUrls": true,
     "rewrites": [
       {
-        "source": "**",
-        "destination": "/index.html"
+        "source": "**/*",
+        "function": "app"
+      },
+      {
+        "source": "/**",
+        "dynamicLinks": true
       }
     ],
     "headers": [
@@ -23,5 +29,11 @@
         ]
       }
     ]
+  },
+  "functions": {
+    "predeploy": [
+      "node ./index.js"
+    ],
+    "source": "./"
   }
 }

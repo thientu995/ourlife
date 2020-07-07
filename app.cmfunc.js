@@ -6,8 +6,8 @@ Number.prototype.convertSecondsToDateTime = function () {
     return new Date(this * 1e3).toLocaleDateString("en-US");
 }
 
-Number.prototype.pad = function(size) {
+Number.prototype.pad = function (size) {
     let s = String(this);
-    while (s.length < (size || 2)) {s = "0" + s;}
+    while (s.length < (size || 2)) { s = "0" + s; }
     return s;
 }

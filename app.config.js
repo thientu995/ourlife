@@ -1,4 +1,5 @@
-app.config(['$routeProvider', function ($routeProvider) {
+app.config(['$sceDelegateProvider', '$routeProvider', function ($sceDelegateProvider, $routeProvider) {
+    $sceDelegateProvider.resourceUrlWhitelist(['self']);
     lstController.forEach(value => {
         $routeProvider.when(value.url, {
             templateUrl: './views/' + value.controller + '.html',
