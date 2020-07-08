@@ -18,15 +18,19 @@ ElasticSlider.prototype = {
         this.maxStretch = options && options.hasOwnProperty('maxStretch') ? parseFloat(options.maxStretch) : 100;
         this.bezierLen = options && options.hasOwnProperty('bezierLen') ? parseFloat(options.bezierLen) : 80;
 
-        this.rect = this.el.getBoundingClientRect();
-        this.sliderWidth = this.rect.width;
-        this.sliderHeight = this.rect.height;
-
-        this.initOrder();
-        this.initSVG();
-        this.initPaths();
-        this.initEvents();
-        this.initButton();
+        let interval = setInterval(() => {
+            this.rect = this.el.getBoundingClientRect();
+            if (this.rect.width > 0) {
+                this.sliderWidth = this.rect.width;
+                this.sliderHeight = this.rect.height;
+                this.initOrder();
+                this.initSVG();
+                this.initPaths();
+                this.initEvents();
+                this.initButton();
+                clearInterval(interval);
+            }
+        }, 500);
     },
 
     initButton: function () {

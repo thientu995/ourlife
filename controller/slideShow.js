@@ -1,8 +1,20 @@
-app.controller("slideShowController", ['$scope', function ($scope) {
+app.controller("slideShowController", ['$scope', '$timeout', function ($scope, $timeout) {
     const timeChange = 10;
     let hero = null;
-    // const hero = $firebaseObject(databaseProject.ref('hero'));
-    // $scope.dataArray = $firebaseObject(databaseProject.ref('slideshow'));
+    databaseProject.collection('menu').get().then(col => {
+        $scope.$apply(function () {
+            $scope.dataArrayMenu = col.docs.map(doc => doc.data()).sort((a, b) => {
+                return a.index - b.index
+            });
+        });
+    });
+
+    $scope.closeFloatyMenu = function () {
+        $timeout(function () {
+            $('.floatyMenuContainer,.button-floaty').toggleClass('active');
+        });
+    }
+
     databaseProject.collection('setting').doc('hero').get().then(doc => {
         $scope.$apply(function () {
             hero = doc.data().src

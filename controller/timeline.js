@@ -1,23 +1,26 @@
 app.controller("timelineController", ['$scope', '$http', function ($scope, $http) {
-    $http.get('/googlephoto?url=https://photos.app.goo.gl/nZM5LAUqjNCkHCD96').then(res => {
-        $scope.dataArray = res.data;
-    });
 
-    $scope.elasticSliderLoad = function () {
-        new ElasticSlider('.my-elastic-slider', { maxStretch: 100, bezierLen: 80 });
-        return true;
-    };
+    // databaseProject.collection('album').get().then(col => {
+    //     $scope.$apply(function () {
+    //         $scope.dateListAlbum = col.docs.map(doc => doc.data()).sort((a, b) => {
+    //             return a.date.seconds - b.date.seconds
+    //         });
+    //         $http.get(settings.urlPageApp + 'googlephoto?url=https://photos.app.goo.gl/nZM5LAUqjNCkHCD96').then(res => {
+    //             $scope.dataArray = res.data;
+    //         });
+    //     });
+    // });
+
+
+    // $scope.elasticSliderLoad = function () {
+    //     new ElasticSlider('.my-elastic-slider', { maxStretch: 100, bezierLen: 80 });
+    //     return true;
+    // };
     $scope.styleElasticSliderLoad = function (item) {
         return {
             'background-image': 'url(' + item.src.getUrlImage() + ')'
         }
     }
-
-    // databaseProject.collection('slideshow').get().then(col => {
-    //     $scope.$apply(function () {
-    //         $scope.dataArray = col.docs.map(doc => doc.data())
-    //     });
-    // });
 
     databaseProject.collection('portfolio').get().then(col => {
         $scope.$apply(function () {

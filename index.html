@@ -23,6 +23,24 @@
         </div>
     </div>
     <header ng-controller="slideShowController">
+        <div class="floaty">
+            <button class="btn button-floaty" id="floatyMenu"></button>
+            <div class="floatyMenuContainer">
+                <div class="floatyMenuWrapper">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-4 px-0 linkWrap" ng-repeat="item in dataArrayMenu">
+                                <a class="link nav-link d-flex flex-lg-column align-items-center justify-content-lg-center bg-blue text-blue-lighter"
+                                    href="{{item.href}}" ng-click="closeFloatyMenu()">
+                                    <div class="icon" ng-bind-html="item.icon"></div>
+                                    <div class="text pl-1">{{item.text}}</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <ng-include src="'./views/slideshow.html'"></ng-include>
     </header>
     <div class="img-line"></div>
@@ -34,7 +52,6 @@
         <ng-include src="'./views/footer.html'"></ng-include>
     </footer>
     <div class="balloons"></div>
-
     <script defer src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
     <script defer src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.memory.js"></script>
     <script defer src="./libs/angularjs/angular.min.js"></script>
