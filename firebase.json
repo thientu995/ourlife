@@ -29,11 +29,5 @@
         ]
       }
     ]
-  },
-  "functions": {
-    "predeploy": [
-      "node ./index.js"
-    ],
-    "source": "./"
   }
 }
