@@ -30,6 +30,7 @@ const lstLibs = [
     './libs/snap.svg-min.js',
     './libs/bootstrap/bootstrap.min.js',
     //Custom
+    './libs/custom/lazyImage.js',
     './libs/custom/floaty.js',
     './libs/custom/elasticSlider.js',
     './libs/custom/elasticsliderThumbnail.js',
@@ -50,20 +51,11 @@ const lstCss = [
     './assets/css/thumbnail.css',
     './assets/css/style.css',
 ];
-firebase.initializeApp({
-    apiKey: "AIzaSyBcJ-Sc3Sc4cGVJBsy-51Sx-XFkux_6wHA",
-    authDomain: "ourlife-t4vn.firebaseapp.com",
-    databaseURL: "https://ourlife-t4vn.firebaseio.com",
-    projectId: "ourlife-t4vn",
-    storageBucket: "ourlife-t4vn.appspot.com",
-    messagingSenderId: "655110589783",
-    appId: "1:655110589783:web:263f20d1fe4d4b02f94212",
-    measurementId: "G-FB8LEED8SN"
-});
-const app = angular.module(document.querySelector('body').id, ['ngRoute', 'ngSanitize']);
+window.simpleBarBody = new SimpleBar(document.querySelector('body'), { autoHide: false });
+const app = angular.module(document.querySelector('body').id, ['ngRoute', 'ngSanitize', 'lazyLoadingImageBetter']);
 
-const databaseProject = firebase.firestore();
 const settings = {
+    // urlPageApp: '/',
     urlPageApp: 'https://ourlife-t4vn.herokuapp.com/'
 }
 window.addEventListener('DOMContentLoaded', function () {
@@ -86,6 +78,7 @@ window.addEventListener('DOMContentLoaded', function () {
             document.querySelector('body').appendChild(script);
             return script;
         });
+        createLinkPreload(src, 'script');
         return promise;
     }
 
@@ -93,6 +86,15 @@ window.addEventListener('DOMContentLoaded', function () {
         let link = document.createElement('link');
         link.rel = 'stylesheet';
         link.href = src;
-        document.querySelector('body').appendChild(link);
+        document.querySelector('head').appendChild(link);
+        createLinkPreload(src, 'style');
+    }
+
+    function createLinkPreload(src, type) {
+        let link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = type;
+        link.href = src;
+        document.querySelector('head').appendChild(link);
     }
 });

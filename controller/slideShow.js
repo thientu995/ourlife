@@ -1,12 +1,7 @@
 app.controller("slideShowController", ['$scope', '$timeout', function ($scope, $timeout) {
     const timeChange = 10;
-    let hero = null;
-    databaseProject.collection('menu').get().then(col => {
-        $scope.$apply(function () {
-            $scope.dataArrayMenu = col.docs.map(doc => doc.data()).sort((a, b) => {
-                return a.index - b.index
-            });
-        });
+    $scope.getData({ collection: 'menu' }, function (value) {
+        $scope.dataArrayMenu = value.data.sort((a, b) => { return a.index - b.index });
     });
 
     $scope.closeFloatyMenu = function () {
@@ -15,32 +10,17 @@ app.controller("slideShowController", ['$scope', '$timeout', function ($scope, $
         });
     }
 
-    databaseProject.collection('setting').doc('hero').get().then(doc => {
-        $scope.$apply(function () {
-            hero = doc.data().src
-        });
-    });
-    databaseProject.collection('slideshow').get().then(col => {
-        $scope.$apply(function () {
-            $scope.dataArray = col.docs.map(doc => doc.data());
-        });
+    $scope.getData({ collection: 'slideshow' }, function (value) {
+        $scope.dataArray = value.data;
     });
 
-    databaseProject.collection('setting').doc('countdown').get().then(doc => {
-        $scope.$apply(function () {
-            new countdown('countdown', doc.data().value.seconds * 1e3).start();
-        });
-    });
-
-
-    $scope.heroBg = function () {
-        if (!hero) {
-            return {};
+    $scope.getData({ collection: 'setting', typeMap: 'json' }, function (value) {
+        new countdown('countdown', value.data.countdown.value._seconds * 1e3).start();
+        $scope.heroBg = {
+            'background-image': 'url(' + value.data.hero.src.getUrlImage() + ')'
         }
-        return {
-            'background-image': 'url(' + hero.getUrlImage() + ')'
-        }
-    }
+    });
+
     $scope.animation = function (self) {
         const total = $scope.dataArray.length;
         return {

@@ -1,20 +1,8 @@
-<!-- <section>
-	<h1 class="section-title">Summary Image</h1>
-	<div class="row">
-		<div class="elastic-slider my-elastic-slider col-12">
-			<div ng-repeat="item in dataArray">
-				<img width="100%" height="auto" ng-src="{{item.getUrlImage()}}"
-					ng-init="$last && elasticSliderLoad()" />
-			</div>
-		</div>
-	</div>
-</section> -->
-
 <section>
 	<h1 class="section-title">Bride & Groom</h1>
 	<div class="row">
 		<div ng-repeat="item in dataPortfolio" class="col-md-6 col-sm-12 text-center pt-5">
-			<img class="img-fluid rounded-circle img-portfolio" ng-src="{{item.avatar}}" />
+			<img class="img-fluid rounded-circle img-portfolio" image-lazy-src="{{item.avatar}}" />
 			<h1 ng-bind-html="item.name"></h1>
 			<h3 ng-bind-html="item.birth"></h3>
 			<h4 ng-bind-html="item.bio"></h4>
@@ -30,7 +18,7 @@
 				<div class="events">
 					<ol>
 						<li ng-repeat="item in dataTimeline" ng-init="$last && loadTimeLine()">
-							<a href="#0" data-date="{{item.date.seconds}}"
+							<a href="#0" data-date="{{item.date._seconds}}"
 								class="{{$first ? 'selected': ''}}">{{item.value}}</a>
 						</li>
 					</ol>
@@ -45,13 +33,13 @@
 
 		<div class="events-content">
 			<ol>
-				<li ng-repeat="item in dataTimeline" data-date="{{item.date.seconds}}"
+				<li ng-repeat="item in dataTimeline" data-date="{{item.date._seconds}}"
 					class="{{$first ? 'selected': ''}}" ng-init="$last && loadTimeLine()">
 					<h2 ng-bind-html="item.title"></h2>
 					<em ng-bind-html="item.description"></em>
 					<div class="">
 						<div class="col-md-5 col-sm-12">
-							<img width="100%" class="float-md-left mr-5" ng-src="{{item.img.getUrlImage()}}" />
+							<img width="100%" class="float-md-left mr-5" src="{{item.img.getUrlImage()}}" />
 						</div>
 						<p class="col-12 text-justify drop-caps" ng-bind-html="item.content"></p>
 					</div>

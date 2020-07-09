@@ -80,13 +80,16 @@
 
 .modalElasticslider .modal-dialog {
     width: 100%;
+    min-height: 100vh;
     max-width: 100%;
     margin: auto;
 }
 
 .modalElasticslider .modal-content {
-    background-color: rgba(222, 204, 181, 0.5);
+    background-color: rgba(222, 204, 181, 1);
     border: none;
+    height: auto;
+    min-height: 100%;
 }
 
 .modalElasticslider .modal-header, .modalElasticslider .modal-footer {

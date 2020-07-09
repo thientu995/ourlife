@@ -1,43 +1,23 @@
-app.controller("timelineController", ['$scope', '$http', function ($scope, $http) {
-
-    // databaseProject.collection('album').get().then(col => {
-    //     $scope.$apply(function () {
-    //         $scope.dateListAlbum = col.docs.map(doc => doc.data()).sort((a, b) => {
-    //             return a.date.seconds - b.date.seconds
-    //         });
-    //         $http.get(settings.urlPageApp + 'googlephoto?url=https://photos.app.goo.gl/nZM5LAUqjNCkHCD96').then(res => {
-    //             $scope.dataArray = res.data;
-    //         });
-    //     });
-    // });
-
-
-    // $scope.elasticSliderLoad = function () {
-    //     new ElasticSlider('.my-elastic-slider', { maxStretch: 100, bezierLen: 80 });
-    //     return true;
-    // };
+app.controller("timelineController", ['$rootScope', '$scope', function ($rootScope, $scope) {
     $scope.styleElasticSliderLoad = function (item) {
         return {
             'background-image': 'url(' + item.src.getUrlImage() + ')'
         }
     }
 
-    databaseProject.collection('portfolio').get().then(col => {
-        $scope.$apply(function () {
-            $scope.dataPortfolio = col.docs.map(doc => doc.data()).sort((a, b) => {
-                return a.order - b.order
-            });
+    $scope.getData({ collection: 'portfolio' }, function (value) {
+        $scope.dataPortfolio = value.data.sort((a, b) => {
+            return a.order - b.order
         });
     });
 
-
-    databaseProject.collection('timeline').get().then(col => {
-        $scope.$apply(function () {
-            $scope.dataTimeline = col.docs.map(doc => doc.data()).sort((a, b) => {
-                return a.date.seconds - b.date.seconds
-            });
+    $scope.getData({ collection: 'timeline' }, function (value) {
+        $scope.dataTimeline = value.data.sort((a, b) => {
+            return a.date._seconds - b.date._seconds
         });
     });
+
+    $rootScope.isViewLoading = false;
 
     let countLoad = 0;
     $scope.loadTimeLine = function () {

@@ -1,7 +1,26 @@
 const request = require('request');
+const admin = require('firebase-admin');
+const db = admin.firestore().collection('googlePhoto');
+
 module.exports = function (req, res) {
-    request.get(req.query.url, (error, response, body) => {
-        res.send(getImageInAlbum(body));
+    const idAlbum = req.query.idAlbum;
+    const url = 'https://photos.app.goo.gl/' + idAlbum;
+    let data = [];
+    db.doc(idAlbum).get().then(value => {
+        if (!value.exists) {
+            request.get(url, (error, response, body) => {
+                data = getImageInAlbum(body);
+                db.doc(idAlbum).set({
+                    createDate: new Date(),
+                    order: 0,
+                    value: data
+                });
+                res.send(data);
+            });
+        }
+        else {
+            res.send(value.data().value);
+        }
     });
 }
 

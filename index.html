@@ -15,7 +15,7 @@
 </head>
 
 <body id="myApp">
-    <div id="loading">
+    <div id="loading" ng-show="isViewLoading">
         <div id="indicator">
             <div class="flower"></div>
             <div class="hearts"></div>
@@ -48,12 +48,10 @@
         <ng-view></ng-view>
     </main>
     <div class="img-line"></div>
-    <footer ng-controller="footerController" ng-style="image()" class="p-4">
+    <footer ng-controller="footerController" ng-style="image" class="p-4">
         <ng-include src="'./views/footer.html'"></ng-include>
     </footer>
     <div class="balloons"></div>
-    <script defer src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
-    <script defer src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.memory.js"></script>
     <script defer src="./libs/angularjs/angular.min.js"></script>
     <script defer src="./libs/jquery/jquery-3.5.1.min.js"></script>
     <script defer src="./app.js"></script>

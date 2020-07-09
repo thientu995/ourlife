@@ -51,20 +51,21 @@ class Floaty {
       // var b = Math.floor((Math.random() * 255) + 1);
       // floater.element.style.backgroundColor = 'rgb(' + r + ', ' + g + ', ' + b + ')';
 
-      floater.addEventListener('mouseover', floaty.makeMouseoverCallback(floater), false); // END floater.addEventListener
-
-      floater.addEventListener('mousedown', floaty.makeMousedownCallback(floater), false); // END floater.addEventListener
-
+      // if (!Modernizr.touch) {
+      floater.addEventListener('mouseover', floaty.makeMouseoverCallback(floater)); // END floater.addEventListener
+      floater.addEventListener('mousedown', floaty.makeMousedownCallback(floater)); // END floater.addEventListener
+      floater.addEventListener('mouseup', floaty.makeMouseupCallback(floater)); // END floater.addEventListener
+      floater.addEventListener('mousemove', floaty.makeMousemoveCallback(floater)); // END floater.addEventListener
+      // }
+      // else {
       floater.addEventListener('touchstart', floaty.makeTouchstartCallback(floater), false); // END floater.addEventListener
-
-      floater.addEventListener('mouseup', floaty.makeMouseupCallback(floater), false); // END floater.addEventListener
-
       floater.addEventListener('touchend', floaty.makeTouchEndCallback(floater), false); // END floater.addEventListener
-
-      floater.addEventListener('mousemove', floaty.makeMousemoveCallback(floater), false); // END floater.addEventListener
-
       floater.addEventListener('touchmove', floaty.makeTouchmoveCallback(floater), false); // END floater.addEventListener
+      // }
 
+
+      floater.old_x = (element.offsetLeft);
+      floater.old_y = (element.offsetTop);
       // floaty.clickTagA(element, floater);
     };
 
@@ -83,7 +84,8 @@ class Floaty {
 
     floaty.pixelToInt = function (measurement) {
       var strings = measurement.split('px');
-      return parseFloat(strings[0]);
+      var px = parseFloat(strings[0]);
+      return isNaN(px) ? 0 : px;
     };
 
     floaty.makeMouseoverCallback = function (floater) {
@@ -119,10 +121,25 @@ class Floaty {
         // floater.removeClass('active');
         if (floater.activate) {
           floater.onActivate(floater);
-          this.activate = false;
+          floater.activate = false;
         } else {
           var direction = floater.calcMinDirection();
           floater.snapback_interval = setInterval(floater.snapback, 10, floater, direction);
+
+          var width = floater.element.clientWidth;
+          var height = floater.element.clientHeight;
+
+          var new_x = floaty.pixelToInt(floater.element.style.left);
+          var new_y = floaty.pixelToInt(floater.element.style.top);
+          if (Math.abs(floater.old_x - new_x) > width / 2
+            || Math.abs(floater.old_y - new_y) > height / 2
+          ) {
+          }
+          else {
+            floater.onActivate(floater);
+          }
+          floater.old_x = new_x;
+          floater.old_y = new_y;
         }
         floater.onMouseUp(floater);
       };
@@ -134,10 +151,25 @@ class Floaty {
         // floater.removeClass('active');
         if (floater.activate) {
           floater.onActivate(floater);
-          this.activate = false;
+          floater.activate = false;
         } else {
           var direction = floater.calcMinDirection();
           floater.snapback_interval = setInterval(floater.snapback, 10, floater, direction);
+
+          var width = floater.element.clientWidth;
+          var height = floater.element.clientHeight;
+
+          var new_x = floaty.pixelToInt(floater.element.style.left);
+          var new_y = floaty.pixelToInt(floater.element.style.top);
+          if (Math.abs(floater.old_x - new_x) > width / 2
+            || Math.abs(floater.old_y - new_y) > height / 2
+          ) {
+          }
+          else {
+            floater.onActivate(floater);
+          }
+          floater.old_x = new_x;
+          floater.old_y = new_y;
         }
         floater.onTouchEnd(floater);
       };
@@ -185,15 +217,20 @@ class Floaty {
     floaty.floaty.prototype.onMouseOver = function () { };
 
     floaty.floaty.prototype.updatePosition = function (mouseX, mouseY) {
-      this.element.style.left = mouseX - (this.element.clientWidth / 2) + 'px';
+      var new_x = mouseX - (this.element.clientWidth / 2);
+      var new_y = mouseY - (this.element.clientHeight / 2);
 
-      var height = this.element.clientHeight;
-
-      this.element.style.top = mouseY - (height / 2) + 'px';
+      this.element.style.left = new_x + 'px';
+      this.element.style.top = new_y + 'px';
     };
 
-    floaty.floaty.prototype.addEventListener = function (eventName, callback) {
-      this.element.addEventListener(eventName, callback);
+    floaty.floaty.prototype.addEventListener = function (eventName, callback, fn) {
+      if (fn) {
+        this.element.addEventListener(eventName, callback, { passive: !fn });
+      }
+      else {
+        this.element.addEventListener(eventName, callback);
+      }
     };
 
     floaty.floaty.prototype.removeClass = function (classname) {

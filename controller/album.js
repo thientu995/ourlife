@@ -1,16 +1,15 @@
-app.controller("albumController", ['$scope', '$http', function ($scope, $http) {
+app.controller("albumController", ['$rootScope', '$scope', '$http', function ($rootScope, $scope, $http) {
     $scope.itemSelectThumbnail = null;
     $scope.elasticSliderLoaded = false;
-    databaseProject.collection('album').get().then(col => {
-        $scope.$apply(function () {
-            $scope.dateListAlbum = col.docs.map(doc => doc.data()).sort((a, b) => {
-                return b.date.seconds - a.date.seconds
-            });
+    $scope.getData({ collection: 'album' }, function (value) {
+        $scope.dateListAlbum = value.data.sort((a, b) => {
+            return b.date.seconds - a.date.seconds
+        });
 
-            angular.forEach($scope.dateListAlbum, (value, key) => {
-                $http.get(settings.urlPageApp + 'googlephoto?url=' + $scope.dateListAlbum[key].url).then(res => {
-                    $scope.dateListAlbum[key].ListImage = res.data;
-                });
+        angular.forEach($scope.dateListAlbum, (value, key) => {
+            $http.get(settings.urlPageApp + 'googlephoto?idAlbum=' + value.id).then(res => {
+                $scope.dateListAlbum[key].ListImage = res.data;
+                $rootScope.isViewLoading = false;
             });
         });
     });
