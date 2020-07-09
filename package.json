@@ -1,7 +1,9 @@
 {
     "main": "./index.js",
     "scripts": {
-        "start": "node ./"
+        "start": "node ./",
+        "build": "node ./.build/release.js",
+        "deploy": "node ./.build/release.js && firebase deploy"
     },
     "engines": {
         "node": "10"
