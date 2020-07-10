@@ -9,13 +9,14 @@ module.exports = function (req, res) {
     const dbCollection = db.collection(collection);
     if (doc) {
         dbCollection.doc(doc).get().then(value => {
-            res.send(value.data());
+            let data = value.data();
+            res.send(data);
         });
     }
     else {
         dbCollection.get().then(col => {
             const lstData = col.docs;
-            data = {};
+            let data = {};
             switch (typeMap) {
                 case 'orign':
                     data = lstData;

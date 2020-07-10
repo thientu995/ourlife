@@ -1,3 +1,4 @@
+window.app = angular.module(document.querySelector('body').id, ['ngRoute', 'ngSanitize']);
 app.config(['$sceDelegateProvider', '$routeProvider', function ($sceDelegateProvider, $routeProvider) {
     $sceDelegateProvider.resourceUrlWhitelist(['self']);
     lstController.forEach(value => {
@@ -13,7 +14,7 @@ app.run(['$window', '$rootScope', '$http', function ($window, $rootScope, $http)
         $http.post(settings.urlPageApp + 'get', param).then(func);
     }
 
-    new SimpleBar(document.querySelector('.floatyMenuWrapper'), { autoHide: false });
+    // new SimpleBar(document.querySelector('.floatyMenuWrapper'), { autoHide: false });
 
     new Floaty('#floatyMenu', {
         onActivate: function () {
@@ -26,6 +27,7 @@ app.run(['$window', '$rootScope', '$http', function ($window, $rootScope, $http)
 
     $rootScope.getData({ collection: 'setting', doc: 'tagMeta' }, function (value) {
         const data = value.data;
+        console.log(data)
         $rootScope.pageTitle = data.title;
         $rootScope.pageDescription = data.description;
         $window.document.querySelector('title').innerHTML = $rootScope.pageTitle;
@@ -36,10 +38,9 @@ app.run(['$window', '$rootScope', '$http', function ($window, $rootScope, $http)
         $rootScope.isViewLoading = true;
     });
     $rootScope.$on('$routeChangeSuccess', function () {
+        window.dispatchEvent(new Event('resize'));
     });
     $rootScope.$on('$routeChangeError', function () {
+        window.dispatchEvent(new Event('resize'));
     });
-
-    
-    // $window.document.getElementById('loading').style.display = 'none';
 }]);

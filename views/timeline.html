@@ -2,7 +2,7 @@
 	<h1 class="section-title">Bride & Groom</h1>
 	<div class="row">
 		<div ng-repeat="item in dataPortfolio" class="col-md-6 col-sm-12 text-center pt-5">
-			<img class="img-fluid rounded-circle img-portfolio" image-lazy-src="{{item.avatar}}" />
+			<img data-lazy-src="{{item.avatar}}" class="img-fluid rounded-circle img-portfolio" />
 			<h1 ng-bind-html="item.name"></h1>
 			<h3 ng-bind-html="item.birth"></h3>
 			<h4 ng-bind-html="item.bio"></h4>
@@ -39,7 +39,7 @@
 					<em ng-bind-html="item.description"></em>
 					<div class="">
 						<div class="col-md-5 col-sm-12">
-							<img width="100%" class="float-md-left mr-5" src="{{item.img.getUrlImage()}}" />
+							<img data-lazy-src="{{item.img.getUrlImage()}}" width="100%" class="float-md-left mr-5" />
 						</div>
 						<p class="col-12 text-justify drop-caps" ng-bind-html="item.content"></p>
 					</div>

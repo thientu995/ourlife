@@ -12,7 +12,7 @@ if (fs.existsSync(pathFolderRelease)) {
     rimraf.sync(pathFolderRelease);
 }
 
-recursive(pathHome, ['docs'], function (err, files) {
+recursive(pathHome, ['.gitignore','.git', 'node_modules', 'docs'], function (err, files) {
     fs.mkdirSync(pathFolderRelease);
     files.forEach(file => {
         let sourceRelease = pathFolderRelease;

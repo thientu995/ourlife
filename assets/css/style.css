@@ -34,7 +34,7 @@ a:hover, a:focus {
     text-decoration: none;
 }
 
-button:focus{
+button:focus {
     border: none;
 }
 
@@ -145,4 +145,32 @@ footer {
 
 .modal {
     background-color: rgba(0, 0, 0, 0.5)
+}
+
+img[data-lazy-src] {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+    filter: alpha(opacity=50);
+}
+
+img[data-lazy-src] {
+    -webkit-filter: blur(30px);
+    -moz-filter: blur(30px);
+    -o-filter: blur(30px);
+    -ms-filter: blur(30px);
+    filter: blur(30px);
+    filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius='3');
+}
+
+img[src] {
+    transition: .5s filter linear;
+    -webkit-transition: .5s -webkit-filter linear;
+    -moz-transition: .5s -moz-filter linear;
+    -ms-transition: .5s -ms-filter linear;
+    -o-transition: .5s -o-filter linear;
+    -webkit-filter: blur(0px);
+    -moz-filter: blur(0px);
+    -o-filter: blur(0px);
+    -ms-filter: blur(0px);
+    filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius='0');
+    filter: blur(0px);
 }

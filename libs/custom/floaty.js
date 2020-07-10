@@ -53,6 +53,7 @@ class Floaty {
 
       // if (!Modernizr.touch) {
       floater.addEventListener('mouseover', floaty.makeMouseoverCallback(floater)); // END floater.addEventListener
+      floater.addEventListener('mouseleave', floaty.makeMouseupCallback(floater))
       floater.addEventListener('mousedown', floaty.makeMousedownCallback(floater)); // END floater.addEventListener
       floater.addEventListener('mouseup', floaty.makeMouseupCallback(floater)); // END floater.addEventListener
       floater.addEventListener('mousemove', floaty.makeMousemoveCallback(floater)); // END floater.addEventListener
@@ -66,21 +67,11 @@ class Floaty {
 
       floater.old_x = (element.offsetLeft);
       floater.old_y = (element.offsetTop);
-      // floaty.clickTagA(element, floater);
+      floater.updatePosition(element.offsetLeft, element.offsetTop);
+      // window.addEventListener('resize', function () {
+      //   floater.updatePosition(0, 0);
+      // });
     };
-
-    // floaty.clickTagA = function (element, floater) {
-    //   var lstTagA = element.parentNode.getElementsByTagName('a');
-    //   for (var i = 0; i < lstTagA.length; i++) {
-    //     lstTagA[i].addEventListener('click', function (event) {
-    //       console.log(this)
-    //       floater.onActivate(floater);
-    //     }, false)
-    //     lstTagA[i].addEventListener('touch', function (event) {
-    //       floater.onActivate(floater);
-    //     }, false)
-    //   }
-    // }
 
     floaty.pixelToInt = function (measurement) {
       var strings = measurement.split('px');
@@ -117,6 +108,9 @@ class Floaty {
 
     floaty.makeMouseupCallback = function (floater) {
       return function () {
+        if (!floater.mouse_clicked) {
+          return;
+        }
         floater.mouse_clicked = false;
         // floater.removeClass('active');
         if (floater.activate) {
@@ -126,8 +120,9 @@ class Floaty {
           var direction = floater.calcMinDirection();
           floater.snapback_interval = setInterval(floater.snapback, 10, floater, direction);
 
-          var width = floater.element.clientWidth;
-          var height = floater.element.clientHeight;
+          var size = floater.getClientSize();
+          var width = size.width;
+          var height = size.height;
 
           var new_x = floaty.pixelToInt(floater.element.style.left);
           var new_y = floaty.pixelToInt(floater.element.style.top);
@@ -147,6 +142,9 @@ class Floaty {
 
     floaty.makeTouchEndCallback = function (floater) {
       return function () {
+        if (!floater.mouse_clicked) {
+          return;
+        }
         floater.mouse_clicked = false;
         // floater.removeClass('active');
         if (floater.activate) {
@@ -156,13 +154,14 @@ class Floaty {
           var direction = floater.calcMinDirection();
           floater.snapback_interval = setInterval(floater.snapback, 10, floater, direction);
 
-          var width = floater.element.clientWidth;
-          var height = floater.element.clientHeight;
+          var size = floater.getClientSize();
+          var width = size.width;
+          var height = size.height;
 
           var new_x = floaty.pixelToInt(floater.element.style.left);
           var new_y = floaty.pixelToInt(floater.element.style.top);
-          if (Math.abs(floater.old_x - new_x) > width / 2
-            || Math.abs(floater.old_y - new_y) > height / 2
+          if (Math.abs(floater.old_x - new_x) > width
+            || Math.abs(floater.old_y - new_y) > height
           ) {
           }
           else {
@@ -217,8 +216,9 @@ class Floaty {
     floaty.floaty.prototype.onMouseOver = function () { };
 
     floaty.floaty.prototype.updatePosition = function (mouseX, mouseY) {
-      var new_x = mouseX - (this.element.clientWidth / 2);
-      var new_y = mouseY - (this.element.clientHeight / 2);
+      var size = this.getClientSize();
+      var new_x = mouseX - (size.width / 2);
+      var new_y = mouseY - (size.height / 2);
 
       this.element.style.left = new_x + 'px';
       this.element.style.top = new_y + 'px';
@@ -248,7 +248,7 @@ class Floaty {
     };
 
     floaty.floaty.prototype.calcMinDirection = function () {
-      var height = this.element.clientHeight;
+      var height = this.getClientSize().height;
 
       var x = floaty.pixelToInt(this.element.style.left);
       var y = floaty.pixelToInt(this.element.style.top);
@@ -273,11 +273,41 @@ class Floaty {
     }
 
     floaty.floaty.prototype.snapback = function (floater, direction) {
+      function setPos() {
+        floater.element.style.left = x + 'px';
+        floater.element.style.top = y + 'px';
+      }
+
+      function checkX() {
+        if (x <= 0) {
+          x = 0;
+          return true;
+        }
+        else if (x >= Math.abs(width - window.innerWidth)) {
+          x = Math.abs(width - window.innerWidth);
+          return true;
+        }
+        return false;
+      }
+
+      function checkY() {
+        if (y <= 0) {
+          y = 0;
+          return true;
+        }
+        else if (y >= height - window.innerHeight) {
+          y = Math.abs(height - window.innerHeight);
+          return true;
+        }
+        return false;
+      }
+
       var x = floaty.pixelToInt(floater.element.style.left);
       var y = floaty.pixelToInt(floater.element.style.top);
 
-      var width = floater.element.clientWidth;
-      var height = floater.element.clientHeight;
+      var size = floater.getClientSize();
+      var width = size.width;
+      var height = size.height;
 
       if ((x <= 0.5 && x >= -0.5)
         || (y <= 0.5 && y >= -0.5)
@@ -287,24 +317,44 @@ class Floaty {
         clearInterval(floater.snapback_interval);
       }
 
-      if (direction == 'left') {
-        x -= x / 10;
-        floater.element.style.left = x + 'px';
+      if (direction == 'left' || direction == 'right') {
+        if (direction == 'left') {
+          x -= x / 10;
+        }
+
+        if (direction == 'right') {
+          x -= (x + width - window.innerWidth) / 10;
+        }
+
+        if (checkX()) {
+          checkY();
+        }
+      }
+      else {
+        if (direction == 'top') {
+          y -= y / 10;
+        }
+
+        if (direction == 'bottom') {
+          y -= (y + height - window.innerHeight) / 10;
+        }
+
+        if (checkY()) {
+          checkX();
+        }
       }
 
-      if (direction == 'right') {
-        x -= (x + width - window.innerWidth) / 10;
-        floater.element.style.left = x + 'px';
-      }
 
-      if (direction == 'top') {
-        y -= y / 10;
-        floater.element.style.top = y + 'px';
-      }
 
-      if (direction == 'bottom') {
-        y -= (y + height - window.innerHeight) / 10;
-        floater.element.style.top = y + 'px';
+
+
+      setPos();
+    }
+
+    floaty.floaty.prototype.getClientSize = function () {
+      return {
+        width: this.element.clientWidth + 20,
+        height: this.element.clientHeight + 20
       }
     }
     floaty.makeFloaty(document.querySelector(element), option);

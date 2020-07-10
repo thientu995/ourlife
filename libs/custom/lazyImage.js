@@ -1,102 +1,75 @@
+!function (window) {
+    var $q = function (q, res) {
+        if (document.querySelectorAll) {
+            res = document.querySelectorAll(q);
+        } else {
+            var d = document
+                , a = d.styleSheets[0] || d.createStyleSheet();
+            a.addRule(q, 'f:b');
+            for (var l = d.all, b = 0, c = [], f = l.length; b < f; b++)
+                l[b].currentStyle.f && c.push(l[b]);
 
-angular.module('lazyLoadingImageBetter', []).run(
-    function ($rootScope) {
-        // $rootScope.photos = new Array(100);
-    }
-);
-
-angular.module('lazyLoadingImageBetter').service(
-    'scrollAndResizeListener', function ($window, $document, $timeout) {
-        var id = 0,
-            listeners = {},
-            scrollTimeoutId,
-            resizeTimeoutId;
-
-        function addEvent(element) {
-            element.addEventListener('scroll', function () {
-                // cancel previous timeout (simulates stop event)
-                $timeout.cancel(scrollTimeoutId);
-
-                // wait for 200ms and then invoke listeners (simulates stop event)
-                scrollTimeoutId = $timeout(invokeListeners, 200);
-            });
-
-
-            element.addEventListener('resize', function () {
-                $timeout.cancel(resizeTimeoutId);
-                resizeTimeoutId = $timeout(invokeListeners, 200);
-            });
+            a.removeRule(0);
+            res = c;
         }
+        return res;
+    };
 
-        function invokeListeners() {
-            var clientHeight = $document[0].documentElement.clientHeight,
-                clientWidth = $document[0].documentElement.clientWidth;
-
-            for (var key in listeners) {
-                if (listeners.hasOwnProperty(key)) {
-                    listeners[key](clientHeight, clientWidth); // call listener with given arguments
-                }
-            }
+    var addEventListener = function (evt, fn) {
+        if (window.addEventListener) {
+            this.addEventListener(evt, fn, false);
+            window.simpleBarBody.getScrollElement().addEventListener(evt, fn, false);
         }
+        else if (window.attachEvent) {
+            this.attachEvent('on' + evt, fn);
+            window.simpleBarBody.getScrollElement().attachEvent('on' + evt, fn);
+        } else {
+            this['on' + evt] = fn;
+            window.simpleBarBody.getScrollElement()['on' + evt] = fn;
+        }
+    };
 
+    var _has = function (obj, key) {
+        return Object.prototype.hasOwnProperty.call(obj, key);
+    };
 
-        addEvent($window);
-        addEvent($window.simpleBarBody.getScrollElement());
+    function loadImage(el, fn) {
+        var img = new Image()
+            , src = el.getAttribute('data-lazy-src');
+        img.onload = function () {
+            if (!!el.parent)
+                el.parent.replaceChild(img, el)
+            else
+                el.src = src;
 
-
-        return {
-            bindListener: function (listener) {
-                var index = ++id;
-
-                listeners[id] = listener;
-
-                return function () {
-                    delete listeners[index];
-                }
-            }
-        };
+            fn ? fn() : null;
+        }
+        img.src = src;
     }
-);
 
-angular.module('lazyLoadingImageBetter').directive(
-    'imageLazySrc', function ($document, scrollAndResizeListener) {
-        return {
-            restrict: 'A',
-            link: function ($scope, $element, $attributes) {
-                var listenerRemover;
+    function elementInViewport(el) {
+        var rect = el.getBoundingClientRect()
 
-                function isInView(clientHeight, clientWidth) {
-                    // get element position
-                    var imageRect = $element[0].getBoundingClientRect();
+        return (
+            rect.top >= 0
+            && rect.left >= 0
+            && rect.top <= (window.innerHeight || document.documentElement.clientHeight)
+        )
+    }
 
-                    if (
-                        (imageRect.top >= 0 && imageRect.bottom <= clientHeight)
-                        &&
-                        (imageRect.left >= 0 && imageRect.right <= clientWidth)
-                    ) {
-                        $element[0].src = $attributes.imageLazySrc; // set src attribute on element (it will load image)
-
-                        // unbind event listeners when image src has been set
-                        listenerRemover();
-                    }
-                }
-
-                // bind listener
-                listenerRemover = scrollAndResizeListener.bindListener(isInView);
-
-                // unbind event listeners if element was destroyed
-                // it happens when you change view, etc
-                $element.on('$destroy', function () {
-                    listenerRemover();
+    processScroll = function () {
+        let images = $q('img[data-lazy-src]:not([src])');
+        for (var i = 0; i < images.length; i++) {
+            if (elementInViewport(images[i])) {
+                loadImage(images[i], function () {
+                    // images.splice(i, i);
                 });
-
-
-                // explicitly call scroll listener (because, some images are in viewport already and we haven't scrolled yet)
-                isInView(
-                    $document[0].documentElement.clientHeight,
-                    $document[0].documentElement.clientWidth
-                );
             }
         };
-    }
-);
+    };
+
+    processScroll();
+    addEventListener('scroll', processScroll);
+    addEventListener('resize', processScroll);
+
+}(this);
