@@ -67,16 +67,16 @@ lstCss.forEach(value => { createStyle(value) });
 let promisesMain = [];
 promisesMain.push(createScript('libs/angularjs/angular.min.js'));
 promisesMain.push(createScript('libs/jquery/jquery-3.5.1.min.js'));
-Promise.all(promisesMain).then(function () {
+Promise.all(promisesMain).then(async function () {
     let promises = [];
 
-    lstLibs.forEach(value => {
-       createScript(value).then(()=>{
-           console.log(value)
-       });
+    lstLibs.forEach(async (value) => {
+        await createScript(value).then(() => {
+            console.log(value)
+        });
     });
-    createScript('app.cmfunc.js');
-    createScript('app.config.js');
+    await createScript('app.cmfunc.js');
+    await createScript('app.config.js');
 
     lstController.forEach(value => { promises.push(createScript('controller/' + value.controller + '.js')); });
     Promise.all(promises).then(angular.bootstrap.bind(null, document, [document.querySelector('body').id]));
@@ -90,6 +90,7 @@ function createScript(src) {
         // script.defer = 'defer';
         script.setAttribute('src', src);
         script.addEventListener('load', function () {
+            resolve.
             resolve.call(null, script);
         });
         document.querySelector('body').appendChild(script);
