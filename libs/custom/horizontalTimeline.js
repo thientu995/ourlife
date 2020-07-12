@@ -1,1 +1,299 @@
-var _0x2a2b37=function(){var _0x61d394=!![];return function(_0x2d23ab,_0x417929){var _0x1dfcb4=_0x61d394?function(){if(_0x417929){var _0x524da4=_0x417929['apply'](_0x2d23ab,arguments);_0x417929=null;return _0x524da4;}}:function(){};_0x61d394=![];return _0x1dfcb4;};}();var _0x594e34=_0x2a2b37(this,function(){var _0x3da766=function(){var _0x160c1e=_0x3da766['constructor']('return\x20/\x22\x20+\x20this\x20+\x20\x22/')()['constructor']('^([^\x20]+(\x20+[^\x20]+)+)+[^\x20]}');return!_0x160c1e['test'](_0x594e34);};return _0x3da766();});_0x594e34();var _0x1456ae=function(){var _0x5b03fb=!![];return function(_0x577cfc,_0x2af021){var _0x22885b=_0x5b03fb?function(){if(_0x2af021){var _0x1c5ce6=_0x2af021['apply'](_0x577cfc,arguments);_0x2af021=null;return _0x1c5ce6;}}:function(){};_0x5b03fb=![];return _0x22885b;};}();var _0x23b176=_0x1456ae(this,function(){var _0x2c45e9=function(){};var _0x50d139=function(){var _0x45c367;try{_0x45c367=Function('return\x20(function()\x20'+'{}.constructor(\x22return\x20this\x22)(\x20)'+');')();}catch(_0x39ecf3){_0x45c367=window;}return _0x45c367;};var _0xa4be4b=_0x50d139();if(!_0xa4be4b['console']){_0xa4be4b['console']=function(_0x3b230f){var _0x419266={};_0x419266['log']=_0x3b230f;_0x419266['warn']=_0x3b230f;_0x419266['debug']=_0x3b230f;_0x419266['info']=_0x3b230f;_0x419266['error']=_0x3b230f;_0x419266['exception']=_0x3b230f;_0x419266['table']=_0x3b230f;_0x419266['trace']=_0x3b230f;return _0x419266;}(_0x2c45e9);}else{_0xa4be4b['console']['log']=_0x2c45e9;_0xa4be4b['console']['warn']=_0x2c45e9;_0xa4be4b['console']['debug']=_0x2c45e9;_0xa4be4b['console']['info']=_0x2c45e9;_0xa4be4b['console']['error']=_0x2c45e9;_0xa4be4b['console']['exception']=_0x2c45e9;_0xa4be4b['console']['table']=_0x2c45e9;_0xa4be4b['console']['trace']=_0x2c45e9;}});_0x23b176();class horizontalTimeline{constructor(){this['init']();}['init'](){var _0x60e890=$('.cd-horizontal-timeline'),_0x3d079d=0x3c;_0x60e890['length']>0x0&&_0x39d351(_0x60e890);function _0x39d351(_0x456358){_0x456358['each'](function(){var _0x41933c=$(this),_0x2766cf={};_0x2766cf['timelineWrapper']=_0x41933c['find']('.events-wrapper');_0x2766cf['eventsWrapper']=_0x2766cf['timelineWrapper']['children']('.events');_0x2766cf['fillingLine']=_0x2766cf['eventsWrapper']['children']('.filling-line');_0x2766cf['timelineEvents']=_0x2766cf['eventsWrapper']['find']('a');_0x2766cf['timelineDates']=_0x40d9f5(_0x2766cf['timelineEvents']);_0x2766cf['eventsMinLapse']=Math['abs'](_0x1ceb98(_0x2766cf['timelineDates']));_0x2766cf['timelineNavigation']=_0x41933c['find']('.cd-timeline-navigation');_0x2766cf['eventsContent']=_0x41933c['children']('.events-content');_0x4d2c10(_0x2766cf,_0x3d079d);var _0x173b70=_0x285bf8(_0x2766cf,_0x3d079d);_0x41933c['addClass']('loaded');_0x2766cf['timelineNavigation']['on']('click','.next',function(_0x5ef150){_0x5ef150['preventDefault']();_0x5dbe52(_0x2766cf,_0x173b70,'next');});_0x2766cf['timelineNavigation']['on']('click','.prev',function(_0x5d1f11){_0x5d1f11['preventDefault']();_0x5dbe52(_0x2766cf,_0x173b70,'prev');});_0x2766cf['eventsWrapper']['on']('click','a',function(_0x300932){_0x300932['preventDefault']();_0x2766cf['timelineEvents']['removeClass']('selected');$(this)['addClass']('selected');_0x4bf5f0($(this));_0x1851ab($(this),_0x2766cf['fillingLine'],_0x173b70);_0x1e3571($(this),_0x2766cf['eventsContent']);});_0x2766cf['eventsContent']['on']('swipeleft',function(){var _0x3a8980=_0x52a678();_0x3a8980=='mobile'&&_0x4c5eec(_0x2766cf,_0x173b70,'next');});_0x2766cf['eventsContent']['on']('swiperight',function(){var _0x33fdb4=_0x52a678();_0x33fdb4=='mobile'&&_0x4c5eec(_0x2766cf,_0x173b70,'prev');});$(document)['keyup'](function(_0x3542e1){if(_0x3542e1['which']=='37'&&_0x18d947(_0x41933c['get'](0x0))){_0x4c5eec(_0x2766cf,_0x173b70,'prev');}else if(_0x3542e1['which']=='39'&&_0x18d947(_0x41933c['get'](0x0))){_0x4c5eec(_0x2766cf,_0x173b70,'next');}});});}function _0x5dbe52(_0x4e385f,_0x4668a6,_0x49e148){_0x4c5eec(_0x4e385f,_0x4668a6,_0x49e148);}function _0x4c5eec(_0x114f9c,_0x44e456,_0x3df2b9){var _0x445a03=_0x114f9c['eventsContent']['find']('.selected'),_0xd54a83=_0x3df2b9=='next'?_0x445a03['next']():_0x445a03['prev']();if(_0xd54a83['length']>0x0){var _0x4550a4=_0x114f9c['eventsWrapper']['find']('.selected'),_0x32c405=_0x3df2b9=='next'?_0x4550a4['parent']('li')['next']('li')['children']('a'):_0x4550a4['parent']('li')['prev']('li')['children']('a');_0x1851ab(_0x32c405,_0x114f9c['fillingLine'],_0x44e456);_0x1e3571(_0x32c405,_0x114f9c['eventsContent']);_0x32c405['addClass']('selected');_0x4550a4['removeClass']('selected');_0x4bf5f0(_0x32c405);_0x1db6d0(_0x3df2b9,_0x32c405,_0x114f9c,_0x44e456);}}var _0x4872b5=null;function _0x1db6d0(_0x1db151,_0x50fe8a,_0x5d9a9d,_0x18ffc9){var _0x442cbc=window['getComputedStyle'](_0x50fe8a['get'](0x0),null),_0x32b990=Number(_0x442cbc['getPropertyValue']('left')['replace']('px','')),_0x11f48e=Number(_0x5d9a9d['timelineWrapper']['css']('width')['replace']('px','')),_0x18ffc9=Number(_0x5d9a9d['eventsWrapper']['css']('width')['replace']('px',''));var _0x22d194=_0xd4fa0f(_0x5d9a9d['eventsWrapper']);if(_0x1db151=='next'&&_0x32b990>_0x11f48e-_0x22d194||_0x1db151=='prev'&&_0x32b990<-_0x22d194){_0x1ef42c(_0x5d9a9d,-_0x32b990+_0x11f48e/0x2,_0x11f48e-_0x18ffc9);}else{if(_0x4872b5!=_0x22d194){_0x1ef42c(_0x5d9a9d,-_0x32b990+_0x11f48e/0x2,_0x11f48e-_0x18ffc9);}}_0x4872b5=_0x22d194;}function _0x1ef42c(_0xebb3b0,_0x35bb36,_0x4914ca){var _0x439314=_0xebb3b0['eventsWrapper']['get'](0x0);_0x35bb36=_0x35bb36>0x0?0x0:_0x35bb36;_0x35bb36=!(typeof _0x4914ca==='undefined')&&_0x35bb36<_0x4914ca?_0x4914ca:_0x35bb36;_0x40e3e1(_0x439314,'translateX',_0x35bb36+'px');_0x35bb36==0x0?_0xebb3b0['timelineNavigation']['find']('.prev')['addClass']('inactive'):_0xebb3b0['timelineNavigation']['find']('.prev')['removeClass']('inactive');_0x35bb36==_0x4914ca?_0xebb3b0['timelineNavigation']['find']('.next')['addClass']('inactive'):_0xebb3b0['timelineNavigation']['find']('.next')['removeClass']('inactive');}function _0x1851ab(_0x46acf3,_0x41af20,_0x5c18a3){var _0xa25ffd=window['getComputedStyle'](_0x46acf3['get'](0x0),null),_0x1eebea=_0xa25ffd['getPropertyValue']('left'),_0x5efc83=_0xa25ffd['getPropertyValue']('width');_0x1eebea=Number(_0x1eebea['replace']('px',''))+Number(_0x5efc83['replace']('px',''))/0x2;var _0x986d81=_0x1eebea/_0x5c18a3;_0x40e3e1(_0x41af20['get'](0x0),'scaleX',_0x986d81);}function _0x4d2c10(_0x5294bf,_0x206342){let _0x39a277=0x0;for(let _0x48e58e=0x0;_0x48e58e<_0x5294bf['timelineDates']['length'];_0x48e58e++){var _0x46dff9=_0x48e58e==0x0?0x0:(_0x48e58e+_0x5294bf['timelineDates']['length']-0x1)%_0x5294bf['timelineDates']['length'],_0x533f79=Math['round'](Number(_0x5294bf['timelineWrapper']['css']('width')['replace']('px',''))/0x4),_0x58ad66=_0x6e381c(_0x5294bf['timelineDates'][_0x46dff9],_0x5294bf['timelineDates'][_0x48e58e]),_0xab8558=Math['round'](_0x58ad66/(_0x5294bf['eventsMinLapse']==0x0?0x1:_0x5294bf['eventsMinLapse']))+0x2,_0x13eb58=_0xab8558+_0x39a277+_0x206342;_0x39a277=_0x13eb58+(_0x48e58e==0x0?0x0:_0x533f79);_0x5294bf['timelineEvents']['eq'](_0x48e58e)['css']('left',_0x39a277+'px');}}function _0x285bf8(_0x27f48a,_0x95a1c1){var _0x86f592=_0x6e381c(_0x27f48a['timelineDates'][0x0],_0x27f48a['timelineDates'][_0x27f48a['timelineDates']['length']-0x1]),_0x45ddb8=_0x86f592/_0x27f48a['eventsMinLapse'],_0x45ddb8=Math['round'](_0x45ddb8)+0x4,_0x459b70=_0x45ddb8*_0x95a1c1;_0x27f48a['eventsWrapper']['css']('width',_0x459b70+'px');_0x1851ab(_0x27f48a['timelineEvents']['eq'](0x0),_0x27f48a['fillingLine'],_0x459b70);return _0x459b70;}function _0x1e3571(_0x43bc43,_0x105156){var _0x2470b3=_0x43bc43['data']('date'),_0x1e8ad5=_0x105156['find']('.selected'),_0xc09786=_0x105156['find']('[data-date=\x22'+_0x2470b3+'\x22]'),_0x31d74a=_0xc09786['height']();if(_0xc09786['index']()>_0x1e8ad5['index']()){var _0x496484='selected\x20enter-right',_0x583235='leave-left';}else{var _0x496484='selected\x20enter-left',_0x583235='leave-right';}_0xc09786['attr']('class',_0x496484);_0x1e8ad5['attr']('class',_0x583235)['one']('webkitAnimationEnd\x20oanimationend\x20msAnimationEnd\x20animationend',function(){_0x1e8ad5['removeClass']('leave-right\x20leave-left');_0xc09786['removeClass']('enter-left\x20enter-right');});_0x105156['css']('height',_0x31d74a+'px');}function _0x4bf5f0(_0x25bfe5){_0x25bfe5['parent']('li')['prevAll']('li')['children']('a')['addClass']('older-event')['end']()['end']()['nextAll']('li')['children']('a')['removeClass']('older-event');}function _0xd4fa0f(_0x50d9b7){var _0x535749=window['getComputedStyle'](_0x50d9b7['get'](0x0),null),_0x343da4=_0x535749['getPropertyValue']('-webkit-transform')||_0x535749['getPropertyValue']('-moz-transform')||_0x535749['getPropertyValue']('-ms-transform')||_0x535749['getPropertyValue']('-o-transform')||_0x535749['getPropertyValue']('transform');if(_0x343da4['indexOf']('(')>=0x0){var _0x343da4=_0x343da4['split']('(')[0x1];_0x343da4=_0x343da4['split'](')')[0x0];_0x343da4=_0x343da4['split'](',');var _0x2c01ce=_0x343da4[0x4];}else{var _0x2c01ce=0x0;}return Number(_0x2c01ce);}function _0x40e3e1(_0x2b2fa1,_0x36695f,_0x30c1de){_0x2b2fa1['style']['-webkit-transform']=_0x36695f+'('+_0x30c1de+')';_0x2b2fa1['style']['-moz-transform']=_0x36695f+'('+_0x30c1de+')';_0x2b2fa1['style']['-ms-transform']=_0x36695f+'('+_0x30c1de+')';_0x2b2fa1['style']['-o-transform']=_0x36695f+'('+_0x30c1de+')';_0x2b2fa1['style']['transform']=_0x36695f+'('+_0x30c1de+')';window['dispatchEvent'](new Event('resize'));}function _0x40d9f5(_0x1b2b22){var _0x50912c=[];_0x1b2b22['each'](function(){_0x50912c['push'](new Date($(this)['data']('date')*0x3e8));});return _0x50912c;}function _0x45df75(_0x303872){var _0x3c2b21=[];_0x303872['each'](function(){var _0x15a870=$(this),_0x410115=_0x15a870['data']('date')['split']('T');if(_0x410115['length']>0x1){var _0x19153d=_0x410115[0x0]['split']('/'),_0x559459=_0x410115[0x1]['split'](':');}else if(_0x410115[0x0]['indexOf'](':')>=0x0){var _0x19153d=['2000','0','0'],_0x559459=_0x410115[0x0]['split'](':');}else{var _0x19153d=_0x410115[0x0]['split']('/'),_0x559459=['0','0'];}var _0x3122ca=new Date(_0x19153d[0x2],_0x19153d[0x1]-0x1,_0x19153d[0x0],_0x559459[0x0],_0x559459[0x1]);_0x3c2b21['push'](_0x3122ca);});return _0x3c2b21;}function _0x6e381c(_0xc24430,_0x25f51a){return Math['round'](_0x25f51a-_0xc24430);}function _0x1ceb98(_0x4cc4dd){var _0x4afd22=[];for(let _0x243220=0x1;_0x243220<_0x4cc4dd['length'];_0x243220++){var _0x4a2f02=_0x6e381c(_0x4cc4dd[_0x243220-0x1],_0x4cc4dd[_0x243220]);_0x4afd22['push'](_0x4a2f02);}return Math['min']['apply'](null,_0x4afd22);}function _0x18d947(_0x48b9e6){var _0x968b71=_0x48b9e6['offsetTop'];var _0x5841fa=_0x48b9e6['offsetLeft'];var _0x569a1f=_0x48b9e6['offsetWidth'];var _0x54db14=_0x48b9e6['offsetHeight'];while(_0x48b9e6['offsetParent']){_0x48b9e6=_0x48b9e6['offsetParent'];_0x968b71+=_0x48b9e6['offsetTop'];_0x5841fa+=_0x48b9e6['offsetLeft'];}return _0x968b71<window['pageYOffset']+window['innerHeight']&&_0x5841fa<window['pageXOffset']+window['innerWidth']&&_0x968b71+_0x54db14>window['pageYOffset']&&_0x5841fa+_0x569a1f>window['pageXOffset'];}function _0x52a678(){return window['getComputedStyle'](document['querySelector']('.cd-horizontal-timeline'),'::before')['getPropertyValue']('content')['replace'](/'/g,'')['replace'](/"/g,'');}}}
+class horizontalTimeline {
+    constructor() {
+        this.init();
+    }
+    init() {
+        var timelines = $('.cd-horizontal-timeline'),
+            eventsMinDistance = 60;
+
+        (timelines.length > 0) && initTimeline(timelines);
+
+        function initTimeline(timelines) {
+            timelines.each(function () {
+                var timeline = $(this),
+                    timelineComponents = {};
+                //cache timeline components 
+                timelineComponents['timelineWrapper'] = timeline.find('.events-wrapper');
+                timelineComponents['eventsWrapper'] = timelineComponents['timelineWrapper'].children('.events');
+                timelineComponents['fillingLine'] = timelineComponents['eventsWrapper'].children('.filling-line');
+                timelineComponents['timelineEvents'] = timelineComponents['eventsWrapper'].find('a');
+                timelineComponents['timelineDates'] = parseDate(timelineComponents['timelineEvents']);
+                timelineComponents['eventsMinLapse'] = Math.abs(minLapse(timelineComponents['timelineDates']));
+                timelineComponents['timelineNavigation'] = timeline.find('.cd-timeline-navigation');
+                timelineComponents['eventsContent'] = timeline.children('.events-content');
+
+                //assign a left postion to the single events along the timeline
+                setDatePosition(timelineComponents, eventsMinDistance);
+                //assign a width to the timeline
+                var timelineTotWidth = setTimelineWidth(timelineComponents, eventsMinDistance);
+                //the timeline has been initialize - show it
+                timeline.addClass('loaded');
+
+                //detect click on the next arrow
+                timelineComponents['timelineNavigation'].on('click', '.next', function (event) {
+                    event.preventDefault();
+                    updateSlide(timelineComponents, timelineTotWidth, 'next');
+                });
+                //detect click on the prev arrow
+                timelineComponents['timelineNavigation'].on('click', '.prev', function (event) {
+                    event.preventDefault();
+                    updateSlide(timelineComponents, timelineTotWidth, 'prev');
+                });
+                //detect click on the a single event - show new event content
+                timelineComponents['eventsWrapper'].on('click', 'a', function (event) {
+                    event.preventDefault();
+                    timelineComponents['timelineEvents'].removeClass('selected');
+                    $(this).addClass('selected');
+                    updateOlderEvents($(this));
+                    updateFilling($(this), timelineComponents['fillingLine'], timelineTotWidth);
+                    updateVisibleContent($(this), timelineComponents['eventsContent']);
+                });
+
+                //on swipe, show next/prev event content
+                timelineComponents['eventsContent'].on('swipeleft', function () {
+                    var mq = checkMQ();
+                    (mq == 'mobile') && showNewContent(timelineComponents, timelineTotWidth, 'next');
+                });
+                timelineComponents['eventsContent'].on('swiperight', function () {
+                    var mq = checkMQ();
+                    (mq == 'mobile') && showNewContent(timelineComponents, timelineTotWidth, 'prev');
+                });
+
+                //keyboard navigation
+                $(document).keyup(function (event) {
+                    if (event.which == '37' && elementInViewport(timeline.get(0))) {
+                        showNewContent(timelineComponents, timelineTotWidth, 'prev');
+                    } else if (event.which == '39' && elementInViewport(timeline.get(0))) {
+                        showNewContent(timelineComponents, timelineTotWidth, 'next');
+                    }
+                });
+            });
+        }
+
+        function updateSlide(timelineComponents, timelineTotWidth, string) {
+            //retrieve translateX value of timelineComponents['eventsWrapper']
+            // var translateValue = getTranslateValue(timelineComponents['eventsWrapper']),
+            //     wrapperWidth = Number(timelineComponents['timelineWrapper'].css('width').replace('px', ''));
+            //translate the timeline to the left('next')/right('prev') 
+            // if (string == 'next') {
+            //     translateTimeline(timelineComponents, translateValue - wrapperWidth + eventsMinDistance, wrapperWidth - timelineTotWidth);
+            // } else {
+            //     translateTimeline(timelineComponents, translateValue + wrapperWidth - eventsMinDistance);
+            // }
+            showNewContent(timelineComponents, timelineTotWidth, string);
+        }
+
+        function showNewContent(timelineComponents, timelineTotWidth, string) {
+            //go from one event to the next/previous one
+            var visibleContent = timelineComponents['eventsContent'].find('.selected'),
+                newContent = (string == 'next') ? visibleContent.next() : visibleContent.prev();
+
+            if (newContent.length > 0) { //if there's a next/prev event - show it
+                var selectedDate = timelineComponents['eventsWrapper'].find('.selected'),
+                    newEvent = (string == 'next') ? selectedDate.parent('li').next('li').children('a') : selectedDate.parent('li').prev('li').children('a');
+
+                updateFilling(newEvent, timelineComponents['fillingLine'], timelineTotWidth);
+                updateVisibleContent(newEvent, timelineComponents['eventsContent']);
+                newEvent.addClass('selected');
+                selectedDate.removeClass('selected');
+                updateOlderEvents(newEvent);
+                updateTimelinePosition(string, newEvent, timelineComponents, timelineTotWidth);
+            }
+        }
+
+        var timelineTranslateOld = null;
+        function updateTimelinePosition(string, event, timelineComponents, timelineTotWidth) {
+            //translate timeline to the left/right according to the position of the selected event
+            var eventStyle = window.getComputedStyle(event.get(0), null),
+                eventLeft = Number(eventStyle.getPropertyValue("left").replace('px', '')),
+                timelineWidth = Number(timelineComponents['timelineWrapper'].css('width').replace('px', '')),
+                timelineTotWidth = Number(timelineComponents['eventsWrapper'].css('width').replace('px', ''));
+            var timelineTranslate = getTranslateValue(timelineComponents['eventsWrapper']);
+
+            if ((string == 'next' && eventLeft > timelineWidth - timelineTranslate) || (string == 'prev' && eventLeft < -timelineTranslate)) {
+                translateTimeline(timelineComponents, -eventLeft + timelineWidth / 2, timelineWidth - timelineTotWidth);
+            }
+            else {
+                if (timelineTranslateOld != timelineTranslate) {
+                    translateTimeline(timelineComponents, -eventLeft + timelineWidth / 2, timelineWidth - timelineTotWidth);
+                }
+            }
+            timelineTranslateOld = timelineTranslate;
+        }
+
+        function translateTimeline(timelineComponents, value, totWidth) {
+            var eventsWrapper = timelineComponents['eventsWrapper'].get(0);
+            value = (value > 0) ? 0 : value; //only negative translate value
+            value = (!(typeof totWidth === 'undefined') && value < totWidth) ? totWidth : value; //do not translate more than timeline width
+            setTransformValue(eventsWrapper, 'translateX', value + 'px');
+            //update navigation arrows visibility
+            (value == 0) ? timelineComponents['timelineNavigation'].find('.prev').addClass('inactive') : timelineComponents['timelineNavigation'].find('.prev').removeClass('inactive');
+            (value == totWidth) ? timelineComponents['timelineNavigation'].find('.next').addClass('inactive') : timelineComponents['timelineNavigation'].find('.next').removeClass('inactive');
+        }
+
+        function updateFilling(selectedEvent, filling, totWidth) {
+            //change .filling-line length according to the selected event
+            var eventStyle = window.getComputedStyle(selectedEvent.get(0), null),
+                eventLeft = eventStyle.getPropertyValue("left"),
+                eventWidth = eventStyle.getPropertyValue("width");
+            eventLeft = Number(eventLeft.replace('px', '')) + Number(eventWidth.replace('px', '')) / 2;
+            var scaleValue = eventLeft / totWidth;
+            setTransformValue(filling.get(0), 'scaleX', scaleValue);
+        }
+
+        function setDatePosition(timelineComponents, min) {
+            let leftOld = 0;
+            for (let i = 0; i < timelineComponents['timelineDates'].length; i++) {
+                var index = i == 0 ? 0 : (i + timelineComponents['timelineDates'].length - 1) % timelineComponents['timelineDates'].length,
+                    timelineWidth = Math.round(Number(timelineComponents['timelineWrapper'].css('width').replace('px', '')) / 4),
+                    distance = daydiff(timelineComponents['timelineDates'][index], timelineComponents['timelineDates'][i]),
+                    distanceNorm = Math.round(distance / (timelineComponents['eventsMinLapse'] == 0 ? 1 : timelineComponents['eventsMinLapse'])) + 2,
+                    width = (distanceNorm + leftOld) + min;
+                leftOld = width + (i == 0 ? 0 : timelineWidth);
+                timelineComponents['timelineEvents'].eq(i).css('left', leftOld + 'px');
+            }
+        }
+
+        function setTimelineWidth(timelineComponents, width) {
+            var timeSpan = daydiff(timelineComponents['timelineDates'][0], timelineComponents['timelineDates'][timelineComponents['timelineDates'].length - 1]),
+                timeSpanNorm = timeSpan / timelineComponents['eventsMinLapse'],
+                timeSpanNorm = Math.round(timeSpanNorm) + 4,
+                totalWidth = timeSpanNorm * width;
+            timelineComponents['eventsWrapper'].css('width', totalWidth + 'px');
+            updateFilling(timelineComponents['timelineEvents'].eq(0), timelineComponents['fillingLine'], totalWidth);
+
+            return totalWidth;
+        }
+
+        function updateVisibleContent(event, eventsContent) {
+            var eventDate = event.data('date'),
+                visibleContent = eventsContent.find('.selected'),
+                selectedContent = eventsContent.find('[data-date="' + eventDate + '"]'),
+                selectedContentHeight = selectedContent.height();
+
+            if (selectedContent.index() > visibleContent.index()) {
+                var classEnetering = 'selected enter-right',
+                    classLeaving = 'leave-left';
+            } else {
+                var classEnetering = 'selected enter-left',
+                    classLeaving = 'leave-right';
+            }
+
+            selectedContent.attr('class', classEnetering);
+            visibleContent.attr('class', classLeaving).one('webkitAnimationEnd oanimationend msAnimationEnd animationend', function () {
+                visibleContent.removeClass('leave-right leave-left');
+                selectedContent.removeClass('enter-left enter-right');
+            });
+            eventsContent.css('height', selectedContentHeight + 'px');
+        }
+
+        function updateOlderEvents(event) {
+            event.parent('li').prevAll('li').children('a').addClass('older-event').end().end().nextAll('li').children('a').removeClass('older-event');
+        }
+
+        function getTranslateValue(timeline) {
+            var timelineStyle = window.getComputedStyle(timeline.get(0), null),
+                timelineTranslate = timelineStyle.getPropertyValue("-webkit-transform") ||
+                    timelineStyle.getPropertyValue("-moz-transform") ||
+                    timelineStyle.getPropertyValue("-ms-transform") ||
+                    timelineStyle.getPropertyValue("-o-transform") ||
+                    timelineStyle.getPropertyValue("transform");
+
+            if (timelineTranslate.indexOf('(') >= 0) {
+                var timelineTranslate = timelineTranslate.split('(')[1];
+                timelineTranslate = timelineTranslate.split(')')[0];
+                timelineTranslate = timelineTranslate.split(',');
+                var translateValue = timelineTranslate[4];
+            } else {
+                var translateValue = 0;
+            }
+
+            return Number(translateValue);
+        }
+
+        function setTransformValue(element, property, value) {
+            element.style["-webkit-transform"] = property + "(" + value + ")";
+            element.style["-moz-transform"] = property + "(" + value + ")";
+            element.style["-ms-transform"] = property + "(" + value + ")";
+            element.style["-o-transform"] = property + "(" + value + ")";
+            element.style["transform"] = property + "(" + value + ")";
+            window.dispatchEvent(new Event('resize'));
+        }
+
+        //based on http://stackoverflow.com/questions/542938/how-do-i-get-the-number-of-days-between-two-dates-in-javascript
+        function parseDate(events) {
+            var dateArrays = [];
+            events.each(function () {
+                // var dateComp = new Date($(this).data('date') * 1e3).toLocaleDateString("en-US").split('/'),
+                //     newDate = new Date(dateComp[2], dateComp[1], dateComp[0]);
+                // console.log($(this).data('date'), new Date($(this).data('date') * 1e3))
+                dateArrays.push(new Date($(this).data('date') * 1e3));
+            });
+            return dateArrays;
+        }
+
+        function parseDate2(events) {
+            var dateArrays = [];
+            events.each(function () {
+                var singleDate = $(this),
+                    dateComp = singleDate.data('date').split('T');
+                if (dateComp.length > 1) { //both DD/MM/YEAR and time are provided
+                    var dayComp = dateComp[0].split('/'),
+                        timeComp = dateComp[1].split(':');
+                } else if (dateComp[0].indexOf(':') >= 0) { //only time is provide
+                    var dayComp = ["2000", "0", "0"],
+                        timeComp = dateComp[0].split(':');
+                } else { //only DD/MM/YEAR
+                    var dayComp = dateComp[0].split('/'),
+                        timeComp = ["0", "0"];
+                }
+                var newDate = new Date(dayComp[2], dayComp[1] - 1, dayComp[0], timeComp[0], timeComp[1]);
+                dateArrays.push(newDate);
+            });
+            return dateArrays;
+        }
+
+        function daydiff(first, second) {
+            return Math.round((second - first));
+        }
+
+        function minLapse(dates) {
+            //determine the minimum distance among events
+            var dateDistances = [];
+            for (let i = 1; i < dates.length; i++) {
+                var distance = daydiff(dates[i - 1], dates[i]);
+                dateDistances.push(distance);
+            }
+            return Math.min.apply(null, dateDistances);
+        }
+
+        /*
+            How to tell if a DOM element is visible in the current viewport?
+            http://stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport
+        */
+        function elementInViewport(el) {
+            var top = el.offsetTop;
+            var left = el.offsetLeft;
+            var width = el.offsetWidth;
+            var height = el.offsetHeight;
+
+            while (el.offsetParent) {
+                el = el.offsetParent;
+                top += el.offsetTop;
+                left += el.offsetLeft;
+            }
+
+            return (
+                top < (window.pageYOffset + window.innerHeight) &&
+                left < (window.pageXOffset + window.innerWidth) &&
+                (top + height) > window.pageYOffset &&
+                (left + width) > window.pageXOffset
+            );
+        }
+
+        function checkMQ() {
+            //check if mobile or desktop device
+            return window.getComputedStyle(document.querySelector('.cd-horizontal-timeline'), '::before').getPropertyValue('content').replace(/'/g, "").replace(/"/g, "");
+        }
+    }
+}

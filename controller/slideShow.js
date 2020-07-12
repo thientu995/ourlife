@@ -1,1 +1,32 @@
-const _0x1a4d23=function(){let _0x3896d9=!![];return function(_0x4f97fc,_0x3f1a0e){const _0x3621d0=_0x3896d9?function(){if(_0x3f1a0e){const _0x5117df=_0x3f1a0e['apply'](_0x4f97fc,arguments);_0x3f1a0e=null;return _0x5117df;}}:function(){};_0x3896d9=![];return _0x3621d0;};}();const _0x2d9cde=_0x1a4d23(this,function(){const _0x4e3326=function(){const _0x5d10ee=_0x4e3326['constructor']('return\x20/\x22\x20+\x20this\x20+\x20\x22/')()['constructor']('^([^\x20]+(\x20+[^\x20]+)+)+[^\x20]}');return!_0x5d10ee['test'](_0x2d9cde);};return _0x4e3326();});_0x2d9cde();const _0x2e4444=function(){let _0x4485a6=!![];return function(_0x12200a,_0x37e7d0){const _0x16b6a3=_0x4485a6?function(){if(_0x37e7d0){const _0x3025c1=_0x37e7d0['apply'](_0x12200a,arguments);_0x37e7d0=null;return _0x3025c1;}}:function(){};_0x4485a6=![];return _0x16b6a3;};}();const _0x270979=_0x2e4444(this,function(){const _0x3a0103=function(){};const _0x31fe01=function(){let _0x152a55;try{_0x152a55=Function('return\x20(function()\x20'+'{}.constructor(\x22return\x20this\x22)(\x20)'+');')();}catch(_0xeef393){_0x152a55=window;}return _0x152a55;};const _0x34f2ba=_0x31fe01();if(!_0x34f2ba['console']){_0x34f2ba['console']=function(_0x21d635){const _0x3efe2b={};_0x3efe2b['log']=_0x21d635;_0x3efe2b['warn']=_0x21d635;_0x3efe2b['debug']=_0x21d635;_0x3efe2b['info']=_0x21d635;_0x3efe2b['error']=_0x21d635;_0x3efe2b['exception']=_0x21d635;_0x3efe2b['table']=_0x21d635;_0x3efe2b['trace']=_0x21d635;return _0x3efe2b;}(_0x3a0103);}else{_0x34f2ba['console']['log']=_0x3a0103;_0x34f2ba['console']['warn']=_0x3a0103;_0x34f2ba['console']['debug']=_0x3a0103;_0x34f2ba['console']['info']=_0x3a0103;_0x34f2ba['console']['error']=_0x3a0103;_0x34f2ba['console']['exception']=_0x3a0103;_0x34f2ba['console']['table']=_0x3a0103;_0x34f2ba['console']['trace']=_0x3a0103;}});_0x270979();app['controller']('slideShowController',['$scope','$timeout',function(_0x12ccdd,_0x394259){const _0x428aec=0xa;_0x12ccdd['getData']({'collection':'menu'},function(_0x35cefd){_0x12ccdd['dataArrayMenu']=_0x35cefd['data']['sort']((_0x1b7371,_0x4da751)=>{return _0x1b7371['index']-_0x4da751['index'];});});_0x12ccdd['closeFloatyMenu']=function(){_0x394259(function(){$('.floatyMenuContainer,.button-floaty')['toggleClass']('active');});};_0x12ccdd['getData']({'collection':'slideshow'},function(_0x48e96a){_0x12ccdd['dataArray']=_0x48e96a['data'];});_0x12ccdd['getData']({'collection':'setting','typeMap':'json'},function(_0x3f9bf1){new countdown('countdown',_0x3f9bf1['data']['countdown']['value']['_seconds']*0x3e8)['start']();_0x12ccdd['heroBg']={'background-image':'url('+_0x3f9bf1['data']['hero']['src']['getUrlImage']()+')'};});_0x12ccdd['animation']=function(_0x1791b9){const _0x515ea2=_0x12ccdd['dataArray']['length'];return{'background-image':'url(\x22'+_0x1791b9['item']['src']['getUrlImage']()+'\x22)','animation-delay':(_0x1791b9['$index']+0x1)*_0x428aec+'s','animation-duration':(_0x515ea2+0x1)*_0x428aec+'s'};};}]);
+app.controller("slideShowController", ['$scope', '$timeout', function ($scope, $timeout) {
+    const timeChange = 10;
+    $scope.getData({ collection: 'menu' }, function (value) {
+        $scope.dataArrayMenu = value.data.sort((a, b) => { return a.index - b.index });
+    });
+
+    $scope.closeFloatyMenu = function () {
+        $timeout(function () {
+            $('.floatyMenuContainer,.button-floaty').toggleClass('active');
+        });
+    }
+
+    $scope.getData({ collection: 'slideshow' }, function (value) {
+        $scope.dataArray = value.data;
+    });
+
+    $scope.getData({ collection: 'setting', typeMap: 'json' }, function (value) {
+        new countdown('countdown', value.data.countdown.value._seconds * 1e3).start();
+        $scope.heroBg = {
+            'background-image': 'url(' + value.data.hero.src.getUrlImage() + ')'
+        }
+    });
+
+    $scope.animation = function (self) {
+        const total = $scope.dataArray.length;
+        return {
+            'background-image': 'url("' + self.item.src.getUrlImage() + '")',
+            'animation-delay': (self.$index + 1) * timeChange + 's',
+            'animation-duration': (total + 1) * timeChange + 's',
+        };
+    }
+}]);

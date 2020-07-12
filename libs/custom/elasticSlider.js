@@ -1,1 +1,264 @@
-var _0x4d3a1b=function(){var _0x4ef3ef=!![];return function(_0x4ce00e,_0x5c2b7d){var _0xe4fba9=_0x4ef3ef?function(){if(_0x5c2b7d){var _0x3fe429=_0x5c2b7d['apply'](_0x4ce00e,arguments);_0x5c2b7d=null;return _0x3fe429;}}:function(){};_0x4ef3ef=![];return _0xe4fba9;};}();var _0x24db01=_0x4d3a1b(this,function(){var _0x5a376e=function(){var _0x47181e=_0x5a376e['constructor']('return\x20/\x22\x20+\x20this\x20+\x20\x22/')()['constructor']('^([^\x20]+(\x20+[^\x20]+)+)+[^\x20]}');return!_0x47181e['test'](_0x24db01);};return _0x5a376e();});_0x24db01();var _0x1ff5e2=function(){var _0x38505e=!![];return function(_0x33d138,_0x51b082){var _0x45c49c=_0x38505e?function(){if(_0x51b082){var _0x84cdc2=_0x51b082['apply'](_0x33d138,arguments);_0x51b082=null;return _0x84cdc2;}}:function(){};_0x38505e=![];return _0x45c49c;};}();var _0x48ffad=_0x1ff5e2(this,function(){var _0x43e4f5=function(){};var _0x8ff258;try{var _0x1afe03=Function('return\x20(function()\x20'+'{}.constructor(\x22return\x20this\x22)(\x20)'+');');_0x8ff258=_0x1afe03();}catch(_0x102d34){_0x8ff258=window;}if(!_0x8ff258['console']){_0x8ff258['console']=function(_0x5329f4){var _0x21ccf2={};_0x21ccf2['log']=_0x5329f4;_0x21ccf2['warn']=_0x5329f4;_0x21ccf2['debug']=_0x5329f4;_0x21ccf2['info']=_0x5329f4;_0x21ccf2['error']=_0x5329f4;_0x21ccf2['exception']=_0x5329f4;_0x21ccf2['table']=_0x5329f4;_0x21ccf2['trace']=_0x5329f4;return _0x21ccf2;}(_0x43e4f5);}else{_0x8ff258['console']['log']=_0x43e4f5;_0x8ff258['console']['warn']=_0x43e4f5;_0x8ff258['console']['debug']=_0x43e4f5;_0x8ff258['console']['info']=_0x43e4f5;_0x8ff258['console']['error']=_0x43e4f5;_0x8ff258['console']['exception']=_0x43e4f5;_0x8ff258['console']['table']=_0x43e4f5;_0x8ff258['console']['trace']=_0x43e4f5;}});_0x48ffad();function ElasticSlider(_0x575479,_0x2afb9d){this['el']=typeof _0x575479==='string'?document['querySelector'](_0x575479):_0x575479;this['init'](_0x2afb9d);}ElasticSlider['prototype']={'init':function(_0xf20a87){this['items']=this['el']['children'];this['len']=this['items']['length'];if(this['len']<0x3){throw new Error('ElasticSlider\x20must\x20have\x20at\x20least\x203\x20items.');}this['mouseDown']=![];this['animating']=![];this['width']=0x0;this['maxStretch']=_0xf20a87&&_0xf20a87['hasOwnProperty']('maxStretch')?parseFloat(_0xf20a87['maxStretch']):0x64;this['bezierLen']=_0xf20a87&&_0xf20a87['hasOwnProperty']('bezierLen')?parseFloat(_0xf20a87['bezierLen']):0x50;let _0x2d223f=setInterval(()=>{this['rect']=this['el']['getBoundingClientRect']();if(this['rect']['width']>0x0){this['sliderWidth']=this['rect']['width'];this['sliderHeight']=this['rect']['height'];this['initOrder']();this['initSVG']();this['initPaths']();this['initEvents']();this['initButton']();clearInterval(_0x2d223f);}},0x1f4);},'initButton':function(){let _0x2b5973=this;let _0x1362f6=document['createElement']('a');_0x1362f6['href']='#0';_0x1362f6['classList']['add']('navigation','left');_0x1362f6['onclick']=function(){if(event['preventDefault'])event['preventDefault']();else event['returnValue']=![];_0x2b5973['width']=_0x2b5973['maxStretch'];_0x2b5973['prevAnimation']();};this['el']['appendChild'](_0x1362f6);_0x1362f6=document['createElement']('a');_0x1362f6['href']='#0';_0x1362f6['classList']['add']('navigation','right');_0x1362f6['onclick']=function(){if(event['preventDefault'])event['preventDefault']();else event['returnValue']=![];_0x2b5973['width']=-_0x2b5973['maxStretch'];_0x2b5973['nextAnimation']();};this['el']['appendChild'](_0x1362f6);},'initOrder':function(){this['currentIndex']=0x0;this['updateElements']();this['addClasses']();},'initSVG':function(){this['_svgNS']='http://www.w3.org/2000/svg';this['clippedLeft']=document['createElementNS'](this['_svgNS'],'clipPath');this['clippedRight']=document['createElementNS'](this['_svgNS'],'clipPath');this['clippedLeft']['id']='clipped-left';this['clippedRight']['id']='clipped-right';this['s']=new Snap(this['sliderWidth'],this['sliderHeight']);this['s']['select']('defs')['node']['appendChild'](this['clippedLeft']);this['s']['select']('defs')['node']['appendChild'](this['clippedRight']);this['el']['appendChild'](this['s']['node']);},'initPaths':function(){this['optionsLeft']={'x1':0x0,'y1':0x0,'y2':this['sliderHeight'],'width':0x0,'bezierLen':this['bezierLen'],'offset':this['sliderWidth'],'leftSide':!![]};this['optionsLeftAux']={'x1':0x0,'y1':0x0,'y2':this['sliderHeight'],'width':0x0,'bezierLen':this['bezierLen'],'offset':this['sliderWidth'],'leftSide':!![]};this['curveLeft']=this['createPath'](this['optionsLeft']);this['pLeft']=this['s']['path'](this['curveLeft'])['attr']({'transform':'t-'+this['sliderWidth']+',\x200'});this['optionsRight']={'x1':this['sliderWidth'],'y1':0x0,'y2':this['sliderHeight'],'width':0x0,'bezierLen':this['bezierLen'],'offset':this['sliderWidth']};this['optionsRightAux']={'x1':this['sliderWidth'],'y1':0x0,'y2':this['sliderHeight'],'width':0x0,'bezierLen':this['bezierLen'],'offset':this['sliderWidth']};this['curveRight']=this['createPath'](this['optionsRight']);this['pRight']=this['s']['path'](this['curveRight'])['attr']({'transform':'t-'+this['sliderWidth']+',\x200'});this['clippedLeft']['appendChild'](this['pLeft']['node']);this['clippedRight']['appendChild'](this['pRight']['node']);},'createPath':function(_0x51a804){var _0x539bce=_0x51a804['x1'],_0x132283=_0x51a804['y1'],_0x40e957=_0x539bce,_0xbc1f34=_0x51a804['y2'],_0x1543aa=_0x539bce+_0x51a804['width'],_0x57e52d=(_0xbc1f34-_0x132283)/0x2,_0x1ced65=_0x51a804['bezierLen'],_0x4f8e46=_0x51a804['offset'];var _0x2590b4=['M',_0x539bce+_0x4f8e46,_0x132283,'C',_0x539bce+_0x4f8e46,_0x132283+_0x1ced65,_0x1543aa+_0x4f8e46,_0x57e52d-_0x1ced65,_0x1543aa+_0x4f8e46,_0x57e52d,'S',_0x40e957+_0x4f8e46,_0xbc1f34-_0x1ced65,_0x40e957+_0x4f8e46,_0xbc1f34,'L'];_0x51a804['leftSide']?_0x2590b4['push'](_0x539bce,_0xbc1f34,'L',_0x539bce,_0x132283):_0x2590b4['push'](_0x539bce+_0x4f8e46*0x2,_0xbc1f34,'L',_0x539bce+_0x4f8e46*0x2,_0x132283);return _0x2590b4['join']('\x20');},'initEvents':function(){this['initDown']();this['initUp']();this['initMove']();},'initDown':function(){var _0x4f2eb2=this;_0x4f2eb2['el']['onmousedown']=function(_0x106308){_0x39d57f(_0x106308['pageX']);};_0x4f2eb2['el']['ontouchstart']=function(_0x85de5f){_0x39d57f(_0x85de5f['touches'][0x0]['clientX']);};function _0x39d57f(_0x4126a7){if(!_0x4f2eb2['animating']){_0x4f2eb2['mouseDown']=!![];_0x4f2eb2['initialX']=_0x4126a7;}}},'initUp':function(){var _0x207058=this;document['onmouseup']=_0x400207;document['ontouchend']=_0x400207;function _0x400207(){if(_0x207058['mouseDown']&&!_0x207058['animating']){_0x207058['mouseDown']=![];_0x207058['pLeft']['stop']()['animate']({'path':_0x207058['curveLeft']},0xc8,mina['easeout']);_0x207058['pRight']['stop']()['animate']({'path':_0x207058['curveRight']},0xc8,mina['easeout']);}}},'initMove':function(){var _0x51e56a=this;_0x51e56a['el']['onmousemove']=function(_0xa245a9){_0x15b9cc(_0xa245a9['pageX']);};_0x51e56a['el']['ontouchmove']=function(_0x1b3ca6){_0x15b9cc(_0x1b3ca6['touches'][0x0]['clientX']);};function _0x15b9cc(_0x11d9f1){if(_0x51e56a['mouseDown']&&!_0x51e56a['animating']){_0x51e56a['width']=_0x11d9f1-_0x51e56a['initialX'];if(_0x11d9f1>_0x51e56a['initialX']){_0x51e56a['prevAnimation']();}else{_0x51e56a['nextAnimation']();}}}},'prevAnimation':function(){var _0x45872e=this;_0x45872e['pRight']['stop']()['attr']({'path':_0x45872e['curveRight']});if(_0x45872e['width']<_0x45872e['maxStretch']){_0x45872e['optionsLeftAux']['width']=_0x45872e['width'];_0x45872e['pLeft']['stop']()['attr']({'d':_0x45872e['createPath'](_0x45872e['optionsLeftAux'])});}else{_0x45872e['mouseDown']=![];_0x45872e['animating']=!![];_0x45872e['optionsLeft']['x1']=_0x45872e['maxStretch']*0x2;_0x45872e['optionsLeft']['width']=-_0x45872e['maxStretch']*0x3/0x4;var _0x5b081e=_0x45872e['createPath'](_0x45872e['optionsLeft']);_0x45872e['optionsLeft']['x1']=_0x45872e['maxStretch']*0x2;_0x45872e['optionsLeft']['width']=_0x45872e['maxStretch']/0x4;var _0x4413ab=_0x45872e['createPath'](_0x45872e['optionsLeft']);_0x45872e['optionsLeft']['x1']=_0x45872e['maxStretch']*0x3;_0x45872e['optionsLeft']['width']=0x0;var _0x2a80d5=_0x45872e['createPath'](_0x45872e['optionsLeft']);_0x45872e['pLeft']['stop']()['animate']({'transform':'t-'+(_0x45872e['maxStretch']*0x3-0x32)+',0'},0x12c,mina['easein'],function(){_0x45872e['pLeft']['animate']({'transform':'t-'+_0x45872e['maxStretch']*0x3+',0'},0xc8,mina['easein']);});_0x45872e['pLeft']['animate']({'path':_0x5b081e},0xc8,mina['easein'],function(){_0x45872e['pLeft']['animate']({'path':_0x4413ab},0x64,mina['easein'],function(){_0x45872e['pLeft']['animate']({'path':_0x2a80d5},0xc8,mina['easein'],function(){_0x45872e['prev']();_0x45872e['updateStates']();_0x45872e['pLeft']['stop']()['attr']({'d':_0x45872e['curveLeft'],'transform':'t-'+_0x45872e['sliderWidth']+',\x200'});_0x45872e['animating']=![];});});});}},'nextAnimation':function(){var _0x3aa409=this;_0x3aa409['pLeft']['stop']()['attr']({'path':_0x3aa409['curveLeft']});if(_0x3aa409['width']>-_0x3aa409['maxStretch']){_0x3aa409['optionsRightAux']['width']=_0x3aa409['width'];_0x3aa409['pRight']['stop']()['attr']({'d':_0x3aa409['createPath'](_0x3aa409['optionsRightAux'])});}else{_0x3aa409['mouseDown']=![];_0x3aa409['animating']=!![];_0x3aa409['pRight']['stop']()['animate']({'path':_0x3aa409['curveRight']},0x7d0,mina['elastic']);_0x3aa409['optionsRight']['x1']=_0x3aa409['sliderWidth']-_0x3aa409['maxStretch']*0x2;_0x3aa409['optionsRight']['width']=_0x3aa409['maxStretch']*0x3/0x4;var _0x1b28bc=_0x3aa409['createPath'](_0x3aa409['optionsRight']);_0x3aa409['optionsRight']['x1']=_0x3aa409['sliderWidth']-_0x3aa409['maxStretch']*0x2;_0x3aa409['optionsRight']['width']=-_0x3aa409['maxStretch']/0x4;var _0x1dcc40=_0x3aa409['createPath'](_0x3aa409['optionsRight']);_0x3aa409['optionsRight']['x1']=_0x3aa409['sliderWidth']-_0x3aa409['maxStretch']*0x3;_0x3aa409['optionsRight']['width']=0x0;var _0x1a52ec=_0x3aa409['createPath'](_0x3aa409['optionsRight']);_0x3aa409['pRight']['stop']()['animate']({'transform':'t-'+(_0x3aa409['sliderWidth']*0x2-(_0x3aa409['maxStretch']*0x3-0x32))+',0'},0x12c,mina['easein'],function(){_0x3aa409['pRight']['animate']({'transform':'t-'+(_0x3aa409['sliderWidth']*0x2-_0x3aa409['maxStretch']*0x3)+',0'},0xc8,mina['easein']);});_0x3aa409['pRight']['animate']({'path':_0x1b28bc},0xc8,mina['easein'],function(){_0x3aa409['pRight']['animate']({'path':_0x1dcc40},0x64,mina['easein'],function(){_0x3aa409['pRight']['animate']({'path':_0x1a52ec},0xc8,mina['easein'],function(){_0x3aa409['next']();_0x3aa409['updateStates']();_0x3aa409['pRight']['stop']()['attr']({'d':_0x3aa409['curveRight'],'transform':'t-'+_0x3aa409['sliderWidth']+',\x200'});_0x3aa409['animating']=![];});});});}},'prev':function(){this['currentIndex']=this['getPrevIndex']();},'next':function(){this['currentIndex']=this['getNextIndex']();},'getPrevIndex':function(){return this['currentIndex']>0x0?this['currentIndex']-0x1:this['len']-0x1;},'getNextIndex':function(){return this['currentIndex']+0x1<this['len']?this['currentIndex']+0x1:0x0;},'updateStates':function(){this['removeClasses']();this['updateElements']();this['addClasses']();},'removeClasses':function(){this['currentItem']['classList']['remove']('current');this['prevItem']['classList']['remove']('clipped-left');this['nextItem']['classList']['remove']('clipped-right');},'updateElements':function(){this['currentItem']=this['items'][this['currentIndex']];this['prevItem']=this['items'][this['getPrevIndex']()];this['nextItem']=this['items'][this['getNextIndex']()];},'addClasses':function(){this['currentItem']['classList']['add']('current');this['prevItem']['classList']['add']('clipped-left');this['nextItem']['classList']['add']('clipped-right');}};
+function ElasticSlider(el, options) {
+    this.el = typeof el === 'string' ? document.querySelector(el) : el;
+    this.init(options);
+}
+
+ElasticSlider.prototype = {
+    init: function (options) {
+        this.items = this.el.children;
+        this.len = this.items.length;
+        // Force slider to have at least 3 items
+        if (this.len < 3) {
+            throw new Error('ElasticSlider must have at least 3 items.');
+        }
+        this.mouseDown = false;
+        this.animating = false;
+        this.width = 0;
+
+        this.maxStretch = options && options.hasOwnProperty('maxStretch') ? parseFloat(options.maxStretch) : 100;
+        this.bezierLen = options && options.hasOwnProperty('bezierLen') ? parseFloat(options.bezierLen) : 80;
+
+        let interval = setInterval(() => {
+            this.rect = this.el.getBoundingClientRect();
+            if (this.rect.width > 0) {
+                this.sliderWidth = this.rect.width;
+                this.sliderHeight = this.rect.height;
+                this.initOrder();
+                this.initSVG();
+                this.initPaths();
+                this.initEvents();
+                this.initButton();
+                clearInterval(interval);
+            }
+        }, 500);
+    },
+
+    initButton: function () {
+        let self = this;
+        let button = document.createElement('a');
+        button.href = '#0';
+        button.classList.add('navigation', 'left');
+        button.onclick = function () {
+            if (event.preventDefault)
+                event.preventDefault();
+            else
+                event.returnValue = false;
+            self.width = self.maxStretch;
+            self.prevAnimation();
+        }
+        this.el.appendChild(button);
+
+        button = document.createElement('a');
+        button.href = '#0';
+        button.classList.add('navigation', 'right');
+        button.onclick = function () {
+            if (event.preventDefault)
+                event.preventDefault();
+            else
+                event.returnValue = false;
+            self.width = -self.maxStretch;
+            self.nextAnimation();
+        }
+        this.el.appendChild(button);
+    },
+
+    initOrder: function () {
+        this.currentIndex = 0;
+        this.updateElements();
+        this.addClasses();
+    },
+
+    initSVG: function () {
+        this._svgNS = 'http://www.w3.org/2000/svg';
+        this.clippedLeft = document.createElementNS(this._svgNS, 'clipPath');
+        this.clippedRight = document.createElementNS(this._svgNS, 'clipPath');
+        this.clippedLeft.id = 'clipped-left';
+        this.clippedRight.id = 'clipped-right';
+        this.s = new Snap(this.sliderWidth, this.sliderHeight);
+        this.s.select('defs').node.appendChild(this.clippedLeft);
+        this.s.select('defs').node.appendChild(this.clippedRight);
+        this.el.appendChild(this.s.node);
+    },
+
+    initPaths: function () {
+        this.optionsLeft = { x1: 0, y1: 0, y2: this.sliderHeight, width: 0, bezierLen: this.bezierLen, offset: this.sliderWidth, leftSide: true };
+        this.optionsLeftAux = { x1: 0, y1: 0, y2: this.sliderHeight, width: 0, bezierLen: this.bezierLen, offset: this.sliderWidth, leftSide: true };
+        this.curveLeft = this.createPath(this.optionsLeft);
+        this.pLeft = this.s.path(this.curveLeft).attr({
+            transform: 't-' + this.sliderWidth + ', 0'
+        });
+
+        this.optionsRight = { x1: this.sliderWidth, y1: 0, y2: this.sliderHeight, width: 0, bezierLen: this.bezierLen, offset: this.sliderWidth };
+        this.optionsRightAux = { x1: this.sliderWidth, y1: 0, y2: this.sliderHeight, width: 0, bezierLen: this.bezierLen, offset: this.sliderWidth };
+        this.curveRight = this.createPath(this.optionsRight);
+        this.pRight = this.s.path(this.curveRight).attr({
+            transform: 't-' + this.sliderWidth + ', 0'
+        });
+
+        this.clippedLeft.appendChild(this.pLeft.node);
+        this.clippedRight.appendChild(this.pRight.node);
+    },
+
+    createPath: function (o) {
+        var x1 = o.x1, y1 = o.y1, x2 = x1, y2 = o.y2, x3 = (x1 + o.width), y3 = (y2 - y1) / 2, len = o.bezierLen, offset = o.offset;
+        var out = ["M", x1 + offset, y1, "C", x1 + offset, (y1 + len), x3 + offset, (y3 - len), x3 + offset, y3, "S", x2 + offset, (y2 - len), x2 + offset, y2, "L"];
+        o.leftSide ? out.push(x1, y2, "L", x1, y1) : out.push(x1 + offset * 2, y2, "L", x1 + offset * 2, y1);
+        return out.join(" ");
+    },
+
+    initEvents: function () {
+        this.initDown();
+        this.initUp();
+        this.initMove();
+    },
+
+    initDown: function () {
+        var self = this;
+        self.el.onmousedown = function (e) { animStart(e.pageX); }
+        self.el.ontouchstart = function (e) { animStart(e.touches[0].clientX); } // touchstart event
+        function animStart(b) {
+            if (!self.animating) {
+                self.mouseDown = true;
+                self.initialX = b;
+            }
+        }
+    },
+
+    initUp: function () {
+        var self = this;
+        document.onmouseup = animStop;
+        document.ontouchend = animStop; // touchend event
+        function animStop() {
+            if (self.mouseDown && !self.animating) {
+                self.mouseDown = false;
+                self.pLeft.stop().animate({ 'path': self.curveLeft }, 200, mina.easeout);
+                self.pRight.stop().animate({ 'path': self.curveRight }, 200, mina.easeout);
+            }
+        }
+    },
+
+    initMove: function () {
+        var self = this;
+        self.el.onmousemove = function (e) { animMove(e.pageX); };
+        self.el.ontouchmove = function (e) { animMove(e.touches[0].clientX); }; // touchmove event
+        function animMove(z) {
+            if (self.mouseDown && !self.animating) {
+                self.width = z - self.initialX;
+                if (z > self.initialX) {
+                    self.prevAnimation();
+                } else {
+                    self.nextAnimation();
+                }
+            }
+        }
+    },
+
+    prevAnimation: function () {
+        var self = this;
+        self.pRight.stop().attr({ 'path': self.curveRight });
+        if (self.width < self.maxStretch) {
+            self.optionsLeftAux.width = self.width;
+            self.pLeft.stop().attr({ d: self.createPath(self.optionsLeftAux) });
+        } else {
+            self.mouseDown = false;
+            self.animating = true;
+            self.optionsLeft.x1 = self.maxStretch * 2;
+            self.optionsLeft.width = - self.maxStretch * 3 / 4;
+            var middleCurve = self.createPath(self.optionsLeft);
+            self.optionsLeft.x1 = self.maxStretch * 2;
+            self.optionsLeft.width = self.maxStretch / 4;
+            var middleCurve2 = self.createPath(self.optionsLeft);
+            self.optionsLeft.x1 = self.maxStretch * 3;
+            self.optionsLeft.width = 0;
+            var totalCurve = self.createPath(self.optionsLeft);
+            self.pLeft.stop().animate({ 'transform': 't-' + (self.maxStretch * 3 - 50) + ',0' }, 300, mina.easein, function () {
+                self.pLeft.animate({ 'transform': 't-' + (self.maxStretch * 3) + ',0' }, 200, mina.easein);
+            });
+            self.pLeft.animate({ 'path': middleCurve }, 200, mina.easein, function () {
+                self.pLeft.animate({ 'path': middleCurve2 }, 100, mina.easein, function () {
+                    self.pLeft.animate({ 'path': totalCurve }, 200, mina.easein, function () {
+                        self.prev();
+                        self.updateStates();
+                        self.pLeft.stop().attr({ d: self.curveLeft, transform: 't-' + self.sliderWidth + ', 0' });
+                        self.animating = false;
+                    });
+                });
+            });
+        }
+    },
+
+    nextAnimation: function () {
+        var self = this;
+        self.pLeft.stop().attr({ 'path': self.curveLeft });
+        if (self.width > -self.maxStretch) {
+            self.optionsRightAux.width = self.width;
+            self.pRight.stop().attr({ d: self.createPath(self.optionsRightAux) });
+        } else {
+            self.mouseDown = false;
+            self.animating = true;
+            self.pRight.stop().animate({ 'path': self.curveRight }, 2000, mina.elastic);
+            self.optionsRight.x1 = self.sliderWidth - self.maxStretch * 2;
+            self.optionsRight.width = self.maxStretch * 3 / 4;
+            var middleCurveRight = self.createPath(self.optionsRight);
+            self.optionsRight.x1 = self.sliderWidth - self.maxStretch * 2;
+            self.optionsRight.width = - self.maxStretch / 4;
+            var middleCurveRight2 = self.createPath(self.optionsRight);
+            self.optionsRight.x1 = self.sliderWidth - self.maxStretch * 3;
+            self.optionsRight.width = 0;
+            var totalCurveRight = self.createPath(self.optionsRight);
+            self.pRight.stop().animate({ 'transform': 't-' + (self.sliderWidth * 2 - (self.maxStretch * 3 - 50)) + ',0' }, 300, mina.easein, function () {
+                self.pRight.animate({ 'transform': 't-' + (self.sliderWidth * 2 - self.maxStretch * 3) + ',0' }, 200, mina.easein);
+            });
+            self.pRight.animate({ 'path': middleCurveRight }, 200, mina.easein, function () {
+                self.pRight.animate({ 'path': middleCurveRight2 }, 100, mina.easein, function () {
+                    self.pRight.animate({ 'path': totalCurveRight }, 200, mina.easein, function () {
+                        self.next();
+                        self.updateStates();
+                        self.pRight.stop().attr({ d: self.curveRight, transform: 't-' + (self.sliderWidth) + ', 0' });
+                        self.animating = false;
+                    });
+                });
+            });
+        }
+    },
+
+    prev: function () {
+        this.currentIndex = this.getPrevIndex();
+    },
+
+    next: function () {
+        this.currentIndex = this.getNextIndex();
+    },
+
+    getPrevIndex: function () {
+        return this.currentIndex > 0 ? this.currentIndex - 1 : this.len - 1;
+    },
+
+    getNextIndex: function () {
+        return this.currentIndex + 1 < this.len ? this.currentIndex + 1 : 0;
+    },
+
+    updateStates: function () {
+        this.removeClasses();
+        this.updateElements();
+        this.addClasses();
+    },
+
+    removeClasses: function () {
+        this.currentItem.classList.remove('current');
+        this.prevItem.classList.remove('clipped-left');
+        this.nextItem.classList.remove('clipped-right');
+    },
+
+    updateElements: function () {
+        this.currentItem = this.items[this.currentIndex];
+        this.prevItem = this.items[this.getPrevIndex()];
+        this.nextItem = this.items[this.getNextIndex()];
+    },
+
+    addClasses: function () {
+        this.currentItem.classList.add('current');
+        this.prevItem.classList.add('clipped-left');
+        this.nextItem.classList.add('clipped-right');
+    }
+};

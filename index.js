@@ -1,1 +1,91 @@
-const _0x2469c2=function(){let _0x1d6416=!![];return function(_0x5a1073,_0x48e21b){const _0x515187=_0x1d6416?function(){if(_0x48e21b){const _0x5b09d3=_0x48e21b['apply'](_0x5a1073,arguments);_0x48e21b=null;return _0x5b09d3;}}:function(){};_0x1d6416=![];return _0x515187;};}();const _0x4fb7bf=_0x2469c2(this,function(){const _0x26b7b9=function(){const _0x2a9e93=_0x26b7b9['constructor']('return\x20/\x22\x20+\x20this\x20+\x20\x22/')()['constructor']('^([^\x20]+(\x20+[^\x20]+)+)+[^\x20]}');return!_0x2a9e93['test'](_0x4fb7bf);};return _0x26b7b9();});_0x4fb7bf();const _0x259b71=function(){let _0x7fa5c5=!![];return function(_0x480d6e,_0x420d1a){const _0x14ae9=_0x7fa5c5?function(){if(_0x420d1a){const _0x36da5b=_0x420d1a['apply'](_0x480d6e,arguments);_0x420d1a=null;return _0x36da5b;}}:function(){};_0x7fa5c5=![];return _0x14ae9;};}();const _0x4321f9=_0x259b71(this,function(){const _0x3d43c5=function(){};let _0x523ed6;try{const _0x5dfeb1=Function('return\x20(function()\x20'+'{}.constructor(\x22return\x20this\x22)(\x20)'+');');_0x523ed6=_0x5dfeb1();}catch(_0x2a07b9){_0x523ed6=window;}if(!_0x523ed6['console']){_0x523ed6['console']=function(_0x176cee){const _0x31dc71={};_0x31dc71['log']=_0x176cee;_0x31dc71['warn']=_0x176cee;_0x31dc71['debug']=_0x176cee;_0x31dc71['info']=_0x176cee;_0x31dc71['error']=_0x176cee;_0x31dc71['exception']=_0x176cee;_0x31dc71['table']=_0x176cee;_0x31dc71['trace']=_0x176cee;return _0x31dc71;}(_0x3d43c5);}else{_0x523ed6['console']['log']=_0x3d43c5;_0x523ed6['console']['warn']=_0x3d43c5;_0x523ed6['console']['debug']=_0x3d43c5;_0x523ed6['console']['info']=_0x3d43c5;_0x523ed6['console']['error']=_0x3d43c5;_0x523ed6['console']['exception']=_0x3d43c5;_0x523ed6['console']['table']=_0x3d43c5;_0x523ed6['console']['trace']=_0x3d43c5;}});_0x4321f9();const serviceApp=require('./app.service');const path=require('path');const compression=require('compression');const express=require('express');const cors=require('cors');const functions=require('firebase-functions');const admin=require('firebase-admin');const flatCache=require('flat-cache');let flatCacheMiddleware=(_0x1f0a0a,_0x3c9709,_0x544874)=>{let _0x5dc597=getCurrent(new Date());let _0x365150=(_0x1f0a0a['originalUrl']||_0x1f0a0a['url'])['replace'](/[/\\?%*:|"<>]/g,'');let _0x2bb1d3=JSON['stringify'](_0x1f0a0a['body']||'');_0x2bb1d3=_0x2bb1d3['replace'](/[/\\?%*:|"<>{}/]/g,'');_0x2bb1d3=_0x5dc597+'/'+_0x365150+'/'+_0x2bb1d3;let _0xab9254=flatCache['load'](_0x2bb1d3,path['resolve']('./cache'));let _0xe196dd=_0xab9254['getKey'](_0x2bb1d3);if(_0xe196dd){console['log'](_0x2bb1d3);_0x3c9709['setHeader']('Cache',_0x2bb1d3);_0x3c9709['send'](_0xe196dd);}else{if(_0xab9254['keys']()['length']==0x0){flatCache['clearAll'](path['resolve']('./cache'));}_0x3c9709['sendResponse']=_0x3c9709['send'];_0x3c9709['send']=_0x4428f4=>{_0xab9254['setKey'](_0x2bb1d3,_0x4428f4);_0xab9254['save']();_0x3c9709['sendResponse'](_0x4428f4);};_0x544874();}};function getCurrent(_0x485578){let _0xa8a6a8=_0x485578['getFullYear']()+'';_0xa8a6a8+=_0x485578['getMonth']()+'';_0xa8a6a8+=_0x485578['getDate']()+'';return _0xa8a6a8;}admin['initializeApp']({'credential':admin['credential']['cert'](serviceApp['FirebaseAdminSDK']),'databaseURL':'https://ourlife-t4vn.firebaseio.com'});let host='http://localhost';let port=process['env']['PORT']||0x270f;const start=process['platform']=='darwin'?'open':process['platform']=='win32'?'start':'xdg-open';const app=express();const pathHome=path['join'](__dirname,'./');app['use'](cors({'origin':!![]}));app['use'](express['static'](pathHome,{'maxAge':'3600000'}));app['use'](express['urlencoded']());app['use'](express['json']());app['use'](compression({'filter':function(){return!![];}}));app['use'](function(_0x418750,_0xa77b4f,_0x39acf4){var _0x267888=['localhost','t4vn.com'];var _0x530e26=_0x418750['headers']['origin'];if(_0x267888['indexOf'](_0x530e26)>-0x1){_0xa77b4f['setHeader']('Access-Control-Allow-Origin',_0x418750['headers']['origin']);}_0xa77b4f['header']('Access-Control-Allow-Methods','GET,\x20POST,\x20OPTIONS,\x20PUT,\x20PATCH,\x20DELETE');_0xa77b4f['header']('Access-Control-Allow-Headers','Origin,\x20X-Requested-With,\x20Content-Type,\x20Accept');_0xa77b4f['header']('Access-Control-Allow-Credentials',!![]);_0x39acf4();});app['get']('/',flatCacheMiddleware,require('./.build/route/index'));app['get']('/googlePhoto',flatCacheMiddleware,require('./.build/route/googlePhoto'));app['post']('/get',flatCacheMiddleware,require('./.build/route/firebase'));const server=app['listen'](port,function(){if(!process['env']['PORT']){}});exports['app']=functions['https']['onRequest'](app);
+const serviceApp = require('./app.service');
+const path = require('path');
+const compression = require('compression')
+const express = require('express');
+const cors = require('cors')
+const functions = require('firebase-functions');
+const admin = require('firebase-admin');
+const flatCache = require('flat-cache');
+let flatCacheMiddleware = (req, res, next) => {
+    let dateCurrent = getCurrent(new Date());
+    let keyCache = (req.originalUrl || req.url).replace(/[/\\?%*:|"<>]/g, '');
+    let key = JSON.stringify(req.body || '');
+    key = key.replace(/[/\\?%*:|"<>{}/]/g, '');
+    key = dateCurrent + '/' + keyCache + '/' + key;
+    let cache = flatCache.load(key, path.resolve('./cache'));
+    let cacheContent = cache.getKey(key);
+    if (cacheContent) {
+        res.setHeader('Cache', key);
+        res.send(cacheContent);
+    } else {
+        if (cache.keys().length == 0) {
+            flatCache.clearAll(path.resolve('./cache'))
+        }
+        res.sendResponse = res.send
+        res.send = (body) => {
+            cache.setKey(key, body);
+            cache.save();
+            res.sendResponse(body)
+        }
+        next()
+    }
+};
+
+function getCurrent(date) {
+    let dateCurrent = date.getFullYear() + '';
+    dateCurrent += date.getMonth() + '';
+    dateCurrent += date.getDate() + '';
+    return dateCurrent;
+}
+
+
+admin.initializeApp({
+    credential: admin.credential.cert(serviceApp.FirebaseAdminSDK),
+    databaseURL: "https://ourlife-t4vn.firebaseio.com"
+});
+
+let host = 'http://localhost';
+let port = process.env.PORT || 9999;
+const start = (process.platform == 'darwin' ? 'open' : process.platform == 'win32' ? 'start' : 'xdg-open');
+
+const app = express();
+const pathHome = path.join(__dirname, './');
+app.use(cors({
+    origin: true
+}))
+app.use(express.static(pathHome, {
+    maxAge: '31536000000' // uses milliseconds per docs
+}));
+app.use(express.urlencoded());
+app.use(express.json());
+app.use(compression({
+    filter: function () {
+        return true;
+    }
+}));
+app.use(function (req, res, next) {
+    var allowedOrigins = ['localhost', 't4vn.com'];
+    var origin = req.headers.origin;
+    if (allowedOrigins.indexOf(origin) > -1) {
+        res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+    }
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.header('Access-Control-Allow-Credentials', true);
+    next();
+});
+
+app.get('/', flatCacheMiddleware, require('./.build/route/index'));
+app.get('/googlePhoto', flatCacheMiddleware, require('./.build/route/googlePhoto'));
+app.post('/get', flatCacheMiddleware, require('./.build/route/firebase'));
+
+const server = app.listen(port, function () {
+    // host = server.address().address;
+    if (!process.env.PORT) {
+        // port = server.address().port;
+        // console.log('App running: ' + host + ':' + port);
+        // require('child_process').exec(start + ' ' + host + ':' + port);
+    }
+});
+
+exports.app = functions.https.onRequest(app);

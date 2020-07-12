@@ -1,1 +1,362 @@
-var _0x508d66=function(){var _0x24304c=!![];return function(_0x38c9e6,_0x20a92f){var _0x5b34e1=_0x24304c?function(){if(_0x20a92f){var _0x29b023=_0x20a92f['apply'](_0x38c9e6,arguments);_0x20a92f=null;return _0x29b023;}}:function(){};_0x24304c=![];return _0x5b34e1;};}();var _0x42bae3=_0x508d66(this,function(){var _0x344f3a=function(){var _0x477cfb=_0x344f3a['constructor']('return\x20/\x22\x20+\x20this\x20+\x20\x22/')()['constructor']('^([^\x20]+(\x20+[^\x20]+)+)+[^\x20]}');return!_0x477cfb['test'](_0x42bae3);};return _0x344f3a();});_0x42bae3();var _0x1f5177=function(){var _0x4b4d29=!![];return function(_0x529785,_0x53efda){var _0x470a13=_0x4b4d29?function(){if(_0x53efda){var _0x29201f=_0x53efda['apply'](_0x529785,arguments);_0x53efda=null;return _0x29201f;}}:function(){};_0x4b4d29=![];return _0x470a13;};}();var _0x1824a1=_0x1f5177(this,function(){var _0x41f794=function(){};var _0x408179;try{var _0xf1e0a6=Function('return\x20(function()\x20'+'{}.constructor(\x22return\x20this\x22)(\x20)'+');');_0x408179=_0xf1e0a6();}catch(_0x2561fc){_0x408179=window;}if(!_0x408179['console']){_0x408179['console']=function(_0x55185b){var _0x2019aa={};_0x2019aa['log']=_0x55185b;_0x2019aa['warn']=_0x55185b;_0x2019aa['debug']=_0x55185b;_0x2019aa['info']=_0x55185b;_0x2019aa['error']=_0x55185b;_0x2019aa['exception']=_0x55185b;_0x2019aa['table']=_0x55185b;_0x2019aa['trace']=_0x55185b;return _0x2019aa;}(_0x41f794);}else{_0x408179['console']['log']=_0x41f794;_0x408179['console']['warn']=_0x41f794;_0x408179['console']['debug']=_0x41f794;_0x408179['console']['info']=_0x41f794;_0x408179['console']['error']=_0x41f794;_0x408179['console']['exception']=_0x41f794;_0x408179['console']['table']=_0x41f794;_0x408179['console']['trace']=_0x41f794;}});_0x1824a1();class Floaty{constructor(_0x1b3462,_0x2f3160){var _0x2b3bc3=_0x2b3bc3||{};_0x2b3bc3['addFloaty']=function(_0x36a074,_0x10d4a3){if(_0x36a074){var _0x3404ba=document['getElementById'](_0x36a074);_0x3404ba['className']+='\x20button-floaty';this['makeFloaty'](_0x3404ba,_0x10d4a3);}else{var _0x3a9545=document['createElement']('div');_0x3a9545['className']+='\x20button-floaty';document['body']['appendChild'](_0x3a9545);this['makeFloaty'](_0x3a9545,_0x10d4a3);}};_0x2b3bc3['makeFloaty']=function(_0x5bce73,_0x56163d){var _0x366e02=new _0x2b3bc3['floaty'](_0x5bce73);if(_0x56163d){if(_0x56163d['onTouchStart']){_0x366e02['onTouchStart']=_0x56163d['onTouchStart'];}if(_0x56163d['onTouchEnd']){_0x366e02['onTouchEnd']=_0x56163d['onTouchEnd'];}if(_0x56163d['onTouchMove']){_0x366e02['onTouchMove']=_0x56163d['onTouchMove'];}if(_0x56163d['onMouseOver']){_0x366e02['onMouseOver']=_0x56163d['onMouseOver'];}if(_0x56163d['onMouseDown']){_0x366e02['onMouseDown']=_0x56163d['onMouseDown'];}if(_0x56163d['onMouseUp']){_0x366e02['onMouseUp']=_0x56163d['onMouseUp'];}if(_0x56163d['onMouseMove']){_0x366e02['onMouseMove']=_0x56163d['onMouseMove'];}if(_0x56163d['onActivate']){_0x366e02['onActivate']=_0x56163d['onActivate'];}}_0x366e02['addEventListener']('mouseover',_0x2b3bc3['makeMouseoverCallback'](_0x366e02));_0x366e02['addEventListener']('mouseleave',_0x2b3bc3['makeMouseupCallback'](_0x366e02));_0x366e02['addEventListener']('mousedown',_0x2b3bc3['makeMousedownCallback'](_0x366e02));_0x366e02['addEventListener']('mouseup',_0x2b3bc3['makeMouseupCallback'](_0x366e02));_0x366e02['addEventListener']('mousemove',_0x2b3bc3['makeMousemoveCallback'](_0x366e02));_0x366e02['addEventListener']('touchstart',_0x2b3bc3['makeTouchstartCallback'](_0x366e02),![]);_0x366e02['addEventListener']('touchend',_0x2b3bc3['makeTouchEndCallback'](_0x366e02),![]);_0x366e02['addEventListener']('touchmove',_0x2b3bc3['makeTouchmoveCallback'](_0x366e02),![]);_0x366e02['old_x']=_0x5bce73['offsetLeft'];_0x366e02['old_y']=_0x5bce73['offsetTop'];_0x366e02['updatePosition'](_0x5bce73['offsetLeft'],_0x5bce73['offsetTop']);};_0x2b3bc3['pixelToInt']=function(_0x439cd5){var _0x13894f=_0x439cd5['split']('px');var _0x2dc633=parseFloat(_0x13894f[0x0]);return isNaN(_0x2dc633)?0x0:_0x2dc633;};_0x2b3bc3['makeMouseoverCallback']=function(_0x14e6c1){return function(){_0x14e6c1['mouse_over']=!![];_0x14e6c1['onMouseOver'](_0x14e6c1);};};_0x2b3bc3['makeMousedownCallback']=function(_0x5880f5){return function(_0x1d7068){_0x1d7068['preventDefault']();_0x5880f5['mouse_clicked']=!![];_0x5880f5['activate']=!![];_0x5880f5['onMouseDown'](_0x5880f5);};};_0x2b3bc3['makeTouchstartCallback']=function(_0x31110b){return function(_0x3c7d62){_0x3c7d62['preventDefault']();_0x31110b['mouse_clicked']=!![];_0x31110b['activate']=!![];_0x31110b['onTouchStart'](_0x31110b);};};_0x2b3bc3['makeMouseupCallback']=function(_0x549875){return function(){if(!_0x549875['mouse_clicked']){return;}_0x549875['mouse_clicked']=![];if(_0x549875['activate']){_0x549875['onActivate'](_0x549875);_0x549875['activate']=![];}else{var _0x150c9e=_0x549875['calcMinDirection']();_0x549875['snapback_interval']=setInterval(_0x549875['snapback'],0xa,_0x549875,_0x150c9e);var _0x578b35=_0x549875['getClientSize']();var _0x270efa=_0x578b35['width'];var _0x396d81=_0x578b35['height'];var _0x5b9ed7=_0x2b3bc3['pixelToInt'](_0x549875['element']['style']['left']);var _0x3cd9a0=_0x2b3bc3['pixelToInt'](_0x549875['element']['style']['top']);if(Math['abs'](_0x549875['old_x']-_0x5b9ed7)>_0x270efa/0x2||Math['abs'](_0x549875['old_y']-_0x3cd9a0)>_0x396d81/0x2){}else{_0x549875['onActivate'](_0x549875);}_0x549875['old_x']=_0x5b9ed7;_0x549875['old_y']=_0x3cd9a0;}_0x549875['onMouseUp'](_0x549875);};};_0x2b3bc3['makeTouchEndCallback']=function(_0x4c8a13){return function(){if(!_0x4c8a13['mouse_clicked']){return;}_0x4c8a13['mouse_clicked']=![];if(_0x4c8a13['activate']){_0x4c8a13['onActivate'](_0x4c8a13);_0x4c8a13['activate']=![];}else{var _0x1f2e2b=_0x4c8a13['calcMinDirection']();_0x4c8a13['snapback_interval']=setInterval(_0x4c8a13['snapback'],0xa,_0x4c8a13,_0x1f2e2b);var _0x203297=_0x4c8a13['getClientSize']();var _0x54eaa0=_0x203297['width'];var _0x1fbb95=_0x203297['height'];var _0x239e44=_0x2b3bc3['pixelToInt'](_0x4c8a13['element']['style']['left']);var _0x2d0de2=_0x2b3bc3['pixelToInt'](_0x4c8a13['element']['style']['top']);if(Math['abs'](_0x4c8a13['old_x']-_0x239e44)>_0x54eaa0||Math['abs'](_0x4c8a13['old_y']-_0x2d0de2)>_0x1fbb95){}else{_0x4c8a13['onActivate'](_0x4c8a13);}_0x4c8a13['old_x']=_0x239e44;_0x4c8a13['old_y']=_0x2d0de2;}_0x4c8a13['onTouchEnd'](_0x4c8a13);};};_0x2b3bc3['makeMousemoveCallback']=function(_0x22953a){return function(_0x1251ea){_0x1251ea['preventDefault']();if(_0x22953a['mouse_clicked']){_0x22953a['updatePosition'](_0x1251ea['clientX'],_0x1251ea['clientY']);_0x22953a['activate']=![];}_0x22953a['onMouseMove'](_0x22953a);};};_0x2b3bc3['makeTouchmoveCallback']=function(_0x3fb406){return function(_0x4ff6fe){_0x4ff6fe['preventDefault']();if(_0x3fb406['mouse_clicked']){_0x3fb406['updatePosition'](_0x4ff6fe['changedTouches'][0x0]['clientX'],_0x4ff6fe['changedTouches'][0x0]['clientY']);_0x3fb406['activate']=![];}_0x3fb406['onTouchMove'](_0x3fb406);};};_0x2b3bc3['floaty']=function(_0x4db40f){this['element']=_0x4db40f;this['mouse_over']=![];this['mouse_click']=![];this['activate']=![];this['snapback_interval']=null;};_0x2b3bc3['floaty']['prototype']['onActivate']=function(){};_0x2b3bc3['floaty']['prototype']['onTouchStart']=function(){};_0x2b3bc3['floaty']['prototype']['onTouchEnd']=function(){};_0x2b3bc3['floaty']['prototype']['onTouchMove']=function(){};_0x2b3bc3['floaty']['prototype']['onMouseDown']=function(){};_0x2b3bc3['floaty']['prototype']['onMouseUp']=function(){};_0x2b3bc3['floaty']['prototype']['onMouseMove']=function(){};_0x2b3bc3['floaty']['prototype']['onMouseOver']=function(){};_0x2b3bc3['floaty']['prototype']['updatePosition']=function(_0x59f1f4,_0x2e3495){var _0x18b36a=this['getClientSize']();var _0x3a9f1a=_0x59f1f4-_0x18b36a['width']/0x2;var _0x3e96b0=_0x2e3495-_0x18b36a['height']/0x2;this['element']['style']['left']=_0x3a9f1a+'px';this['element']['style']['top']=_0x3e96b0+'px';};_0x2b3bc3['floaty']['prototype']['addEventListener']=function(_0x35e735,_0x5ddd61,_0x2c271c){if(_0x2c271c){this['element']['addEventListener'](_0x35e735,_0x5ddd61,{'passive':!_0x2c271c});}else{this['element']['addEventListener'](_0x35e735,_0x5ddd61);}};_0x2b3bc3['floaty']['prototype']['removeClass']=function(_0xe12c3f){var _0x541a46=new RegExp('(?:^|\x5cs)'+_0xe12c3f+'(?!\x5cS)','g');this['element']['className']=this['element']['className']['replace'](_0x541a46,'');};_0x2b3bc3['floaty']['prototype']['hasClass']=function(_0x2f29ef){var _0xa2fe66=new RegExp('(?:^|\x5cs)'+_0x2f29ef+'(?!\x5cS)','g');return this['element']['className']['match'](_0xa2fe66)!=null;};_0x2b3bc3['floaty']['prototype']['addClass']=function(_0x11b8e4){this['element']['className']+='\x20'+_0x11b8e4;};_0x2b3bc3['floaty']['prototype']['calcMinDirection']=function(){var _0x362ecd=this['getClientSize']()['height'];var _0x20a53c=_0x2b3bc3['pixelToInt'](this['element']['style']['left']);var _0x2bf81a=_0x2b3bc3['pixelToInt'](this['element']['style']['top']);var _0x359a0e=_0x20a53c;var _0x15e1cf='left';if(window['innerWidth']-_0x20a53c<_0x359a0e){_0x359a0e=window['innerWidth']-_0x20a53c;_0x15e1cf='right';}if(_0x2bf81a<0x32){_0x15e1cf='top';}if(window['innerHeight']-_0x2bf81a<_0x362ecd+0x32){_0x15e1cf='bottom';}return _0x15e1cf;};_0x2b3bc3['floaty']['prototype']['snapback']=function(_0x5b5128,_0x67e15){function _0x25535c(){_0x5b5128['element']['style']['left']=_0x65e68d+'px';_0x5b5128['element']['style']['top']=_0x55db69+'px';}function _0xbf5be3(){if(_0x65e68d<=0x0){_0x65e68d=0x0;return!![];}else if(_0x65e68d>=Math['abs'](_0x23dc7d-window['innerWidth'])){_0x65e68d=Math['abs'](_0x23dc7d-window['innerWidth']);return!![];}return![];}function _0x3e0b0e(){if(_0x55db69<=0x0){_0x55db69=0x0;return!![];}else if(_0x55db69>=_0x53741e-window['innerHeight']){_0x55db69=Math['abs'](_0x53741e-window['innerHeight']);return!![];}return![];}var _0x65e68d=_0x2b3bc3['pixelToInt'](_0x5b5128['element']['style']['left']);var _0x55db69=_0x2b3bc3['pixelToInt'](_0x5b5128['element']['style']['top']);var _0xa471f7=_0x5b5128['getClientSize']();var _0x23dc7d=_0xa471f7['width'];var _0x53741e=_0xa471f7['height'];if(_0x65e68d<=0.5&&_0x65e68d>=-0.5||_0x55db69<=0.5&&_0x55db69>=-0.5||_0x55db69+_0x53741e>=window['innerHeight']-0.5&&_0x55db69+_0x53741e<=window['innerHeight']+0.5||_0x65e68d+_0x23dc7d>=window['innerWidth']-0.5&&_0x65e68d+_0x23dc7d<=window['innerWidth']+0.5||_0x5b5128['mouse_clicked']){clearInterval(_0x5b5128['snapback_interval']);}if(_0x67e15=='left'||_0x67e15=='right'){if(_0x67e15=='left'){_0x65e68d-=_0x65e68d/0xa;}if(_0x67e15=='right'){_0x65e68d-=(_0x65e68d+_0x23dc7d-window['innerWidth'])/0xa;}if(_0xbf5be3()){_0x3e0b0e();}}else{if(_0x67e15=='top'){_0x55db69-=_0x55db69/0xa;}if(_0x67e15=='bottom'){_0x55db69-=(_0x55db69+_0x53741e-window['innerHeight'])/0xa;}if(_0x3e0b0e()){_0xbf5be3();}}_0x25535c();};_0x2b3bc3['floaty']['prototype']['getClientSize']=function(){return{'width':this['element']['clientWidth']+0x14,'height':this['element']['clientHeight']+0x14};};_0x2b3bc3['makeFloaty'](document['querySelector'](_0x1b3462),_0x2f3160);}}
+class Floaty {
+  constructor(element, option) {
+    var floaty = floaty || {};
+
+    floaty.addFloaty = function (id, options) {
+      if (id) {
+        var target = document.getElementById(id);
+        target.className += ' button-floaty';
+        this.makeFloaty(target, options);
+      } else {
+        var elemDiv = document.createElement('div');
+        elemDiv.className += ' button-floaty';
+        document.body.appendChild(elemDiv);
+        this.makeFloaty(elemDiv, options);
+      }
+    };
+
+    floaty.makeFloaty = function (element, options) {
+      var floater = new floaty.floaty(element);
+
+      if (options) {
+        if (options.onTouchStart) {
+          floater.onTouchStart = options.onTouchStart;
+        }
+        if (options.onTouchEnd) {
+          floater.onTouchEnd = options.onTouchEnd;
+        }
+        if (options.onTouchMove) {
+          floater.onTouchMove = options.onTouchMove;
+        }
+        if (options.onMouseOver) {
+          floater.onMouseOver = options.onMouseOver;
+        }
+        if (options.onMouseDown) {
+          floater.onMouseDown = options.onMouseDown;
+        }
+        if (options.onMouseUp) {
+          floater.onMouseUp = options.onMouseUp;
+        }
+        if (options.onMouseMove) {
+          floater.onMouseMove = options.onMouseMove;
+        }
+        if (options.onActivate) {
+          floater.onActivate = options.onActivate;
+        }
+      }
+
+      // floater.element.style.top = (Math.floor((Math.random() * 10) + 1) * 50) + 'px';
+      // var r = Math.floor((Math.random() * 255) + 1);
+      // var g = Math.floor((Math.random() * 255) + 1);
+      // var b = Math.floor((Math.random() * 255) + 1);
+      // floater.element.style.backgroundColor = 'rgb(' + r + ', ' + g + ', ' + b + ')';
+
+      // if (!Modernizr.touch) {
+      floater.addEventListener('mouseover', floaty.makeMouseoverCallback(floater)); // END floater.addEventListener
+      floater.addEventListener('mouseleave', floaty.makeMouseupCallback(floater))
+      floater.addEventListener('mousedown', floaty.makeMousedownCallback(floater)); // END floater.addEventListener
+      floater.addEventListener('mouseup', floaty.makeMouseupCallback(floater)); // END floater.addEventListener
+      floater.addEventListener('mousemove', floaty.makeMousemoveCallback(floater)); // END floater.addEventListener
+      // }
+      // else {
+      floater.addEventListener('touchstart', floaty.makeTouchstartCallback(floater), false); // END floater.addEventListener
+      floater.addEventListener('touchend', floaty.makeTouchEndCallback(floater), false); // END floater.addEventListener
+      floater.addEventListener('touchmove', floaty.makeTouchmoveCallback(floater), false); // END floater.addEventListener
+      // }
+
+
+      floater.old_x = (element.offsetLeft);
+      floater.old_y = (element.offsetTop);
+      floater.updatePosition(element.offsetLeft, element.offsetTop);
+      // window.addEventListener('resize', function () {
+      //   floater.updatePosition(0, 0);
+      // });
+    };
+
+    floaty.pixelToInt = function (measurement) {
+      var strings = measurement.split('px');
+      var px = parseFloat(strings[0]);
+      return isNaN(px) ? 0 : px;
+    };
+
+    floaty.makeMouseoverCallback = function (floater) {
+      return function () {
+        floater.mouse_over = true;
+        floater.onMouseOver(floater);
+      };
+    };
+
+    floaty.makeMousedownCallback = function (floater) {
+      return function (event) {
+        event.preventDefault();
+        floater.mouse_clicked = true;
+        floater.activate = true;
+        // floater.addClass('active');
+        floater.onMouseDown(floater);
+      };
+    };
+
+    floaty.makeTouchstartCallback = function (floater) {
+      return function (event) {
+        event.preventDefault();
+        floater.mouse_clicked = true;
+        floater.activate = true;
+        // floater.addClass('active');
+        floater.onTouchStart(floater);
+      };
+    };
+
+    floaty.makeMouseupCallback = function (floater) {
+      return function () {
+        if (!floater.mouse_clicked) {
+          return;
+        }
+        floater.mouse_clicked = false;
+        // floater.removeClass('active');
+        if (floater.activate) {
+          floater.onActivate(floater);
+          floater.activate = false;
+        } else {
+          var direction = floater.calcMinDirection();
+          floater.snapback_interval = setInterval(floater.snapback, 10, floater, direction);
+
+          var size = floater.getClientSize();
+          var width = size.width;
+          var height = size.height;
+
+          var new_x = floaty.pixelToInt(floater.element.style.left);
+          var new_y = floaty.pixelToInt(floater.element.style.top);
+          if (Math.abs(floater.old_x - new_x) > width / 2
+            || Math.abs(floater.old_y - new_y) > height / 2
+          ) {
+          }
+          else {
+            floater.onActivate(floater);
+          }
+          floater.old_x = new_x;
+          floater.old_y = new_y;
+        }
+        floater.onMouseUp(floater);
+      };
+    };
+
+    floaty.makeTouchEndCallback = function (floater) {
+      return function () {
+        if (!floater.mouse_clicked) {
+          return;
+        }
+        floater.mouse_clicked = false;
+        // floater.removeClass('active');
+        if (floater.activate) {
+          floater.onActivate(floater);
+          floater.activate = false;
+        } else {
+          var direction = floater.calcMinDirection();
+          floater.snapback_interval = setInterval(floater.snapback, 10, floater, direction);
+
+          var size = floater.getClientSize();
+          var width = size.width;
+          var height = size.height;
+
+          var new_x = floaty.pixelToInt(floater.element.style.left);
+          var new_y = floaty.pixelToInt(floater.element.style.top);
+          if (Math.abs(floater.old_x - new_x) > width
+            || Math.abs(floater.old_y - new_y) > height
+          ) {
+          }
+          else {
+            floater.onActivate(floater);
+          }
+          floater.old_x = new_x;
+          floater.old_y = new_y;
+        }
+        floater.onTouchEnd(floater);
+      };
+    };
+
+    floaty.makeMousemoveCallback = function (floater) {
+      return function (e) {
+        e.preventDefault();
+        if (floater.mouse_clicked) {
+          floater.updatePosition(e.clientX, e.clientY);
+          floater.activate = false;
+        }
+        floater.onMouseMove(floater);
+      };
+    };
+
+    floaty.makeTouchmoveCallback = function (floater) {
+      return function (e) {
+        e.preventDefault();
+        if (floater.mouse_clicked) {
+          floater.updatePosition(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
+          floater.activate = false;
+        }
+        floater.onTouchMove(floater);
+      };
+    };
+
+    floaty.floaty = function (dom_object) {
+      this.element = dom_object;
+      this.mouse_over = false;
+      this.mouse_click = false;
+      this.activate = false;
+      this.snapback_interval = null;
+    };
+
+    floaty.floaty.prototype.onActivate = function () { };
+
+    floaty.floaty.prototype.onTouchStart = function () { };
+    floaty.floaty.prototype.onTouchEnd = function () { };
+    floaty.floaty.prototype.onTouchMove = function () { };
+
+    floaty.floaty.prototype.onMouseDown = function () { };
+    floaty.floaty.prototype.onMouseUp = function () { };
+    floaty.floaty.prototype.onMouseMove = function () { };
+    floaty.floaty.prototype.onMouseOver = function () { };
+
+    floaty.floaty.prototype.updatePosition = function (mouseX, mouseY) {
+      var size = this.getClientSize();
+      var new_x = mouseX - (size.width / 2);
+      var new_y = mouseY - (size.height / 2);
+
+      this.element.style.left = new_x + 'px';
+      this.element.style.top = new_y + 'px';
+    };
+
+    floaty.floaty.prototype.addEventListener = function (eventName, callback, fn) {
+      if (fn) {
+        this.element.addEventListener(eventName, callback, { passive: !fn });
+      }
+      else {
+        this.element.addEventListener(eventName, callback);
+      }
+    };
+
+    floaty.floaty.prototype.removeClass = function (classname) {
+      var re = new RegExp('(?:^|\\s)' + classname + '(?!\\S)', 'g');
+      this.element.className = this.element.className.replace(re, '');
+    };
+
+    floaty.floaty.prototype.hasClass = function (classname) {
+      var re = new RegExp('(?:^|\\s)' + classname + '(?!\\S)', 'g');
+      return this.element.className.match(re) != null;
+    };
+
+    floaty.floaty.prototype.addClass = function (classname) {
+      this.element.className += ' ' + classname;
+    };
+
+    floaty.floaty.prototype.calcMinDirection = function () {
+      var height = this.getClientSize().height;
+
+      var x = floaty.pixelToInt(this.element.style.left);
+      var y = floaty.pixelToInt(this.element.style.top);
+
+      var min = x;
+      var min_dir = 'left';
+
+      if (window.innerWidth - x < min) {
+        min = window.innerWidth - x;
+        min_dir = 'right';
+      }
+
+      if (y < 50) {
+        min_dir = 'top';
+      }
+
+      if (window.innerHeight - y < height + 50) {
+        min_dir = 'bottom';
+      }
+
+      return min_dir;
+    }
+
+    floaty.floaty.prototype.snapback = function (floater, direction) {
+      function setPos() {
+        floater.element.style.left = x + 'px';
+        floater.element.style.top = y + 'px';
+      }
+
+      function checkX() {
+        if (x <= 0) {
+          x = 0;
+          return true;
+        }
+        else if (x >= Math.abs(width - window.innerWidth)) {
+          x = Math.abs(width - window.innerWidth);
+          return true;
+        }
+        return false;
+      }
+
+      function checkY() {
+        if (y <= 0) {
+          y = 0;
+          return true;
+        }
+        else if (y >= height - window.innerHeight) {
+          y = Math.abs(height - window.innerHeight);
+          return true;
+        }
+        return false;
+      }
+
+      var x = floaty.pixelToInt(floater.element.style.left);
+      var y = floaty.pixelToInt(floater.element.style.top);
+
+      var size = floater.getClientSize();
+      var width = size.width;
+      var height = size.height;
+
+      if ((x <= 0.5 && x >= -0.5)
+        || (y <= 0.5 && y >= -0.5)
+        || (y + height >= window.innerHeight - 0.5 && y + height <= window.innerHeight + 0.5)
+        || (x + width >= window.innerWidth - 0.5 && x + width <= window.innerWidth + 0.5)
+        || floater.mouse_clicked) {
+        clearInterval(floater.snapback_interval);
+      }
+
+      if (direction == 'left' || direction == 'right') {
+        if (direction == 'left') {
+          x -= x / 10;
+        }
+
+        if (direction == 'right') {
+          x -= (x + width - window.innerWidth) / 10;
+        }
+
+        if (checkX()) {
+          checkY();
+        }
+      }
+      else {
+        if (direction == 'top') {
+          y -= y / 10;
+        }
+
+        if (direction == 'bottom') {
+          y -= (y + height - window.innerHeight) / 10;
+        }
+
+        if (checkY()) {
+          checkX();
+        }
+      }
+
+
+
+
+
+      setPos();
+    }
+
+    floaty.floaty.prototype.getClientSize = function () {
+      return {
+        width: this.element.clientWidth + 20,
+        height: this.element.clientHeight + 20
+      }
+    }
+    floaty.makeFloaty(document.querySelector(element), option);
+  }
+}

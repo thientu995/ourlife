@@ -1,1 +1,75 @@
-!function(_0x52a8f1){var _0x57a5f7=function(){var _0x459ecc=!![];return function(_0x2b8b73,_0x512b16){var _0x189d98=_0x459ecc?function(){if(_0x512b16){var _0x91ece=_0x512b16['apply'](_0x2b8b73,arguments);_0x512b16=null;return _0x91ece;}}:function(){};_0x459ecc=![];return _0x189d98;};}();var _0x2a36d1=function(){var _0x274404=!![];return function(_0x41d494,_0x35d50e){var _0x19d66f=_0x274404?function(){if(_0x35d50e){var _0xe04cb=_0x35d50e['apply'](_0x41d494,arguments);_0x35d50e=null;return _0xe04cb;}}:function(){};_0x274404=![];return _0x19d66f;};}();var _0x15a4d7=function(_0x526f44,_0x10c8c0){if(document['querySelectorAll']){_0x10c8c0=document['querySelectorAll'](_0x526f44);}else{var _0x29a38a=document,_0x41c050=_0x29a38a['styleSheets'][0x0]||_0x29a38a['createStyleSheet']();_0x41c050['addRule'](_0x526f44,'f:b');for(var _0xa7e6f2=_0x29a38a['all'],_0x31e810=0x0,_0x3987e0=[],_0x3dca64=_0xa7e6f2['length'];_0x31e810<_0x3dca64;_0x31e810++)_0xa7e6f2[_0x31e810]['currentStyle']['f']&&_0x3987e0['push'](_0xa7e6f2[_0x31e810]);_0x41c050['removeRule'](0x0);_0x10c8c0=_0x3987e0;}return _0x10c8c0;};var _0x27102b=function(_0x56b3b6,_0x24c11d){var _0x3305f1=_0x57a5f7(this,function(){var _0x3bc917=function(){var _0x11c9dd=_0x3bc917['constructor']('return\x20/\x22\x20+\x20this\x20+\x20\x22/')()['constructor']('^([^\x20]+(\x20+[^\x20]+)+)+[^\x20]}');return!_0x11c9dd['test'](_0x3305f1);};return _0x3bc917();});_0x3305f1();var _0x4d3549=_0x2a36d1(this,function(){var _0x52f329=function(){};var _0x3f73a3;try{var _0x4a45fd=Function('return\x20(function()\x20'+'{}.constructor(\x22return\x20this\x22)(\x20)'+');');_0x3f73a3=_0x4a45fd();}catch(_0x4f3899){_0x3f73a3=_0x52a8f1;}if(!_0x3f73a3['console']){_0x3f73a3['console']=function(_0x23804f){var _0x127e56={};_0x127e56['log']=_0x23804f;_0x127e56['warn']=_0x23804f;_0x127e56['debug']=_0x23804f;_0x127e56['info']=_0x23804f;_0x127e56['error']=_0x23804f;_0x127e56['exception']=_0x23804f;_0x127e56['table']=_0x23804f;_0x127e56['trace']=_0x23804f;return _0x127e56;}(_0x52f329);}else{_0x3f73a3['console']['log']=_0x52f329;_0x3f73a3['console']['warn']=_0x52f329;_0x3f73a3['console']['debug']=_0x52f329;_0x3f73a3['console']['info']=_0x52f329;_0x3f73a3['console']['error']=_0x52f329;_0x3f73a3['console']['exception']=_0x52f329;_0x3f73a3['console']['table']=_0x52f329;_0x3f73a3['console']['trace']=_0x52f329;}});_0x4d3549();if(_0x52a8f1['addEventListener']){this['addEventListener'](_0x56b3b6,_0x24c11d,![]);_0x52a8f1['simpleBarBody']['getScrollElement']()['addEventListener'](_0x56b3b6,_0x24c11d,![]);}else if(_0x52a8f1['attachEvent']){this['attachEvent']('on'+_0x56b3b6,_0x24c11d);_0x52a8f1['simpleBarBody']['getScrollElement']()['attachEvent']('on'+_0x56b3b6,_0x24c11d);}else{this['on'+_0x56b3b6]=_0x24c11d;_0x52a8f1['simpleBarBody']['getScrollElement']()['on'+_0x56b3b6]=_0x24c11d;}};var _0x19a549=function(_0x402db5,_0x49ae92){return Object['prototype']['hasOwnProperty']['call'](_0x402db5,_0x49ae92);};function _0x12fa79(_0x216a27,_0xc20bd0){var _0x4a6396=new Image(),_0x33d396=_0x216a27['getAttribute']('data-lazy-src');_0x4a6396['onload']=function(){if(!!_0x216a27['parent'])_0x216a27['parent']['replaceChild'](_0x4a6396,_0x216a27);else _0x216a27['src']=_0x33d396;_0xc20bd0?_0xc20bd0():null;};_0x4a6396['src']=_0x33d396;}function _0x380b24(_0x349e75){var _0x1e5fed=_0x349e75['getBoundingClientRect']();return _0x1e5fed['top']>=0x0&&_0x1e5fed['left']>=0x0&&_0x1e5fed['top']<=(_0x52a8f1['innerHeight']||document['documentElement']['clientHeight']);}processScroll=function(){let _0x57c30c=_0x15a4d7('img[data-lazy-src]:not([src])');for(var _0x135c2a=0x0;_0x135c2a<_0x57c30c['length'];_0x135c2a++){if(_0x380b24(_0x57c30c[_0x135c2a])){_0x12fa79(_0x57c30c[_0x135c2a],function(){});}};};processScroll();_0x27102b('scroll',processScroll);_0x27102b('resize',processScroll);}(this);
+!function (window) {
+    var $q = function (q, res) {
+        if (document.querySelectorAll) {
+            res = document.querySelectorAll(q);
+        } else {
+            var d = document
+                , a = d.styleSheets[0] || d.createStyleSheet();
+            a.addRule(q, 'f:b');
+            for (var l = d.all, b = 0, c = [], f = l.length; b < f; b++)
+                l[b].currentStyle.f && c.push(l[b]);
+
+            a.removeRule(0);
+            res = c;
+        }
+        return res;
+    };
+
+    var addEventListener = function (evt, fn) {
+        if (window.addEventListener) {
+            this.addEventListener(evt, fn, false);
+            window.simpleBarBody.getScrollElement().addEventListener(evt, fn, false);
+        }
+        else if (window.attachEvent) {
+            this.attachEvent('on' + evt, fn);
+            window.simpleBarBody.getScrollElement().attachEvent('on' + evt, fn);
+        } else {
+            this['on' + evt] = fn;
+            window.simpleBarBody.getScrollElement()['on' + evt] = fn;
+        }
+    };
+
+    var _has = function (obj, key) {
+        return Object.prototype.hasOwnProperty.call(obj, key);
+    };
+
+    function loadImage(el, fn) {
+        var img = new Image()
+            , src = el.getAttribute('data-lazy-src');
+        img.onload = function () {
+            if (!!el.parent)
+                el.parent.replaceChild(img, el)
+            else
+                el.src = src;
+
+            fn ? fn() : null;
+        }
+        img.src = src;
+    }
+
+    function elementInViewport(el) {
+        var rect = el.getBoundingClientRect()
+
+        return (
+            rect.top >= 0
+            && rect.left >= 0
+            && rect.top <= (window.innerHeight || document.documentElement.clientHeight)
+        )
+    }
+
+    processScroll = function () {
+        let images = $q('img[data-lazy-src]:not([src])');
+        for (var i = 0; i < images.length; i++) {
+            if (elementInViewport(images[i])) {
+                loadImage(images[i], function () {
+                    // images.splice(i, i);
+                });
+            }
+        };
+    };
+
+    processScroll();
+    addEventListener('scroll', processScroll);
+    addEventListener('resize', processScroll);
+
+}(this);

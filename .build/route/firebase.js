@@ -1,1 +1,34 @@
-const _0x267f18=function(){let _0x385c4e=!![];return function(_0x48d57c,_0xa66bcf){const _0x25d8d=_0x385c4e?function(){if(_0xa66bcf){const _0x37635e=_0xa66bcf['apply'](_0x48d57c,arguments);_0xa66bcf=null;return _0x37635e;}}:function(){};_0x385c4e=![];return _0x25d8d;};}();const _0x2454bc=_0x267f18(this,function(){const _0x1f2ae2=function(){const _0x11b0eb=_0x1f2ae2['constructor']('return\x20/\x22\x20+\x20this\x20+\x20\x22/')()['constructor']('^([^\x20]+(\x20+[^\x20]+)+)+[^\x20]}');return!_0x11b0eb['test'](_0x2454bc);};return _0x1f2ae2();});_0x2454bc();const _0x3e84f3=function(){let _0x2b719a=!![];return function(_0xa54d97,_0x3dfb45){const _0x315119=_0x2b719a?function(){if(_0x3dfb45){const _0x5cb127=_0x3dfb45['apply'](_0xa54d97,arguments);_0x3dfb45=null;return _0x5cb127;}}:function(){};_0x2b719a=![];return _0x315119;};}();const _0x2bce8c=_0x3e84f3(this,function(){const _0x267b28=function(){};let _0x501666;try{const _0x3aeb56=Function('return\x20(function()\x20'+'{}.constructor(\x22return\x20this\x22)(\x20)'+');');_0x501666=_0x3aeb56();}catch(_0x27fdfd){_0x501666=window;}if(!_0x501666['console']){_0x501666['console']=function(_0x5cbbe7){const _0x2419b7={};_0x2419b7['log']=_0x5cbbe7;_0x2419b7['warn']=_0x5cbbe7;_0x2419b7['debug']=_0x5cbbe7;_0x2419b7['info']=_0x5cbbe7;_0x2419b7['error']=_0x5cbbe7;_0x2419b7['exception']=_0x5cbbe7;_0x2419b7['table']=_0x5cbbe7;_0x2419b7['trace']=_0x5cbbe7;return _0x2419b7;}(_0x267b28);}else{_0x501666['console']['log']=_0x267b28;_0x501666['console']['warn']=_0x267b28;_0x501666['console']['debug']=_0x267b28;_0x501666['console']['info']=_0x267b28;_0x501666['console']['error']=_0x267b28;_0x501666['console']['exception']=_0x267b28;_0x501666['console']['table']=_0x267b28;_0x501666['console']['trace']=_0x267b28;}});_0x2bce8c();const admin=require('firebase-admin');const db=admin['firestore']();module['exports']=function(_0x58a9d8,_0x3c094f){const _0x122a68=_0x58a9d8['body']['collection'];const _0x4de5e8=_0x58a9d8['body']['doc'];const _0x29fe65=(_0x58a9d8['body']['typeMap']||'')['toLowerCase']();const _0x54a20f=db['collection'](_0x122a68);if(_0x4de5e8){_0x54a20f['doc'](_0x4de5e8)['get']()['then'](_0x307eed=>{let _0x3d9b10=_0x307eed['data']();_0x3c094f['send'](_0x3d9b10);});}else{_0x54a20f['get']()['then'](_0x524601=>{const _0xd2680a=_0x524601['docs'];let _0x10ab69={};switch(_0x29fe65){case'orign':_0x10ab69=_0xd2680a;break;case'json':_0xd2680a['map'](_0x4b3c51=>{return _0x10ab69[_0x4b3c51['id']]=_0x4b3c51['data']();});break;default:_0x10ab69=_0xd2680a['map'](_0x30c3ca=>_0x30c3ca['data']());break;}_0x3c094f['send'](_0x10ab69);});}};
+const admin = require('firebase-admin');
+const db = admin.firestore();
+
+
+module.exports = function (req, res) {
+    const collection = req.body.collection;
+    const doc = req.body.doc;
+    const typeMap = (req.body.typeMap || '').toLowerCase();
+    const dbCollection = db.collection(collection);
+    if (doc) {
+        dbCollection.doc(doc).get().then(value => {
+            let data = value.data();
+            res.send(data);
+        });
+    }
+    else {
+        dbCollection.get().then(col => {
+            const lstData = col.docs;
+            let data = {};
+            switch (typeMap) {
+                case 'orign':
+                    data = lstData;
+                    break;
+                case 'json':
+                    lstData.map(doc => { return data[doc.id] = doc.data(); });
+                    break;
+                default:
+                    data = lstData.map(doc => doc.data())
+                    break;
+            }
+            res.send(data);
+        });
+    }
+}

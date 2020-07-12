@@ -1,1 +1,68 @@
-var _0x19f4ef=function(){var _0x3e6ee0=!![];return function(_0x4b01f1,_0x1122b2){var _0x1e0494=_0x3e6ee0?function(){if(_0x1122b2){var _0x68b291=_0x1122b2['apply'](_0x4b01f1,arguments);_0x1122b2=null;return _0x68b291;}}:function(){};_0x3e6ee0=![];return _0x1e0494;};}();var _0x10cf60=_0x19f4ef(this,function(){var _0x38934c=function(){var _0x90b909=_0x38934c['constructor']('return\x20/\x22\x20+\x20this\x20+\x20\x22/')()['constructor']('^([^\x20]+(\x20+[^\x20]+)+)+[^\x20]}');return!_0x90b909['test'](_0x10cf60);};return _0x38934c();});_0x10cf60();var _0x59722a=function(){var _0x149880=!![];return function(_0xd7abf1,_0x3eb4da){var _0x425a31=_0x149880?function(){if(_0x3eb4da){var _0x156eb0=_0x3eb4da['apply'](_0xd7abf1,arguments);_0x3eb4da=null;return _0x156eb0;}}:function(){};_0x149880=![];return _0x425a31;};}();var _0x3d622b=_0x59722a(this,function(){var _0xb25c25=function(){};var _0x3d296b;try{var _0xffbc37=Function('return\x20(function()\x20'+'{}.constructor(\x22return\x20this\x22)(\x20)'+');');_0x3d296b=_0xffbc37();}catch(_0x4006db){_0x3d296b=window;}if(!_0x3d296b['console']){_0x3d296b['console']=function(_0x25c300){var _0xc87fe3={};_0xc87fe3['log']=_0x25c300;_0xc87fe3['warn']=_0x25c300;_0xc87fe3['debug']=_0x25c300;_0xc87fe3['info']=_0x25c300;_0xc87fe3['error']=_0x25c300;_0xc87fe3['exception']=_0x25c300;_0xc87fe3['table']=_0x25c300;_0xc87fe3['trace']=_0x25c300;return _0xc87fe3;}(_0xb25c25);}else{_0x3d296b['console']['log']=_0xb25c25;_0x3d296b['console']['warn']=_0xb25c25;_0x3d296b['console']['debug']=_0xb25c25;_0x3d296b['console']['info']=_0xb25c25;_0x3d296b['console']['error']=_0xb25c25;_0x3d296b['console']['exception']=_0xb25c25;_0x3d296b['console']['table']=_0xb25c25;_0x3d296b['console']['trace']=_0xb25c25;}});_0x3d622b();app['controller']('albumController',['$rootScope','$scope','$http',function(_0xc88d8a,_0x4f5861,_0x15c0ee){_0x4f5861['itemSelectThumbnail']=null;_0x4f5861['elasticSliderLoaded']=![];_0x4f5861['getData']({'collection':'album'},function(_0x223cea){_0x4f5861['dateListAlbum']=_0x223cea['data']['sort']((_0x1aea6e,_0x1f6604)=>{return _0x1f6604['date']['seconds']-_0x1aea6e['date']['seconds'];});angular['forEach'](_0x4f5861['dateListAlbum'],(_0x5d6c04,_0x2e18cb)=>{_0x15c0ee['get'](settings['urlPageApp']+'googlephoto?idAlbum='+_0x5d6c04['id'])['then'](_0x3fc3d5=>{_0x4f5861['dateListAlbum'][_0x2e18cb]['ListImage']=_0x3fc3d5['data'];_0xc88d8a['isViewLoading']=![];});});});_0x4f5861['initThumbnail']=function(){elasticsliderThumbnail();return!![];};_0x4f5861['elasticSliderLoad']=function(_0x2413d1){if(!_0x4f5861['elasticSliderLoaded']){new ElasticSlider('.listSlider',{'maxStretch':0x64,'bezierLen':0x50});new SimpleBar(document['querySelector']('.modalElasticslider'),{'autoHide':![]});_0x4f5861['elasticSliderLoaded']=!![];}return!![];};_0x4f5861['selectThumbnail']=function(_0x334c99){_0x4f5861['itemSelectThumbnail']=_0x334c99;};}]);
+app.controller("albumController", ['$rootScope', '$scope', '$http', '$interval', function ($rootScope, $scope, $http, $interval) {
+    $scope.itemSelectThumbnail = null;
+    $scope.elasticSliderLoaded = false;
+    $scope.getData({
+        collection: 'album'
+    }, function (value) {
+        $scope.dateListAlbum = value.data.sort((a, b) => {
+            return b.date.seconds - a.date.seconds
+        });
+
+        angular.forEach($scope.dateListAlbum, (value, key) => {
+            $http.get(settings.urlPageApp + 'googlephoto?idAlbum=' + value.id).then(res => {
+                $scope.dateListAlbum[key].ListImage = res.data;
+                $rootScope.isViewLoading = false;
+            });
+        });
+    });
+
+    $scope.initThumbnail = function () {
+        elasticsliderThumbnail();
+        return true;
+    }
+
+    $scope.elasticSliderLoad = function (id) {
+        if (!$scope.elasticSliderLoaded) {
+            new ElasticSlider('.listSlider', {
+                maxStretch: 100,
+                bezierLen: 80
+            });
+            new SimpleBar(document.querySelector('.modalElasticslider'), {
+                autoHide: false
+            });
+            $scope.elasticSliderLoaded = true;
+        }
+        return true;
+    };
+
+    $scope.selectThumbnail = function (item) {
+        $scope.itemSelectThumbnail = item;
+    }
+
+    $scope.getStyleItem = function () {
+        if ($scope.urlImgCurentSlider == null) {
+            return {};
+        }
+        return {
+            "background-image": "url(" + $(".elastic-slider .current img").attr('src') + ")",
+            "background-repeat": "no-repeat",
+            "background-size": "cover",
+            "background-position": "center",
+            "background-attachment": "fixed",
+            "filter": "blur(15px) grayscale(100%)",
+            "-webkit-filter": "blur(15px) grayscale(100%)",
+            "top": "-50%",
+            "width": "100vw",
+            "height": "calc(100vh + 50%)",
+            "position": "absolute",
+        }
+    }
+
+    $scope.elasticSliderLoaded = null;
+    $interval(function () {
+        if ($scope.elasticSliderLoaded) {
+            $scope.urlImgCurentSlider = $('.elastic-slider .current img').attr('src')
+        }
+    });
+
+}]);

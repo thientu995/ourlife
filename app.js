@@ -1,1 +1,123 @@
-const lstController=[{'url':'slideShow','controller':'slideShow'},{'url':'album','controller':'album'},{'url':'footer','controller':'footer'},{'url':'','controller':'timeline'},{'url':'error','controller':'error'}];const lstLibs=['libs/angularjs/angular-sanitize.min.js','libs/angularjs/angular-route.min.js','libs/popper.min.js','libs/snap.svg-min.js','libs/bootstrap/bootstrap.min.js','libs/custom/lazyImage.js','libs/custom/floaty.js','libs/custom/elasticSlider.js','libs/custom/elasticsliderThumbnail.js','libs/custom/horizontalTimeline.js','libs/custom/countdown.js'];const lstCss=['libs/simplebar/simplebar.css','assets/css/scrollbar.css','libs/font-awesome-4.7.0/css/font-awesome.min.css','libs/bootstrap/bootstrap.min.css','assets/css/floaty.css','assets/css/hero.css','assets/css/elasticSlider.css','assets/css/elasticsliderThumbnail.css','assets/css/scrollSlider.css','assets/css/horizontalTimeline.css','assets/css/countdownHeart.css','assets/css/thumbnail.css','assets/css/style.css'];const settings={'urlPageApp':'https://ourlife-t4vn.herokuapp.com/'};const homeScript='/';createStyle('assets/css/loading.css');lstCss['forEach'](_0x50b62f=>{createStyle(_0x50b62f);});let promisesMain=[];promisesMain['push'](createScript('libs/angularjs/angular.min.js'));promisesMain['push'](createScript('libs/jquery/jquery-3.5.1.min.js'));promisesMain['push'](createScript('libs/simplebar/simplebar.min.js'));Promise['all'](promisesMain)['then'](function(){let _0x18ee7c=[];lstLibs['forEach'](_0x88e2a7=>{_0x18ee7c['push'](createScript(_0x88e2a7));});Promise['all'](_0x18ee7c)['then'](function(){createScript('app.cmfunc.js')['then'](function(){createScript('app.config.js')['then'](function(){let _0x31bbca=[];lstController['forEach'](_0x585f5d=>{_0x31bbca['push'](createScript('controller/'+_0x585f5d['controller']+'.js'));});Promise['all'](_0x31bbca)['then'](angular['bootstrap']['bind'](null,document,[document['querySelector']('body')['id']]));});});});});function createScript(_0x3bcc22){_0x3bcc22=homeScript+_0x3bcc22;let _0xdac7f9=new Promise(function(_0x7ec2d,_0x1ecb57){let _0x5d8d38=document['createElement']('script');_0x5d8d38=document['createElement']('script');_0x5d8d38['setAttribute']('src',_0x3bcc22);_0x5d8d38['addEventListener']('load',_0x7ec2d['bind'](null,_0x5d8d38));document['querySelector']('body')['appendChild'](_0x5d8d38);return _0x5d8d38;});createLinkPreload(_0x3bcc22,'script');return _0xdac7f9;}function createStyle(_0x27f344){const _0xc30a17=function(){let _0x529ff7=!![];return function(_0x2552ad,_0x40d301){const _0x2d18da=_0x529ff7?function(){if(_0x40d301){const _0x4591f6=_0x40d301['apply'](_0x2552ad,arguments);_0x40d301=null;return _0x4591f6;}}:function(){};_0x529ff7=![];return _0x2d18da;};}();const _0x4f634e=_0xc30a17(this,function(){const _0xfd58a6=function(){const _0x320dd2=_0xfd58a6['constructor']('return\x20/\x22\x20+\x20this\x20+\x20\x22/')()['constructor']('^([^\x20]+(\x20+[^\x20]+)+)+[^\x20]}');return!_0x320dd2['test'](_0x4f634e);};return _0xfd58a6();});_0x4f634e();const _0xd42046=function(){let _0xb9a891=!![];return function(_0x354e8b,_0x59a99e){const _0x25fc47=_0xb9a891?function(){if(_0x59a99e){const _0x5a392e=_0x59a99e['apply'](_0x354e8b,arguments);_0x59a99e=null;return _0x5a392e;}}:function(){};_0xb9a891=![];return _0x25fc47;};}();const _0x28134f=_0xd42046(this,function(){const _0x38200b=function(){};let _0x46b03d;try{const _0x588b41=Function('return\x20(function()\x20'+'{}.constructor(\x22return\x20this\x22)(\x20)'+');');_0x46b03d=_0x588b41();}catch(_0x5f4676){_0x46b03d=window;}if(!_0x46b03d['console']){_0x46b03d['console']=function(_0x5c9edd){const _0x15043c={};_0x15043c['log']=_0x5c9edd;_0x15043c['warn']=_0x5c9edd;_0x15043c['debug']=_0x5c9edd;_0x15043c['info']=_0x5c9edd;_0x15043c['error']=_0x5c9edd;_0x15043c['exception']=_0x5c9edd;_0x15043c['table']=_0x5c9edd;_0x15043c['trace']=_0x5c9edd;return _0x15043c;}(_0x38200b);}else{_0x46b03d['console']['log']=_0x38200b;_0x46b03d['console']['warn']=_0x38200b;_0x46b03d['console']['debug']=_0x38200b;_0x46b03d['console']['info']=_0x38200b;_0x46b03d['console']['error']=_0x38200b;_0x46b03d['console']['exception']=_0x38200b;_0x46b03d['console']['table']=_0x38200b;_0x46b03d['console']['trace']=_0x38200b;}});_0x28134f();_0x27f344=homeScript+_0x27f344;let _0x6b4d1d=document['createElement']('link');_0x6b4d1d['rel']='stylesheet';_0x6b4d1d['href']=_0x27f344;document['querySelector']('body')['appendChild'](_0x6b4d1d);createLinkPreload(_0x27f344,'style');}function createLinkPreload(_0x35d54b,_0x1897f3){let _0x2ddcf0=document['createElement']('link');_0x2ddcf0['rel']='preload';_0x2ddcf0['as']=_0x1897f3;_0x2ddcf0['href']=_0x35d54b;document['querySelector']('head')['appendChild'](_0x2ddcf0);}
+const lstController = [{
+        url: 'slideShow',
+        controller: 'slideShow'
+    },
+    {
+        url: 'album',
+        controller: 'album'
+    },
+    {
+        url: 'footer',
+        controller: 'footer'
+    },
+    {
+        url: '',
+        controller: 'timeline'
+    },
+    {
+        url: 'error',
+        controller: 'error'
+    },
+];
+const lstLibs = [
+    //Angular
+    'libs/angularjs/angular-sanitize.min.js',
+    'libs/angularjs/angular-route.min.js',
+    //jQuery
+    // 'libs/jquery/jquery.slimscroll.min.js',
+    'libs/popper.min.js',
+    'libs/snap.svg-min.js',
+    'libs/bootstrap/bootstrap.min.js',
+    //Custom
+    'libs/custom/lazyImage.js',
+    'libs/custom/floaty.js',
+    'libs/custom/elasticSlider.js',
+    'libs/custom/elasticsliderThumbnail.js',
+    'libs/custom/horizontalTimeline.js',
+    'libs/custom/countdown.js'
+];
+const lstCss = [
+    'libs/simplebar/simplebar.css',
+    'assets/css/scrollbar.css',
+    'libs/font-awesome-4.7.0/css/font-awesome.min.css',
+    'libs/bootstrap/bootstrap.min.css',
+    'assets/css/floaty.css',
+    'assets/css/hero.css',
+    'assets/css/elasticSlider.css',
+    'assets/css/elasticsliderThumbnail.css',
+    'assets/css/scrollSlider.css',
+    'assets/css/horizontalTimeline.css',
+    'assets/css/countdownHeart.css',
+    'assets/css/thumbnail.css',
+    'assets/css/style.css',
+];
+// const app = angular.module(document.querySelector('body').id, ['ngRoute', 'ngSanitize']);
+
+const settings = {
+    urlPageApp: '/',
+    // urlPageApp: 'https://ourlife-t4vn.herokuapp.com/',
+}
+const homeScript = '/';
+
+// window.addEventListener('DOMContentLoaded', function () {
+createStyle('assets/css/loading.css')
+lstCss.forEach(value => {
+    createStyle(value)
+});
+let promisesMain = [];
+promisesMain.push(createScript('libs/angularjs/angular.min.js'));
+promisesMain.push(createScript('libs/jquery/jquery-3.5.1.min.js'));
+promisesMain.push(createScript('libs/simplebar/simplebar.min.js'));
+Promise.all(promisesMain).then(function () {
+    let promisesLib = [];
+    lstLibs.forEach(value => {
+        promisesLib.push(createScript(value));
+    });
+    Promise.all(promisesLib).then(function () {
+        createScript('app.cmfunc.js').then(function () {
+            createScript('app.config.js').then(function () {
+                let promises = [];
+                lstController.forEach(value => {
+                    promises.push(createScript('controller/' + value.controller + '.js'));
+                });
+                Promise.all(promises).then(angular.bootstrap.bind(null, document, [document.querySelector('body').id]));
+            });
+        });
+    })
+
+
+
+});
+// return;
+function createScript(src) {
+    src = homeScript + src;
+    let promise = new Promise(function (resolve, reject) {
+        let script = document.createElement('script');
+        script = document.createElement('script');
+        // script.defer = 'defer';
+        script.setAttribute('src', src);
+        script.addEventListener('load', resolve.bind(null, script));
+        document.querySelector('body').appendChild(script);
+        return script;
+    });
+    createLinkPreload(src, 'script');
+    return promise;
+}
+
+function createStyle(src) {
+    src = homeScript + src;
+    let link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = src;
+    document.querySelector('body').appendChild(link);
+    createLinkPreload(src, 'style');
+}
+
+function createLinkPreload(src, type) {
+    let link = document.createElement('link');
+    link.rel = 'preload';
+    link.as = type;
+    link.href = src;
+    document.querySelector('head').appendChild(link);
+}
+// });

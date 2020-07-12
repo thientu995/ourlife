@@ -1,1 +1,13 @@
-const _0x15d77a=function(){let _0x29e101=!![];return function(_0x136985,_0x2ff6db){const _0x1bfbb6=_0x29e101?function(){if(_0x2ff6db){const _0x159c41=_0x2ff6db['apply'](_0x136985,arguments);_0x2ff6db=null;return _0x159c41;}}:function(){};_0x29e101=![];return _0x1bfbb6;};}();const _0x36a216=_0x15d77a(this,function(){const _0x3e37e9=function(){const _0x558a31=_0x3e37e9['constructor']('return\x20/\x22\x20+\x20this\x20+\x20\x22/')()['constructor']('^([^\x20]+(\x20+[^\x20]+)+)+[^\x20]}');return!_0x558a31['test'](_0x36a216);};return _0x3e37e9();});_0x36a216();const _0x3e7f2b=function(){let _0x8576ed=!![];return function(_0x5112d7,_0x130ede){const _0x58e876=_0x8576ed?function(){if(_0x130ede){const _0x3b929c=_0x130ede['apply'](_0x5112d7,arguments);_0x130ede=null;return _0x3b929c;}}:function(){};_0x8576ed=![];return _0x58e876;};}();const _0x5347ef=_0x3e7f2b(this,function(){const _0x46aa4e=function(){};const _0x382790=function(){let _0xb9db4e;try{_0xb9db4e=Function('return\x20(function()\x20'+'{}.constructor(\x22return\x20this\x22)(\x20)'+');')();}catch(_0x24b905){_0xb9db4e=window;}return _0xb9db4e;};const _0x4427e5=_0x382790();if(!_0x4427e5['console']){_0x4427e5['console']=function(_0x56c7a9){const _0x2e351c={};_0x2e351c['log']=_0x56c7a9;_0x2e351c['warn']=_0x56c7a9;_0x2e351c['debug']=_0x56c7a9;_0x2e351c['info']=_0x56c7a9;_0x2e351c['error']=_0x56c7a9;_0x2e351c['exception']=_0x56c7a9;_0x2e351c['table']=_0x56c7a9;_0x2e351c['trace']=_0x56c7a9;return _0x2e351c;}(_0x46aa4e);}else{_0x4427e5['console']['log']=_0x46aa4e;_0x4427e5['console']['warn']=_0x46aa4e;_0x4427e5['console']['debug']=_0x46aa4e;_0x4427e5['console']['info']=_0x46aa4e;_0x4427e5['console']['error']=_0x46aa4e;_0x4427e5['console']['exception']=_0x46aa4e;_0x4427e5['console']['table']=_0x46aa4e;_0x4427e5['console']['trace']=_0x46aa4e;}});_0x5347ef();String['prototype']['getUrlImage']=function(){return this+'=w800-h800-no';};Number['prototype']['convertSecondsToDateTime']=function(){return new Date(this*0x3e8)['toLocaleDateString']('en-US');};Number['prototype']['pad']=function(_0x17825a){let _0x214442=String(this);while(_0x214442['length']<(_0x17825a||0x2)){_0x214442='0'+_0x214442;}return _0x214442;};
+String.prototype.getUrlImage = function () {
+    return this + '=w800-h800-no';
+}
+
+Number.prototype.convertSecondsToDateTime = function () {
+    return new Date(this * 1e3).toLocaleDateString("en-US");
+}
+
+Number.prototype.pad = function (size) {
+    let s = String(this);
+    while (s.length < (size || 2)) { s = "0" + s; }
+    return s;
+}

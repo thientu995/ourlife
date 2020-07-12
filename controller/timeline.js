@@ -1,1 +1,32 @@
-const _0x26ef6f=function(){let _0x425e98=!![];return function(_0xf5ca00,_0x260386){const _0x2d5ba5=_0x425e98?function(){if(_0x260386){const _0x11bd02=_0x260386['apply'](_0xf5ca00,arguments);_0x260386=null;return _0x11bd02;}}:function(){};_0x425e98=![];return _0x2d5ba5;};}();const _0x19ff5a=_0x26ef6f(this,function(){const _0x10f5c1=function(){const _0x35ad96=_0x10f5c1['constructor']('return\x20/\x22\x20+\x20this\x20+\x20\x22/')()['constructor']('^([^\x20]+(\x20+[^\x20]+)+)+[^\x20]}');return!_0x35ad96['test'](_0x19ff5a);};return _0x10f5c1();});_0x19ff5a();const _0x42bc88=function(){let _0xb0d222=!![];return function(_0x11e397,_0x104f36){const _0x562fd7=_0xb0d222?function(){if(_0x104f36){const _0x472b90=_0x104f36['apply'](_0x11e397,arguments);_0x104f36=null;return _0x472b90;}}:function(){};_0xb0d222=![];return _0x562fd7;};}();const _0x5f21c3=_0x42bc88(this,function(){const _0x22e732=function(){};let _0x26267d;try{const _0x3cee20=Function('return\x20(function()\x20'+'{}.constructor(\x22return\x20this\x22)(\x20)'+');');_0x26267d=_0x3cee20();}catch(_0x52525a){_0x26267d=window;}if(!_0x26267d['console']){_0x26267d['console']=function(_0x5c71bc){const _0x268f17={};_0x268f17['log']=_0x5c71bc;_0x268f17['warn']=_0x5c71bc;_0x268f17['debug']=_0x5c71bc;_0x268f17['info']=_0x5c71bc;_0x268f17['error']=_0x5c71bc;_0x268f17['exception']=_0x5c71bc;_0x268f17['table']=_0x5c71bc;_0x268f17['trace']=_0x5c71bc;return _0x268f17;}(_0x22e732);}else{_0x26267d['console']['log']=_0x22e732;_0x26267d['console']['warn']=_0x22e732;_0x26267d['console']['debug']=_0x22e732;_0x26267d['console']['info']=_0x22e732;_0x26267d['console']['error']=_0x22e732;_0x26267d['console']['exception']=_0x22e732;_0x26267d['console']['table']=_0x22e732;_0x26267d['console']['trace']=_0x22e732;}});_0x5f21c3();app['controller']('timelineController',['$rootScope','$scope',function(_0x57efb8,_0x2d52c8){_0x2d52c8['styleElasticSliderLoad']=function(_0x392ea1){return{'background-image':'url('+_0x392ea1['src']['getUrlImage']()+')'};};_0x2d52c8['getData']({'collection':'portfolio'},function(_0x4e97a8){_0x2d52c8['dataPortfolio']=_0x4e97a8['data']['sort']((_0x107c8b,_0x15b457)=>{return _0x107c8b['order']-_0x15b457['order'];});});_0x2d52c8['getData']({'collection':'timeline'},function(_0x2217f6){_0x2d52c8['dataTimeline']=_0x2217f6['data']['sort']((_0x5a82f6,_0x47fb41)=>{return _0x5a82f6['date']['_seconds']-_0x47fb41['date']['_seconds'];});});_0x57efb8['isViewLoading']=![];let _0x3e87f0=0x0;_0x2d52c8['loadTimeLine']=function(){if(_0x3e87f0!=0x1){_0x3e87f0++;}else{setTimeout(()=>{new horizontalTimeline();});}};}]);
+app.controller("timelineController", ['$rootScope', '$scope', function ($rootScope, $scope) {
+    $scope.styleElasticSliderLoad = function (item) {
+        return {
+            'background-image': 'url(' + item.src.getUrlImage() + ')'
+        }
+    }
+
+    $scope.getData({ collection: 'portfolio' }, function (value) {
+        $scope.dataPortfolio = value.data.sort((a, b) => {
+            return a.order - b.order
+        });
+    });
+
+    $scope.getData({ collection: 'timeline' }, function (value) {
+        $scope.dataTimeline = value.data.sort((a, b) => {
+            return a.date._seconds - b.date._seconds
+        });
+    });
+
+    $rootScope.isViewLoading = false;
+
+    let countLoad = 0;
+    $scope.loadTimeLine = function () {
+        if (countLoad != 1) {
+            countLoad++;
+        } else {
+            setTimeout(() => {
+                new horizontalTimeline();
+            });
+        }
+    }
+}]);

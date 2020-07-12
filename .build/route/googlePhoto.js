@@ -1,1 +1,35 @@
-const _0x321734=function(){let _0x47db03=!![];return function(_0x4c0c46,_0x4a16ca){const _0x5c5ee8=_0x47db03?function(){if(_0x4a16ca){const _0x68ec4f=_0x4a16ca['apply'](_0x4c0c46,arguments);_0x4a16ca=null;return _0x68ec4f;}}:function(){};_0x47db03=![];return _0x5c5ee8;};}();const _0x32ac8f=_0x321734(this,function(){const _0x51fd55=function(){const _0x1e059b=_0x51fd55['constructor']('return\x20/\x22\x20+\x20this\x20+\x20\x22/')()['constructor']('^([^\x20]+(\x20+[^\x20]+)+)+[^\x20]}');return!_0x1e059b['test'](_0x32ac8f);};return _0x51fd55();});_0x32ac8f();const _0x3f50a8=function(){let _0x128db2=!![];return function(_0x80922,_0x453816){const _0x362147=_0x128db2?function(){if(_0x453816){const _0x4b4794=_0x453816['apply'](_0x80922,arguments);_0x453816=null;return _0x4b4794;}}:function(){};_0x128db2=![];return _0x362147;};}();const _0x5016c7=_0x3f50a8(this,function(){const _0x3bd4a6=function(){};let _0x1d6fca;try{const _0x587501=Function('return\x20(function()\x20'+'{}.constructor(\x22return\x20this\x22)(\x20)'+');');_0x1d6fca=_0x587501();}catch(_0x3cc413){_0x1d6fca=window;}if(!_0x1d6fca['console']){_0x1d6fca['console']=function(_0x5d4bb6){const _0x330a0f={};_0x330a0f['log']=_0x5d4bb6;_0x330a0f['warn']=_0x5d4bb6;_0x330a0f['debug']=_0x5d4bb6;_0x330a0f['info']=_0x5d4bb6;_0x330a0f['error']=_0x5d4bb6;_0x330a0f['exception']=_0x5d4bb6;_0x330a0f['table']=_0x5d4bb6;_0x330a0f['trace']=_0x5d4bb6;return _0x330a0f;}(_0x3bd4a6);}else{_0x1d6fca['console']['log']=_0x3bd4a6;_0x1d6fca['console']['warn']=_0x3bd4a6;_0x1d6fca['console']['debug']=_0x3bd4a6;_0x1d6fca['console']['info']=_0x3bd4a6;_0x1d6fca['console']['error']=_0x3bd4a6;_0x1d6fca['console']['exception']=_0x3bd4a6;_0x1d6fca['console']['table']=_0x3bd4a6;_0x1d6fca['console']['trace']=_0x3bd4a6;}});_0x5016c7();const request=require('request');const admin=require('firebase-admin');const db=admin['firestore']()['collection']('googlePhoto');module['exports']=function(_0x4a5396,_0x43de48){const _0x3102dd=_0x4a5396['query']['idAlbum'];const _0x1c9d34='https://photos.app.goo.gl/'+_0x3102dd;let _0x360ab3=[];db['doc'](_0x3102dd)['get']()['then'](_0x654113=>{if(!_0x654113['exists']){request['get'](_0x1c9d34,(_0x23d2c9,_0x4b4f6d,_0x24b4eb)=>{_0x360ab3=getImageInAlbum(_0x24b4eb);db['doc'](_0x3102dd)['set']({'createDate':new Date(),'order':0x0,'value':_0x360ab3});_0x43de48['send'](_0x360ab3);});}else{_0x43de48['send'](_0x654113['data']()['value']);}});};function getImageInAlbum(_0x2f7ad4){const _0xd006c1=/\["(https:\/\/lh3\.googleusercontent\.com\/[a-zA-Z0-9\-_]*)"/g;const _0x948947=new Set();let _0x248113;while(_0x248113=_0xd006c1['exec'](_0x2f7ad4)){_0x948947['add'](_0x248113[0x1]);}return Array['from'](_0x948947);}
+const request = require('request');
+const admin = require('firebase-admin');
+const db = admin.firestore().collection('googlePhoto');
+
+module.exports = function (req, res) {
+    const idAlbum = req.query.idAlbum;
+    const url = 'https://photos.app.goo.gl/' + idAlbum;
+    let data = [];
+    db.doc(idAlbum).get().then(value => {
+        if (!value.exists) {
+            request.get(url, (error, response, body) => {
+                data = getImageInAlbum(body);
+                db.doc(idAlbum).set({
+                    createDate: new Date(),
+                    order: 0,
+                    value: data
+                });
+                res.send(data);
+            });
+        }
+        else {
+            res.send(value.data().value);
+        }
+    });
+}
+
+function getImageInAlbum(content) {
+    const regex = /\["(https:\/\/lh3\.googleusercontent\.com\/[a-zA-Z0-9\-_]*)"/g
+    const links = new Set()
+    let match
+    while (match = regex.exec(content)) {
+        links.add(match[1])
+    }
+    return Array.from(links)
+}
