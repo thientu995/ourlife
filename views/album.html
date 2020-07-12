@@ -2,10 +2,7 @@
     <div class="elasticsliderThumbnail">
         <div class="ela-slideThumbnail" ng-repeat="itemImage in item.ListImage | limitTo:5"
             ng-init="$last && initThumbnail()">
-            <a href="javascript:void(0)" ng-click="selectThumbnail(item)" data-toggle="modal"
-                data-target="#modalElasticslider">
-                <img ng-src="{{itemImage.getUrlImage()}}" />
-            </a>
+            <img ng-src="{{itemImage.getUrlImage()}}" />
             <div class="elasticsliderThumbnail-Text">
                 <a href="javascript:void(0)" ng-click="selectThumbnail(item)" data-toggle="modal"
                     data-target="#modalElasticslider">
