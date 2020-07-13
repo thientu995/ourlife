@@ -24,7 +24,7 @@ async function getDb(collection, doc, typeMap) {
         let lstData = getdata.docs;
         let data = {};
         if (collection == 'album') {
-            return await getGooglePhoto(lstData);
+            return await getGooglePhoto(collection, lstData);
         }
         switch (typeMap) {
             case 'orign':
@@ -47,18 +47,14 @@ function convertArrayToJson(lstData) {
     return data;
 }
 
-async function getGooglePhoto(data) {
+async function getGooglePhoto(collection, data) {
     data = convertArrayToJson(data);
     const lstKeys = Object.keys(data);
     let result = [];
     for (let i = 0; i < lstKeys.length; i++) {
         let value = data[lstKeys[i]];
-        let getdata = await getDb('googlePhoto', value.id);
-        if (getdata) {
-            value.ListImage = getdata.value;
-        }
-        else {
-            value.ListImage = await getListUrlGP(value.id);
+        if (value.ListImage == null || value.ListImage.length <= 3) {
+            value.ListImage = await getListUrlGP(collection, lstKeys[i], value.id);
         }
         if (value.ListImage.length != null && value.ListImage.length > 3) {
             result.push(value);
@@ -67,15 +63,14 @@ async function getGooglePhoto(data) {
     return result;
 }
 
-function getListUrlGP(id) {
+function getListUrlGP(collection, id, idAlbum) {
     return new Promise(function (resolve, reject) {
-        const url = 'https://photos.app.goo.gl/' + id;
+        const url = 'https://photos.app.goo.gl/' + idAlbum;
         request.get(url, (error, response, body) => {
             data = getImageInAlbum(body);
-            db.collection('googlePhoto').doc(id).set({
-                createDate: new Date(),
-                order: 0,
-                value: data
+            db.collection(collection).doc(id).update({
+                createDateLink: new Date(),
+                ListImage: data
             });
             resolve(data);
         });

@@ -254,6 +254,7 @@ ElasticSlider.prototype = {
         this.currentItem = this.items[this.currentIndex];
         this.prevItem = this.items[this.getPrevIndex()];
         this.nextItem = this.items[this.getNextIndex()];
+        setTimeout(function () { window.dispatchEvent(new Event('resize')); });
     },
 
     addClasses: function () {

@@ -166,9 +166,7 @@ class horizontalTimeline {
         }
 
         function updateVisibleContent(event, eventsContent) {
-            setTimeout(function(){
-                window.dispatchEvent(new Event('resize'));
-            })
+            setTimeout(function () { window.dispatchEvent(new Event('resize')); });
             var eventDate = event.data('date'),
                 visibleContent = eventsContent.find('.selected'),
                 selectedContent = eventsContent.find('[data-date="' + eventDate + '"]'),

@@ -1,8 +1,5 @@
 app.controller("albumController", ['$rootScope', '$scope', '$http', '$interval', function ($rootScope, $scope, $http, $interval) {
-    $scope.elasticSliderLoaded = false;
-    $scope.getData({
-        collection: 'album'
-    }, function (value) {
+    $scope.getData({ collection: 'album' }, function (value) {
         $scope.dateListAlbum = value.data.sort((a, b) => {
             return b.date.seconds - a.date.seconds
         });
@@ -14,21 +11,22 @@ app.controller("albumController", ['$rootScope', '$scope', '$http', '$interval',
         return true;
     }
 
-    $scope.elasticSliderLoad = function (id) {
-        if (!$scope.elasticSliderLoaded) {
-            new ElasticSlider('#' + id, {
-                maxStretch: 100,
-                bezierLen: 80
-            });
-            new SimpleBar(document.querySelector('.modalElasticslider'), {
-                autoHide: false
-            });
-            $scope.elasticSliderLoaded = true;
-        }
+    $scope.selectItem = function (item) {
+        $scope.itemSelected = item;
+    }
+
+    $scope.elasticSliderLoad = function () {
+        new ElasticSlider('.listSlider', {
+            maxStretch: 100,
+            bezierLen: 80
+        });
+        new SimpleBar(document.querySelector('.modalElasticslider'), {
+            autoHide: false
+        });
         return true;
     };
 
-    $scope.getStyleItem = function () {
+    $scope.getStyleItem = function (id) {
         if ($scope.urlImgCurentSlider == null) {
             return {};
         }
@@ -47,10 +45,7 @@ app.controller("albumController", ['$rootScope', '$scope', '$http', '$interval',
         }
     }
 
-    $scope.elasticSliderLoaded = null;
     $interval(function () {
-        if ($scope.elasticSliderLoaded) {
-            $scope.urlImgCurentSlider = $('.elastic-slider .current img').attr('src')
-        }
+        $scope.urlImgCurentSlider = $('.elastic-slider .current img').attr('src')
     });
 }]);
