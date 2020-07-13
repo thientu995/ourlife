@@ -3,9 +3,9 @@
 
 // window.addEventListener('load', onWndLoad, false);
 
-function elasticsliderThumbnail() {
-
-    var slider = document.querySelector('.elasticsliderThumbnail');
+function elasticsliderThumbnail(idObj) {
+    console.log(idObj);
+    var slider = document.querySelector('#' + idObj);
     var sliders = slider.children;
 
 
@@ -33,9 +33,10 @@ function elasticsliderThumbnail() {
 
         }
     }
+    init();
 
     function init() {
-
+        prevSlide = null;
         var z = 0,
             y = 0;
 
@@ -48,9 +49,6 @@ function elasticsliderThumbnail() {
 
 
         attachEvents(sliders[sliders.length - 1]);
-
-
-
     }
 
     function attachEvents(elem) {
@@ -59,7 +57,6 @@ function elasticsliderThumbnail() {
         curSlide.addEventListener('mousedown', slideMouseDown, false);
         curSlide.addEventListener('touchstart', slideMouseDown, false);
     }
-    init();
 
     function slideMouseDown(e) {
 
@@ -164,6 +161,4 @@ function elasticsliderThumbnail() {
         document.removeEventListener('touchmove', slideMouseMove, false);
 
     }
-
-
 }

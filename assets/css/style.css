@@ -65,6 +65,10 @@ main section:first-child {
     margin-top: 0;
 }
 
+main section:last-child {
+    margin-bottom: 50px;
+}
+
 main section .section-title {
     font-family: 'Lobster', cursive;
     text-align: center;

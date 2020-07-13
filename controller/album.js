@@ -6,8 +6,8 @@ app.controller("albumController", ['$rootScope', '$scope', '$http', '$interval',
         $rootScope.isViewLoading = false;
     });
 
-    $scope.initThumbnail = function () {
-        elasticsliderThumbnail();
+    $scope.initThumbnail = function (id) {
+        elasticsliderThumbnail(id);
         return true;
     }
 
@@ -32,16 +32,6 @@ app.controller("albumController", ['$rootScope', '$scope', '$http', '$interval',
         }
         return {
             "background-image": "url(" + $(".elastic-slider .current img").attr('src') + ")",
-            "background-repeat": "no-repeat",
-            "background-size": "cover",
-            "background-position": "center",
-            "background-attachment": "fixed",
-            "filter": "blur(15px) grayscale(100%)",
-            "-webkit-filter": "blur(15px) grayscale(10  0%)",
-            "top": "-50%",
-            "width": "100vw",
-            "height": "calc(100vh + 50%)",
-            "position": "absolute",
         }
     }
 
