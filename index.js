@@ -76,7 +76,7 @@ app.use(function (req, res, next) {
 });
 
 app.get('/', flatCacheMiddleware, require('./.build/route/index'));
-app.get('/googlePhoto', flatCacheMiddleware, require('./.build/route/googlePhoto'));
+// app.get('/googlePhoto', flatCacheMiddleware, require('./.build/route/googlePhoto'));
 app.post('/get', flatCacheMiddleware, require('./.build/route/firebase'));
 
 const server = app.listen(port, function () {

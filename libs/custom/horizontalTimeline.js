@@ -166,6 +166,9 @@ class horizontalTimeline {
         }
 
         function updateVisibleContent(event, eventsContent) {
+            setTimeout(function(){
+                window.dispatchEvent(new Event('resize'));
+            })
             var eventDate = event.data('date'),
                 visibleContent = eventsContent.find('.selected'),
                 selectedContent = eventsContent.find('[data-date="' + eventDate + '"]'),
@@ -184,7 +187,7 @@ class horizontalTimeline {
                 visibleContent.removeClass('leave-right leave-left');
                 selectedContent.removeClass('enter-left enter-right');
             });
-            eventsContent.css('height', selectedContentHeight + 'px');
+            // eventsContent.css('height', selectedContentHeight + 'px');
         }
 
         function updateOlderEvents(event) {
@@ -217,7 +220,6 @@ class horizontalTimeline {
             element.style["-ms-transform"] = property + "(" + value + ")";
             element.style["-o-transform"] = property + "(" + value + ")";
             element.style["transform"] = property + "(" + value + ")";
-            window.dispatchEvent(new Event('resize'));
         }
 
         //based on http://stackoverflow.com/questions/542938/how-do-i-get-the-number-of-days-between-two-dates-in-javascript

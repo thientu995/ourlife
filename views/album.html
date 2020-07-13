@@ -1,45 +1,48 @@
-<div class="col-md-4" ng-repeat="item in dateListAlbum">
-    <div class="elasticsliderThumbnail">
-        <div class="ela-slideThumbnail" ng-repeat="itemImage in item.ListImage | limitTo:5"
-            ng-init="$last && initThumbnail()">
-            <img ng-src="{{itemImage.getUrlImage()}}" />
-            <div class="elasticsliderThumbnail-Text">
-                <a href="javascript:void(0)" ng-click="selectThumbnail(item)" data-toggle="modal"
-                    data-target="#modalElasticslider">
-                    <h3>{{item.title}}</h3>
-                </a>
+<section>
+	<h1 class="section-title">Album</h1>
+    <div class="col-md-4" ng-repeat-start="item in dateListAlbum">
+        <div class="elasticsliderThumbnail">
+            <div class="ela-slideThumbnail" ng-repeat="itemImage in item.ListImage | limitTo:5"
+                ng-init="$last && initThumbnail()">
+                <img ng-src="{{itemImage.getUrlImage()}}" />
+                <div class="elasticsliderThumbnail-Text">
+                    <a href="javascript:void(0)" data-toggle="modal" data-target="#modal{{item.id}}">
+                        <h3>{{item.title}}</h3>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="modal modalElasticslider fade" id="modalElasticslider" tabindex="-1" role="dialog" aria-hidden="true"
-    data-backdrop="false">
-    <div ng-style="getStyleItem()"></div>
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="container modal-content">
-            <div class="modal-header rounded" style="background-color: #fff;">
-                <div class="d-inline-flex">
-                    <button type="button" class="btn btn-danger rounded-circle" data-dismiss="modal">
-                        <i class="fa fa-close"></i>
-                    </button>
-                    <h2 class="ml-2">{{itemSelectThumbnail.title}}</h2>
+    <div ng-repeat-end="" class="modal modalElasticslider fade" id="modal{{item.id}}" tabindex="-1" role="dialog"
+        aria-hidden="true" data-backdrop="false">
+        <div ng-style="getStyleItem()"></div>
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="container modal-content">
+                <div class="modal-header rounded" style="background-color: #fff;">
+                    <div class="d-inline-flex">
+                        <button type="button" class="btn btn-danger rounded-circle" data-dismiss="modal">
+                            <i class="fa fa-close"></i>
+                        </button>
+                        <h2 class="ml-2">{{item.title}}</h2>
+                    </div>
                 </div>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-5">
-                        <div class="elastic-slider listSlider">
-                            <div class="text-center" ng-repeat="itemImage in itemSelectThumbnail.ListImage">
-                                <img ng-src="{{itemImage.getUrlImage()}}" ng-init="$last && elasticSliderLoad()" />
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="elastic-slider listSlider" id="elastic{{item.id}}">
+                                <div class="text-center" ng-repeat="itemImage in item.ListImage">
+                                    <img ng-src="{{itemImage.getUrlImage()}}"
+                                        ng-init="$last && elasticSliderLoad('elastic'+item.id)" />
+                                </div>
                             </div>
                         </div>
+                        <div class="col-md-7">
+                            <p class="mr-auto" ng-bind-html="item.description"></p>
+                        </div>
                     </div>
-                    <div class="col-md-7">
-                        <p class="mr-auto" ng-bind-html="itemSelectThumbnail.description"></p>
-                    </div>
+                    <div class="modal-footer"></div>
                 </div>
-                <div class="modal-footer"></div>
             </div>
         </div>
     </div>
-</div>
+</section>

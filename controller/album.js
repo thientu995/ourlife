@@ -1,5 +1,4 @@
 app.controller("albumController", ['$rootScope', '$scope', '$http', '$interval', function ($rootScope, $scope, $http, $interval) {
-    $scope.itemSelectThumbnail = null;
     $scope.elasticSliderLoaded = false;
     $scope.getData({
         collection: 'album'
@@ -7,13 +6,7 @@ app.controller("albumController", ['$rootScope', '$scope', '$http', '$interval',
         $scope.dateListAlbum = value.data.sort((a, b) => {
             return b.date.seconds - a.date.seconds
         });
-
-        angular.forEach($scope.dateListAlbum, (value, key) => {
-            $http.get(settings.urlPageApp + 'googlephoto?idAlbum=' + value.id).then(res => {
-                $scope.dateListAlbum[key].ListImage = res.data;
-                $rootScope.isViewLoading = false;
-            });
-        });
+        $rootScope.isViewLoading = false;
     });
 
     $scope.initThumbnail = function () {
@@ -23,7 +16,7 @@ app.controller("albumController", ['$rootScope', '$scope', '$http', '$interval',
 
     $scope.elasticSliderLoad = function (id) {
         if (!$scope.elasticSliderLoaded) {
-            new ElasticSlider('.listSlider', {
+            new ElasticSlider('#' + id, {
                 maxStretch: 100,
                 bezierLen: 80
             });
@@ -34,10 +27,6 @@ app.controller("albumController", ['$rootScope', '$scope', '$http', '$interval',
         }
         return true;
     };
-
-    $scope.selectThumbnail = function (item) {
-        $scope.itemSelectThumbnail = item;
-    }
 
     $scope.getStyleItem = function () {
         if ($scope.urlImgCurentSlider == null) {
@@ -50,7 +39,7 @@ app.controller("albumController", ['$rootScope', '$scope', '$http', '$interval',
             "background-position": "center",
             "background-attachment": "fixed",
             "filter": "blur(15px) grayscale(100%)",
-            "-webkit-filter": "blur(15px) grayscale(100%)",
+            "-webkit-filter": "blur(15px) grayscale(10  0%)",
             "top": "-50%",
             "width": "100vw",
             "height": "calc(100vh + 50%)",
@@ -64,5 +53,4 @@ app.controller("albumController", ['$rootScope', '$scope', '$http', '$interval',
             $scope.urlImgCurentSlider = $('.elastic-slider .current img').attr('src')
         }
     });
-
 }]);
