@@ -1,6 +1,5 @@
 const request = require('request');
 const admin = require('firebase-admin');
-const { copySync } = require('fs-extra');
 const db = admin.firestore();
 
 
@@ -76,6 +75,7 @@ function getListUrlGP(collection, id, idAlbum) {
         });
     });
 }
+
 function getImageInAlbum(content) {
     const regex = /\["(https:\/\/lh3\.googleusercontent\.com\/[a-zA-Z0-9\-_]*)"/g
     const links = new Set()
