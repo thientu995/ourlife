@@ -31,7 +31,7 @@ app.controller("albumController", ['$rootScope', '$scope', '$http', '$interval',
             return {};
         }
         return {
-            "background-image": "url(" + $(".elastic-slider .current img").attr('src') + ")",
+            "background-image": "url(" + $scope.urlImgCurentSlider + ")",
         }
     }
 

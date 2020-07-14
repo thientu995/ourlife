@@ -14,17 +14,6 @@ app.run(['$window', '$rootScope', '$http', function ($window, $rootScope, $http)
         $http.post(settings.urlPageApp + 'get', param).then(func);
     }
 
-    // new SimpleBar(document.querySelector('.floatyMenuWrapper'), { autoHide: false });
-
-    new Floaty('#floatyMenu', {
-        onActivate: function () {
-            if (!$('.floatyMenuContainer').hasClass('active')) {
-                simpleBarBody.getScrollElement().scrollTo(0, $('header').outerHeight());
-            }
-            $('.floatyMenuContainer,.button-floaty').toggleClass('active');
-        }
-    });
-
     $rootScope.getData({ collection: 'setting', doc: 'tagMeta' }, function (value) {
         const data = value.data;
         $rootScope.pageTitle = data.title;

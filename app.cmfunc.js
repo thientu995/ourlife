@@ -11,3 +11,7 @@ Number.prototype.pad = function (size) {
     while (s.length < (size || 2)) { s = "0" + s; }
     return s;
 }
+
+$.fn.hasScrollBar = function () {
+    return this.get(0).scrollHeight > this.height();
+}

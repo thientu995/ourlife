@@ -19,25 +19,10 @@
             <p class="error"></p>
         </div>
     </div>
+    <nav class="floaty" ng-controller="floatMenuController">
+        <ng-include src="'./views/floatMenu.html'"></ng-include>
+    </nav>
     <header ng-controller="slideShowController">
-        <div class="floaty">
-            <button class="btn button-floaty" id="floatyMenu"></button>
-            <div class="floatyMenuContainer">
-                <div class="floatyMenuWrapper">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-4 px-0 linkWrap" ng-repeat="item in dataArrayMenu">
-                                <a class="link nav-link d-flex flex-lg-column align-items-center justify-content-lg-center bg-blue text-blue-lighter"
-                                    href="{{item.href}}" ng-click="closeFloatyMenu()">
-                                    <div class="icon" ng-bind-html="item.icon"></div>
-                                    <div class="text pl-1">{{item.text}}</div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <ng-include src="'./views/slideshow.html'"></ng-include>
     </header>
     <div class="img-line"></div>
@@ -48,7 +33,7 @@
     <footer ng-controller="footerController" ng-style="image" class="p-4">
         <ng-include src="'./views/footer.html'"></ng-include>
     </footer>
-    <script defer src="./app.js"></script>
+    <script async src="./app.js"></script>
 </body>
 
 </html>

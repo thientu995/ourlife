@@ -98,7 +98,7 @@ class Floaty {
 
     floaty.makeTouchstartCallback = function (floater) {
       return function (event) {
-        event.preventDefault();
+        // event.preventDefault();
         floater.mouse_clicked = true;
         floater.activate = true;
         // floater.addClass('active');
@@ -107,10 +107,11 @@ class Floaty {
     };
 
     floaty.makeMouseupCallback = function (floater) {
-      return function () {
+      return function (event) {
         if (!floater.mouse_clicked) {
           return;
         }
+        event.preventDefault();
         floater.mouse_clicked = false;
         // floater.removeClass('active');
         if (floater.activate) {
@@ -187,7 +188,7 @@ class Floaty {
 
     floaty.makeTouchmoveCallback = function (floater) {
       return function (e) {
-        e.preventDefault();
+        // e.preventDefault();
         if (floater.mouse_clicked) {
           floater.updatePosition(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
           floater.activate = false;
@@ -225,7 +226,7 @@ class Floaty {
     };
 
     floaty.floaty.prototype.addEventListener = function (eventName, callback, fn) {
-      if (fn) {
+      if (fn != null) {
         this.element.addEventListener(eventName, callback, { passive: !fn });
       }
       else {

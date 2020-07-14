@@ -34,8 +34,10 @@ a:hover, a:focus {
     text-decoration: none;
 }
 
-button:focus {
-    border: none;
+button:focus, button:hover {
+    /* border: none !important; */
+    outline: none !important;
+    box-shadow: none !important;
 }
 
 html, body {
@@ -44,6 +46,13 @@ html, body {
     /* font-size: 25px; */
     background-color: rgba(222, 204, 181, 0.5);
     color: #612d7f;
+}
+
+.litmitText {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .img-line {
@@ -148,7 +157,9 @@ footer {
 }
 
 .modal {
-    background-color: rgba(0, 0, 0, 0.5)
+    background-color: rgba(0, 0, 0, 0.5);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
 }
 
 img[data-lazy-src] {

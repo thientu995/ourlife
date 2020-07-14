@@ -1,15 +1,5 @@
 app.controller("slideShowController", ['$scope', '$timeout', function ($scope, $timeout) {
     const timeChange = 10;
-    $scope.getData({ collection: 'menu' }, function (value) {
-        $scope.dataArrayMenu = value.data.sort((a, b) => { return a.index - b.index });
-    });
-
-    $scope.closeFloatyMenu = function () {
-        $timeout(function () {
-            $('.floatyMenuContainer,.button-floaty').toggleClass('active');
-        });
-    }
-
     $scope.getData({ collection: 'slideshow' }, function (value) {
         $scope.dataArray = value.data;
     });

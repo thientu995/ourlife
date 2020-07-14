@@ -1,4 +1,5 @@
-const lstController = [{
+const lstController = [
+    {
         url: 'slideShow',
         controller: 'slideShow'
     },
@@ -7,12 +8,16 @@ const lstController = [{
         controller: 'album'
     },
     {
-        url: 'footer',
-        controller: 'footer'
-    },
-    {
         url: '',
         controller: 'timeline'
+    },
+    {
+        url: 'floatMenu',
+        controller: 'floatMenu'
+    },
+    {
+        url: 'footer',
+        controller: 'footer'
     },
     {
         url: 'error',
@@ -37,19 +42,17 @@ const lstLibs = [
     'libs/custom/countdown.js'
 ];
 const lstCss = [
-    'libs/simplebar/simplebar.css',
-    'assets/css/scrollbar.css',
     'libs/font-awesome-4.7.0/css/font-awesome.min.css',
     'libs/bootstrap/bootstrap.min.css',
+    'assets/css/style.css',
+    'assets/css/scrollbar.css',
     'assets/css/floaty.css',
     'assets/css/hero.css',
     'assets/css/elasticSlider.css',
     'assets/css/elasticsliderThumbnail.css',
-    'assets/css/scrollSlider.css',
     'assets/css/horizontalTimeline.css',
     'assets/css/countdownHeart.css',
     'assets/css/thumbnail.css',
-    'assets/css/style.css',
 ];
 // const app = angular.module(document.querySelector('body').id, ['ngRoute', 'ngSanitize']);
 
@@ -84,33 +87,31 @@ Promise.all(promisesMain).then(function () {
             });
         });
     })
-
-
-
 });
 // return;
 function createScript(src) {
     src = homeScript + src;
+    createLinkPreload(src, 'script');
     let promise = new Promise(function (resolve, reject) {
         let script = document.createElement('script');
         script = document.createElement('script');
         // script.defer = 'defer';
+        script.async = 'async';
         script.setAttribute('src', src);
         script.addEventListener('load', resolve.bind(null, script));
         document.querySelector('body').appendChild(script);
         return script;
     });
-    createLinkPreload(src, 'script');
     return promise;
 }
 
 function createStyle(src) {
     src = homeScript + src;
+    createLinkPreload(src, 'style');
     let link = document.createElement('link');
     link.rel = 'stylesheet';
     link.href = src;
     document.querySelector('body').appendChild(link);
-    createLinkPreload(src, 'style');
 }
 
 function createLinkPreload(src, type) {
