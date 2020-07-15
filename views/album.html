@@ -1,7 +1,10 @@
 <section>
     <h1 class="section-title">Album</h1>
+    <div class="search">
+        <div><input type="text" placeholder="Search . . ." ng-change="searchAlbum()" ng-model="model.searchAlbum"></div>
+    </div>
     <div class="row">
-        <div class="col-lg-4 col-md-6 col-12" ng-repeat="item in dateListAlbum">
+        <div class="col-lg-4 col-md-6 col-12" ng-repeat="item in model.lstAlbum">
             <div class="elasticsliderThumbnail" id="{{item.id}}">
                 <div class="ela-slideThumbnail" ng-repeat="itemImage in item.ListImage | limitTo:5"
                     ng-init="$last && initThumbnail(item.id)">
@@ -23,8 +26,9 @@
             <div class="container modal-content">
                 <div class="modal-header rounded">
                     <div class="d-inline-flex">
-                        <button type="button" class="btn btn-danger rounded-circle" data-dismiss="modal">
-                            <i class="fa fa-close"></i>
+                        <button type="button" class="btn btn-danger rounded-circle" data-dismiss="modal"
+                            style="width: 40px; height: 40px;">
+                            <i class="material-icons">close</i>
                         </button>
                         <h2 class="ml-2">{{itemSelected.title}}</h2>
                     </div>

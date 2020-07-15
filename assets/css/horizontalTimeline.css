@@ -114,8 +114,8 @@ Main Components
 }
 
 .cd-horizontal-timeline .events a::after {
-    font-family: 'FontAwesome';
-    content: "\f004";
+    font-family: 'Material Icons';
+    content: "\e87d";
     position: absolute;
     left: 50%;
     right: auto;
@@ -147,6 +147,7 @@ Main Components
 }
 
 .cd-horizontal-timeline .events a.selected::after {
+    content: "\e87e";
     background-color: red;
     border-color: red;
 }
@@ -198,7 +199,7 @@ Main Components
 
 .cd-timeline-navigation a::after {
     /* arrow icon */
-    /* font-family: 'FontAwesome';
+    /* font-family: 'Material Icons';
     content: '\f061'; */
     content: '';
     position: absolute;

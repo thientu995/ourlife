@@ -42,10 +42,11 @@ const lstLibs = [
     'libs/custom/countdown.js'
 ];
 const lstCss = [
-    'libs/font-awesome-4.7.0/css/font-awesome.min.css',
+    // 'libs/font-awesome-4.7.0/css/font-awesome.min.css',
     'libs/bootstrap/bootstrap.min.css',
     'assets/css/style.css',
     'assets/css/scrollbar.css',
+    'assets/css/inputSearch.css',
     'assets/css/floaty.css',
     'assets/css/hero.css',
     'assets/css/elasticSlider.css',

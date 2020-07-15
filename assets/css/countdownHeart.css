@@ -1,6 +1,22 @@
 @keyframes beatHeart {
+    from{
+        transform: scale(.5);
+    }
     to {
-        transform: scale(1.4);
+        transform: scale(1.5);
+    }
+}
+
+@keyframes changeLetter {
+    from{
+        transform: scale(1);
+        opacity: .1;
+        content: "\e87d";
+    }
+    to {
+        opacity: 1;
+        content: "\e87e";
+        transform: scale(2);
     }
 }
 
@@ -12,8 +28,8 @@
 }
 
 .countdown-heart::after {
-    font-family: 'FontAwesome';
-    content: "\f004";
+    font-family: 'Material Icons';
+    content: "\e87d";
     left: calc(50% - 200px);
     top: -450%;
     position: absolute;
@@ -21,4 +37,5 @@
     opacity: .5;
     z-index: -1;
     color: #e00;
+    animation: changeLetter .5s linear infinite alternate;
 }

@@ -147,8 +147,8 @@
 }
 
 .simplebar-scrollbar:after {
-    font-family: 'FontAwesome';
-    content: "\f004";
+    font-family: 'Material Icons';
+    content: "\e87d";
     position: relative;
     opacity: 1;
     color: red;
@@ -208,7 +208,7 @@
     height: 5px;
     left: 2px;
     right: 0;
-    top: 6px;
+    top: 3px;
 }
 
 .simplebar-track.simplebar-horizontal .simplebar-scrollbar:after {

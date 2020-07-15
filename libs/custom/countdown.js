@@ -33,6 +33,7 @@ class countdown {
             }
             document.getElementById(this.idObject).innerHTML = days + hours + minutes + seconds;
             document.getElementById(this.idObject).style = "animation-duration: .5s"
+            // document.getElementById(this.idObject).previousSibling.style = "animation-duration: 1s"
         }, 1000);
     }
 }
