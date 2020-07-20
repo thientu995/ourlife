@@ -30,7 +30,7 @@ ElasticSlider.prototype = {
                 this.initButton();
                 clearInterval(interval);
             }
-        }, 500);
+        });
     },
 
     initButton: function () {
