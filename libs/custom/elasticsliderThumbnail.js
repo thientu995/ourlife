@@ -4,7 +4,6 @@
 // window.addEventListener('load', onWndLoad, false);
 
 function elasticsliderThumbnail(idObj) {
-    console.log(idObj);
     var slider = document.querySelector('#' + idObj);
     var sliders = slider.children;
 

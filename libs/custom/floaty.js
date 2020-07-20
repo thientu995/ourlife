@@ -90,6 +90,9 @@ class Floaty {
     this.addEventListener('touchstart', this.onTouchStart.bind(this), false)
     this.addEventListener('touchend', this.onTouchEnd.bind(this), false)
     this.addEventListener('touchmove', this.onTouchMove.bind(this), false)
+
+    this.snapback('bottom');
+    // window.addEventListener('resize', this.snapback('bottom'));
   }
 
   addEventListener(eventName, fn) {
@@ -106,7 +109,10 @@ class Floaty {
   }
 
   getCoords() {
-    return [Utils.pixelToNum(this.element.style.left), Utils.pixelToNum(this.element.style.top)]
+    return [
+      Utils.pixelToNum(this.element.style.left == '' ? this.element.offsetLeft + 'px' : this.element.style.left)
+      , Utils.pixelToNum(this.element.style.top == '' ? this.element.offsetTop + 'px' : this.element.style.top)
+    ]
   }
 
   getWidthHeight() {
@@ -282,8 +288,7 @@ class Floaty {
       }
     }
 
-    this.setXPosition(x);
-    this.setYPosition(y);
+    this.setPosition(x, y);
   }
 
   onTouchStart(e) {
