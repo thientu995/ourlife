@@ -75,6 +75,8 @@
 
 .modalElasticslider.modal {
     background-color: #fff;
+    overflow: hidden;
+    z-index: 9999999;
 }
 
 .modalElasticslider .modal-bkg {
@@ -112,11 +114,11 @@
 }
 
 .modalElasticslider .modal-header {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .modalElasticslider .modal-footer {
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .modalElasticslider .modal-body {

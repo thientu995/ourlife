@@ -100,7 +100,7 @@ class Floaty {
       this.element.addEventListener(eventName, fn)
     }
     else {
-      this.element.addEventListener(eventName, { passive: true })
+      this.element.addEventListener(eventName, { passive: !fn })
     }
   }
 
@@ -301,7 +301,7 @@ class Floaty {
   }
 
   onTouchMove(e) {
-    // e.preventDefault()
+    e.preventDefault()
     if (this.mouse_clicked) { this.updatePositionOnDrag(e.changedTouches[0].clientX, e.changedTouches[0].clientY) }
     this.touchMove(e, this)
   }

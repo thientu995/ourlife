@@ -28,6 +28,12 @@ ElasticSlider.prototype = {
                 this.initPaths();
                 this.initEvents();
                 this.initButton();
+                
+                console.log();
+                document.querySelector('.contentSlider').style.height = window.innerHeight - (this.sliderHeight + document.querySelector('.modalElasticslider .modal-header').clientHeight + 40) + "px";
+                new SimpleBar(document.querySelector('.contentSlider'), {
+                    autoHide: false
+                });
                 clearInterval(interval);
             }
         });
@@ -242,6 +248,7 @@ ElasticSlider.prototype = {
         this.removeClasses();
         this.updateElements();
         this.addClasses();
+        angular.element('.elastic-slider .current img').attr('src');
     },
 
     removeClasses: function () {

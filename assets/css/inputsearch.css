@@ -15,6 +15,11 @@
 .search>div:before {
     content: "Search";
     margin-right: 15px;
+    position: absolute;
+    left: -70px;
+    top:10px;
+    width: 100px;
+    transition: width 0.5s;
 }
 
 .search>div:after {
@@ -24,7 +29,7 @@
     height: 20px;
     position: absolute;
     top: 40px;
-    right: 0px;
+    right: auto;
     transform: rotate(135deg);
     /* box-shadow: 1px 0 #0091c2; */
 }
@@ -53,5 +58,5 @@
 }
 
 .search>div>input:focus, .search>div>input:not(:placeholder-shown) {
-    width: 50vw;
+    width: 100%;
 }

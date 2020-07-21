@@ -4,7 +4,9 @@ app.controller("albumController", ['$rootScope', '$scope', '$http', '$interval',
         searchAlbum: ''
     };
     let lstAlbumOrign = [];
-    $scope.getData({ collection: 'album' }, function (value) {
+    $scope.getData({
+        collection: 'album'
+    }, function (value) {
         lstAlbumOrign = $scope.model.lstAlbum = value.data.sort((a, b) => {
             return b.date.seconds - a.date.seconds
         });
@@ -25,9 +27,6 @@ app.controller("albumController", ['$rootScope', '$scope', '$http', '$interval',
             maxStretch: 100,
             bezierLen: 80
         });
-        new SimpleBar(document.querySelector('.modalElasticslider'), {
-            autoHide: false
-        });
         return true;
     };
 
@@ -40,17 +39,32 @@ app.controller("albumController", ['$rootScope', '$scope', '$http', '$interval',
         }
     }
 
-    $interval(function () {
-        $scope.urlImgCurentSlider = $('.elastic-slider .current img').attr('src')
+    $scope.$watch(function () {
+        return angular.element('.elastic-slider .current img').attr('src')
+    }, function (newValue) {
+        $scope.urlImgCurentSlider = newValue
     });
 
     $scope.searchAlbum = function () {
         let valueSearch = $scope.model.searchAlbum.toLowerCase();
         if (valueSearch.length == 0) {
             $scope.model.lstAlbum = lstAlbumOrign;
-        }
-        else {
+        } else {
             $scope.model.lstAlbum = lstAlbumOrign.filter(x => x.title.toLowerCase().includes(valueSearch));
         }
     }
+
+    let setBkg = null;
+    $('#modalAlbum').on('show.bs.modal', function () {
+        if(setBkg == null){
+            setBkg = setInterval(function () {
+                $scope.$apply();
+                console.log(12321)
+            }, 500);
+        }
+    });
+    $('#modalAlbum').on('hide.bs.modal', function () {
+        clearInterval(setBkg);
+        setBkg = null;
+    });
 }]);
