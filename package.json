@@ -29,9 +29,10 @@
     "firebase": "^8.0.1",
     "firebase-admin": "^9.3.0",
     "lightgallery.js": "^1.4.0",
-    "ng-lazy-image": "^1.0.5",
+    "ng-lazyload-image": "^9.0.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
+    "uikit": "^3.5.9",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {

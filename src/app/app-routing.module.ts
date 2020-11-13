@@ -5,12 +5,12 @@ const routes: Routes = [
   {
     path: 'home',
     // component: HomeComponent,
-    loadChildren: () => import('./home/home.module').then(mod => mod.HomeModule)
+    loadChildren: () => import('./pages/home/home.module').then(mod => mod.HomeModule)
   },
   {
     path: 'album',
     // component: AlbumComponent,
-    loadChildren: () => import('./album/album.module').then(mod => mod.AlbumModule)
+    loadChildren: () => import('./pages/album/album.module').then(mod => mod.AlbumModule)
   },
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
   {path: '', redirectTo: 'home', pathMatch: 'full'}

@@ -2,3 +2,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
 @import '../node_modules/lightgallery.js/dist/css/lightgallery.min.css';
+@import './assets/css/custom.scss';
+* {
+    font-family: 'Dancing Script', cursive !important;
+}
+.section-title {
+    font-family: 'Lobster', cursive !important;
+}
+html, body {
+    height: 100vh;
+    /* font-size: 25px; */
+    background-color: rgba(222, 204, 181, 0.5);
+    color: #612d7f;
+}
