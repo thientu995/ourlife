@@ -15,6 +15,7 @@ namespace Ourlife.Controllers
     {
         public string collection { get; set; }
         public string doc { get; set; }
+        public string typeMap { get; set; }
     }
 
     [Microsoft.AspNetCore.Cors.EnableCors("CorsPolicy")]
@@ -40,8 +41,8 @@ namespace Ourlife.Controllers
             }
             if (!System.IO.File.Exists(pathFull))
             {
-                string result = GetDataFirebase(param);
-                System.IO.File.WriteAllText(pathFull, JsonConvert.SerializeObject(result));
+                string result = JsonConvert.SerializeObject(GetDataFirebase(param));
+                System.IO.File.WriteAllText(pathFull, result);
             }
             return File(new StreamReader(pathFull).BaseStream, "application/json");
         }
@@ -62,19 +63,27 @@ namespace Ourlife.Controllers
             }
             else
             {
-                var snapshot = coll.GetSnapshotAsync().Result;
+                QuerySnapshot snapshot = coll.GetSnapshotAsync().Result;
                 List<dynamic> lst = new List<dynamic>();
                 foreach (DocumentSnapshot documentSnapshot in snapshot.Documents)
                 {
                     if (documentSnapshot.Exists)
                     {
                         Dictionary<string, object> obj = documentSnapshot.ToDictionary();
-                        lst.Add(obj);
+                        if (param.typeMap == "json")
+                        {
+                            lst.Add(JsonConvert.DeserializeObject("{" + documentSnapshot.Id + ":" + JsonConvert.SerializeObject(obj, Newtonsoft.Json.Formatting.Indented) + "}"));
+                        }
+                        else
+                        {
+                            lst.Add(obj);
+                        }
                     }
                 }
                 return lst;
             }
             return null;
         }
+
     }
 }

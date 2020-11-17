@@ -17,6 +17,7 @@
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
+[Dd]ataStore/
 x64/
 x86/
 build/

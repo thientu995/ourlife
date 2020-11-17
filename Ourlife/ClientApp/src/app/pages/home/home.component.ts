@@ -13,16 +13,16 @@ export class HomeComponent implements OnInit {
   timeline: ITimeline[] = null;
 
   constructor(private dataService: GetDataService) {
-    dataService.getData<IPortfolio[]>({ collection: 'portfolio' }).subscribe(data => {
-      this.portfolio = data.sort((a, b) => {
-        return a.order - b.order
-      });
-    });
-    dataService.getData<ITimeline[]>({ collection: 'timeline' }).subscribe(data => {
-      this.timeline = data.sort((a, b) => {
-        return a.date._seconds - b.date._seconds
-      });
-    });
+    // dataService.getData<IPortfolio[]>({ collection: 'portfolio' }).subscribe(data => {
+    //   this.portfolio = data.sort((a, b) => {
+    //     return a.order - b.order
+    //   });
+    // });
+    // dataService.getData<ITimeline[]>({ collection: 'timeline' }).subscribe(data => {
+    //   this.timeline = data.sort((a, b) => {
+    //     return a.date._seconds - b.date._seconds
+    //   });
+    // });
   }
 
   ngOnInit(): void {

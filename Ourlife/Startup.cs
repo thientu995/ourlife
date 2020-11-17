@@ -73,7 +73,6 @@ namespace Ourlife
                 // see https://go.microsoft.com/fwlink/?linkid=864501
 
                 spa.Options.SourcePath = "ClientApp";
-                //spa.Options.StartupTimeout = new System.TimeSpan(0, 5, 0);
 
                 spa.UseSpaPrerendering(options =>
                 {
@@ -96,9 +95,10 @@ namespace Ourlife
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+                    //spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
 
-                    //spa.UseAngularCliServer(npmScript: "start");
+                    spa.UseAngularCliServer(npmScript: "start");
+                    spa.Options.StartupTimeout = System.TimeSpan.FromSeconds(80);
                 }
             });
         }
