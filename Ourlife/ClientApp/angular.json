@@ -35,8 +35,7 @@
             "scripts": [
               "node_modules/lightgallery.js/dist/js/lightgallery.min.js",
               "./node_modules/uikit/dist/js/uikit.min.js",
-              "./node_modules/uikit/dist/js/uikit-icons.min.js",
-              "./src/assets/js/common.js"
+              "./node_modules/uikit/dist/js/uikit-icons.min.js"
             ]
           },
           "configurations": {

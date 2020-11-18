@@ -1,18 +1,24 @@
-export {}
+export { }
 declare global {
   interface String {
-    getUrlImage(): string;
+    getSizeImage(width?: number, height?: number): string;
   }
 
   interface Number {
     convertSecondsToDateTime(): string;
     pad(size): string;
   }
+
+  interface Array<T>{
+    arrayObj(): any[];
+  }
 }
 
-String.prototype.getUrlImage = function () {
-  console.log(this)
-  return this + '=w800-h800-no';
+String.prototype.getSizeImage = function (width: number = 800, height: number = 800) {
+  if (this && this != '') {
+    return this + '=w' + width + '-h' + height + '-no';
+  }
+  return 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
 }
 
 Number.prototype.convertSecondsToDateTime = function () {
@@ -23,4 +29,8 @@ Number.prototype.pad = function (size) {
   let s = String(this);
   while (s.length < (size || 2)) { s = "0" + s; }
   return s;
+}
+
+Array.prototype.arrayObj<T> = function(){
+
 }

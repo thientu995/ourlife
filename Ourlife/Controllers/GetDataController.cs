@@ -2,10 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
-using Google.Apis.Auth.OAuth2;
 using Google.Cloud.Firestore;
-using Google.Cloud.Firestore.V1;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -57,32 +54,49 @@ namespace Ourlife.Controllers
                 DocumentSnapshot documentSnapshot = coll.Document(param.doc).GetSnapshotAsync().Result;
                 if (documentSnapshot.Exists)
                 {
-                    var result = documentSnapshot.ToDictionary();
-                    return result;
+                    return ConvertToDictionary(documentSnapshot);
                 }
             }
             else
             {
                 QuerySnapshot snapshot = coll.GetSnapshotAsync().Result;
-                List<dynamic> lst = new List<dynamic>();
+                Dictionary<string, object> lst = new Dictionary<string, object>();
                 foreach (DocumentSnapshot documentSnapshot in snapshot.Documents)
                 {
                     if (documentSnapshot.Exists)
                     {
-                        Dictionary<string, object> obj = documentSnapshot.ToDictionary();
+                        Dictionary<string, object> obj = ConvertToDictionary(documentSnapshot);
+
                         if (param.typeMap == "json")
                         {
-                            lst.Add(JsonConvert.DeserializeObject("{" + documentSnapshot.Id + ":" + JsonConvert.SerializeObject(obj, Newtonsoft.Json.Formatting.Indented) + "}"));
+                            lst.Add(documentSnapshot.Id, obj);
                         }
                         else
                         {
-                            lst.Add(obj);
+                            lst.Add(documentSnapshot.Id, obj);
                         }
                     }
                 }
                 return lst;
             }
             return null;
+        }
+
+        Dictionary<string, object> ConvertToDictionary(DocumentSnapshot snap)
+        {
+            Dictionary<string, object> obj = snap.ToDictionary();
+            foreach (var item in obj.Keys.ToList())
+            {
+                object value = obj.GetValueOrDefault(item);
+                if (value != null)
+                {
+                    if (value is Timestamp)
+                    {
+                        obj[item] = ((Timestamp)value).ToDateTime();
+                    }
+                }
+            }
+            return obj;
         }
 
     }

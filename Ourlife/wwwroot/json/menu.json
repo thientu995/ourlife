@@ -1,0 +1,12 @@
+[
+    {
+        "url": "/home",
+        "text": "Trang chủ",
+        "icon": "home"
+    },
+    {
+        "url": "/album",
+        "text": "Album",
+        "icon": "photo"
+    }
+]

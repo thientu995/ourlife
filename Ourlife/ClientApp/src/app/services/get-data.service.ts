@@ -11,6 +11,11 @@ export class GetDataService {
     private metaService: Meta) { }
   // readonly likApi = 'http://localhost:52256/api/';
   readonly likApi = '/api/';
+
+  get(url) {
+    return this.http.get(url);
+  }
+
   getData<T>(param) {
     const headers: HttpHeaders = new HttpHeaders();
     headers.set('Content-Type', 'application/x-www-form-urlencoded');
