@@ -1,5 +1,5 @@
 export interface IAlbum {
-    listImages: string[],
+    ListImage: string[],
     createDateLink: any,
     date: any,
     description: string,

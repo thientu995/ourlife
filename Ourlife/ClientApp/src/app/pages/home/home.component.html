@@ -11,7 +11,10 @@
 </section>
 <section>
 	<h1 class="section-title">Story of Love</h1>
-	<div class="cd-horizontal-timeline">
+	<div *ngIf="timeline != null">
+		<app-horizontal-timeline [timelineElements]="timeline" [showContent]="true"></app-horizontal-timeline>
+	</div>
+	<!-- <div class="cd-horizontal-timeline" [ngClass]="timeline != null ? 'loaded' : ''">
 		<div class="timeline">
 			<div class="events-wrapper">
 				<div class="events">
@@ -35,12 +38,12 @@
 					<em ng-bind-html="item.description"></em>
 					<div>
 						<div class="col-md-5 col-sm-12">
-							<img [lazyLoad]="item.img"  width="20%" class="float-md-left mr-5" />
+							<img [lazyLoad]="item.img" width="20%" class="float-md-left mr-5" />
 						</div>
 						<p class="col-12 text-justify drop-caps" ng-bind-html="item.content"></p>
 					</div>
 				</li>
 			</ol>
 		</div>
-	</div>
+	</div> -->
 </section>

@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Title, Meta, MetaDefinition } from '@angular/platform-browser';
+
 @Injectable({
   providedIn: 'root'
 })
 export class GetDataService {
 
-  constructor(private http: HttpClient,
+  constructor(
+    private http: HttpClient,
     private titleService: Title,
-    private metaService: Meta) { }
+    private metaService: Meta
+  ) { }
   // readonly likApi = 'http://localhost:52256/api/';
   readonly likApi = '/api/';
 
@@ -35,5 +38,9 @@ export class GetDataService {
 
   setMeta(tag: MetaDefinition) {
     this.metaService.addTag(tag);
+  }
+
+  toList<T>(data: T) {
+    return Object.keys(data).map<T>((key) => data[key]);
   }
 }

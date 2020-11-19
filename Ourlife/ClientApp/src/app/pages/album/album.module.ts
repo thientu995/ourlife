@@ -5,15 +5,19 @@ import { AlbumRoutingModule } from './album-routing.module';
 import { AlbumComponent } from './album.component';
 
 import { HttpClientModule } from '@angular/common/http';
-// import { LazyImageModule } from 'ng-lazy-image';
+import { LazyLoadImageModule } from 'ng-lazyload-image'; 
 
+import { GalleryModule } from '@ngx-gallery/core';
+import { LightboxModule } from '@ngx-gallery/lightbox';
 @NgModule({
   declarations: [AlbumComponent],
   imports: [
     CommonModule,
     HttpClientModule,
     AlbumRoutingModule,
-    // LazyImageModule
+    LazyLoadImageModule,
+    GalleryModule,
+    LightboxModule
   ]
 })
 export class AlbumModule { }

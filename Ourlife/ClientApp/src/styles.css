@@ -1,0 +1,171 @@
+@import url("https://fonts.googleapis.com/css2?family=Material+Icons&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap");
+.nav {
+  position: absolute;
+  top: 15px;
+  z-index: 99;
+  left: 0;
+  right: 0;
+}
+
+.uk-sticky-placeholder {
+  height: 0 !important;
+}
+
+.top-wrap::before,
+.overlay-wrap::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  content: "";
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.top-wrap-height {
+  height: 100vh;
+  min-height: 500px;
+  transition: height 0.25s;
+}
+
+.uk-subnav-pill > * > :first-child {
+  padding: 0.5rem 1rem;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.top-container {
+  z-index: 2;
+}
+
+.uk-logo img {
+  height: 38px;
+}
+
+.subtitle-text {
+  font-size: 1.2em;
+  opacity: 0.7;
+  font-weight: 300;
+}
+
+.logos-grid img {
+  display: block;
+  width: 60px;
+  margin: 0 auto;
+  filter: grayscale(100%);
+  transition: filter 0.25s;
+}
+
+.logos-grid img:hover {
+  display: block;
+  width: 60px;
+  margin: 0 auto;
+  filter: grayscale(0);
+}
+
+*,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Dancing Script" !important;
+}
+
+h1 {
+  font-size: 300%;
+}
+
+h2 {
+  font-size: 200%;
+}
+
+h3 {
+  font-size: 150%;
+}
+
+nav,
+.section-title {
+  font-family: "Lobster" !important;
+}
+
+.material-icons {
+  font-family: "Material Icons" !important;
+  font-size: unset;
+}
+
+.uk-navbar-nav > li > a {
+  text-transform: none;
+}
+
+html,
+body {
+  height: 100vh;
+  /* font-size: 25px; */
+  background-color: rgba(222, 204, 181, 0.5);
+  color: #612d7f;
+}
+
+.uk-offcanvas-bar {
+  background-color: #997e5a;
+}
+
+.background-sub {
+  background-color: rgba(153, 126, 90, 0.5);
+}
+
+a {
+  color: #997e5a;
+}
+
+a :hover,
+a :focus {
+  color: #5e4d37;
+  text-decoration: none;
+}
+
+.site-logo {
+  display: inline-block;
+  border-radius: 3px;
+  border: 2px solid #fff;
+  font-size: 15px;
+  font-family: "Lobster", sans-serif;
+  color: red;
+  position: relative;
+  padding: 6px 10px;
+}
+
+.site-logo ::after {
+  font-family: "Material Icons";
+  content: "\e87d";
+  position: absolute;
+  font-size: 15px;
+  bottom: -11px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  text-align: center;
+  color: red;
+}
+
+.site-logo span {
+  color: #fff;
+  font-weight: bold;
+  /* font-family: "Dancing Script", cursive; */
+}
+
+footer {
+  color: white;
+  height: 250px;
+  /* line-height: 250px; */
+  font-size: 400%;
+  text-align: center;
+  /* padding-top: 25px;
+    padding-left: 25%; */
+  background-repeat: no-repeat;
+  background-position: left top;
+  background-size: cover;
+}

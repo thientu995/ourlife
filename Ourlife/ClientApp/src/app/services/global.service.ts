@@ -9,9 +9,14 @@ declare global {
     pad(size): string;
   }
 
-  interface Array<T>{
-    arrayObj(): any[];
-  }
+  // interface Array<T> {
+  //   toObj(): Array<T>;
+  // }
+
+  // interface Object {
+  //   toList<T>(): T[];
+  // }
+  function ConvertList<T>() : T[];
 }
 
 String.prototype.getSizeImage = function (width: number = 800, height: number = 800) {
@@ -31,6 +36,11 @@ Number.prototype.pad = function (size) {
   return s;
 }
 
-Array.prototype.arrayObj<T> = function(){
-
-}
+// declare function ConvertList<T>(data: any) {
+//   if (this) {
+//     return Object.keys(this).map((key) => {
+//       return this[key];
+//     });
+//   }
+//   return data
+// }

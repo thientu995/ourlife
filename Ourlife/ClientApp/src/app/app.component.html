@@ -55,14 +55,6 @@
                         </div>
                         <p>Dương Thúy Vy</p>
                     </h1>
-                    <!-- <h6 class="uk-text-primary uk-margin-small-bottom">RESEARCH</h6>
-                    <h1 class="uk-margin-remove-top">Innovation in your hands.</h1>
-                    <p class="subtitle-text uk-visible@s">Tempor incididunt ut labore et dolore magna aliqua. Ut
-                        enim ad
-                        minim veniam,
-                        quis nostrud exercitation ullamco </p>
-                    <a href="#" title="Learn More" class="uk-button uk-button-primary uk-border-pill"
-                        data-uk-scrollspy-class="uk-animation-fade">LEARN MORE</a> -->
                 </div>
             </div>
             <!-- /TOP CONTAINER -->
@@ -80,9 +72,11 @@
     </div>
     <!-- /TOP -->
 </header>
-<main id="content" class="uk-section" *ngIf="loadSuccess">
+<div class="img-line"></div>
+<main id="content" class="uk-section uk-container" *ngIf="loadSuccess">
     <router-outlet></router-outlet>
 </main>
+<div class="img-line"></div>
 <footer class="uk-section uk-section-small" [ngStyle]="footerImg">
     <div class="uk-container uk-text-center">
         <div class="site-logo" style="font-size:100%;">Tứ <span>&amp;</span> Vy</div>

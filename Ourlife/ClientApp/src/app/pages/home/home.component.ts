@@ -13,20 +13,21 @@ export class HomeComponent implements OnInit {
   timeline: ITimeline[] = null;
 
   constructor(private dataService: GetDataService) {
-    dataService.getData<IPortfolio[]>({ collection: 'portfolio' }).subscribe(data => {
-      var items = Object.keys(data).map<IPortfolio>(function(key) {
-        return data[key];
-      });
-      this.portfolio = items.sort((a, b) => {
+    dataService.getData<IPortfolio>({ collection: 'portfolio' }).subscribe(data => {
+      this.portfolio = dataService.toList<IPortfolio>(data).sort((a, b) => {
         return a.order - b.order
       });
     });
-    dataService.getData<ITimeline[]>({ collection: 'timeline' }).subscribe(data => {
-      var items = Object.keys(data).map<ITimeline>(function(key) {
-        return data[key];
+    dataService.getData<ITimeline>({ collection: 'timeline' }).subscribe(data => {
+      let orginTimeline = dataService.toList<ITimeline>(data);
+      orginTimeline.forEach((value, index) => {
+        orginTimeline[index].selected = index == 0;
+        orginTimeline[index].date = new Date(value.date);
       });
-      this.timeline = items.sort((a, b) => {
-        return new Date(a.date).getTime() - new Date(b.date).getTime();
+      
+      
+      this.timeline = orginTimeline.sort((a, b) => {
+        return b.date.getTime() - a.date.getTime();
       });
     });
   }
