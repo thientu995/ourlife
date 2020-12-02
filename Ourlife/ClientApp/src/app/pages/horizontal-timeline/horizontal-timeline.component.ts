@@ -83,7 +83,7 @@ export class HorizontalTimelineComponent implements AfterViewInit {
     this._cdr.detectChanges();
   }
 
-  private _eventsMinDistance: number = 80;
+  private _eventsMinDistance: number = 150;
 
   @Input()
   set eventsMinDistance(value: number) {
@@ -216,8 +216,29 @@ export class HorizontalTimelineComponent implements AfterViewInit {
 
   onScrollClick(event: Event, forward: boolean) {
     event.preventDefault();
-    this.updateSlide(this.eventsWrapperWidth, forward);
+    // this.updateSlide(this.eventsWrapperWidth, forward);
+    this.showNewContent(event, forward);
     this._cdr.detectChanges();
+  }
+
+  showNewContent(event: Event, forward: boolean) {
+    //go from one event to the next/previous one
+    let visibleContent = this.eventsWrapper.nativeElement.querySelectorAll('a.selected')[0];
+    let index = Number(visibleContent.getAttribute('index'));
+    if (forward) {
+      index += 1;
+      if (index < this._timelineElements.length) {
+        this.eventsWrapper.nativeElement.querySelectorAll('a[index="' + index + '"]')[0].click();
+        // this.onEventClick(event, this._timelineElements[index]);
+      }
+    }
+    else {
+      index -= 1;
+      if (index >= 0) {
+        this.eventsWrapper.nativeElement.querySelectorAll('a[index="' + index + '"]')[0].click();
+        // this.onEventClick(event, this._timelineElements[index]);
+      }
+    }
   }
 
   onEventClick(event: Event, selectedItem: ITimeline) {
@@ -265,16 +286,16 @@ export class HorizontalTimelineComponent implements AfterViewInit {
     let eventLeft = HorizontalTimelineComponent.pxToNumber(eventStyle.getPropertyValue('left'));
     let translateValue = HorizontalTimelineComponent.getTranslateValue(this.eventsWrapper.nativeElement);
 
-    if (eventLeft > this._timelineWrapperWidth - translateValue) {
-      this.translateTimeline(-eventLeft + this._timelineWrapperWidth / 2, this._timelineWrapperWidth - this.eventsWrapperWidth);
-    }
+    // if (eventLeft > this._timelineWrapperWidth - translateValue) {
+    this.translateTimeline(-eventLeft + this._timelineWrapperWidth / 2, this._timelineWrapperWidth - this.eventsWrapperWidth);
+    // }
   }
 
   translateTimeline(value: number, totWidth: number | null) {
     // only negative translate value
     value = (value > 0) ? 0 : value;
     // do not translate more than timeline width
-    value = ( !(totWidth === null) && value < totWidth ) ? totWidth : value;
+    value = (!(totWidth === null) && value < totWidth) ? totWidth : value;
     HorizontalTimelineComponent.setTransformValue(this.eventsWrapper.nativeElement, 'translateX', value + 'px');
     // update navigation arrows visibility
     this.prevLinkInactive = value === 0;
@@ -291,7 +312,6 @@ export class HorizontalTimelineComponent implements AfterViewInit {
     this.eventsWrapperWidth = timeSpanNorm * width;
     let aHref = this.eventsWrapper.nativeElement.querySelectorAll('a.selected')[0];
     this.updateFilling(aHref);
-    this.updateTimelinePosition(aHref);
     return this.eventsWrapperWidth;
   }
 
@@ -303,6 +323,7 @@ export class HorizontalTimelineComponent implements AfterViewInit {
     let eventLeftNum = HorizontalTimelineComponent.pxToNumber(eventLeft) + HorizontalTimelineComponent.pxToNumber(eventWidth) / 2;
     let scaleValue = eventLeftNum / this.eventsWrapperWidth;
     HorizontalTimelineComponent.setTransformValue(this.fillingLine.nativeElement, 'scaleX', scaleValue);
+    this.updateTimelinePosition(element);
   }
 
   private initView(): void {
@@ -326,15 +347,15 @@ export class HorizontalTimelineComponent implements AfterViewInit {
     let timelineEventsArray = this.timelineEvents.toArray();
     let i: number = 0;
     for (let component of elements) {
-      let distance = HorizontalTimelineComponent.dayDiff(elements[0].date, component.date);
-      let distanceNorm = Math.round(distance / eventsMinLapse);
-      let distanceNative = distanceNorm * min;
-      console.log(distanceNative)
-      timelineEventsArray[i].nativeElement.style.left = distanceNative + 'px';
-      // span
-      let span: HTMLSpanElement = <HTMLSpanElement>timelineEventsArray[i].nativeElement.parentElement.children[1];
-      let spanWidth = HorizontalTimelineComponent.getElementWidth(span);
-      span.style.left = distanceNative + spanWidth / 2 + 'px';
+      // let distance = HorizontalTimelineComponent.dayDiff(elements[0].date, component.date);
+      // let distanceNorm = Math.round(distance / eventsMinLapse);
+      // let distanceNative = distanceNorm * min;
+      // // span
+      // let span: HTMLSpanElement = <HTMLSpanElement>timelineEventsArray[i].nativeElement.parentElement.children[1];
+      // let spanWidth = HorizontalTimelineComponent.getElementWidth(span);
+      // console.log(distanceNative, span, spanWidth)
+      timelineEventsArray[i].nativeElement.style.left = (this._eventsMinDistance * i) + 'px';
+      // span.style.left = (distanceNative + spanWidth) + 'px';
       i++;
     }
   }

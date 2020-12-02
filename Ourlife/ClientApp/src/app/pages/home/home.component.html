@@ -1,8 +1,8 @@
 <section>
 	<h1 class="section-title">Bride & Groom</h1>
-	<div class="row">
+	<div class="uk-child-width-1-2 uk-text-center" uk-grid>
 		<div *ngFor="let item of portfolio">
-			<!-- <img src="{{item.avatar}}" /> -->
+			<img [lazyLoad]="//thebuildingcoder.typepad.com/20140612_154042_jeremy_bj%C3%B6rk%C3%B6_cropped_150.png" alt="{{item.name}}" class="uk-border-circle" />
 			<h1 [innerHtml]="item.name"></h1>
 			<h3 [innerHtml]="item.birth"></h3>
 			<h4 [innerHtml]="item.bio"></h4>
@@ -14,36 +14,4 @@
 	<div *ngIf="timeline != null">
 		<app-horizontal-timeline [timelineElements]="timeline" [showContent]="true"></app-horizontal-timeline>
 	</div>
-	<!-- <div class="cd-horizontal-timeline" [ngClass]="timeline != null ? 'loaded' : ''">
-		<div class="timeline">
-			<div class="events-wrapper">
-				<div class="events">
-					<ol>
-						<li *ngFor="let item of timeline">
-							<a href="#0">{{item.value}}</a>
-						</li>
-					</ol>
-					<span class="filling-line" aria-hidden="true"></span>
-				</div>
-			</div>
-			<ul class="cd-timeline-navigation">
-				<li><a href="#0" class="prev inactive"></a></li>
-				<li><a href="#0" class="next"></a></li>
-			</ul>
-		</div>
-		<div class="events-content">
-			<ol>
-				<li *ngFor="let item of timeline">
-					<h2 ng-bind-html="item.title"></h2>
-					<em ng-bind-html="item.description"></em>
-					<div>
-						<div class="col-md-5 col-sm-12">
-							<img [lazyLoad]="item.img" width="20%" class="float-md-left mr-5" />
-						</div>
-						<p class="col-12 text-justify drop-caps" ng-bind-html="item.content"></p>
-					</div>
-				</li>
-			</ol>
-		</div>
-	</div> -->
 </section>

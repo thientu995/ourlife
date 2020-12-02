@@ -1,8 +1,7 @@
 import { IAlbum } from '../../interfaces/album';
 import { GetDataService } from '../../services/get-data.service';
 import { Component, OnInit } from '@angular/core';
-import { Gallery, GalleryItem, ImageItem } from '@ngx-gallery/core';
-import { Lightbox } from '@ngx-gallery/lightbox';
+import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from '@kolkov/ngx-gallery';
 
 @Component({
   selector: 'app-album',
@@ -11,44 +10,66 @@ import { Lightbox } from '@ngx-gallery/lightbox';
 })
 export class AlbumComponent implements OnInit {
   album: IAlbum[] = null;
-  items: GalleryItem[];
-  const imageData = [
-    {
-      src: 'https://preview.ibb.co/jrsA6R/img12.jpg',
-      thumb: 'https://preview.ibb.co/jrsA6R/img12.jpg'
-    },
-    {
-      src: 'https://preview.ibb.co/kPE1D6/clouds.jpg',
-      thumb: 'https://preview.ibb.co/kPE1D6/clouds.jpg'
-    },
-    {
-      src: 'https://preview.ibb.co/mwsA6R/img7.jpg',
-      thumb: 'https://preview.ibb.co/mwsA6R/img7.jpg'
-    },
-    {
-      src: 'https://preview.ibb.co/kZGsLm/img8.jpg',
-      thumb: 'https://preview.ibb.co/kZGsLm/img8.jpg'
-    }
-  ];
-
   constructor(
-    private dataService: GetDataService, 
-    public gallery: Gallery, 
-    public lightbox: Lightbox
-    ) {
+    private dataService: GetDataService,
+  ) {
     dataService.getData<IAlbum>({ collection: 'album' }).subscribe(data => {
       this.album = dataService.toList<IAlbum>(data);
-      console.log(this.album[0].ListImage)
     });
   }
 
   ngOnInit(): void {
-    this.items = imageData.map(item => {
-      return new ImageItem(item);
-    });
 
-    // This is for Lightbox example
-    this.gallery.ref('lightbox').load(this.items);
   }
 
+  getGalleryOptions(item) {
+    return [
+      {
+        width: '100%',
+        height: '200px',
+        lazyLoading: true,
+        fullWidth: true,
+        imageAnimation: NgxGalleryAnimation.Rotate,
+
+        image: false,
+        imageSwipe: true,
+        imageDescription: true,
+        imagePercent: 100,
+        imageAutoPlay: false,
+        imageAutoPlayInterval: 5000,
+
+        thumbnailsSwipe: true,
+        thumbnailsRemainingCount: true,
+        thumbnailsColumns: 5,
+        thumbnailsPercent: 100,
+
+        previewCloseOnClick: true,
+        previewCloseOnEsc: true,
+        previewInfinityMove: true,
+        previewSwipe: true,
+        previewZoom: true,
+        previewRotate: true,
+        previewDownload: true,
+        previewBullets: true,
+        // previewAutoPlay: true,
+        // previewAutoPlayPauseOnHover: true,
+        // previewAutoPlayInterval: 5000
+      },
+    ];
+  }
+
+  getGalleryImages(item) {
+    let galleryImages = [];
+    item.ListImage.forEach((value, index) => {
+      value = value.getSizeImage();
+      galleryImages.push({
+        label: item.title,
+        description: item.description,
+        small: value,
+        medium: value,
+        big: value,
+      });
+    });
+    return galleryImages;
+  }
 }

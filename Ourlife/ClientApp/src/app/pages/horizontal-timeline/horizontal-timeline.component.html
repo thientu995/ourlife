@@ -4,9 +4,9 @@
         <div class="events" #eventsWrapper [style.width.px]="eventsWrapperWidth">
           <ol>
             <li *ngFor="let item of timelineElements; let index = index">
-              <a #timelineEvents href="#" [ngClass]="{'selected': item.selected, 'older-event': index < selectedIndex}"
+              <a #timelineEvents href="#" [attr.index]="index" [ngClass]="{'selected': item.selected, 'older-event': index < selectedIndex}"
                  (click)="onEventClick($event, item)">{{item.date | date:dateFormat}}</a>
-              <span>{{item.value}}</span>
+              <!-- <span>{{item.value}}</span> -->
             </li>
           </ol>
           <span class="filling-line" aria-hidden="true" #fillingLine></span>

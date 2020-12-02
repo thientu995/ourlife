@@ -19,16 +19,17 @@ export class HomeComponent implements OnInit {
       });
     });
     dataService.getData<ITimeline>({ collection: 'timeline' }).subscribe(data => {
-      let orginTimeline = dataService.toList<ITimeline>(data);
+      let orginTimeline = dataService.toList<ITimeline>(data).sort((a, b) => {
+        return new Date(a.date).getTime() - new Date(b.date).getTime();
+      });
       orginTimeline.forEach((value, index) => {
-        orginTimeline[index].selected = index == 0;
+        orginTimeline[index].selected = index == orginTimeline.length - 1;
         orginTimeline[index].date = new Date(value.date);
       });
-      
-      
-      this.timeline = orginTimeline.sort((a, b) => {
-        return b.date.getTime() - a.date.getTime();
-      });
+      this.timeline = orginTimeline;
+      // this.timeline = orginTimeline.sort((a, b) => {
+      //   return a.date.getTime() - b.date.getTime();
+      // });
     });
   }
 

@@ -60,7 +60,7 @@
     position: absolute;
     z-index: 1;
     left: 0;
-    top: 49px;
+    top: 55px;
     height: 2px;
     /* width will be set using JavaScript */
     background: #dfdfdf;
@@ -99,7 +99,7 @@
     z-index: 2;
     text-align: center;
     font-size: 1.3rem;
-    padding-bottom: 25px;
+    padding-bottom: 30px;
     /* color: #383838; */
     -webkit-transform: translateZ(0);
     -moz-transform: translateZ(0);
@@ -111,6 +111,7 @@
 .cd-horizontal-timeline .events a::after {
     font-family: 'Material Icons';
     content: "\e87d";
+    font-size: 30px;
     position: absolute;
     left: 50%;
     right: auto;
@@ -121,6 +122,7 @@
     transform: translateX(-50%);
     padding: 5px;
     bottom: -20px;
+    line-height: 40px;
     height: 40px;
     width: 40px;
     border-radius: 50%;
@@ -171,7 +173,7 @@
     /* these are the left/right arrows to navigate the timeline */
     position: absolute;
     z-index: 1;
-    top: 50%;
+    top: 55%;
     bottom: auto;
     -webkit-transform: translateY(-50%);
     -moz-transform: translateY(-50%);

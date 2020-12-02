@@ -6,9 +6,8 @@ import { AlbumComponent } from './album.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { LazyLoadImageModule } from 'ng-lazyload-image'; 
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 
-import { GalleryModule } from '@ngx-gallery/core';
-import { LightboxModule } from '@ngx-gallery/lightbox';
 @NgModule({
   declarations: [AlbumComponent],
   imports: [
@@ -16,8 +15,7 @@ import { LightboxModule } from '@ngx-gallery/lightbox';
     HttpClientModule,
     AlbumRoutingModule,
     LazyLoadImageModule,
-    GalleryModule,
-    LightboxModule
+    NgxGalleryModule
   ]
 })
 export class AlbumModule { }

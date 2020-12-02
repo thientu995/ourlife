@@ -1,18 +1,111 @@
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
 @import url("https://fonts.googleapis.com/css2?family=Material+Icons&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap");
 // @import "../node_modules/lightgallery.js/dist/css/lightgallery.min.css";
 @import "./assets/css/custom.scss";
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    word-break: break-word;
+    vertical-align: baseline;
+}
 
-*,
+* {
+    font-family: "Dancing Script" !important;
+}
+
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-    font-family: "Dancing Script" !important;
+    color: #612d7f;
 }
+
 h1 {
     font-size: 300%;
 }
@@ -30,8 +123,24 @@ nav,
     font-family: "Lobster" !important;
 }
 
+.section-title {
+    text-align: center;
+    text-align: center;
+    margin-top: 0px;
+    color: rgb(153, 126, 90);
+    /* background-color: rgb(153, 126, 90); */
+    margin-bottom: 50px;
+    background: url("/img/line.png") no-repeat center bottom;
+    padding-bottom: 10px;
+}
+
 .material-icons {
     font-family: "Material Icons" !important;
+    font-size: unset;
+}
+
+.fa {
+    font-family: "FontAwesome" !important;
     font-size: unset;
 }
 
@@ -47,7 +156,7 @@ body {
     color: #612d7f;
 }
 
-.uk-offcanvas-bar{
+.uk-offcanvas-bar {
     background-color: rgb(153, 126, 90);
 }
 
@@ -94,23 +203,21 @@ a {
     }
 }
 
-.drop-caps {
-    :first-letter {
-        color: #612d7f;
-        font-size: 400%;
-        initial-letter: 2;
-        float: left;
-        line-height: 60px;
-        padding-top: 4px;
-        padding-right: 8px;
-        padding-left: 3px;
-    }
+.drop-caps:first-letter {
+    color: #612d7f;
+    font-size: 400%;
+    initial-letter: 2;
+    float: left;
+    line-height: 60px;
+    padding-top: 4px;
+    padding-right: 8px;
+    padding-left: 3px;
 }
 
 .img-line {
     width: 100%;
     height: 5px;
-    background: url('/img/line.png') repeat-x;
+    background: url("/img/line.png") repeat-x;
     position: absolute;
 }
 
@@ -125,4 +232,8 @@ footer {
     background-repeat: no-repeat;
     background-position: left top;
     background-size: cover;
+}
+
+.ngx-gallery-preview-text {
+    background: rgba(222, 204, 181, 0.5) !important;
 }
