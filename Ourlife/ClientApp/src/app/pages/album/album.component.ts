@@ -31,6 +31,17 @@ export class AlbumComponent implements OnInit {
         fullWidth: true,
         imageAnimation: NgxGalleryAnimation.Rotate,
 
+        arrowPrevIcon: 'mi mi-chevron-left',
+        arrowNextIcon: 'mi mi-chevron-right',
+        closeIcon: 'mi mi-close',
+        fullscreenIcon: 'mi mi-fullscreen',
+        spinnerIcon: 'mi mi-refesh',
+        zoomInIcon: 'mi mi-zoom-in',
+        zoomOutIcon: 'mi mi-zoom-out',
+        rotateLeftIcon: 'mi mi-rotate-left',
+        rotateRightIcon: 'mi mi-rotate-right',
+        downloadIcon: 'mi mi-save',
+
         image: false,
         imageSwipe: true,
         imageDescription: true,

@@ -8,7 +8,7 @@
 
 .cd-horizontal-timeline::before {
     /* never visible - this is used in jQuery to check the current MQ */
-    content: 'mobile';
+    content: "mobile";
     display: none;
 }
 
@@ -35,7 +35,7 @@
 .cd-horizontal-timeline .events-wrapper::after,
 .cd-horizontal-timeline .events-wrapper::before {
     /* these are used to create a shadow effect at the sides of the timeline */
-    content: '';
+    content: "";
     position: absolute;
     z-index: 2;
     top: 0;
@@ -109,7 +109,7 @@
 }
 
 .cd-horizontal-timeline .events a::after {
-    font-family: 'Material Icons';
+    font-family: "Material Icons";
     content: "\e87d";
     font-size: 30px;
     position: absolute;
@@ -160,13 +160,13 @@
 
     .cd-horizontal-timeline::before {
         /* never visible - this is used in jQuery to check the current MQ */
-        content: 'desktop';
+        content: "desktop";
     }
 }
 
 .cd-horizontal-timeline li,
 .cd-timeline-navigation li {
-    list-style-type: none
+    list-style-type: none;
 }
 
 .cd-timeline-navigation a {
@@ -198,7 +198,7 @@
     /* arrow icon */
     /* font-family: 'Material Icons';
     content: '\f061'; */
-    content: '';
+    content: "";
     position: absolute;
     height: 35px;
     width: 35px;
@@ -308,17 +308,17 @@
     animation-direction: reverse;
 }
 
-.cd-horizontal-timeline .events-content li>* {
-    /* max-width: 800px; */
-    margin: 0 auto;
-}
+// .cd-horizontal-timeline .events-content li > * {
+//     /* max-width: 800px; */
+//     margin: 0 auto;
+// }
 
 .cd-horizontal-timeline .events-content h2 {
     font-weight: bold;
-    font-size: 2.6rem;
+    // font-size: 2.6rem;
     /* font-family: "Playfair Display", serif; */
-    font-weight: 700;
-    line-height: 1.2;
+    // font-weight: 700;
+    // line-height: 1.2;
 }
 
 .cd-horizontal-timeline .events-content em {
@@ -328,7 +328,7 @@
 }
 
 .cd-horizontal-timeline .events-content em::before {
-    content: '- ';
+    content: "- ";
 }
 
 .cd-horizontal-timeline .events-content p {
@@ -337,17 +337,17 @@
 }
 
 @media only screen and (min-width: 768px) {
-    .cd-horizontal-timeline .events-content h2 {
-        font-size: 7rem;
-    }
+    // .cd-horizontal-timeline .events-content h2 {
+    //     font-size: 7rem;
+    // }
 
-    .cd-horizontal-timeline .events-content em {
-        font-size: 2rem;
-    }
+    // .cd-horizontal-timeline .events-content em {
+    //     font-size: 2rem;
+    // }
 
-    .cd-horizontal-timeline .events-content p {
-        font-size: 1.8rem;
-    }
+    // .cd-horizontal-timeline .events-content p {
+    //     font-size: 1.8rem;
+    // }
 }
 
 @-webkit-keyframes cd-enter-right {

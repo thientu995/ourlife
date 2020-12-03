@@ -5,8 +5,7 @@
           <ol>
             <li *ngFor="let item of timelineElements; let index = index">
               <a #timelineEvents href="#" [attr.index]="index" [ngClass]="{'selected': item.selected, 'older-event': index < selectedIndex}"
-                 (click)="onEventClick($event, item)">{{item.date | date:dateFormat}}</a>
-              <!-- <span>{{item.value}}</span> -->
+                 (click)="onEventClick($event, item)" [attr.datetime]="item.date | date:dateFormat">{{item.value}}</a>
             </li>
           </ol>
           <span class="filling-line" aria-hidden="true" #fillingLine></span>
@@ -31,7 +30,7 @@
             <em [innerHTML]="item.description"></em>
             <div>
                 <div class="uk-width-3-4@m uk-width-1-1@s">
-                    <img [lazyLoad]="item.img" width="20%" class="uk-align-left@m" />
+                    <img [lazyLoad]="item.img" width="40%" class="uk-align-left@m" />
                 </div>
                 <p class="uk-text-justify drop-caps" [innerHTML]="item.content"></p>
             </div>

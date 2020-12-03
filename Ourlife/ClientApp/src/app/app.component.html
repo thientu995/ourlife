@@ -9,16 +9,17 @@
                 <nav class="uk-navbar uk-navbar-container uk-navbar-transparent" data-uk-navbar>
                     <div class="uk-navbar-left">
                         <div class="uk-navbar-item uk-padding-remove-horizontal">
-                            <a class="uk-logo" title="Logo" href="">
+                            <a class="uk-logo" title="Logo" href="/">
                                 <div class="site-logo" style="font-size:100%;">Tứ <span>&amp;</span> Vy</div>
                             </a>
                         </div>
                     </div>
                     <div class="uk-navbar-right">
                         <ul class="uk-navbar-nav uk-visible@s">
-                            <li routerLinkActive="uk-active" *ngFor="let item of menu">
-                                <a routerLink="{{item.url}}" title="{{item.text}}"><span
-                                        class="material-icons">{{item.icon}}</span> {{item.text}}</a>
+                            <li *ngFor="let item of menu">
+                                <a routerLink="{{item.url}}" title="{{item.text}}" routerLinkActive="uk-active">
+                                    <span class="mi mi-{{item.icon}}"></span> {{item.text}}
+                                </a>
                             </li>
                         </ul>
                         <a class="uk-navbar-toggle uk-navbar-item uk-hidden@s" data-uk-toggle data-uk-navbar-toggle-icon
@@ -26,13 +27,15 @@
                     </div>
                 </nav>
                 <!-- OFFCANVAS -->
-                <div id="offcanvas-nav" data-uk-offcanvas="flip: true; overlay: true">
+                <div id="offcanvas-nav" data-uk-offcanvas="mode: reveal; flip: true; overlay: true">
                     <div class="uk-offcanvas-bar uk-offcanvas-bar-animation uk-offcanvas-slide">
                         <button class="uk-offcanvas-close uk-close uk-icon" type="button" data-uk-close></button>
                         <ul class="uk-nav background-sub">
-                            <li routerLinkActive="uk-active" *ngFor="let item of menu">
-                                <a routerLink="{{item.url}}"><span class="material-icons">{{item.icon}}</span>
-                                    {{item.text}}</a>
+                            <li *ngFor="let item of menu">
+                                <a routerLink="{{item.url}}" title="{{item.text}}" routerLinkActive="uk-active"
+                                    class="uk-offcanvas-close uk-position-relative">
+                                    <span class="mi mi-{{item.icon}}"></span> {{item.text}}
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -66,8 +69,9 @@
             <!-- /TOP IMAGE -->
 
         </div>
-        <div class="uk-position-bottom-center uk-position-medium uk-position-z-index uk-text-center">
-            <a href="#content" data-uk-scroll="duration: 500" data-uk-icon="icon: arrow-down; ratio: 2"></a>
+        <div class="uk-position-bottom-center uk-position-medium uk-position-z-index uk-text-center"
+            style="z-index: 9;">
+            <a href="#content" data-uk-scroll="duration: 500" data-uk-icon="icon: chevron-down; ratio: 2"></a>
         </div>
     </div>
     <!-- /TOP -->
@@ -77,8 +81,11 @@
     <router-outlet></router-outlet>
 </main>
 <div class="img-line"></div>
-<footer class="uk-section uk-section-small" [ngStyle]="footerImg">
+<footer class="uk-section uk-section-small uk-position-relative" [ngStyle]="footerImg">
     <div class="uk-container uk-text-center">
+        <div class="uk-position-top-center uk-position-z-index" style="z-index: 9;line-height:0">
+            <a href="#content" data-uk-scroll="duration: 500" data-uk-icon="icon: chevron-up; ratio: 2"></a>
+        </div>
         <div class="site-logo" style="font-size:100%;">Tứ <span>&amp;</span> Vy</div>
         <div>{{footerText}}</div>
     </div>

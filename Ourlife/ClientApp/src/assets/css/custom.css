@@ -6,6 +6,10 @@
   right: 0;
 }
 
+.uk-active {
+  color: black !important;
+}
+
 .uk-sticky-placeholder {
   height: 0 !important;
 }
@@ -60,4 +64,8 @@
   width: 60px;
   margin: 0 auto;
   filter: grayscale(0);
+}
+
+.uk-offcanvas-overlay::before {
+  background: rgba(0, 0, 0, 0.5);
 }

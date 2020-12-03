@@ -2,10 +2,10 @@
 	<h1 class="section-title">Bride & Groom</h1>
 	<div class="uk-child-width-1-2 uk-text-center" uk-grid>
 		<div *ngFor="let item of portfolio">
-			<img [lazyLoad]="//thebuildingcoder.typepad.com/20140612_154042_jeremy_bj%C3%B6rk%C3%B6_cropped_150.png" alt="{{item.name}}" class="uk-border-circle" />
+			<img alt="{{item.name}}" [lazyLoad]="item" class="uk-border-circle" />
 			<h1 [innerHtml]="item.name"></h1>
 			<h3 [innerHtml]="item.birth"></h3>
-			<h4 [innerHtml]="item.bio"></h4>
+			<p [innerHtml]="item.bio"></p>
 		</div>
 	</div>
 </section>

@@ -30,6 +30,7 @@
     "@nguniversal/express-engine": "^9.1.1",
     "aspnet-prerendering": "^3.0.1",
     "express": "^4.15.2",
+    "material-icons": "^0.3.1",
     "ng-lazyload-image": "^9.1.0",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
