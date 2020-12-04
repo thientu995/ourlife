@@ -21,7 +21,7 @@ declare global {
 
 String.prototype.getSizeImage = function (width: number = 800, height: number = 800) {
   if (this && this != '') {
-    return this + '=w' + width + '-h' + height + '-no';
+    return '/api/GetImage/'+  encodeURIComponent(this + '=w' + width + '-h' + height + '-no') ;
   }
   return 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
 }

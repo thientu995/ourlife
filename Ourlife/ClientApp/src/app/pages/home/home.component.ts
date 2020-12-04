@@ -13,17 +13,18 @@ export class HomeComponent implements OnInit {
   timeline: ITimeline[] = null;
 
   constructor(private dataService: GetDataService) {
-    dataService.getData<IPortfolio>({ collection: 'portfolio' }).subscribe(data => {
-      this.portfolio = dataService.toList<IPortfolio>(data).sort((a, b) => {
-        return a.order - b.order
-      });
-    });
+    // dataService.getData<IPortfolio>({ collection: 'portfolio' }).subscribe(data => {
+    //   this.portfolio = dataService.toList<IPortfolio>(data).sort((a, b) => {
+    //     return a.order - b.order
+    //   });
+    // });
     dataService.getData<ITimeline>({ collection: 'timeline' }).subscribe(data => {
       let orginTimeline = dataService.toList<ITimeline>(data).sort((a, b) => {
         return new Date(a.date).getTime() - new Date(b.date).getTime();
       });
       orginTimeline.forEach((value, index) => {
         orginTimeline[index].selected = index == orginTimeline.length - 1;
+        orginTimeline[index].img = orginTimeline[index].img.getSizeImage();
         orginTimeline[index].date = new Date(value.date);
       });
       this.timeline = orginTimeline;
