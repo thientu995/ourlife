@@ -9,24 +9,32 @@ import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from '@kolkov
   styleUrls: ['./album.component.scss']
 })
 export class AlbumComponent implements OnInit {
+  galleryOptions: NgxGalleryOptions[];
+  search: string = '';
   album: IAlbum[] = null;
+  result: any = [];
+  resultFull: any = [];
   constructor(
     private dataService: GetDataService,
   ) {
-    dataService.getData<IAlbum>({ collection: 'album' }).subscribe(data => {
-      this.album = dataService.toList<IAlbum>(data);
+    this.dataService.getData<IAlbum>({ collection: 'album' }).subscribe(data => {
+      this.album = this.dataService.toList<IAlbum>(data);
+      this.album.forEach((item, index) => {
+        this.resultFull.push({
+          album: item,
+          galleryImages: this.getGalleryImages(item)
+        });
+      });
+      this.result = this.resultFull;
     });
   }
 
+
   ngOnInit(): void {
-
-  }
-
-  getGalleryOptions(item) {
-    return [
+    this.galleryOptions = [
       {
         width: '100%',
-        height: '200px',
+        height: '250px',
         lazyLoading: true,
         fullWidth: true,
         imageAnimation: NgxGalleryAnimation.Rotate,
@@ -43,29 +51,35 @@ export class AlbumComponent implements OnInit {
         downloadIcon: 'mi mi-save',
 
         image: false,
-        imageSwipe: true,
+        // imageSwipe: true,
         imageDescription: true,
         imagePercent: 100,
         imageAutoPlay: false,
-        imageAutoPlayInterval: 5000,
+        // imageAutoPlayInterval: 5000,
 
-        thumbnailsSwipe: true,
-        thumbnailsRemainingCount: true,
+        // thumbnailsSwipe: true,
+        thumbnailsRemainingCount: false,
         thumbnailsColumns: 5,
         thumbnailsPercent: 100,
 
-        previewCloseOnClick: true,
+        preview: true,
+        previewCloseOnClick: false,
         previewCloseOnEsc: true,
         previewInfinityMove: true,
         previewSwipe: true,
         previewZoom: true,
         previewRotate: true,
-        previewDownload: true,
+        previewDownload: false,
         previewBullets: true,
-        // previewAutoPlay: true,
+        // previewArrowsAutoHide: true,
+        previewAutoPlay: false,
         // previewAutoPlayPauseOnHover: true,
         // previewAutoPlayInterval: 5000
       },
+      {
+        breakpoint: 500,
+        thumbnailsColumns: 2,
+      }
     ];
   }
 
@@ -74,13 +88,23 @@ export class AlbumComponent implements OnInit {
     item.ListImage.forEach((value, index) => {
       value = value.getSizeImage();
       galleryImages.push({
-        label: item.title,
-        description: item.description,
+        // label: item.title,
+        // description: item.description,
         small: value,
         medium: value,
         big: value,
       });
     });
     return galleryImages;
+  }
+
+  filterAlbum(value: string) {
+    this.search = value.trim();
+    if (this.search == '') {
+      this.result = this.resultFull;
+    }
+    else {
+      this.result = this.resultFull.filter(x => x.album.title.toLowerCase().indexOf(this.search.toLowerCase()) >= 0);
+    }
   }
 }

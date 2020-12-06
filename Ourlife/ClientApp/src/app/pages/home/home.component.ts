@@ -13,11 +13,11 @@ export class HomeComponent implements OnInit {
   timeline: ITimeline[] = null;
 
   constructor(private dataService: GetDataService) {
-    // dataService.getData<IPortfolio>({ collection: 'portfolio' }).subscribe(data => {
-    //   this.portfolio = dataService.toList<IPortfolio>(data).sort((a, b) => {
-    //     return a.order - b.order
-    //   });
-    // });
+    dataService.getData<IPortfolio>({ collection: 'portfolio' }).subscribe(data => {
+      this.portfolio = dataService.toList<IPortfolio>(data).sort((a, b) => {
+        return a.order - b.order
+      });
+    });
     dataService.getData<ITimeline>({ collection: 'timeline' }).subscribe(data => {
       let orginTimeline = dataService.toList<ITimeline>(data).sort((a, b) => {
         return new Date(a.date).getTime() - new Date(b.date).getTime();

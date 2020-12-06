@@ -2,7 +2,7 @@
 	<h1 class="section-title">Bride & Groom</h1>
 	<div class="uk-child-width-1-2 uk-text-center" uk-grid>
 		<div *ngFor="let item of portfolio">
-			<img alt="{{item.name}}" [lazyLoad]="item" class="uk-border-circle" />
+			<img alt="{{item.name}}" [lazyLoad]="item.avatar.getSizeImage()" style="max-height:500px" class="uk-border-circle" />
 			<h1 [innerHtml]="item.name"></h1>
 			<h3 [innerHtml]="item.birth"></h3>
 			<p [innerHtml]="item.bio"></p>

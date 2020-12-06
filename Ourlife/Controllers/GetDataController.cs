@@ -44,6 +44,11 @@ namespace Ourlife.Controllers
             return File(new StreamReader(pathFull).BaseStream, "application/json");
         }
 
+        [HttpGet("[action]")]
+        public IActionResult Image(string id)
+        {
+            return new GetImageController().Index(id);
+        }
 
         dynamic GetDataFirebase(ParamFirebaseDB param)
         {

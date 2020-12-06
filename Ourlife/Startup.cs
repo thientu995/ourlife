@@ -9,9 +9,10 @@ namespace Ourlife
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             Configuration = configuration;
+            System.Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", System.IO.Path.Combine(env.ContentRootPath, "firebase.key.json"));
         }
 
         public IConfiguration Configuration { get; }
@@ -63,7 +64,7 @@ namespace Ourlife
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
+                    template: "api/{controller}/{action=Index}/{id?}");
             });
             //app.UseCors("AllowAllHeaders");
 
@@ -93,7 +94,7 @@ namespace Ourlife
                     options.ExcludeUrls = new[] { "/sockjs-node" };
                 });
 
-                if (env.IsDevelopment())
+                //if (env.IsDevelopment())
                 {
                     //spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
 

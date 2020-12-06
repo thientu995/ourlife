@@ -14,9 +14,7 @@ namespace Ourlife
     {
         public static void Main(string[] args)
         {
-
-            string path = System.AppDomain.CurrentDomain.BaseDirectory.Substring(0, System.AppDomain.CurrentDomain.BaseDirectory.IndexOf("\\bin"));
-            System.Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", System.IO.Path.Combine(path, "firebase.key.json"));
+            new WebHostBuilder().UseContentRoot(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location));
             CreateWebHostBuilder(args).Build().Run();
         }
 
