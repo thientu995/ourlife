@@ -12,6 +12,11 @@ const routes: Routes = [
     // component: AlbumComponent,
     loadChildren: () => import('./pages/album/album.module').then(mod => mod.AlbumModule)
   },
+  {
+    path: 'album/:id',
+    // component: AlbumComponent,
+    loadChildren: () => import('./pages/album/album.module').then(mod => mod.AlbumModule)
+  },
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];

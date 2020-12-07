@@ -23,7 +23,7 @@ String.prototype.getSizeImage = function (width: number = 800, height: number = 
   if (this && this != '') {
     return '/api/GetData/Image?id='+  encodeURIComponent(this + '=w' + width + '-h' + height + '-no') ;
   }
-  return 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+  return '/img/loading.gif';
 }
 
 Number.prototype.convertSecondsToDateTime = function () {

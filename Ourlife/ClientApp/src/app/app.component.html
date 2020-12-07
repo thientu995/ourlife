@@ -1,3 +1,4 @@
+<div class="loading" *ngIf="!loadSuccess"></div>
 <header>
     <!-- TOP -->
     <div class="top-wrap uk-position-relative uk-light background-sub">
@@ -22,16 +23,18 @@
                                 </a>
                             </li>
                         </ul>
-                        <a class="uk-navbar-toggle uk-navbar-item uk-hidden@s" data-uk-toggle data-uk-navbar-toggle-icon
-                            href="#offcanvas-nav"></a>
+                        <a class="uk-navbar-toggle uk-navbar-item uk-hidden@s" data-uk-toggle href="#offcanvas-nav">
+                            <span uk-navbar-toggle-icon></span>
+                            <span class="uk-margin-small-left">Menu</span>
+                        </a>
                     </div>
                 </nav>
                 <!-- OFFCANVAS -->
                 <div id="offcanvas-nav" data-uk-offcanvas="mode: reveal; flip: true; overlay: true">
                     <div class="uk-offcanvas-bar uk-offcanvas-bar-animation uk-offcanvas-slide">
-                        <button class="uk-offcanvas-close uk-close uk-icon" type="button" data-uk-close></button>
+                        <button class="uk-offcanvas-close uk-close uk-icon uk-border-circle" type="button" data-uk-close></button>
                         <ul class="uk-nav background-sub">
-                            <li *ngFor="let item of menu">
+                            <li *ngFor="let item of menu" class="uk-padding-small">
                                 <a routerLink="{{item.url}}" title="{{item.text}}" routerLinkActive="uk-active"
                                     class="uk-offcanvas-close uk-position-relative">
                                     <span class="mi mi-{{item.icon}}"></span> {{item.text}}
@@ -62,8 +65,7 @@
             </div>
             <!-- /TOP CONTAINER -->
             <!-- TOP IMAGE -->
-            <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                data-src="{{headerHero.getSizeImage()}}"
+            <img src="{{''.getSizeImage()}}" data-src="{{headerHero.getSizeImage()}}"
                 data-srcset="{{headerHero.getSizeImage(640)}} 640w, {{headerHero.getSizeImage(960)}} 960w, {{headerHero.getSizeImage(1200)}} 1200w, {{headerHero.getSizeImage(2000)}} 2000w"
                 data-sizes="100vw" alt="" data-uk-cover data-uk-img data-uk-parallax="opacity: 1,0.1; easing:0">
             <!-- /TOP IMAGE -->
@@ -77,7 +79,7 @@
     <!-- /TOP -->
 </header>
 <div class="img-line"></div>
-<main id="content" class="uk-section uk-container" *ngIf="loadSuccess">
+<main id="content" class="uk-container" *ngIf="loadSuccess">
     <router-outlet></router-outlet>
 </main>
 <div class="img-line"></div>

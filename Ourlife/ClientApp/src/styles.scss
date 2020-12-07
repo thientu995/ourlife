@@ -3,7 +3,7 @@
 
 *,
 .uk-navbar-item,
-.uk-navbar-nav>li>a,
+.uk-navbar-nav > li > a,
 .uk-navbar-toggle {
   font-family: "Dancing Script";
   font-size: 20pt;
@@ -13,7 +13,9 @@ $material-icons-font-path: "~material-icons/iconfont/";
 @import "~material-icons/iconfont/material-icons.scss";
 @import "~material-icons/css/material-icons.scss";
 
+@import "./assets/css/animation.scss";
 @import "./assets/css/custom.scss";
+@import "./assets/css/countdownHeart.scss";
 
 html,
 body,
@@ -104,6 +106,14 @@ video {
   vertical-align: baseline;
 }
 
+section {
+  margin-bottom: 50px;
+}
+
+section:last-child {
+  margin-bottom: 0px;
+}
+
 h1,
 h2,
 h3,
@@ -115,15 +125,15 @@ h6 {
 }
 
 h1 {
-  font-size: 300%;
-}
-
-h2 {
   font-size: 200%;
 }
 
-h3 {
+h2 {
   font-size: 150%;
+}
+
+h3 {
+  font-size: 125%;
 }
 
 nav,
@@ -142,13 +152,13 @@ nav,
   padding-bottom: 10px;
 }
 
-.uk-navbar-nav>li>a {
+.uk-navbar-nav > li > a {
   text-transform: none;
   color: white !important;
-
 }
 
-.uk-navbar-nav>li>a.uk-active {
+.uk-navbar-nav > li > a.uk-active,
+.uk-active {
   color: red !important;
 }
 
@@ -169,7 +179,28 @@ body {
   background-color: rgba(153, 126, 90, 0.5);
 }
 
-a {
+.header-card {
+  background-color: rgba(153, 126, 90, 0.5);
+  border-radius: 0 5px 5px 0;
+  position: relative;
+  // margin-left: -10px;
+  // padding-left: 20px;
+}
+
+.header-card:before {
+  background-color: rgba(153, 126, 90, 1);
+  border-radius: 5px 0 0 5px;
+  content: "";
+  padding: 5px;
+  position: absolute;
+  margin-left: -25px;
+  top: 0;
+  bottom: 0;
+}
+
+a,
+.uk-link-toggle,
+.uk-link {
   color: rgb(153, 126, 90);
 
   :hover,
@@ -177,6 +208,17 @@ a {
     color: rgb(94, 77, 55);
     text-decoration: none;
   }
+}
+
+.uk-navbar-toggle {
+  background-color: rgba(153, 126, 90, 0.5);
+  font-family: "Lobster";
+  border: 2px solid #fff;
+  border-radius: 3px;
+  padding: 6px 10px;
+  font-size: 15px;
+  min-height: auto;
+  color: #fff !important;
 }
 
 .site-logo {
@@ -200,6 +242,7 @@ a {
     width: 100%;
     text-align: center;
     color: red;
+    // animation: changeLetter infinite alternate 1s;
   }
 
   span {
@@ -210,16 +253,16 @@ a {
   }
 }
 
-.drop-caps:first-letter {
-  color: #612d7f;
-  font-size: 400%;
-  initial-letter: 2;
-  float: left;
-  line-height: 60px;
-  padding-top: 4px;
-  padding-right: 8px;
-  padding-left: 3px;
-}
+// .drop-caps:first-letter {
+//   color: #612d7f;
+//   font-size: 400%;
+//   initial-letter: 2;
+//   float: left;
+//   line-height: 60px;
+//   padding-top: 4px;
+//   padding-right: 8px;
+//   padding-left: 3px;
+// }
 
 .img-line {
   width: 100%;
@@ -266,32 +309,26 @@ footer {
   margin: 5px !important;
 }
 
-// .ngx-gallery-icon:hover,
-// .ngx-gallery-arrow:hover {
-//   opacity: 1;
-//   background: rgba(222, 204, 181, 0.5);
-// }
-
 .ngx-gallery-arrow {
   background: transparent;
   height: 100%;
   margin: 0 !important;
   border-radius: 0;
-  opacity: .75;
+  opacity: 0.75;
 }
 
 .ngx-gallery-arrow i {
   height: auto;
   position: relative;
-  top: 50%
+  top: 50%;
 }
 
 .ngx-gallery-arrow-left .ngx-gallery-arrow {
-  left: 0 !important
+  left: 0 !important;
 }
 
 .ngx-gallery-arrow-right .ngx-gallery-arrow {
-  right: 0 !important
+  right: 0 !important;
 }
 
 .ngx-gallery-preview-img {

@@ -29,10 +29,10 @@
             <h2 [innerHTML]="item.title"></h2>
             <em [innerHTML]="item.description"></em>
             <div>
-                <div class="uk-width-3-4@m uk-width-1-1@s">
-                    <img [lazyLoad]="item.img" width="40%" class="uk-align-left@m" />
+                <div class="uk-width-1-4@m uk-width-1-1@s">
+                    <img [lazyLoad]="item.img" class="uk-align-left@m" />
                 </div>
-                <p class="uk-text-justify drop-caps" [innerHTML]="item.content"></p>
+                <p class="uk-text-justify uk-dropcap" [innerHTML]="item.content"></p>
             </div>
         </li>
       </ol>

@@ -15,7 +15,7 @@ namespace Ourlife.Controllers
         public string typeMap { get; set; }
     }
 
-    [Microsoft.AspNetCore.Cors.EnableCors("CorsPolicy")]
+    //[Microsoft.AspNetCore.Cors.EnableCors("CorsPolicy")]
     [Route("api/[controller]")]
     public class GetDataController : Controller
     {

@@ -9,7 +9,7 @@ import { ISetting } from './interfaces/setting';
 })
 export class AppComponent {
   title = 'ourlife';
-  loadSuccess = true;
+  loadSuccess = false;
   menu = null;
 
   footerImg = null;
@@ -38,6 +38,10 @@ export class AppComponent {
       this.footerText = data.footer.text;
 
       this.countdown(new Date(data.countdown.value));
+
+      setTimeout(() => {
+        this.loadSuccess = true;
+      }, 1000)
     });
   }
 

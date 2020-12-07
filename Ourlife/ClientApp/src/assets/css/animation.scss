@@ -1,0 +1,24 @@
+@keyframes beatHeart {
+    from {
+        /* transform: scale(.5); */
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1.5);
+        opacity: 1;
+    }
+}
+
+@keyframes changeLetter {
+    from {
+        transform: scale(1);
+        opacity: 0;
+        content: "\e87d";
+    }
+    to {
+        opacity: 1;
+        content: "\e87e";
+        transform: scale(1.5);
+    }
+}
