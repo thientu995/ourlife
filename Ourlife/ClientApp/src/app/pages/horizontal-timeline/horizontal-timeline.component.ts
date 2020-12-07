@@ -285,7 +285,7 @@ export class HorizontalTimelineComponent implements AfterViewInit {
   updateTimelinePosition(element: Element) {
     let eventStyle = window.getComputedStyle(element);
     let eventLeft = HorizontalTimelineComponent.pxToNumber(eventStyle.getPropertyValue('left'));
-    let translateValue = HorizontalTimelineComponent.getTranslateValue(this.eventsWrapper.nativeElement);
+    // let translateValue = HorizontalTimelineComponent.getTranslateValue(this.eventsWrapper.nativeElement);
 
     // if (eventLeft > this._timelineWrapperWidth - translateValue) {
     this.translateTimeline(-eventLeft + this._timelineWrapperWidth / 2, this._timelineWrapperWidth - this.eventsWrapperWidth);
@@ -295,9 +295,12 @@ export class HorizontalTimelineComponent implements AfterViewInit {
   translateTimeline(value: number, totWidth: number | null) {
     // only negative translate value
     value = (value > 0) ? 0 : value;
+    // value = Math.abs(value) < window.innerWidth / 2 ? value - (window.innerWidth / 2) : value;
     // do not translate more than timeline width
     value = (!(totWidth === null) && value < totWidth) ? totWidth : value;
-    HorizontalTimelineComponent.setTransformValue(this.eventsWrapper.nativeElement, 'translateX', value + 'px');
+    value = Math.abs(value) > window.innerWidth ? value - (window.innerWidth / 2) : value;
+
+    HorizontalTimelineComponent.setTransformValue(this.eventsWrapper.nativeElement, 'translateX', (value) + 'px');
     // update navigation arrows visibility
     this.prevLinkInactive = value === 0;
     this.nextLinkInactive = value === totWidth;
