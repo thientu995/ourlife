@@ -48,7 +48,8 @@ namespace Ourlife
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "ClientApp/dist";
+                //configuration.RootPath = "ClientApp/dist";
+                configuration.RootPath = "ClientApp/dist/ClientApp/browser";
             });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
@@ -110,11 +111,11 @@ namespace Ourlife
                     options.ExcludeUrls = new[] { "/sockjs-node" };
                 });
 
-                //if (env.IsDevelopment())
+                if (env.IsDevelopment())
                 {
-                    //spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
 
-                    spa.UseAngularCliServer(npmScript: "start");
+                    //spa.UseAngularCliServer(npmScript: "start");
                     spa.Options.StartupTimeout = System.TimeSpan.FromSeconds(80);
                 }
             });
