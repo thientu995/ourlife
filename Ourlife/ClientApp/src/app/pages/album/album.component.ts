@@ -1,6 +1,7 @@
 import { IAlbum } from '../../interfaces/album';
 import { GetDataService } from '../../services/get-data.service';
 
+import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation, NgxGalleryComponent } from '@kolkov/ngx-gallery';
@@ -70,6 +71,7 @@ export class AlbumComponent implements OnInit {
   @ViewChildren('ngxGalleryAlbums', { read: NgxGalleryComponent }) ngxGalleryAlbum: QueryList<NgxGalleryComponent>;
 
   constructor(
+    private location: Location,
     private router: Router,
     private activeRoute: ActivatedRoute,
     private dataService: GetDataService,
@@ -87,7 +89,6 @@ export class AlbumComponent implements OnInit {
       });
       this.result = this.resultFull;
     });
-
   }
 
   ngAfterViewInit() {
@@ -102,8 +103,8 @@ export class AlbumComponent implements OnInit {
     item.ListImage.forEach((value, index) => {
       value = value.getSizeImage();
       galleryImages.push({
-        // label: item.title,
-        // description: item.description,
+        label: item.title,
+        description: item.description,
         small: value,
         medium: value,
         big: value,
@@ -126,6 +127,7 @@ export class AlbumComponent implements OnInit {
     let obj = this.ngxGalleryAlbum.find(x => x["myElement"].nativeElement.id == 'Album_' + id);
     if (obj) {
       obj.openPreview(0);
+      this.location.replaceState('/album/' + id);
     }
     else {
       setTimeout(() => {
@@ -135,6 +137,6 @@ export class AlbumComponent implements OnInit {
   }
 
   closePreviewAlbum() {
-    this.router.navigate(['/album']);
+    this.location.replaceState('/album');
   }
 }
