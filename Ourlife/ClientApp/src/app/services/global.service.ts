@@ -1,7 +1,7 @@
 export { }
 declare global {
   interface String {
-    getSizeImage(width?: number, height?: number): string;
+    getSizeImage(width?: number, group?: string): string;
   }
 
   interface Number {
@@ -16,12 +16,13 @@ declare global {
   // interface Object {
   //   toList<T>(): T[];
   // }
-  function ConvertList<T>() : T[];
+  function ConvertList<T>(): T[];
 }
 
-String.prototype.getSizeImage = function (width: number = 800, height: number = 800) {
+String.prototype.getSizeImage = function (width: number = 1024, group: string = '_nogroup') {
   if (this && this != '') {
-    return '/api/GetData/Image?id='+  encodeURIComponent(this + '=w' + width + '-h' + height + '-no') ;
+    let url = this.replace('https://', '').replace('http://', '') + '=s' + width + '-no';
+    return '/api/GetData/Image?group=' + group + '&id=' + encodeURIComponent(url);
   }
   return '/img/loading.gif';
 }
