@@ -16,36 +16,36 @@ namespace Ourlife.Controllers
         const string extention = ".jpg";
 
         [HttpGet, Route("{id}")]
-        public IActionResult Index(string id)
+        public IActionResult Index(string id, string group)
         {
-            return File(new StreamReader(ConvertUrlToFileImage(System.Uri.UnescapeDataString(id))).BaseStream, "image/jpeg");
+            id = "https://" + System.Uri.UnescapeDataString(id);
+            return File(new StreamReader(ConvertUrlToFileImage(id, group)).BaseStream, "image/jpeg");
         }
 
-        static private List<string> GetArrayPathFileStore()
+        private string GetArrayPathFileStore(params string[] path)
         {
             List<string> lst = new List<string>() {
                 Directory.GetCurrentDirectory(),
                 "wwwroot",
-                "dataImage"
+                "dataImage",
             };
+            lst.AddRange(path ?? new string[] { "" });
             string pathFile = Path.Combine(lst.ToArray());
             if (!Directory.Exists(pathFile))
             {
                 Directory.CreateDirectory(pathFile);
             }
-            return lst;
+            return pathFile;
         }
 
-        private string ConvertUrlToFileImage(string urlOrigin)
+        private string ConvertUrlToFileImage(string urlOrigin, string group)
         {
             try
             {
                 //if (Uri.IsWellFormedUriString(urlOrigin, UriKind.Absolute))
                 {
-                    List<string> lstPathFile = GetArrayPathFileStore();
-                    lstPathFile.Add(md5.Encrypt(urlOrigin));
+                    string pathFile = Path.Combine(GetArrayPathFileStore(group ?? "_nogroup"), md5.Encrypt(urlOrigin));
 
-                    string pathFile = Path.Combine(lstPathFile.ToArray());
                     if (!System.IO.File.Exists(pathFile))
                     {
                         using (WebClient webClient = new WebClient())

@@ -45,9 +45,9 @@ namespace Ourlife.Controllers
         }
 
         [HttpGet("[action]")]
-        public IActionResult Image(string id)
+        public IActionResult Image(string id, string group)
         {
-            return new GetImageController().Index(id);
+            return new GetImageController().Index(id, group);
         }
 
         dynamic GetDataFirebase(ParamFirebaseDB param)
