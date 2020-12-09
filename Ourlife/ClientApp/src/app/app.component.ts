@@ -1,6 +1,7 @@
 import { GetDataService } from './services/get-data.service';
 import { Component } from '@angular/core';
 import { ISetting } from './interfaces/setting';
+import { Router, NavigationStart, NavigationEnd, NavigationError, NavigationCancel, RoutesRecognized } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -17,18 +18,16 @@ export class AppComponent {
   headerHero = '';
   headerCountdown = '';
   constructor(
-    private dataService: GetDataService
+    private dataService: GetDataService,
+    private router: Router
   ) {
-    dataService.get('/json/menu.json').subscribe(data => {
+    this.dataService.get('/json/menu.json').subscribe(data => {
       this.menu = data;
     });
-    // dataService.getData<IFooter>({ collection: 'slideshow' }).subscribe(data => {
-    //   this.headerSlideshow = data;
-    // });
 
-    dataService.getData<ISetting>({ collection: 'setting', typeMap: 'json' }).subscribe(data => {
-      dataService.setTitle(data.tagMeta.title);
-      dataService.setMeta({ name: 'description', content: data.tagMeta.description });
+    this.dataService.getData<ISetting>({ collection: 'setting', typeMap: 'json' }).subscribe(data => {
+      this.dataService.setTitle(data.tagMeta.title);
+      this.dataService.setMeta({ name: 'description', content: data.tagMeta.description });
 
       this.headerHero = data.hero.src;
 
@@ -38,11 +37,19 @@ export class AppComponent {
       this.footerText = data.footer.text;
 
       this.countdown(new Date(data.countdown.value));
-
-      setTimeout(() => {
-        this.loadSuccess = true;
-      }, 1000)
     });
+
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        this.loadSuccess = false;
+      }
+      else if (event instanceof NavigationEnd){
+        setTimeout(() => {
+          this.loadSuccess = true;
+        }, 500);
+      }
+    });
+
   }
 
   getSizeImage(src, width: null) {

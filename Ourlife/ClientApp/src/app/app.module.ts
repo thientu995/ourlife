@@ -1,8 +1,9 @@
-import { HomeModule } from './pages/home/home.module';
+// import { HomeModule } from './pages/home/home.module';
+import { LazyLoadImageModule } from 'ng-lazyload-image'; 
+
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { LazyLoadImageModule } from 'ng-lazyload-image'; 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
@@ -17,9 +18,9 @@ import './services/global.service';
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule,
     AppRoutingModule,
-    LazyLoadImageModule,
     HttpClientModule,
-    HomeModule
+    LazyLoadImageModule,
+    // HomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

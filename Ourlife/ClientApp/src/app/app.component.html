@@ -10,7 +10,7 @@
                 <nav class="uk-navbar uk-navbar-container uk-navbar-transparent" data-uk-navbar>
                     <div class="uk-navbar-left">
                         <div class="uk-navbar-item uk-padding-remove-horizontal">
-                            <a class="uk-logo" title="Logo" href="/">
+                            <a class="uk-logo" title="Logo" routerLink="/">
                                 <div class="site-logo" style="font-size:100%;">Tứ <span>&amp;</span> Vy</div>
                             </a>
                         </div>
@@ -79,7 +79,7 @@
     <!-- /TOP -->
 </header>
 <div class="img-line"></div>
-<main id="content" class="uk-container" *ngIf="loadSuccess">
+<main id="content" class="uk-container">
     <router-outlet></router-outlet>
 </main>
 <div class="img-line"></div>
