@@ -5,7 +5,10 @@ using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Net.Http.Headers;
+using System;
 using System.IO.Compression;
+using System.Linq;
 
 namespace Ourlife
 {
@@ -25,15 +28,9 @@ namespace Ourlife
             services.Configure<GzipCompressionProviderOptions>(options => options.Level = CompressionLevel.Fastest);
             services.AddResponseCompression(options =>
             {
-                options.MimeTypes = new string[]{
-                    "text/html",
-                    "text/css",
-                    "application/javascript",
-                    "text/javascript"
-                };
-
                 options.Providers.Add<GzipCompressionProvider>();
                 options.EnableForHttps = true;
+                options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[] { "image/svg+xml" });
             });
 
             //services.AddCors(options =>
@@ -68,8 +65,26 @@ namespace Ourlife
             }
 
             app.UseResponseCompression();
-            app.UseStaticFiles();
-            app.UseSpaStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                ServeUnknownFileTypes = false,
+                OnPrepareResponse = ctx =>
+                {
+                    const int durationInSeconds = 60 * 60 * 24;
+                    ctx.Context.Response.Headers[HeaderNames.CacheControl] = "public,max-age=" + durationInSeconds;
+                    ctx.Context.Response.Headers[HeaderNames.Expires] = new[] { DateTime.UtcNow.AddSeconds(durationInSeconds).ToString("R") }; // Format RFC1123
+                }
+            });
+            app.UseSpaStaticFiles(new StaticFileOptions
+            {
+                ServeUnknownFileTypes = false,
+                OnPrepareResponse = ctx =>
+                {
+                    const int durationInSeconds = 60 * 60 * 24;
+                    ctx.Context.Response.Headers[HeaderNames.CacheControl] = "public,max-age=" + durationInSeconds;
+                    ctx.Context.Response.Headers[HeaderNames.Expires] = new[] { DateTime.UtcNow.AddSeconds(durationInSeconds).ToString("R") }; // Format RFC1123
+                }
+            });
 
             //app.UseCors(
             //    options => options.WithOrigins("http://localhost:4200").AllowAnyMethod()
