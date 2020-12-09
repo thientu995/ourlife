@@ -3,13 +3,14 @@ import { GetDataService } from '../../services/get-data.service';
 
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList, ViewEncapsulation } from '@angular/core';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation, NgxGalleryComponent } from '@kolkov/ngx-gallery';
 
 @Component({
   selector: 'app-album',
   templateUrl: './album.component.html',
-  styleUrls: ['./album.component.scss']
+  styleUrls: ['./album.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AlbumComponent implements OnInit {
   galleryOptions: NgxGalleryOptions[] = [
@@ -64,9 +65,8 @@ export class AlbumComponent implements OnInit {
   ];
 
   search: string = '';
-  album: IAlbum[] = null;
-  result: any = [];
-  resultFull: any = [];
+  album: any = null;
+  result: any = null;
 
   @ViewChildren('ngxGalleryAlbums', { read: NgxGalleryComponent }) ngxGalleryAlbum: QueryList<NgxGalleryComponent>;
 
@@ -80,46 +80,43 @@ export class AlbumComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataService.getData<IAlbum>({ collection: 'album' }).subscribe(data => {
-      this.album = this.dataService.toList<IAlbum>(data);
-      this.album.forEach((item, index) => {
-        this.resultFull.push({
-          album: item,
-          galleryImages: this.getGalleryImages(item)
-        });
-      });
-      this.result = this.resultFull;
+      this.album = this.dataService.toList<IAlbum>(data).map((item) => (Object.assign({
+        album: item,
+        galleryImages: this.getGalleryImages(item)
+      })));
+      this.result = this.album;
     });
   }
 
   ngAfterViewInit() {
     let idRoute = this.activeRoute.snapshot.params['id'];
     if (idRoute) {
-      this.viewAlbum(idRoute);
+      this.ngxGalleryAlbum.changes.subscribe(() => {
+        setTimeout(() => {
+          this.viewAlbum(idRoute);
+        });
+      });
     }
   }
 
   getGalleryImages(item) {
-    let galleryImages = [];
-    item.ListImage.forEach((value, index) => {
-      value = value.getSizeImage();
-      galleryImages.push({
-        label: item.title,
-        description: item.description,
-        small: value,
-        medium: value,
-        big: value,
-      });
-    });
-    return galleryImages;
+    return item.ListImage.map((value) => (Object.assign({
+      label: item.title,
+      description: item.description,
+      small: value.getSizeImage(250, 'album_' + item.id),
+      medium: value.getSizeImage(800, 'album_' + item.id),
+      big: value.getSizeImage(1920, 'album_' + item.id),
+    }))
+    );
   }
 
   filterAlbum(value: string) {
     this.search = value.trim();
     if (this.search == '') {
-      this.result = this.resultFull;
+      this.result = this.album;
     }
     else {
-      this.result = this.resultFull.filter(x => x.album.title.toLowerCase().indexOf(this.search.toLowerCase()) >= 0);
+      this.result = this.album.filter(x => x.album.title.toLowerCase().indexOf(this.search.toLowerCase()) >= 0);
     }
   }
 
@@ -130,9 +127,7 @@ export class AlbumComponent implements OnInit {
       this.location.replaceState('/album/' + id);
     }
     else {
-      setTimeout(() => {
-        this.viewAlbum(id);
-      }, 10);
+      this.closePreviewAlbum();
     }
   }
 
