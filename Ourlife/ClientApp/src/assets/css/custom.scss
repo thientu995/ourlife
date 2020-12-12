@@ -6,6 +6,14 @@
   right: 0;
 }
 
+.icon-menu {
+  border: 1px solid white;
+  border-radius: 100%;
+  padding: 5px;
+  margin-right: 5px;
+  // color: black
+}
+
 .uk-sticky-placeholder {
   height: 0 !important;
 }
@@ -28,7 +36,7 @@
   transition: height 0.25s;
 }
 
-.uk-subnav-pill > * > :first-child {
+.uk-subnav-pill>*> :first-child {
   padding: 0.5rem 1rem;
   background-color: rgba(0, 0, 0, 0.04);
 }
@@ -64,4 +72,8 @@
 
 .uk-offcanvas-overlay::before {
   background: rgba(0, 0, 0, 0.5);
+}
+
+.uk-icon {
+  color: red !important;
 }

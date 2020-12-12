@@ -19,7 +19,7 @@ declare global {
   function ConvertList<T>(): T[];
 }
 
-String.prototype.getSizeImage = function (width: number = 1024, group: string = '_nogroup') {
+String.prototype.getSizeImage = function (width: number = 2048, group: string = '_nogroup') {
   if (this && this != '') {
     let url = this.replace('https://', '').replace('http://', '') + '=s' + width + '-no';
     return '/api/GetData/Image?group=' + group + '&id=' + encodeURIComponent(url);

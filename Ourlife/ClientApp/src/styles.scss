@@ -1,12 +1,26 @@
 @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap");
 
+$base-bkg-main: rgb(240, 80, 110);
+$base-bkg-sub:rgb(249, 198, 217);
+$base-text-color: rgb(153, 126, 90);
+$base-text-color-link: rgb(244, 76, 112);
+$base-text-color-link-hover: rgb(153, 126, 90);
+$bkg-linear-gradient: linear-gradient(120deg, $base-bkg-main, $base-bkg-sub);
+$bkg-main: rgba(222, 204, 181, 1);
+
 *,
 .uk-navbar-item,
-.uk-navbar-nav > li > a,
+.uk-navbar-nav>li>a,
 .uk-navbar-toggle {
   font-family: "Dancing Script";
   font-size: 20pt;
+  min-height: auto;
+}
+
+::selection {
+  background: $base-bkg-main;
+  color: $base-bkg-sub;
 }
 
 $material-icons-font-path: "~material-icons/iconfont/";
@@ -114,13 +128,19 @@ section:last-child {
   margin-bottom: 0px;
 }
 
+em,
+html,
+body {
+  color: $base-text-color;
+}
+
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  color: #612d7f;
+  color: $base-text-color;
   font-family: "Dancing Script";
 }
 
@@ -145,50 +165,65 @@ nav,
   text-align: center;
   text-align: center;
   margin-top: 0px;
-  color: rgb(153, 126, 90);
-  /* background-color: rgb(153, 126, 90); */
   margin-bottom: 50px;
   background: url("/img/line.png") no-repeat center bottom;
   padding-bottom: 10px;
 }
 
-.uk-navbar-nav > li > a {
+a,
+.uk-tab>*>a,
+.uk-navbar-nav>li>a,
+.uk-navbar-nav>li>a.uk-active,
+.uk-active,
+.uk-link-toggle,
+.uk-link {
   text-transform: none;
+  font-size: inherit;
+  color: $base-text-color-link !important;
+
+  &:hover {
+    text-transform: none;
+    text-decoration: none;
+    color: $base-text-color-link-hover !important;
+  }
+
+  &:focus {
+    color: none;
+  }
+}
+
+.uk-navbar-nav>li>a.uk-active,
+.uk-active {
   color: white !important;
 }
 
-.uk-navbar-nav > li > a.uk-active,
-.uk-active {
-  color: red !important;
+.uk-tab>.uk-active>a{
+  border-color: red;
 }
 
 html,
 body {
   height: 100vh;
-  /* font-size: 25px; */
-  background-color: rgba(222, 204, 181, 0.5);
-  color: #612d7f;
   font-family: "Dancing Script";
 }
 
-.uk-offcanvas-bar {
-  background-color: rgb(153, 126, 90);
+main,
+.background-main {
+  background-color: $bkg-main;
 }
 
 .background-sub {
-  background-color: rgba(153, 126, 90, 0.5);
+  background: $bkg-linear-gradient;
 }
 
 .header-card {
-  background-color: rgba(153, 126, 90, 0.5);
+  background-color: $base-bkg-sub;
   border-radius: 0 5px 5px 0;
   position: relative;
-  // margin-left: -10px;
-  // padding-left: 20px;
 }
 
 .header-card:before {
-  background-color: rgba(153, 126, 90, 1);
+  background-color: $base-bkg-main;
   border-radius: 5px 0 0 5px;
   content: "";
   padding: 5px;
@@ -198,40 +233,26 @@ body {
   bottom: 0;
 }
 
-a,
-.uk-link-toggle,
-.uk-link {
-  color: rgb(153, 126, 90);
-
-  :hover,
-  :focus {
-    color: rgb(94, 77, 55);
-    text-decoration: none;
-  }
-}
-
 .uk-navbar-toggle {
-  background-color: rgba(153, 126, 90, 0.5);
   font-family: "Lobster";
   border: 2px solid #fff;
   border-radius: 3px;
   padding: 6px 10px;
   font-size: 15px;
   min-height: auto;
-  color: #fff !important;
 }
 
 .site-logo {
   display: inline-block;
   border-radius: 3px;
   border: 2px solid #fff;
-  font-size: 15px;
+  font-size: 100%;
   color: red;
   position: relative;
   padding: 6px 10px;
   font-family: "Dancing Script";
 
-  ::after {
+  &:after {
     font-family: "Material Icons";
     content: "\e87d";
     position: absolute;
@@ -241,7 +262,7 @@ a,
     right: 0;
     width: 100%;
     text-align: center;
-    color: red;
+    color: #f44c70;
     // animation: changeLetter infinite alternate 1s;
   }
 
@@ -254,7 +275,7 @@ a,
 }
 
 // .drop-caps:first-letter {
-//   color: #612d7f;
+//   color: $base-text-color;
 //   font-size: 400%;
 //   initial-letter: 2;
 //   float: left;

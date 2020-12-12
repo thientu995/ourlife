@@ -15,8 +15,8 @@ import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation, NgxGalleryComp
 export class AlbumComponent implements OnInit {
   galleryOptions: NgxGalleryOptions[] = [
     {
-      width: '100%',
-      height: '250px',
+      width: '0px',
+      height: '0px',
       lazyLoading: true,
       fullWidth: true,
       imageAnimation: NgxGalleryAnimation.Rotate,
@@ -39,6 +39,7 @@ export class AlbumComponent implements OnInit {
       imageAutoPlay: false,
       // imageAutoPlayInterval: 5000,
 
+      thumbnails: false,
       // thumbnailsSwipe: true,
       thumbnailsRemainingCount: false,
       thumbnailsColumns: 5,
@@ -104,8 +105,8 @@ export class AlbumComponent implements OnInit {
       label: item.title,
       description: item.description,
       small: value.getSizeImage(250, 'album_' + item.id),
-      medium: value.getSizeImage(800, 'album_' + item.id),
-      big: value.getSizeImage(1920, 'album_' + item.id),
+      medium: value.getSizeImage(1024, 'album_' + item.id),
+      big: value.getSizeImage(2048, 'album_' + item.id),
     }))
     );
   }
@@ -120,10 +121,10 @@ export class AlbumComponent implements OnInit {
     }
   }
 
-  viewAlbum(id: string) {
+  viewAlbum(id: string, index: number = 0) {
     let obj = this.ngxGalleryAlbum.find(x => x["myElement"].nativeElement.id == 'Album_' + id);
     if (obj) {
-      obj.openPreview(0);
+      obj.openPreview(index);
       this.location.replaceState('/album/' + id);
     }
     else {
