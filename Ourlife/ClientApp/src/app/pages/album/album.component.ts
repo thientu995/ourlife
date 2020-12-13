@@ -66,6 +66,7 @@ export class AlbumComponent implements OnInit {
   ];
 
   search: string = '';
+  albumCategory: any = null;
   album: any = null;
   result: any = null;
 
@@ -80,6 +81,10 @@ export class AlbumComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.dataService.getData<IAlbum>({ collection: 'albumCategory' }).subscribe(data => {
+      this.albumCategory = this.dataService.toList<IAlbum>(data);
+    });
+
     this.dataService.getData<IAlbum>({ collection: 'album' }).subscribe(data => {
       this.album = this.dataService.toList<IAlbum>(data).map((item) => (Object.assign({
         album: item,
@@ -118,6 +123,15 @@ export class AlbumComponent implements OnInit {
     }
     else {
       this.result = this.album.filter(x => x.album.title.toLowerCase().indexOf(this.search.toLowerCase()) >= 0);
+    }
+  }
+
+  filterAlbumCategory(value: string) {
+    if (value == '*') {
+      this.result = this.album;
+    }
+    else {
+      this.result = this.album.filter(x => x.album.albumCategory == value);
     }
   }
 

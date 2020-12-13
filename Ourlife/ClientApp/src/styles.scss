@@ -3,11 +3,14 @@
 
 $base-bkg-main: rgb(240, 80, 110);
 $base-bkg-sub:rgb(249, 198, 217);
-$base-text-color: rgb(153, 126, 90);
-$base-text-color-link: rgb(244, 76, 112);
-$base-text-color-link-hover: rgb(153, 126, 90);
+// $base-text-color: rgb(153, 126, 90);
+$base-text-color: rgb(205, 15, 49);
+// $base-text-color-link: rgb(244, 76, 112);
+$base-text-color-link: rgb(255, 0, 0);
+$base-text-color-link-hover: rgb(244, 76, 112);
 $bkg-linear-gradient: linear-gradient(120deg, $base-bkg-main, $base-bkg-sub);
-$bkg-main: rgba(222, 204, 181, 1);
+// $bkg-main: rgba(222, 204, 181, 1);
+$bkg-main: rgb(240, 190, 210);
 
 *,
 .uk-navbar-item,
@@ -166,8 +169,30 @@ nav,
   text-align: center;
   margin-top: 0px;
   margin-bottom: 50px;
-  background: url("/img/line.png") no-repeat center bottom;
+  background: url("/img/line.png") repeat-x center bottom;
   padding-bottom: 10px;
+
+  &:before {
+    background: $bkg-main url(/img/lotus.png) no-repeat center center;
+    background-size: contain;
+    content: "";
+    position: absolute;
+    height: 75px;
+    width: 75px;
+    margin-top: 30px;
+    margin-left: -85px;
+  }
+
+  &:after {
+    background: $bkg-main url(/img/lotus.png) no-repeat center center;
+    background-size: contain;
+    content: "";
+    position: absolute;
+    height: 75px;
+    width: 75px;
+    margin-top: 30px;
+    margin-left: 10px;
+  }
 }
 
 a,
@@ -194,10 +219,10 @@ a,
 
 .uk-navbar-nav>li>a.uk-active,
 .uk-active {
-  color: white !important;
+  color: $base-text-color-link-hover !important;
 }
 
-.uk-tab>.uk-active>a{
+.uk-tab>.uk-active>a {
   border-color: red;
 }
 
@@ -207,8 +232,23 @@ body {
   font-family: "Dancing Script";
 }
 
+.loading {
+  position: fixed;
+  z-index: 99999;
+  height: 100%;
+  width: 100%;
+  background-color: $bkg-main;
+  background-image: url("/img/loading.gif");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 main,
 .background-main {
+  // background-image: url('https://wallpapercave.com/wp/wp6786487.jpg');
+  // background-repeat: no-repeat;
+  // background-size: cover;
+  // background-position: center;
   background-color: $bkg-main;
 }
 
@@ -262,7 +302,7 @@ main,
     right: 0;
     width: 100%;
     text-align: center;
-    color: #f44c70;
+    color: $base-text-color;
     // animation: changeLetter infinite alternate 1s;
   }
 

@@ -5,4 +5,5 @@ export interface IAlbum {
     description: string,
     id: string,
     title: string,
+    order: number,
 }

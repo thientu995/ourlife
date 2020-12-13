@@ -6,14 +6,13 @@
     <input class="uk-input uk-border-pill uk-padding-small" placeholder="Tìm kiếm album" type="text" [ngModel]="search"
       (ngModelChange)="filterAlbum($event)" />
   </div>
-  <!-- <div class="uk-margin-bottom uk-inline uk-width-1-1">
+
+  <div class="uk-margin-bottom uk-inline uk-width-1-1">
     <ul class="uk-tab" uk-tab>
-      <li class="uk-active"><a href="#">Tất cả</a></li>
-      <li><a href="#">Ảnh cưới (Wedding)</a></li>
-      <li><a href="#">Item</a></li>
-      <li class="uk-disabled"><a>Disabled</a></li>
+      <li class="uk-active"><a (click)="filterAlbumCategory('*')">Tất cả</a></li>
+      <li *ngFor="let item of albumCategory"><a (click)="filterAlbumCategory(item.id)">{{item.title}}</a></li>
     </ul>
-  </div> -->
+  </div>
 
   <h3 *ngIf="result == null || result.length == 0">Không tìm thấy kết quả</h3>
   <div *ngFor="let item of result"

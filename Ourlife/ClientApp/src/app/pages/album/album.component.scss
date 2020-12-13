@@ -1,10 +1,12 @@
+@import "../../../assets/css/color.scss";
+
 .ngx-gallery {
   margin-top: 0 !important;
 }
 
 .ngx-gallery-preview-text,
 .ngx-gallery-preview-top {
-  background: rgba(222, 204, 181, 0.5) !important;
+  background: $bkg-main !important;
   z-index: 9;
 }
 
