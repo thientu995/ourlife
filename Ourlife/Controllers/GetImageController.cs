@@ -80,24 +80,6 @@ namespace Ourlife.Controllers
 
 
 
-
-        static string convertToUnSign2(string s)
-        {
-            string stFormD = s.Normalize(NormalizationForm.FormD);
-            StringBuilder sb = new StringBuilder();
-            for (int ich = 0; ich < stFormD.Length; ich++)
-            {
-                System.Globalization.UnicodeCategory uc = System.Globalization.CharUnicodeInfo.GetUnicodeCategory(stFormD[ich]);
-                if (uc != System.Globalization.UnicodeCategory.NonSpacingMark)
-                {
-                    sb.Append(stFormD[ich]);
-                }
-            }
-            sb = sb.Replace('Đ', 'D');
-            sb = sb.Replace('đ', 'd');
-            return (sb.ToString().Normalize(NormalizationForm.FormD));
-        }
-
         static string convertToUnSign3(string s)
         {
             Regex regex = new Regex("\\p{IsCombiningDiacriticalMarks}+");
@@ -105,7 +87,7 @@ namespace Ourlife.Controllers
             return regex.Replace(temp, String.Empty).Replace('\u0111', 'd').Replace('\u0110', 'D');
         }
 
-         string ConvertUrlToFileImage(int index, string urlOrigin)
+        string ConvertUrlToFileImage(int index, string urlOrigin)
         {
             try
             {
@@ -124,11 +106,7 @@ namespace Ourlife.Controllers
                         }
                         pathFile = Path.Combine(pathFile, fileName.Replace("\"", string.Empty));
                         string type = webClient.ResponseHeaders["content-type"];
-                        if (type.IndexOf("image/") == 0)
-                        {
-                            System.IO.File.WriteAllBytes(pathFile, data);
-                        }
-                        else if (type == "application/zip")
+                        if (type == "application/zip")
                         {
                             System.IO.File.WriteAllBytes(pathFile, data);
                             if (!Directory.Exists(pathFile + "_unzip"))
@@ -136,8 +114,10 @@ namespace Ourlife.Controllers
                                 Directory.CreateDirectory(pathFile + "_unzip");
                             }
                             System.IO.Compression.ZipFile.ExtractToDirectory(pathFile, pathFile + "_unzip");
-                            //System.IO.Compression.ZipFile.ExtractToDirectory(pathFile, pathFile);
-                            //ZipArchive
+                        }
+                        else
+                        {
+                            System.IO.File.WriteAllBytes(pathFile, data);
                         }
                     }
                 }
@@ -152,7 +132,8 @@ namespace Ourlife.Controllers
 
 
 
-        void Main() {
+        void Main()
+        {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://photos.google.com/u/2/share/AF1QipOL0BhxbI4osl45zqVCzl3W_O3TNoJKkAdcGwc5Gd7WJxIgnDdLdGNs99Xa-0LJrw?key=UlZVelFoMUNWbllvd0F2SkxZUHV1ZFAtMURjNG1B");
             //HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://photos.google.com/share/AF1QipMP_RatArZGPob_jVwE6J4ibUZdW44h8G5tcvcoAh76amFj2OLacrlXzoBO8f7p1g?key=X21FQVdPcWRQNV9mb0hKZkE1ZHFQWjZjdG5rajZ3");
             request.ProtocolVersion = HttpVersion.Version11;
