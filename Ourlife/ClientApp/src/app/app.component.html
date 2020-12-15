@@ -16,35 +16,36 @@
             </div>
           </div>
           <div class="uk-navbar-right background-sub">
-            <ul class="uk-navbar-nav uk-navbar-toggle uk-visible@s">
-              <li *ngFor="let item of menu" class="uk-navbar-item">
-                <a routerLink="{{item.url}}" title="{{item.text}}" routerLinkActive="uk-hidden uk-active">
+            <!-- <ul class="uk-navbar-nav uk-navbar-toggle uk-visible@s"> -->
+              <ul class="uk-navbar-nav uk-navbar-toggle">
+              <li routerLinkActive="uk-hidden" *ngFor="let item of menu" class="uk-navbar-item">
+                <a routerLink="{{item.url}}" title="{{item.text}}" routerLinkActive="uk-active">
                   <span class="icon-menu mi mi-{{item.icon}}"></span> {{item.text}}
                 </a>
               </li>
             </ul>
-            <div class="uk-navbar-nav uk-navbar-toggle uk-hidden@s">
+            <!-- <div class="uk-navbar-nav uk-navbar-toggle uk-hidden@s">
               <a class="uk-navbar-item" data-uk-toggle href="#offcanvas-nav">
                 <span uk-navbar-toggle-icon></span>
                 <span class="uk-margin-small-left">Menu</span>
               </a>
-            </div>
+            </div> -->
           </div>
         </nav>
         <!-- OFFCANVAS -->
-        <div id="offcanvas-nav" data-uk-offcanvas="mode: reveal; flip: true; overlay: true">
+        <!-- <div id="offcanvas-nav" data-uk-offcanvas="mode: reveal; flip: true; overlay: true">
           <div class="uk-offcanvas-bar uk-offcanvas-bar-animation uk-offcanvas-slide background-main">
             <button class="uk-offcanvas-close uk-close uk-icon uk-border-circle" type="button" data-uk-close></button>
             <ul class="uk-nav">
-              <li *ngFor="let item of menu" class="uk-padding-small">
-                <a routerLink="{{item.url}}" title="{{item.text}}" routerLinkActive="uk-hidden uk-active"
+              <li routerLinkActive="uk-hidden" *ngFor="let item of menu" class="uk-padding-small">
+                <a routerLink="{{item.url}}" title="{{item.text}}" routerLinkActive="uk-active"
                   class="uk-offcanvas-close uk-position-relative">
                   <span class="mi mi-{{item.icon}}"></span> {{item.text}}
                 </a>
               </li>
             </ul>
           </div>
-        </div>
+        </div> -->
         <!-- /OFFCANVAS -->
       </div>
     </nav>
