@@ -1,12 +1,13 @@
 import { ITimeline } from '../../interfaces/timeline';
 import { IPortfolio } from '../../interfaces/portfolio';
 import { GetDataService } from '../../services/get-data.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class HomeComponent implements OnInit {
   portfolio: IPortfolio[] = null;

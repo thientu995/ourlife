@@ -8,6 +8,7 @@ import {
   QueryList,
   ViewChild,
   ViewChildren,
+  ViewEncapsulation,
 } from '@angular/core';
 import { ITimeline } from '../../interfaces/timeline';
 import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
@@ -17,6 +18,7 @@ import { animate, keyframes, state, style, transition, trigger } from '@angular/
   templateUrl: 'horizontal-timeline.component.html',
   styleUrls: ['horizontal-timeline.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
   animations: [
     trigger('contentState', [
       state('active', style({

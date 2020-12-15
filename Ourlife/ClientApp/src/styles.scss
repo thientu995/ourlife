@@ -1,16 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap");
-
-$base-bkg-main: rgb(240, 80, 110);
-$base-bkg-sub:rgb(249, 198, 217);
-// $base-text-color: rgb(153, 126, 90);
-$base-text-color: rgb(205, 15, 49);
-// $base-text-color-link: rgb(244, 76, 112);
-$base-text-color-link: rgb(255, 0, 0);
-$base-text-color-link-hover: rgb(244, 76, 112);
-$bkg-linear-gradient: linear-gradient(120deg, $base-bkg-main, $base-bkg-sub);
-// $bkg-main: rgba(222, 204, 181, 1);
-$bkg-main: rgb(240, 190, 210);
+@import "./assets/css/color.scss";
 
 *,
 .uk-navbar-item,
@@ -171,28 +161,33 @@ nav,
   margin-bottom: 50px;
   background: url("/img/line.png") repeat-x center bottom;
   padding-bottom: 10px;
+  position: relative;
 
-  &:before {
-    background: $bkg-main url(/img/lotus.png) no-repeat center center;
-    background-size: contain;
-    content: "";
-    position: absolute;
-    height: 75px;
-    width: 75px;
-    margin-top: 30px;
-    margin-left: -85px;
-  }
+  // &:before {
+  //   border: 2px solid #fff;
+  //   border-radius: 100%;
+  //   background: $bkg-main url(/img/lotus.png) no-repeat center center;
+  //   background-size: contain;
+  //   content: "";
+  //   position: absolute;
+  //   height: 75px;
+  //   width: 75px;
+  //   margin-top: 30px;
+  //   margin-left: -85px;
+  // }
 
-  &:after {
-    background: $bkg-main url(/img/lotus.png) no-repeat center center;
-    background-size: contain;
-    content: "";
-    position: absolute;
-    height: 75px;
-    width: 75px;
-    margin-top: 30px;
-    margin-left: 10px;
-  }
+  // &:after {
+  //   border: 2px solid #fff;
+  //   border-radius: 100%;
+  //   background: $bkg-main url(/img/lotus.png) no-repeat center center;
+  //   background-size: contain;
+  //   content: "";
+  //   position: absolute;
+  //   height: 75px;
+  //   width: 75px;
+  //   margin-top: 30px;
+  //   margin-left: 10px;
+  // }
 }
 
 a,
@@ -228,9 +223,14 @@ a,
 
 html,
 body {
-  height: 100vh;
+  min-height: 100vh;
   font-family: "Dancing Script";
+  overflow-x: hidden;
+  overflow-y: auto;
 }
+
+html {}
+
 
 .loading {
   position: fixed;
@@ -249,11 +249,11 @@ main,
   // background-repeat: no-repeat;
   // background-size: cover;
   // background-position: center;
-  background-color: $bkg-main;
+  background-color: $bkg-main !important;
 }
 
 .background-sub {
-  background: $bkg-linear-gradient;
+  background: $bkg-linear-gradient !important;
 }
 
 .header-card {

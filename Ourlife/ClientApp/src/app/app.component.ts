@@ -1,5 +1,5 @@
 import { GetDataService } from './services/get-data.service';
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { ISetting } from './interfaces/setting';
 import { Router, NavigationStart, NavigationEnd, NavigationError, NavigationCancel, RoutesRecognized } from '@angular/router';
 
@@ -7,6 +7,7 @@ import { Router, NavigationStart, NavigationEnd, NavigationError, NavigationCanc
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
   title = 'ourlife';
