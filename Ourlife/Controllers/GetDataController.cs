@@ -1,9 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
+using Ourlife.Commons;
 using Ourlife.Models;
 
 namespace Ourlife.Controllers
@@ -57,5 +59,27 @@ namespace Ourlife.Controllers
             return File(cacheEntry, "image/jpeg");
         }
 
+        [HttpGet("[action]")]
+        public async Task<IActionResult> Exception(string id)
+        {
+            var model = new ExceptionHandlerModel();
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            var allFiles = new ExceptionHandlerModel().GetList();
+            foreach (KeyValuePair<string, List<string>> folder in allFiles)
+            {
+                sb.Append("<h1>"+ Path.GetFileName(folder.Key) + "</h1>");
+                foreach (var file in folder.Value)
+                {
+                    string fileName = Path.GetFileName(file);
+                    sb.Append("<p><a href=\"/api/getdata/Exception?id=" + fileName + "\">"+ fileName + "</a></p>");
+                    if (fileName == id)
+                    {
+                        sb.Append(await model.GetContent(id));
+                    }
+                }
+                sb.Append("<hr>");
+            }
+            return Content(sb.ToString(), "text/html; charset=utf-8");
+        }
     }
 }

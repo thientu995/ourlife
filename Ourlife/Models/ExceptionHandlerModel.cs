@@ -13,9 +13,11 @@ namespace Ourlife.Models
     public class ExceptionHandlerModel
     {//public string RequestId { get; set; }
         public int RequestStatusCode { get; set; }
+        //public long RequestDateTime { get; set; }
         public string RequestInformation { get; set; }
         //public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
         private HttpContext httpcontext;
+        const string formatDateTime = "yyyyMMdd";
         public ExceptionHandlerModel(HttpContext context)
         {
             httpcontext = context;
@@ -24,6 +26,8 @@ namespace Ourlife.Models
             //if (SendMail)
             //    new SendEmail(Lang.Error + " " + RequestMsg, RequestInformation).sendError();
         }
+
+        public ExceptionHandlerModel() { }
 
         private string GetHTML()
         {
@@ -43,7 +47,7 @@ namespace Ourlife.Models
             infoDetail.Append(@"<table><thead><tr><th style=""width:30%"">Variable</th><th>Value</th></tr></thead>");
             infoDetail.Append(@"<tbody>");
             var exceptionFeature = httpcontext.Features.Get<Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature>();
-            if (false && exceptionFeature != null)
+            if (exceptionFeature != null)
             {
 
                 foreach (PropertyInfo item in exceptionFeature.Error.GetType().GetProperties())
@@ -59,10 +63,28 @@ namespace Ourlife.Models
                 infoDetail.Append(@"<tr><td colspan=""2"">No details</td></tr>");
             }
             infoDetail.Append(@"</tbody></table>");
-            string folderLogDate = ConstFuncs.GetPathFolderRoot("dataLogs", DateTime.Now.ToString("yyyyMMdd"));
-            File.WriteAllTextAsync(Path.Combine(folderLogDate, DateTime.Now.Ticks + ".html"), infoDetail.ToString());
-            return "Error " + this.RequestStatusCode + "!";
+            string folderLogDate = ConstFuncs.GetPathFolderRoot("dataLogs", DateTime.Now.ToString(formatDateTime));
+            long RequestDateTime = DateTime.Now.Ticks;
+            File.WriteAllTextAsync(Path.Combine(folderLogDate, RequestDateTime + ".html"), infoDetail.ToString());
+            return "Error " + this.RequestStatusCode + " - " + RequestDateTime + "!";
+        }
 
+        public Dictionary<string, List<string>> GetList()
+        {
+            Dictionary<string, List<string>> dic = new Dictionary<string, List<string>>();
+            IEnumerable<string> arrFolders = new List<string>(Directory.GetDirectories(ConstFuncs.GetPathFolderRoot("dataLogs"))).OrderByDescending(X => X);
+            string[] arrFiles = null;
+            foreach (string folder in arrFolders)
+            {
+                arrFiles = Directory.GetFiles(folder, "*.html");
+                dic.Add(folder, new List<string>(arrFiles).OrderByDescending(x => x).ToList());
+            }
+            return dic;
+        }
+
+        public Task<string> GetContent(string id)
+        {
+            return File.ReadAllTextAsync(Path.Combine(ConstFuncs.GetPathFolderRoot("dataLogs", new DateTime(long.Parse(id.Substring(0, 18))).ToString(formatDateTime)), id));
         }
     }
 }
