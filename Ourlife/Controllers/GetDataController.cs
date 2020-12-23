@@ -1,107 +1,60 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using Google.Cloud.Firestore;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
+using Ourlife.Models;
 
 namespace Ourlife.Controllers
 {
-    public class ParamFirebaseDB
-    {
-        public string collection { get; set; }
-        public string doc { get; set; }
-        public string typeMap { get; set; }
-    }
-
     //[Microsoft.AspNetCore.Cors.EnableCors("CorsPolicy")]
     [Route("api/[controller]")]
-    public class GetDataController : Controller
+    public class GetDataController : BaseController
     {
-        readonly string projectId = "ourlife-t4vn";
+        public GetDataController(IMemoryCache memoryCache) : base(memoryCache)
+        { }
 
         [HttpPost("[action]")]
-        public FileResult FirebaseDB(ParamFirebaseDB param)
+        public async Task<IActionResult> FirebaseDB(ParamFirebaseDB param)
         {
             if (string.IsNullOrWhiteSpace(param.collection))
             {
                 return null;
             }
-            string dtCurrent = DateTime.Now.ToString("yyyyMMdd");
-            string pathStore = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "dataStore", dtCurrent);
             string fileName = param.collection + "_" + param.doc + ".json";
-            string pathFull = Path.Combine(pathStore, fileName);
-            if (!Directory.Exists(pathStore))
-            {
-                Directory.CreateDirectory(pathStore);
-            }
-            if (!System.IO.File.Exists(pathFull))
-            {
-                string result = JsonConvert.SerializeObject(GetDataFirebase(param));
-                System.IO.File.WriteAllText(pathFull, result);
-            }
-            return File(new StreamReader(pathFull).BaseStream, "application/json");
-        }
+            string key = "GetDataController_FirebaseDB_" + fileName;
 
-        [HttpGet("[action]")]
-        public IActionResult Image(string id, string group)
-        {
-            return new GetImageController().Index(id, group);
-        }
-
-        dynamic GetDataFirebase(ParamFirebaseDB param)
-        {
-            FirestoreDb db = FirestoreDb.Create(projectId);
-            CollectionReference coll = db.Collection(param.collection);
-            if (!string.IsNullOrWhiteSpace(param.doc))
+            object cacheEntry;
+            if (!_cache.TryGetValue(key, out cacheEntry))
             {
-                DocumentSnapshot documentSnapshot = coll.Document(param.doc).GetSnapshotAsync().Result;
-                if (documentSnapshot.Exists)
-                {
-                    return ConvertToDictionary(documentSnapshot);
-                }
+                cacheEntry = JsonConvert.DeserializeObject(await new FirebaseModel().GetData(param, fileName));
+                _cache.Set(key, cacheEntry, new MemoryCacheEntryOptions().SetSlidingExpiration(DateTime.Now.AddDays(1).AddTicks(-1).TimeOfDay));
             }
             else
             {
-                QuerySnapshot snapshot = coll.GetSnapshotAsync().Result;
-                Dictionary<string, object> lst = new Dictionary<string, object>();
-                foreach (DocumentSnapshot documentSnapshot in snapshot.Documents)
-                {
-                    if (documentSnapshot.Exists)
-                    {
-                        Dictionary<string, object> obj = ConvertToDictionary(documentSnapshot);
-
-                        if (param.typeMap == "json")
-                        {
-                            lst.Add(documentSnapshot.Id, obj);
-                        }
-                        else
-                        {
-                            lst.Add(documentSnapshot.Id, obj);
-                        }
-                    }
-                }
-                return lst;
+                Response.Headers.Add("Content-Cached", "true");
             }
-            return null;
+            return Json(cacheEntry);
         }
 
-        Dictionary<string, object> ConvertToDictionary(DocumentSnapshot snap)
+        [HttpGet("[action]")]
+        public async Task<IActionResult> Image(string id, string group)
         {
-            Dictionary<string, object> obj = snap.ToDictionary();
-            foreach (var item in obj.Keys.ToList())
+            id = "https://" + Uri.UnescapeDataString(id);
+            string key = "GetImageController_Index_" + id;
+
+            byte[] cacheEntry;
+            if (!_cache.TryGetValue(key, out cacheEntry))
             {
-                object value = obj.GetValueOrDefault(item);
-                if (value != null)
-                {
-                    if (value is Timestamp)
-                    {
-                        obj[item] = ((Timestamp)value).ToDateTime();
-                    }
-                }
+                cacheEntry = await System.IO.File.ReadAllBytesAsync(await new GooglePhotoModel().GetData(id, group));
+                _cache.Set(key, cacheEntry, new MemoryCacheEntryOptions().SetSlidingExpiration(DateTime.Now.AddDays(1).AddTicks(-1).TimeOfDay));
             }
-            return obj;
+            else
+            {
+                Response.Headers.Add("Content-Cached", "true");
+            }
+            return File(cacheEntry, "image/jpeg");
         }
 
     }
