@@ -84,7 +84,14 @@ namespace Ourlife.Models
 
         public Task<string> GetContent(string id)
         {
-            return File.ReadAllTextAsync(Path.Combine(ConstFuncs.GetPathFolderRoot("dataLogs", new DateTime(long.Parse(id.Substring(0, 18))).ToString(formatDateTime)), id));
+            try
+            {
+                return File.ReadAllTextAsync(Path.Combine(ConstFuncs.GetPathFolderRoot("dataLogs", new DateTime(long.Parse(id.Substring(0, 18))).ToString(formatDateTime)), id));
+            }
+            catch (Exception)
+            {
+                return Task.FromResult(string.Empty);
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
@@ -14,6 +15,8 @@ namespace Ourlife.Controllers
     [Route("api/[controller]")]
     public class GetDataController : BaseController
     {
+        readonly TimeSpan expCache = DateTime.Now.AddDays(1).AddTicks(-1).TimeOfDay;
+
         public GetDataController(IMemoryCache memoryCache) : base(memoryCache)
         { }
 
@@ -31,7 +34,7 @@ namespace Ourlife.Controllers
             if (!_cache.TryGetValue(key, out cacheEntry))
             {
                 cacheEntry = JsonConvert.DeserializeObject(await new FirebaseModel().GetData(param, fileName));
-                _cache.Set(key, cacheEntry, new MemoryCacheEntryOptions().SetSlidingExpiration(DateTime.Now.AddDays(1).AddTicks(-1).TimeOfDay));
+                _cache.Set(key, cacheEntry, new MemoryCacheEntryOptions().SetSlidingExpiration(expCache));
             }
             else
             {
@@ -50,7 +53,7 @@ namespace Ourlife.Controllers
             if (!_cache.TryGetValue(key, out cacheEntry))
             {
                 cacheEntry = await System.IO.File.ReadAllBytesAsync(await new GooglePhotoModel().GetData(id, group));
-                _cache.Set(key, cacheEntry, new MemoryCacheEntryOptions().SetSlidingExpiration(DateTime.Now.AddDays(1).AddTicks(-1).TimeOfDay));
+                _cache.Set(key, cacheEntry, new MemoryCacheEntryOptions().SetSlidingExpiration(expCache));
             }
             else
             {
@@ -62,24 +65,42 @@ namespace Ourlife.Controllers
         [HttpGet("[action]")]
         public async Task<IActionResult> Exception(string id)
         {
-            var model = new ExceptionHandlerModel();
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            var allFiles = new ExceptionHandlerModel().GetList();
-            foreach (KeyValuePair<string, List<string>> folder in allFiles)
+            try
             {
-                sb.Append("<h1>"+ Path.GetFileName(folder.Key) + "</h1>");
-                foreach (var file in folder.Value)
+                var model = new ExceptionHandlerModel();
+                System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                var allFiles = new ExceptionHandlerModel().GetList();
+                bool showError = !string.IsNullOrWhiteSpace(id);
+                //foreach (KeyValuePair<string, List<string>> folder in allFiles)
+                for (int iFolder = 0; iFolder < allFiles.Count; iFolder++)
                 {
-                    string fileName = Path.GetFileName(file);
-                    sb.Append("<p><a href=\"/api/getdata/Exception?id=" + fileName + "\">"+ fileName + "</a></p>");
-                    if (fileName == id)
+                    KeyValuePair<string, List<string>> folder = allFiles.ElementAt(iFolder);
+                    sb.Append("<h1>" + Path.GetFileName(folder.Key) + "</h1>");
+                    sb.Append("<ol>");
+                    //foreach (string file in folder.Value)
+                    for (int iFile = 0; iFile < folder.Value.Count; iFile++)
                     {
-                        sb.Append(await model.GetContent(id));
+                        string file = Path.GetFileName(folder.Value[iFile]);
+                        string fileName = file.Replace(".html", string.Empty);
+                        sb.Append("<li><a href=\"/api/getdata/Exception?id=" + fileName + "\">" + new DateTime(long.Parse(fileName)).ToString("HH:mm:ss") + "</a></li>");
+                        if (
+                            (showError && fileName == id)
+                            || !showError && iFolder + iFile == 0
+                            )
+                        {
+                            sb.Append(await model.GetContent(file));
+                        }
                     }
+                    sb.Append("</ol>");
+                    sb.Append("<hr>");
                 }
-                sb.Append("<hr>");
+                return Content(sb.ToString(), "text/html; charset=utf-8");
             }
-            return Content(sb.ToString(), "text/html; charset=utf-8");
+            catch (Exception ex)
+            {
+                return Content(ex.Message);
+            }
+
         }
     }
 }

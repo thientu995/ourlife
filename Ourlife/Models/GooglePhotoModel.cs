@@ -32,7 +32,8 @@ namespace Ourlife.Models
                             string type = webClient.ResponseHeaders["content-type"];
                             if (type.IndexOf("image/") == 0)
                             {
-                                File.WriteAllBytes(pathFile + extention, data);
+                                File.Create(pathFile + extention).Close();
+                                await File.WriteAllBytesAsync(pathFile + extention, data);
                             }
                         }
                     }
@@ -83,7 +84,7 @@ namespace Ourlife.Models
                         string type = webClient.ResponseHeaders["content-type"];
                         if (type == "application/zip")
                         {
-                            System.IO.File.WriteAllBytes(pathFile, data);
+                            File.WriteAllBytes(pathFile, data);
                             if (!Directory.Exists(pathFile + "_unzip"))
                             {
                                 Directory.CreateDirectory(pathFile + "_unzip");
