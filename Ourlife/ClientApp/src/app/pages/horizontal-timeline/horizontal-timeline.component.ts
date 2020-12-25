@@ -15,8 +15,8 @@ import { animate, keyframes, state, style, transition, trigger } from '@angular/
 
 @Component({
   selector: 'app-horizontal-timeline',
-  templateUrl: 'horizontal-timeline.component.html',
-  styleUrls: ['horizontal-timeline.component.scss'],
+  templateUrl: './horizontal-timeline.component.html',
+  styleUrls: ['./horizontal-timeline.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   animations: [

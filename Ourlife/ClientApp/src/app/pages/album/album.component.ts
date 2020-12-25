@@ -1,3 +1,4 @@
+import { ImageLightboxComponent } from './../image-lightbox/image-lightbox.component';
 import { IAlbum } from '../../interfaces/album';
 import { GetDataService } from '../../services/get-data.service';
 
@@ -71,6 +72,7 @@ export class AlbumComponent implements OnInit {
   result: any = null;
 
   @ViewChildren('ngxGalleryAlbums', { read: NgxGalleryComponent }) ngxGalleryAlbum: QueryList<NgxGalleryComponent>;
+  @ViewChildren(ImageLightboxComponent) imgLightBox: QueryList<ImageLightboxComponent>;
 
   constructor(
     private location: Location,
@@ -136,9 +138,11 @@ export class AlbumComponent implements OnInit {
   }
 
   viewAlbum(id: string, index: number = 0) {
-    let obj = this.ngxGalleryAlbum.find(x => x["myElement"].nativeElement.id == 'Album_' + id);
+    let obj = this.imgLightBox.find(x => x.id == 'Album_' + id);
+    // let obj = this.ngxGalleryAlbum.find(x => x["myElement"].nativeElement.id == 'Album_' + id);
     if (obj) {
-      obj.openPreview(index);
+      obj.openModal(index);
+      // obj.openPreview(index);
       this.location.replaceState('/album/' + id);
     }
     else {
