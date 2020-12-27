@@ -162,6 +162,15 @@ nav,
   background: url("/img/line.png") repeat-x center bottom;
   padding-bottom: 10px;
   position: relative;
+  z-index: 10;
+
+  &.uk-sticky.uk-active {
+    text-align: left;
+    padding-left: 100px !important;
+    background-color: $bkg-main !important;
+    height: 50px;
+    line-height: 50px;
+  }
 
   // &:before {
   //   border: 2px solid #fff;
@@ -229,9 +238,6 @@ body {
   overflow-y: auto;
 }
 
-html {}
-
-
 .loading {
   position: fixed;
   z-index: 99999;
@@ -251,6 +257,22 @@ main,
   // background-position: center;
   background-color: $bkg-main !important;
 }
+
+progress {
+  // background-color: $bkg-main !important;
+  // color: $bkg-main !important;
+}
+
+progress::-webkit-progress-value {
+  background-color: $bkg-main !important;
+  color: $bkg-main !important;
+}
+
+progress::-moz-progress-bar {
+  background-color: $bkg-main !important;
+  color: $bkg-main !important;
+}
+
 
 .background-sub {
   background: $bkg-linear-gradient !important;

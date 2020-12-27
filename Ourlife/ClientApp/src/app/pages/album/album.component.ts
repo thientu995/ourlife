@@ -70,6 +70,7 @@ export class AlbumComponent implements OnInit {
   albumCategory: any = null;
   album: any = null;
   result: any = null;
+  selectorAlbumCategory: string = '*';
 
   @ViewChildren('ngxGalleryAlbums', { read: NgxGalleryComponent }) ngxGalleryAlbum: QueryList<NgxGalleryComponent>;
   @ViewChildren(ImageLightboxComponent) imgLightBox: QueryList<ImageLightboxComponent>;
@@ -99,7 +100,7 @@ export class AlbumComponent implements OnInit {
   ngAfterViewInit() {
     let idRoute = this.activeRoute.snapshot.params['id'];
     if (idRoute) {
-      this.ngxGalleryAlbum.changes.subscribe(() => {
+      this.imgLightBox.changes.subscribe(() => {
         setTimeout(() => {
           this.viewAlbum(idRoute);
         });
@@ -120,15 +121,14 @@ export class AlbumComponent implements OnInit {
 
   filterAlbum(value: string) {
     this.search = value.trim();
-    if (this.search == '') {
-      this.result = this.album;
-    }
-    else {
-      this.result = this.album.filter(x => x.album.title.toLowerCase().indexOf(this.search.toLowerCase()) >= 0);
+    this.filterAlbumCategory(this.selectorAlbumCategory);
+    if (this.search != '') {
+      this.result = this.result.filter(x => x.album.title.toLowerCase().indexOf(this.search.toLowerCase()) >= 0);
     }
   }
 
   filterAlbumCategory(value: string) {
+    this.selectorAlbumCategory = value;
     if (value == '*') {
       this.result = this.album;
     }
@@ -143,7 +143,7 @@ export class AlbumComponent implements OnInit {
     if (obj) {
       obj.openModal(index);
       // obj.openPreview(index);
-      this.location.replaceState('/album/' + id);
+      // this.location.replaceState('/album/' + id);
     }
     else {
       this.closePreviewAlbum();

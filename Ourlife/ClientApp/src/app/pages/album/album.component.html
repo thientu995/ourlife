@@ -1,5 +1,5 @@
 <section class="uk-section uk-section-xsmall">
-  <h1 class="section-title">Album</h1>
+  <h1 uk-sticky="bottom: true" class="section-title">Album</h1>
 
   <div class="uk-margin-bottom uk-inline uk-width-1-1">
     <span class="uk-form-icon uk-form-icon-flip uk-icon" data-uk-icon="icon: search"></span>
@@ -32,7 +32,7 @@
       <div class="uk-width-1-1">
         <i class="uk-text-muted uk-text-meta">{{item.album.description}}</i>
       </div>
-      <div class="uk-width-1-1">
+      <!-- <div class="uk-width-1-1">
         <div uk-slider="sets: true">
           <div class="uk-position-relative">
             <div class="uk-slider-container uk-light">
@@ -61,10 +61,9 @@
                 uk-slider-item="next"></a>
             </div>
           </div>
-          <!-- <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-margin"></ul> -->
         </div>
-      </div>
-      <app-image-lightbox [images]="item.galleryImages" [id]="'Album_'+item.album.id"></app-image-lightbox>
+      </div> -->
+      <app-image-lightbox [images]="item.galleryImages" [id]="'Album_'+item.album.id" style="width:100%"></app-image-lightbox>
       <!-- <ngx-gallery [options]="galleryOptions" [images]="item.galleryImages" [id]="'Album_'+item.album.id"
         (previewClose)="closePreviewAlbum()" class="ngx-gallery" #ngxGalleryAlbums>
       </ngx-gallery> -->

@@ -33,7 +33,8 @@
             ],
             "scripts": [
               "./node_modules/uikit/dist/js/uikit.min.js",
-              "./node_modules/uikit/dist/js/uikit-icons.min.js"
+              "./node_modules/uikit/dist/js/uikit-icons.min.js",
+              "./src/assets/js/uikit.icon.js"
             ]
           },
           "configurations": {
