@@ -14,57 +14,26 @@ import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation, NgxGalleryComp
   encapsulation: ViewEncapsulation.None
 })
 export class AlbumComponent implements OnInit {
-  galleryOptions: NgxGalleryOptions[] = [
-    {
-      width: '0px',
-      height: '0px',
-      lazyLoading: true,
-      fullWidth: true,
-      imageAnimation: NgxGalleryAnimation.Rotate,
-
-      arrowPrevIcon: 'mi mi-chevron-left',
-      arrowNextIcon: 'mi mi-chevron-right',
-      closeIcon: 'mi mi-close',
-      fullscreenIcon: 'mi mi-fullscreen',
-      spinnerIcon: 'mi mi-refesh',
-      zoomInIcon: 'mi mi-zoom-in',
-      zoomOutIcon: 'mi mi-zoom-out',
-      rotateLeftIcon: 'mi mi-rotate-left',
-      rotateRightIcon: 'mi mi-rotate-right',
-      downloadIcon: 'mi mi-save',
-
-      image: false,
-      // imageSwipe: true,
-      imageDescription: true,
-      imagePercent: 100,
-      imageAutoPlay: false,
-      // imageAutoPlayInterval: 5000,
-
-      thumbnails: false,
-      // thumbnailsSwipe: true,
-      thumbnailsRemainingCount: false,
-      thumbnailsColumns: 5,
-      thumbnailsPercent: 100,
-
-      preview: true,
-      previewCloseOnClick: false,
-      previewCloseOnEsc: true,
-      previewInfinityMove: true,
-      previewSwipe: true,
-      previewZoom: true,
-      previewRotate: true,
-      previewDownload: false,
-      previewBullets: true,
-      // previewArrowsAutoHide: true,
-      previewAutoPlay: false,
-      // previewAutoPlayPauseOnHover: true,
-      // previewAutoPlayInterval: 5000
-    },
-    {
-      breakpoint: 500,
-      thumbnailsColumns: 2,
-    },
-  ];
+  readonly arrAnimation = [
+      'uk-animation-fade',
+      'uk-animation-scale-up',
+      'uk-animation-scale-down',
+      'uk-animation-slide-top',
+      'uk-animation-slide-bottom',
+      'uk-animation-slide-left',
+      'uk-animation-slide-right',
+      'uk-animation-slide-top-small',
+      'uk-animation-slide-bottom-small',
+      'uk-animation-slide-left-small',
+      'uk-animation-slide-right-small',
+      'uk-animation-slide-top-medium',
+      'uk-animation-slide-bottom-medium',
+      'uk-animation-slide-left-medium',
+      'uk-animation-slide-right-medium',
+      'uk-animation-kenburns',
+      'uk-animation-shake',
+      'uk-animation-stroke'
+    ];
 
   search: string = '';
   albumCategory: any = null;
@@ -109,14 +78,21 @@ export class AlbumComponent implements OnInit {
   }
 
   getGalleryImages(item) {
-    return item.ListImage.map((value) => (Object.assign({
+    return item.ListImage.map((value) => (
+      Object.assign({
       label: item.title,
       description: item.description,
       small: value.getSizeImage(250, 'album_' + item.id),
       medium: value.getSizeImage(1024, 'album_' + item.id),
       big: value.getSizeImage(2048, 'album_' + item.id),
-    }))
+      animation: this.getAnimation()
+    })
+    )
     );
+  }
+
+  getAnimation(){
+    return this.arrAnimation[Math.floor(Math.random() * this.arrAnimation.length)];
   }
 
   filterAlbum(value: string) {

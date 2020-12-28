@@ -25,6 +25,7 @@
 }
 
 .slide-modal {
+  overflow: hidden;
   display: none;
   position: fixed;
   z-index: 999;
@@ -33,7 +34,6 @@
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: auto;
   background-color: #000000;
 }
 
@@ -108,7 +108,8 @@
 
 .slide-modal progress {
   z-index: 1;
-  opacity: .5;
+  height: 5px;
+  border-radius: 0;
 }
 
 .thumbnailalbum {
@@ -121,6 +122,29 @@
 
 .slide-modal .thumbnailalbum {
   height: 150px;
+  
+  &:before{
+    content: "";
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 5px solid #fff;
+    border-right-width: 0;
+    border-bottom-width: 0;
+  }
+  &:after{
+    content: "";
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    border: 5px solid #fff;
+    border-left-width: 0;
+    border-top-width: 0;
+  }
 }
 
 .slide-modal .slide-background {

@@ -30,7 +30,7 @@
   </div>
 </div>
 
-<div [id]="'imgModal'+id" class="slide-modal">
+<div [id]="'imgModal'+id" class="slide-modal" (window:resize)="resize()">
   <progress [id]="'progressbar'+id" class="uk-position-top uk-progress" value="0" min="0" max="100" [hidden]="!isAutoPlay"></progress>
   <div class="slide-background" style="background-image: url({{selector_Img}})"></div>
   <div class="uk-position-top-right uk-position-small" style="z-index: 1;">
@@ -46,7 +46,7 @@
   </div>
   <div class="slide-modal-content" [ngClass]="isFullModal ? '' : 'uk-container '">
     <div class="img-group-slides uk-position-relative uk-animation">
-      <div class="img-slides uk-animation-scale-up" tabindex="0" *ngFor="let image of images; let i = index">
+      <div class="img-slides" [ngClass]="image.animation" tabindex="0" *ngFor="let image of images; let i = index">
         <img src="{{image.big}}">
       </div>
       <div class="uk-light">
@@ -63,7 +63,7 @@
               <li *ngFor="let image of images; let i = index">
                 <a (click)="currentSlide(i + 1)">
                   <div class="thumbnailalbum">
-                    <img src="{{image.small}}" style="max-width: 100%; max-height: 100%;" />
+                    <img src="{{image.small}}" />
                   </div>
                 </a>
               </li>

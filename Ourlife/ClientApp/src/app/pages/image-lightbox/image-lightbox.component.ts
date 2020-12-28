@@ -25,7 +25,6 @@ export class ImageLightboxComponent implements OnInit {
   selector_Img: String = '';
 
   readonly timeAutoPlay = 10000;
-
   constructor(
     private location: Location,
   ) { }
@@ -43,6 +42,7 @@ export class ImageLightboxComponent implements OnInit {
   closeModal() {
     this.location.replaceState('/album');
     document.getElementById('imgModal' + this.id).style.display = "none";
+    this.isAutoPlay = false;
   }
 
 
@@ -82,7 +82,9 @@ export class ImageLightboxComponent implements OnInit {
     let animate = null;
     let next = () => {
       clearInterval(animate);
-      proBar.setAttribute('value', 0 + '');
+      setTimeout(() => {
+        proBar.setAttribute('value', 0 + '');
+      }, 1000);
       if (this.isAutoPlay) {
         this.plusSlides(1);
         setTimeout(() => {
@@ -92,23 +94,25 @@ export class ImageLightboxComponent implements OnInit {
     }
     let progressbar = () => {
       const startDate = new Date().getTime();
+      proBar.setAttribute('value', 0 + '');
       animate = setInterval(() => {
         const currentDate = new Date().getTime();
         const percentage = currentDate - startDate;
         const per = Number(((percentage / this.timeAutoPlay) * 100).toFixed(0));
         proBar.setAttribute('value', per + '');
-        if (percentage >= this.timeAutoPlay) {
+        if (percentage > this.timeAutoPlay) {
+          proBar.setAttribute('value', 100 + '');
           next();
         }
         if (!this.isAutoPlay) {
           clearInterval(animate);
         }
-      }, 10);
+      }, 1);
     }
     progressbar();
   }
 
-  private resize() {
+  resize() {
     this.isFullModal = ImageLightboxComponent._isFullModal;
     setTimeout(() => {
       const group = document.getElementById('imgModal' + this.id);
