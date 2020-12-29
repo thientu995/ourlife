@@ -1,7 +1,6 @@
-import { style } from '@angular/animations';
 import { Location } from '@angular/common';
-import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
-import { nextTick } from 'process';
+import { Component, OnInit, ViewEncapsulation, Input, ViewChildren, QueryList } from '@angular/core';
+import { PinchZoomComponent } from 'ngx-pinch-zoom';
 
 @Component({
   selector: 'app-image-lightbox',
@@ -10,6 +9,8 @@ import { nextTick } from 'process';
   encapsulation: ViewEncapsulation.None
 })
 export class ImageLightboxComponent implements OnInit {
+  @ViewChildren(PinchZoomComponent) myPinch: QueryList<PinchZoomComponent>;
+
   @Input()
   images = [];
 
@@ -22,6 +23,7 @@ export class ImageLightboxComponent implements OnInit {
   static _isFullModal: boolean = false;
   isFullModal: boolean = false;
   isAutoPlay: boolean = false;
+  isZoom: boolean = false;
   selector_Img: String = '';
 
   readonly timeAutoPlay = 10000;
@@ -42,15 +44,26 @@ export class ImageLightboxComponent implements OnInit {
   closeModal() {
     this.location.replaceState('/album');
     document.getElementById('imgModal' + this.id).style.display = "none";
-    this.isAutoPlay = false;
+    document.body.style.overflowY = '';
+    this.resetValue();
   }
 
+  resetValue(name: string = null, value: any = null) {
+    this.isAutoPlay = false;
+    this.isZoom = false;
+    if (name) {
+      this[name] = value;
+    }
+    this.resetZoomImage();
+  }
 
   plusSlides(n) {
+    this.resetValue();
     this.showSlides(this.slideIndex += n);
   }
 
   currentSlide(n) {
+    this.resetValue();
     this.showSlides(this.slideIndex = n);
   }
 
@@ -77,8 +90,8 @@ export class ImageLightboxComponent implements OnInit {
   }
 
   autoPlay() {
+    this.resetValue('isAutoPlay', !this.isAutoPlay);
     const proBar = document.getElementById('progressbar' + this.id);
-    this.isAutoPlay = !this.isAutoPlay;
     let animate = null;
     let next = () => {
       clearInterval(animate);
@@ -86,7 +99,7 @@ export class ImageLightboxComponent implements OnInit {
         proBar.setAttribute('value', 0 + '');
       }, 1000);
       if (this.isAutoPlay) {
-        this.plusSlides(1);
+        this.showSlides(this.slideIndex += 1);
         setTimeout(() => {
           progressbar();
         }, 2000);
@@ -114,11 +127,35 @@ export class ImageLightboxComponent implements OnInit {
 
   resize() {
     this.isFullModal = ImageLightboxComponent._isFullModal;
+    document.body.style.overflowY = "hidden";
     setTimeout(() => {
       const group = document.getElementById('imgModal' + this.id);
       const gthumbnails = group.getElementsByClassName("img-group-thumbnail") as HTMLCollectionOf<HTMLElement>;
       const gslides = group.getElementsByClassName("img-group-slides") as HTMLCollectionOf<HTMLElement>;
       gslides[0].style.height = window.innerHeight - gthumbnails[0].clientHeight + 'px';
     });
+  }
+
+  zoomImage() {
+    const objPinch = this.myPinch.toArray()[this.slideIndex - 1];
+    objPinch.toggleZoom();
+  }
+
+  changeIconZoom() {
+    const isZoomOut = this.isZoomOutImage();
+    this.isZoom = isZoomOut;
+    return isZoomOut ? 'minus-circle' : 'plus-circle';
+  }
+
+  resetZoomImage() {
+    const arrPinch = this.myPinch.toArray();
+    document.querySelectorAll('#imgModalAlbum_gpH9m2wf4prmF6gHtUAp' + ' .pz-zoom-button-out').forEach(x => {
+      let index = x.parentElement.attributes['index'].value;
+      arrPinch[index].toggleZoom();
+    });
+  }
+
+  isZoomOutImage() {
+    return document.querySelector('#imgModal' + this.id + '' + (this.slideIndex - 1) + ' .pz-zoom-button-out') != null;
   }
 }

@@ -5,7 +5,6 @@ import { GetDataService } from '../../services/get-data.service';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, ViewChildren, QueryList, ViewEncapsulation } from '@angular/core';
-import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation, NgxGalleryComponent } from '@kolkov/ngx-gallery';
 
 @Component({
   selector: 'app-album',
@@ -30,7 +29,7 @@ export class AlbumComponent implements OnInit {
       'uk-animation-slide-bottom-medium',
       'uk-animation-slide-left-medium',
       'uk-animation-slide-right-medium',
-      'uk-animation-kenburns',
+      //'uk-animation-kenburns',
       'uk-animation-shake',
       'uk-animation-stroke'
     ];
@@ -41,7 +40,6 @@ export class AlbumComponent implements OnInit {
   result: any = null;
   selectorAlbumCategory: string = '*';
 
-  @ViewChildren('ngxGalleryAlbums', { read: NgxGalleryComponent }) ngxGalleryAlbum: QueryList<NgxGalleryComponent>;
   @ViewChildren(ImageLightboxComponent) imgLightBox: QueryList<ImageLightboxComponent>;
 
   constructor(

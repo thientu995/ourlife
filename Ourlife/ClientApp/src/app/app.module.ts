@@ -1,5 +1,6 @@
 // import { HomeModule } from './pages/home/home.module';
 import { LazyLoadImageModule } from 'ng-lazyload-image'; 
+import { PinchZoomModule } from 'ngx-pinch-zoom';
 
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
@@ -20,7 +21,7 @@ import './services/global.service';
     AppRoutingModule,
     HttpClientModule,
     LazyLoadImageModule,
-    // HomeModule
+    PinchZoomModule
   ],
   providers: [],
   bootstrap: [AppComponent]

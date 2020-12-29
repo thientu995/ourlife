@@ -6,9 +6,9 @@ import { AlbumComponent } from './album.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { LazyLoadImageModule } from 'ng-lazyload-image'; 
-import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { FormsModule } from '@angular/forms';
 import { ImageLightboxComponent } from '../image-lightbox/image-lightbox.component';
+import { PinchZoomModule } from 'ngx-pinch-zoom';
 
 @NgModule({
   declarations: [AlbumComponent, ImageLightboxComponent],
@@ -18,7 +18,7 @@ import { ImageLightboxComponent } from '../image-lightbox/image-lightbox.compone
     HttpClientModule,
     AlbumRoutingModule,
     LazyLoadImageModule,
-    NgxGalleryModule,
+    PinchZoomModule
   ]
 })
 export class AlbumModule { }

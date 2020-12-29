@@ -85,12 +85,15 @@
   <router-outlet></router-outlet>
 </main>
 <div class="img-line"></div>
-<footer class="uk-section uk-section-small uk-position-relative" [ngStyle]="footerImg">
-  <div class="uk-container uk-text-center">
-    <div class="uk-position-top-center uk-position-z-index" style="z-index: 9;line-height:0">
-      <a href="#content" data-uk-scroll="duration: 500" data-uk-icon="icon: chevron-up; ratio: 2"></a>
-    </div>
-    <div class="site-logo background-sub">Tứ <span>&amp;</span> Vy</div>
-    <div>{{footerText}}</div>
+<footer class="uk-container uk-section uk-section-small uk-position-relative" [ngStyle]="footerImg">
+  <div class="uk-position-top-center uk-position-z-index" style="z-index: 9;line-height:0">
+    <a href="#content" data-uk-scroll="duration: 500" data-uk-icon="icon: chevron-up; ratio: 2"></a>
   </div>
+  <section class="uk-padding-small uk-section uk-section-xsmall uk-position-relative">
+      <div class="uk-navbar-item uk-position-top-left uk-padding-small">
+        <div class="site-logo background-sub">Tứ <span>&amp;</span> Vy</div>
+      </div>
+      <h1 uk-sticky="bottom: true" class="section-title">Feedback</h1>
+      <div [innerHTML]="footerText"></div>
+  </section>
 </footer>
