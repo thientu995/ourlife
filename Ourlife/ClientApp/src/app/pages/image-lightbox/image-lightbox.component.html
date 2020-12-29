@@ -30,10 +30,15 @@
   </div>
 </div>
 
-<div [id]="'imgModal'+id" class="slide-modal" (window:resize)="resize()">
-  <progress [id]="'progressbar'+id" class="uk-position-top uk-progress" value="0" min="0" max="100" [hidden]="!isAutoPlay"></progress>
+<div *ngIf="isOpenModal" [id]="'imgModal'+id" class="slide-modal" (window:resize)="resize()">
+  <progress [id]="'progressbar'+id" class="uk-position-top uk-progress" value="0" min="0" max="100"
+    [hidden]="!isAutoPlay"></progress>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <div class="slide-background" style="background-image: url({{selector_Img}})"></div>
   <div class="uk-position-top-right uk-position-small" style="z-index: 1;">
+    <a class="uk-margin-small-right" (click)="zoomImage()" style="z-index: 1;">
+      <span [attr.uk-icon]="changeIconZoom()"></span>
+    </a>
     <a class="uk-margin-small-right" (click)="zoomImage()" style="z-index: 1;">
       <span [attr.uk-icon]="changeIconZoom()"></span>
     </a>
@@ -49,8 +54,9 @@
   </div>
   <div class="slide-modal-content" [ngClass]="isFullModal ? '' : 'uk-container '">
     <div class="img-group-slides uk-position-relative uk-animation">
-      <pinch-zoom [id]="'imgModal'+id+i" [attr.index]="i" class="img-slides" [ngClass]="image.animation" tabindex="0" *ngFor="let image of images; let i = index">
-          <img [lazyLoad]="image.big">
+      <pinch-zoom [id]="'imgModal'+id+i" [attr.index]="i" class="img-slides" [ngClass]="image.animation" tabindex="0"
+        *ngFor="let image of images; let i = index">
+        <img [lazyLoad]="image.big">
       </pinch-zoom>
       <div class="uk-light">
         <a class="uk-position-center-left uk-position-small uk-icon" (click)="plusSlides(-1)" uk-slidenav-previous></a>

@@ -22,6 +22,7 @@ export class ImageLightboxComponent implements OnInit {
 
   static _isFullModal: boolean = false;
   isFullModal: boolean = false;
+  isOpenModal: boolean = false;
   isAutoPlay: boolean = false;
   isZoom: boolean = false;
   selector_Img: String = '';
@@ -35,17 +36,25 @@ export class ImageLightboxComponent implements OnInit {
   }
 
   openModal(index: number) {
+    this.isOpenModal = true;
     this.location.replaceState('/album/' + this.id.replace('Album_', ''));
-    document.getElementById('imgModal' + this.id).style.display = "block";
-    this.currentSlide(index + 1);
-    this.resize();
+    // document.getElementById('imgModal' + this.id).style.display = "block";
+    document.body.style.overflowY = 'hidden';
+    this.myPinch.changes.subscribe(() => {
+      setTimeout(() => {
+        this.currentSlide(index + 1);
+        this.resize();
+      });
+    });
+
   }
 
   closeModal() {
     this.location.replaceState('/album');
-    document.getElementById('imgModal' + this.id).style.display = "none";
+    // document.getElementById('imgModal' + this.id).style.display = "none";
     document.body.style.overflowY = '';
     this.resetValue();
+    this.isOpenModal = false;
   }
 
   resetValue(name: string = null, value: any = null) {
@@ -137,6 +146,7 @@ export class ImageLightboxComponent implements OnInit {
   }
 
   zoomImage() {
+    this.resetValue();
     const objPinch = this.myPinch.toArray()[this.slideIndex - 1];
     objPinch.toggleZoom();
   }
@@ -149,13 +159,13 @@ export class ImageLightboxComponent implements OnInit {
 
   resetZoomImage() {
     const arrPinch = this.myPinch.toArray();
-    document.querySelectorAll('#imgModalAlbum_gpH9m2wf4prmF6gHtUAp' + ' .pz-zoom-button-out').forEach(x => {
+    document.querySelectorAll('#imgModalAlbum_gpH9m2wf4prmF6gHtUAp' + ' .pinch-zoom-content.pz-dragging').forEach(x => {
       let index = x.parentElement.attributes['index'].value;
       arrPinch[index].toggleZoom();
     });
   }
 
   isZoomOutImage() {
-    return document.querySelector('#imgModal' + this.id + '' + (this.slideIndex - 1) + ' .pz-zoom-button-out') != null;
+    return document.querySelector('#imgModal' + this.id + '' + (this.slideIndex - 1) + ' .pinch-zoom-content.pz-dragging') != null;
   }
 }
