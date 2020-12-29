@@ -28,7 +28,7 @@
 
 .slide-modal {
   overflow: hidden;
-  // display: none;
+  display: none;
   position: fixed;
   z-index: 999;
   left: 0;
@@ -117,8 +117,8 @@
 }
 
 .slide-modal .thumbnailalbum {
-  height: 30%;
-  min-height: 50px;
+  height: 95px;
+  // min-height: 50px;
   background-size: contain;
 
   &:before {
@@ -128,7 +128,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    border: 5px solid #fff;
+    border: 2px solid #fff;
     border-right-width: 0;
     border-bottom-width: 0;
   }
@@ -140,9 +140,19 @@
     position: absolute;
     bottom: 0;
     right: 0;
-    border: 5px solid #fff;
+    border: 2px solid #fff;
     border-left-width: 0;
     border-top-width: 0;
+  }
+}
+
+.slide-modal .uk-active:nth-child(odd) .thumbnailalbum {
+  &::before {
+    border-color: red;
+  }
+
+  &::after {
+    border-color: red;
   }
 }
 

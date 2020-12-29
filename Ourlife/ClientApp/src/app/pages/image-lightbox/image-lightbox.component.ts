@@ -38,22 +38,24 @@ export class ImageLightboxComponent implements OnInit {
   openModal(index: number) {
     this.isOpenModal = true;
     this.location.replaceState('/album/' + this.id.replace('Album_', ''));
-    // document.getElementById('imgModal' + this.id).style.display = "block";
-    document.body.style.overflowY = 'hidden';
     this.myPinch.changes.subscribe(() => {
       setTimeout(() => {
+        if (document.getElementById('imgModal' + this.id) == null) {
+          return;
+        }
+        document.getElementById('imgModal' + this.id).style.display = "block";
+        document.body.style.overflowY = "hidden";
+        this.resetValue();
         this.currentSlide(index + 1);
         this.resize();
       });
     });
-
   }
 
   closeModal() {
     this.location.replaceState('/album');
-    // document.getElementById('imgModal' + this.id).style.display = "none";
+    document.getElementById('imgModal' + this.id).style.display = "none";
     document.body.style.overflowY = '';
-    this.resetValue();
     this.isOpenModal = false;
   }
 
@@ -63,7 +65,9 @@ export class ImageLightboxComponent implements OnInit {
     if (name) {
       this[name] = value;
     }
-    this.resetZoomImage();
+    if (name != 'isZoom') {
+      this.resetZoomImage();
+    }
   }
 
   plusSlides(n) {
@@ -76,7 +80,6 @@ export class ImageLightboxComponent implements OnInit {
     this.showSlides(this.slideIndex = n);
   }
 
-  // showSlides(slideIndex);
   showSlides(n) {
     const group = document.getElementById('imgModal' + this.id);
     const slides = group.getElementsByClassName("img-slides") as HTMLCollectionOf<HTMLElement>;
@@ -90,7 +93,7 @@ export class ImageLightboxComponent implements OnInit {
     }
     const obj = slides[this.slideIndex - 1];
     obj.classList.add('show');
-    this.selector_Img = obj.firstElementChild.getAttribute('src');
+    this.selector_Img = obj.getAttribute('src');
   }
 
   fullModal() {
@@ -135,8 +138,10 @@ export class ImageLightboxComponent implements OnInit {
   }
 
   resize() {
+    if (!this.isOpenModal) {
+      return;
+    }
     this.isFullModal = ImageLightboxComponent._isFullModal;
-    document.body.style.overflowY = "hidden";
     setTimeout(() => {
       const group = document.getElementById('imgModal' + this.id);
       const gthumbnails = group.getElementsByClassName("img-group-thumbnail") as HTMLCollectionOf<HTMLElement>;
@@ -146,7 +151,7 @@ export class ImageLightboxComponent implements OnInit {
   }
 
   zoomImage() {
-    this.resetValue();
+    this.resetValue('isZoom', !this.isZoom);
     const objPinch = this.myPinch.toArray()[this.slideIndex - 1];
     objPinch.toggleZoom();
   }
