@@ -18,9 +18,9 @@
           <div class="uk-navbar-right background-sub">
             <!-- <ul class="uk-navbar-nav uk-navbar-toggle uk-visible@s"> -->
               <ul class="uk-navbar-nav uk-navbar-toggle">
-              <li routerLinkActive="uk-hidden" *ngFor="let item of menu" class="uk-navbar-item">
+              <li routerLinkActive="uk-hidden" *ngFor="let item of menu" class="uk-navbar-item" style="padding: 0;">
                 <a routerLink="{{item.url}}" title="{{item.text}}" routerLinkActive="uk-active">
-                  <span class="icon-menu mi mi-{{item.icon}}"></span> {{item.text}}
+                  <span class="icon-menu mi mi-{{item.icon}}"></span> <span class="uk-visible@m">{{item.text}}</span>
                 </a>
               </li>
             </ul>
@@ -67,6 +67,7 @@
         </div>
       </div>
       <!-- /TOP CONTAINER -->
+      
       <!-- TOP IMAGE -->
       <img src="{{''.getSizeImage()}}" data-src="{{headerHero.getSizeImage()}}"
         data-srcset="{{headerHero.getSizeImage(640)}} 640w, {{headerHero.getSizeImage(960)}} 960w, {{headerHero.getSizeImage(1200)}} 1200w, {{headerHero.getSizeImage(2000)}} 2000w"
@@ -81,19 +82,51 @@
   <!-- /TOP -->
 </header>
 <div class="img-line"></div>
+
+  <!-- MAIN -->
 <main id="content" class="uk-container uk-section uk-section-xsmall uk-box-shadow-xlarge">
   <router-outlet></router-outlet>
 </main>
+  <!-- /MAIN -->
+
+<!-- FOOTER -->
 <div class="img-line"></div>
-<footer class="uk-container uk-section uk-section-small uk-position-relative" [ngStyle]="footerImg">
+<footer class="uk-section uk-section-small uk-position-relative" [ngStyle]="footerImg">
+  <div class="uk-container">
   <div class="uk-position-top-center uk-position-z-index" style="z-index: 9;line-height:0">
     <a href="#content" data-uk-scroll="duration: 500" data-uk-icon="icon: chevron-up; ratio: 2"></a>
   </div>
+
+  <h1 uk-sticky="bottom: true" class="section-title">Message</h1>
   <section class="uk-padding-small uk-section uk-section-xsmall uk-position-relative">
-      <div class="uk-navbar-item uk-position-top-left uk-padding-small">
-        <div class="site-logo background-sub">Tứ <span>&amp;</span> Vy</div>
+    <div class="uk-navbar-item uk-padding-small">
+      <div class="site-logo background-sub">Tứ <span>&amp;</span> Vy</div>
+    </div>
+    <div class="uk-grid-small uk-light">
+    <div class="uk-form-horizontal uk-margin-large">
+      <div class="uk-margin">
+        <label class="uk-form-label" for="form-horizontal-text">Họ & tên</label>
+        <div class="uk-form-controls">
+      <div class="uk-inline">
+        <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: user"></span>
+        <input class="uk-input" type="text" placeholder="Nhập họ & tên">
       </div>
-      <h1 uk-sticky="bottom: true" class="section-title">Feedback</h1>
-      <div [innerHTML]="footerText"></div>
+      </div>
+    </div>
+    <div class="uk-margin">
+      <label class="uk-form-label" for="form-horizontal-text">Lời chúc</label>
+      <div class="uk-form-controls">
+      <div class="uk-inline">
+        <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: comment"></span>
+        <textarea class="uk-textarea" type="text" placeholder="Lời chúc!" rows="5"></textarea>
+      </div>
+      </div>
+    </div>
+    <button class="uk-button uk-button-secondary"><span></span> Gửi</button>
+  </div>
+    </div>
+    <div [innerHTML]="footerText"></div>
   </section>
+</div>
 </footer>
+<!-- /FOOTER -->

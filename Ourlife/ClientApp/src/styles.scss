@@ -158,9 +158,9 @@ nav,
   text-align: center;
   text-align: center;
   margin-top: 0px;
-  margin-bottom: 50px;
+  margin-bottom: 10px;
   background: url("/img/line.png") repeat-x center bottom;
-  padding-bottom: 10px;
+  padding: 0;
   position: relative;
   z-index: 10;
 
@@ -237,9 +237,10 @@ body {
   font-family: "Dancing Script";
 }
 
-body{
+body {
   overflow-x: hidden;
   overflow-y: auto;
+  background-color: $bkg-main;
 }
 
 .loading {
@@ -265,18 +266,15 @@ main,
 progress {
   // background-color: $bkg-main !important;
   // color: $bkg-main !important;
+  &::-webkit-progress-value {
+    background-color: $bkg-main !important;
+    color: $bkg-main !important;
+  }
+  &::-moz-progress-bar {
+    background-color: $bkg-main !important;
+    color: $bkg-main !important;
+  }
 }
-
-progress::-webkit-progress-value {
-  background-color: $bkg-main !important;
-  color: $bkg-main !important;
-}
-
-progress::-moz-progress-bar {
-  background-color: $bkg-main !important;
-  color: $bkg-main !important;
-}
-
 
 .background-sub {
   background: $bkg-linear-gradient !important;
@@ -286,9 +284,7 @@ progress::-moz-progress-bar {
   background-color: $base-bkg-sub;
   border-radius: 0 5px 5px 0;
   position: relative;
-}
-
-.header-card:before {
+&:before {
   background-color: $base-bkg-main;
   border-radius: 5px 0 0 5px;
   content: "";
@@ -297,6 +293,10 @@ progress::-moz-progress-bar {
   margin-left: -25px;
   top: 0;
   bottom: 0;
+}
+a{
+  display: block;
+}
 }
 
 .uk-navbar-toggle {
@@ -369,4 +369,10 @@ footer {
 footer section{
   background-color: rgba(0, 0, 0, 0.4);
   color: #fff;
+}
+
+.center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

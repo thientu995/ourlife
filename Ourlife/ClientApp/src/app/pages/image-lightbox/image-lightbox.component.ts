@@ -26,7 +26,7 @@ export class ImageLightboxComponent implements OnInit {
   isAutoPlay: boolean = false;
   isZoom: boolean = false;
   selector_Img: String = '';
-
+  objPinch: any = null;
   readonly timeAutoPlay = 10000;
   constructor(
     private location: Location,
@@ -39,22 +39,19 @@ export class ImageLightboxComponent implements OnInit {
     this.isOpenModal = true;
     this.location.replaceState('/album/' + this.id.replace('Album_', ''));
     this.myPinch.changes.subscribe(() => {
-      setTimeout(() => {
-        if (document.getElementById('imgModal' + this.id) == null) {
-          return;
-        }
-        document.getElementById('imgModal' + this.id).style.display = "block";
-        document.body.style.overflowY = "hidden";
-        this.resetValue();
-        this.currentSlide(index + 1);
-        this.resize();
-      });
+      if (this.myPinch.length == 0 || document.getElementById('imgModal' + this.id) == null) {
+        return;
+      }
+      this.objPinch = this.myPinch.toArray();
+      document.body.style.overflowY = "hidden";
+      this.resetValue();
+      this.currentSlide(index + 1);
+      this.resize();
     });
   }
 
   closeModal() {
     this.location.replaceState('/album');
-    document.getElementById('imgModal' + this.id).style.display = "none";
     document.body.style.overflowY = '';
     this.isOpenModal = false;
   }
@@ -64,9 +61,6 @@ export class ImageLightboxComponent implements OnInit {
     this.isZoom = false;
     if (name) {
       this[name] = value;
-    }
-    if (name != 'isZoom') {
-      this.resetZoomImage();
     }
   }
 
@@ -86,6 +80,7 @@ export class ImageLightboxComponent implements OnInit {
 
     if (n > slides.length) { this.slideIndex = 1 }
     if (n < 1) { this.slideIndex = slides.length }
+    this.resetZoomImage();
 
     let i;
     for (i = 0; i < slides.length; i++) {
@@ -107,11 +102,11 @@ export class ImageLightboxComponent implements OnInit {
     let animate = null;
     let next = () => {
       clearInterval(animate);
-      setTimeout(() => {
-        proBar.setAttribute('value', 0 + '');
-      }, 1000);
       if (this.isAutoPlay) {
         this.showSlides(this.slideIndex += 1);
+        setTimeout(() => {
+          proBar.setAttribute('value', 0 + '');
+        }, 1000);
         setTimeout(() => {
           progressbar();
         }, 2000);
@@ -123,8 +118,7 @@ export class ImageLightboxComponent implements OnInit {
       animate = setInterval(() => {
         const currentDate = new Date().getTime();
         const percentage = currentDate - startDate;
-        const per = Number(((percentage / this.timeAutoPlay) * 100).toFixed(0));
-        proBar.setAttribute('value', per + '');
+        proBar.setAttribute('value', ((percentage / this.timeAutoPlay) * 100).toFixed(0));
         if (percentage > this.timeAutoPlay) {
           proBar.setAttribute('value', 100 + '');
           next();
@@ -132,7 +126,7 @@ export class ImageLightboxComponent implements OnInit {
         if (!this.isAutoPlay) {
           clearInterval(animate);
         }
-      }, 1);
+      }, 60);
     }
     progressbar();
   }
@@ -151,9 +145,9 @@ export class ImageLightboxComponent implements OnInit {
   }
 
   zoomImage() {
-    this.resetValue('isZoom', !this.isZoom);
-    const objPinch = this.myPinch.toArray()[this.slideIndex - 1];
-    objPinch.toggleZoom();
+    this.isZoom = !this.isZoom;
+    // this.resetValue('isZoom', !this.isZoom);
+    this.objPinch[this.slideIndex - 1].toggleZoom();
   }
 
   changeIconZoom() {
@@ -163,11 +157,13 @@ export class ImageLightboxComponent implements OnInit {
   }
 
   resetZoomImage() {
-    const arrPinch = this.myPinch.toArray();
-    document.querySelectorAll('#imgModalAlbum_gpH9m2wf4prmF6gHtUAp' + ' .pinch-zoom-content.pz-dragging').forEach(x => {
-      let index = x.parentElement.attributes['index'].value;
-      arrPinch[index].toggleZoom();
-    });
+    // document.querySelectorAll('#imgModal' + this.id + '' + ' .pinch-zoom-content.pz-dragging').forEach(x => {
+    //   let index = x.parentElement.attributes['index'].value;
+    //   this.objPinch[index].toggleZoom();
+    // });
+    if (this.isZoomOutImage()) {
+      this.zoomImage();
+    }
   }
 
   isZoomOutImage() {

@@ -43,6 +43,12 @@ namespace Ourlife.Controllers
             return Json(cacheEntry);
         }
 
+        [HttpPost("[action]")]
+        public IActionResult Date()
+        {
+            return Json(DateTime.Now.Ticks);
+        }
+
         [HttpGet("[action]")]
         public async Task<IActionResult> Image(string id, string group)
         {

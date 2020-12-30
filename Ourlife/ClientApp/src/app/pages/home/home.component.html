@@ -1,17 +1,17 @@
+<h1 uk-sticky="bottom: true" class="section-title">Bride & Groom</h1>
 <section class="uk-section uk-section-xsmall">
-	<h1 uk-sticky="bottom: true" class="section-title">Bride & Groom</h1>
 	<div class="uk-text-center" uk-grid>
 		<div *ngFor="let item of portfolio" class="uk-width-1-2@m uk-width-1-1@s">
-			<img alt="{{item.name}}" [lazyLoad]="item.avatar.getSizeImage(300)" style="max-height:100%; max-width: 100%;"
-				class="uk-border-circle" />
+			<img [lazyLoad]="item.avatar.getSizeImage(300)" alt="{{item.name}}" style="max-height:100%; max-width: 100%;"
+				class="uk-responsive uk-border-circle" />
 			<h1 [innerHtml]="item.name"></h1>
 			<h3 [innerHtml]="item.birth"></h3>
 			<p [innerHtml]="item.bio"></p>
 		</div>
 	</div>
 </section>
+<h1 uk-sticky="bottom: true" class="section-title">Story of Love</h1>
 <section class="uk-section uk-section-xsmall">
-	<h1 uk-sticky="bottom: true" class="section-title">Story of Love</h1>
 	<div *ngIf="timeline != null">
 		<app-horizontal-timeline [timelineElements]="timeline" [showContent]="true"></app-horizontal-timeline>
 	</div>

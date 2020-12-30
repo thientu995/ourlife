@@ -12,12 +12,20 @@ export class GetDataService {
     private http: HttpClient,
     private titleService: Title,
     private metaService: Meta,
-    ) { }
+  ) { }
   // readonly likApi = 'http://localhost:52256/api/';
   readonly likApi = '/api/';
 
   get(url) {
     return this.http.get(url);
+  }
+
+  post(url) {
+    return this.http.post(url, null);
+  }
+
+  head(url) {
+    return this.http.head(url);
   }
 
   getData<T>(param) {
