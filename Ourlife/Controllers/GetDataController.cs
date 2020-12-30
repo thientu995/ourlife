@@ -46,7 +46,8 @@ namespace Ourlife.Controllers
         [HttpPost("[action]")]
         public IActionResult Date()
         {
-            return Json(DateTime.Now.Ticks);
+            long UnixEpochTicks = (new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).Ticks;
+            return Json((DateTime.Now.ToUniversalTime().Ticks - UnixEpochTicks) / 10000);
         }
 
         [HttpGet("[action]")]
