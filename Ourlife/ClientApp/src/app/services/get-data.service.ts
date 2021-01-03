@@ -39,6 +39,16 @@ export class GetDataService {
       });
   }
 
+  setData<T>(param) {
+    const headers: HttpHeaders = new HttpHeaders();
+    headers.set('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.post<T>(this.likApi + 'SaveData/Index',
+      null,
+      {
+        params: param,
+        headers: headers
+      });
+  }
   setTitle(value) {
     this.titleService.setTitle(value);
     this.metaService.addTag({ name: 'title', content: value });

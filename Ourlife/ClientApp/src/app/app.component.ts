@@ -1,3 +1,4 @@
+import { style } from '@angular/animations';
 import { GetDataService } from './services/get-data.service';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ISetting } from './interfaces/setting';
@@ -10,6 +11,12 @@ import { Router, NavigationStart, NavigationEnd, NavigationError, NavigationCanc
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
+  message = {
+    name: "",
+    content: ""
+  }
+  isSendMessage = false;
+
   title = 'ourlife';
   loadSuccess = false;
   menu = null;
@@ -91,8 +98,49 @@ export class AppComponent {
     });
 
 
-    let formatCountDown = function(arrValue) {
+    let formatCountDown = function (arrValue) {
       return arrValue.join(" : ");
     }
+  }
+
+  keydownTextarea(event) {
+    setTimeout(() => {
+      event.target.style.height = "auto";
+      event.target.style.height = event.target.scrollHeight + "px";
+    });
+  }
+
+  sendMessage() {
+    if (this.message.content.trim() != '' && this.message.name.trim() != '') {
+      let content = `<style>
+      table {
+         width: 100%;
+         border-collapse: collapse;
+      }
+      th,
+      td {
+            border: 1px solid black;
+         }
+   </style>
+   <table><thead><tr><th style=""width:30%"">Variable</th><th>Value</th></tr></thead>
+   <tbody>`;
+      content += `<tr><td>` + 'Name' + `</td><td>` + this.message.name + `</td></tr>`;
+      content += `<tr><td>` + 'Content' + `</td><td>` + this.message.content + `</td></tr>`;
+      content += `</tbody></table>`;
+      this.dataService.setData({
+        category: 'message',
+        content: content,
+      }).subscribe(data => {
+        // footerText;
+        this.isSendMessage = true;
+      });
+    }
+  }
+
+  resetMessage() {
+    this.message = {
+      name: "",
+      content: ""
+    };
   }
 }

@@ -10,6 +10,7 @@ using Ourlife.Models;
 
 namespace Ourlife.Controllers
 {
+    [Route("api/[controller]")]
     public class ManageController : BaseController
     {
         public ManageController(IMemoryCache memoryCache) : base(memoryCache)
@@ -33,14 +34,14 @@ namespace Ourlife.Controllers
             return Redirect("~/");
         }
 
-        [HttpPost("[action]")]
-        public async Task<IActionResult> Exception(string id)
+        [HttpGet("[action]/{category?}/{id?}")]
+        public async Task<IActionResult> GetData(string category, string id)
         {
             try
             {
-                var model = new ExceptionHandlerModel();
+                var model = new ExceptionHandlerModel("data" + category ?? "Logs");
                 System.Text.StringBuilder sb = new System.Text.StringBuilder();
-                var allFiles = new ExceptionHandlerModel().GetList();
+                var allFiles = model.GetList();
                 bool showError = !string.IsNullOrWhiteSpace(id);
                 //foreach (KeyValuePair<string, List<string>> folder in allFiles)
                 for (int iFolder = 0; iFolder < allFiles.Count; iFolder++)
@@ -53,7 +54,7 @@ namespace Ourlife.Controllers
                     {
                         string file = Path.GetFileName(folder.Value[iFile]);
                         string fileName = file.Replace(".html", string.Empty);
-                        sb.Append("<li><a href=\"/api/getdata/Exception?id=" + fileName + "\">" + new DateTime(long.Parse(fileName)).ToString("HH:mm:ss") + "</a></li>");
+                        sb.Append("<li><a href=\"?id=" + fileName + "\">" + new DateTime(long.Parse(fileName)).ToString("HH:mm:ss") + "</a></li>");
                         if (
                             (showError && fileName == id)
                             || !showError && iFolder + iFile == 0

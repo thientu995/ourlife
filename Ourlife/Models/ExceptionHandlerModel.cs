@@ -27,7 +27,11 @@ namespace Ourlife.Models
             //    new SendEmail(Lang.Error + " " + RequestMsg, RequestInformation).sendError();
         }
 
-        public ExceptionHandlerModel() { }
+        public string folderName { get; set; }
+        public ExceptionHandlerModel(string folderName)
+        {
+            this.folderName = folderName;
+        }
 
         private string GetHTML()
         {
@@ -63,7 +67,7 @@ namespace Ourlife.Models
                 infoDetail.Append(@"<tr><td colspan=""2"">No details</td></tr>");
             }
             infoDetail.Append(@"</tbody></table>");
-            string folderLogDate = ConstFuncs.GetPathFolderRoot("dataLogs", DateTime.Now.ToString(formatDateTime));
+            string folderLogDate = ConstFuncs.GetPathFolderRoot(this.folderName, DateTime.Now.ToString(formatDateTime));
             long RequestDateTime = DateTime.Now.Ticks;
             File.WriteAllTextAsync(Path.Combine(folderLogDate, RequestDateTime + ".html"), infoDetail.ToString());
             return "Error " + this.RequestStatusCode + " - " + RequestDateTime + "!";
@@ -72,7 +76,7 @@ namespace Ourlife.Models
         public Dictionary<string, List<string>> GetList()
         {
             Dictionary<string, List<string>> dic = new Dictionary<string, List<string>>();
-            IEnumerable<string> arrFolders = new List<string>(Directory.GetDirectories(ConstFuncs.GetPathFolderRoot("dataLogs"))).OrderByDescending(X => X);
+            IEnumerable<string> arrFolders = new List<string>(Directory.GetDirectories(ConstFuncs.GetPathFolderRoot(this.folderName))).OrderByDescending(X => X);
             string[] arrFiles = null;
             foreach (string folder in arrFolders)
             {
@@ -86,7 +90,7 @@ namespace Ourlife.Models
         {
             try
             {
-                return File.ReadAllTextAsync(Path.Combine(ConstFuncs.GetPathFolderRoot("dataLogs", new DateTime(long.Parse(id.Substring(0, 18))).ToString(formatDateTime)), id));
+                return File.ReadAllTextAsync(Path.Combine(ConstFuncs.GetPathFolderRoot(this.folderName, new DateTime(long.Parse(id.Substring(0, 18))).ToString(formatDateTime)), id));
             }
             catch (Exception)
             {

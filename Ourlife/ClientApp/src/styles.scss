@@ -18,11 +18,20 @@
 
 $material-icons-font-path: "~material-icons/iconfont/";
 @import "~material-icons/iconfont/material-icons.scss";
-@import "~material-icons/css/material-icons.scss";
+
+// @import "~material-icons/css/material-icons.scss";
+.material-icons {
+  vertical-align: middle;
+}
 
 @import "./assets/css/animation.scss";
 @import "./assets/css/custom.scss";
 @import "./assets/css/countdownHeart.scss";
+
+.uk-button{
+  text-transform: none;
+  font-size: 100% !important;
+}
 
 html,
 body,
@@ -154,6 +163,10 @@ nav,
   font-family: "Lobster" !important;
 }
 
+.background-green {
+  background-color: $bkg-green !important;
+}
+
 .section-title {
   text-align: center;
   text-align: center;
@@ -162,15 +175,18 @@ nav,
   background: url("/img/line.png") repeat-x center bottom;
   padding: 0;
   position: relative;
-  z-index: 10;
 
   &.uk-sticky.uk-active {
     font-size: 20px;
-    text-align: left;
-    padding-left: 100px !important;
-    background-color: $bkg-main !important;
-    height: 50px;
-    line-height: 50px;
+    left: 0;
+    text-align: center;
+    // padding-left: 100px !important;
+    background-image: none;
+    background-color: $bkg-green !important;
+    height: 55px;
+    width: 100% !important;
+    line-height: 55px;
+    z-index: 10;
   }
 
   // &:before {
@@ -264,12 +280,14 @@ main,
 }
 
 progress {
+
   // background-color: $bkg-main !important;
   // color: $bkg-main !important;
   &::-webkit-progress-value {
     background-color: $bkg-main !important;
     color: $bkg-main !important;
   }
+
   &::-moz-progress-bar {
     background-color: $bkg-main !important;
     color: $bkg-main !important;
@@ -284,19 +302,21 @@ progress {
   background-color: $base-bkg-sub;
   border-radius: 0 5px 5px 0;
   position: relative;
-&:before {
-  background-color: $base-bkg-main;
-  border-radius: 5px 0 0 5px;
-  content: "";
-  padding: 5px;
-  position: absolute;
-  margin-left: -25px;
-  top: 0;
-  bottom: 0;
-}
-a{
-  display: block;
-}
+
+  &:before {
+    background-color: $base-bkg-main;
+    border-radius: 5px 0 0 5px;
+    content: "";
+    padding: 5px;
+    position: absolute;
+    margin-left: -25px;
+    top: 0;
+    bottom: 0;
+  }
+
+  a {
+    display: block;
+  }
 }
 
 .uk-navbar-toggle {
@@ -364,15 +384,25 @@ footer {
   background-repeat: no-repeat;
   background-position: left top;
   background-size: cover;
+
+  section {
+    background-color: rgba(0, 0, 0, 0.4);
+    color: #fff;
+  }
+
+  textarea {
+    // min-height: 250px;
+    resize: none;
+    overflow: hidden !important;
+  }
+
+  .uk-form-label {
+    font-size: 100%;
+  }
 }
 
-footer section{
-  background-color: rgba(0, 0, 0, 0.4);
-  color: #fff;
-}
-
-.center{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+// .center {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// }

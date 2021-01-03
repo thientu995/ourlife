@@ -18,7 +18,7 @@
   width: 100%;
   height: 100%;
   background-color: $bkg-main;
-  
+
   * {
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -43,17 +43,30 @@
     color: white !important;
     padding: 5px;
     border-radius: 5px;
-  
+
     &.close {
       background-color: red;
     }
-  
-    &.btn-slide{
-      background-color: transparent;
+
+    &.btn-slide {
+      background-color: rgb(0, 0, 0, .05);
       color: red !important;
+      padding: 10px;
+
+      &:hover {
+        background-color: rgb(0, 0, 0, .5);
+      }
+    }
+
+    &.imgSlideshow {
+      margin: 0;
+      height: 100%;
+      display: flex;
+      align-items: center;
+
     }
   }
-  
+
   .slide-modal-content {
     position: relative;
     margin: auto;
@@ -65,7 +78,8 @@
     text-align: center;
     height: 100%;
     display: none;
-    &.show{
+
+    &.show {
       display: flex;
     }
   }
@@ -80,21 +94,23 @@
     height: 95px;
     // min-height: 50px;
     background-size: contain;
-    &:before,&:after{
+
+    &:before,
+    &:after {
       content: "";
       width: 25px;
       height: 25px;
       position: absolute;
       border: 2px solid #fff;
     }
-  
+
     &:before {
       top: 0;
       left: 0;
       border-right-width: 0;
       border-bottom-width: 0;
     }
-  
+
     &:after {
       bottom: 0;
       right: 0;
@@ -104,7 +120,9 @@
   }
 
   .uk-active:nth-child(odd) .thumbnailalbum {
-    &::before, &::after {
+
+    &::before,
+    &::after {
       border-color: red;
     }
   }
@@ -123,7 +141,7 @@
   .pz-zoom-button {
     display: none;
   }
-  
+
   .pinch-zoom-content {
     width: 100%;
   }
