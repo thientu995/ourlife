@@ -32,7 +32,7 @@ namespace Ourlife.Controllers
             string key = "GetDataController_FirebaseDB_" + fileName;
 
             object cacheEntry;
-            if (true || !_cache.TryGetValue(key, out cacheEntry))
+            if (!_cache.TryGetValue(key, out cacheEntry))
             {
                 cacheEntry = JsonConvert.DeserializeObject(await new FirebaseModel().GetData(param, fileName));
                 _cache.Set(key, cacheEntry, new MemoryCacheEntryOptions().SetSlidingExpiration(expCache));
