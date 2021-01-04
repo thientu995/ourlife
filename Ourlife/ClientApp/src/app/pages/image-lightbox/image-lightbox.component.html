@@ -46,7 +46,7 @@
       <a class="uk-margin-small-right" (click)="fullModal()">
         <span [attr.uk-icon]="isFullModal ? 'shrink' : 'expand'" [attr.uk-tooltip]="'title: Expand/Shrink; pos: bottom'"></span>
       </a>
-      <a class="uk-margin-small-right" (click)="closeModal()">
+      <a class="uk-margin-small-right" (click)="closeModal()" routerLink="/album">
         <span class="close" uk-icon="close"></span>
       </a>
     </div>
