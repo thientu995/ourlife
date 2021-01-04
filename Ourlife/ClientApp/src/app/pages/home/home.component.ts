@@ -30,6 +30,7 @@ export class HomeComponent implements OnInit {
         orginTimeline[index].img = orginTimeline[index].img.getSizeImage(500);
         orginTimeline[index].date = new Date(value.date);
       });
+      this.timeline = orginTimeline;
     });
 
     this.dataService.getData<IAlbum>({ collection: 'album' }).subscribe(data => {

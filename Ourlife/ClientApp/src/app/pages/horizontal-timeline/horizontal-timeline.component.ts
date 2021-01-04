@@ -306,6 +306,7 @@ export class HorizontalTimelineComponent implements AfterViewInit {
     // update navigation arrows visibility
     this.prevLinkInactive = value === 0;
     this.nextLinkInactive = value === totWidth;
+    window.dispatchEvent(new Event('resize'));
   }
 
   setTimelineWidth(elements: ITimeline[], width: number, eventsMinLapse: number) {

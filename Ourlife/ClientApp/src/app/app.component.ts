@@ -31,7 +31,6 @@ export class AppComponent {
     });
 
     this.dataService.getData<ISetting>({ collection: 'setting', typeMap: 'json' }).subscribe(data => {
-      console.log(data);
       this.dataService.setTitle(data.tagMeta.title);
       this.dataService.setMeta({ name: 'description', content: data.tagMeta.description });
 
@@ -107,6 +106,7 @@ export class AppComponent {
     setTimeout(() => {
       event.target.style.height = "auto";
       event.target.style.height = event.target.scrollHeight + "px";
+      window.dispatchEvent(new Event('resize'));
     });
   }
 

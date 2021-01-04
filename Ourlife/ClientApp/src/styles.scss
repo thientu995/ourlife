@@ -171,7 +171,7 @@ nav,
   text-align: center;
   text-align: center;
   margin-top: 0px;
-  margin-bottom: 10px;
+  // margin-bottom: 10px;
   background: url("/img/line.png") repeat-x center bottom;
   padding: 0;
   position: relative;
@@ -432,3 +432,7 @@ footer {
 //   justify-content: center;
 //   align-items: center;
 // }
+
+.icon-funny {
+  height: 100px;
+}

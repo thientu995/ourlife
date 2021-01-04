@@ -63,7 +63,8 @@
   top: 55px;
   height: 2px;
   /* width will be set using JavaScript */
-  background: #dfdfdf;
+  // background: #dfdfdf;
+  background: url("/img/line.png") repeat-x center;
   -webkit-transition: -webkit-transform 0.4s;
   -moz-transition: -moz-transform 0.4s;
   transition: transform 0.4s;
@@ -251,7 +252,7 @@
 .cd-horizontal-timeline .events-content {
   position: relative;
   width: 100%;
-  margin: 2em 0;
+  // margin: 2em 0;
   overflow: hidden;
   -webkit-transition: height 0.4s;
   -moz-transition: height 0.4s;

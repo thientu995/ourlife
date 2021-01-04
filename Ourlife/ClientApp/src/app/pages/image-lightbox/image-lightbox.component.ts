@@ -37,7 +37,7 @@ export class ImageLightboxComponent implements OnInit {
 
   openModal(index: number) {
     this.isOpenModal = true;
-    this.location.replaceState('/album/' + this.id.replace('Album_', ''));
+    this.location.replaceState('/album/' + this.id.replace('Album_', '') + '/' + index);
     this.myPinch.changes.subscribe(() => {
       if (this.myPinch.length == 0 || document.getElementById('imgModal' + this.id) == null) {
         return;
@@ -45,7 +45,7 @@ export class ImageLightboxComponent implements OnInit {
       this.objPinch = this.myPinch.toArray();
       document.body.style.overflowY = "hidden";
       this.resetValue();
-      this.currentSlide(index + 1);
+      this.currentSlide(Number(index) + 1);
       this.resize();
     });
   }
@@ -74,7 +74,7 @@ export class ImageLightboxComponent implements OnInit {
     this.showSlides(this.slideIndex = n);
   }
 
-  showSlides(n) {
+  showSlides(n: number) {
     const group = document.getElementById('imgModal' + this.id);
     const slides = group.getElementsByClassName("img-slides") as HTMLCollectionOf<HTMLElement>;
 
@@ -89,6 +89,7 @@ export class ImageLightboxComponent implements OnInit {
     const obj = slides[this.slideIndex - 1];
     obj.classList.add('show');
     this.selector_Img = obj.getAttribute('src');
+    this.location.replaceState('/album/' + this.id.replace('Album_', '') + '/' + (this.slideIndex - 1));
   }
 
   fullModal() {

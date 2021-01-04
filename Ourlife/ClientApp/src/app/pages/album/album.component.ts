@@ -67,9 +67,10 @@ export class AlbumComponent implements OnInit {
   ngAfterViewInit() {
     let idRoute = this.activeRoute.snapshot.params['id'];
     if (idRoute) {
+      let index = this.activeRoute.snapshot.params['index'] || 0;
       this.imgLightBox.changes.subscribe(() => {
         setTimeout(() => {
-          this.viewAlbum(idRoute);
+          this.viewAlbum(idRoute, index);
         });
       });
     }
@@ -110,6 +111,7 @@ export class AlbumComponent implements OnInit {
     else {
       this.result = this.album.filter(x => x.album.albumCategory == value);
     }
+    window.dispatchEvent(new Event('resize'));
   }
 
   viewAlbum(id: string, index: number = 0) {
