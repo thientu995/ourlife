@@ -6,6 +6,14 @@ export interface ISetting {
     footer: {
         src: string;
         text: string;
+        form: {
+            id: string,
+            data: {
+                id: string,
+                name: string,
+                value: string,
+            }
+        };
     };
     hero: {
         src: string;

@@ -7,7 +7,6 @@ import { HomeComponent } from './home.component';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { HorizontalTimelineComponent } from '../horizontal-timeline/horizontal-timeline.component';
 
-
 @NgModule({
   declarations: [HomeComponent, HorizontalTimelineComponent],
   imports: [

@@ -55,7 +55,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
         <pinch-zoom [backgroundColor]="''" [transition-duration]="0" [disableZoomControl]="'disable'" [id]="'imgModal'+id+i" [attr.index]="i" class="img-slides"
           [ngClass]="image.animation" tabindex="0" [attr.src]="image.big" *ngFor="let image of images; let i = index">
-          <img src="{{image.big}}">
+          <img src="{{image.small}}" data-srcset="{{image.srcSet}}">
         </pinch-zoom>
         <div class="uk-light">
           <a class="btn-slide uk-position-center-left uk-position-small uk-button-large imgSlideshow" (click)="plusSlides(-1)"

@@ -62,15 +62,7 @@ namespace Ourlife.Models
                     if (documentSnapshot.Exists)
                     {
                         Dictionary<string, object> obj = ConvertToDictionary(documentSnapshot);
-
-                        if (param.typeMap == "json")
-                        {
-                            lst.Add(documentSnapshot.Id, obj);
-                        }
-                        else
-                        {
-                            lst.Add(documentSnapshot.Id, obj);
-                        }
+                        lst.Add(documentSnapshot.Id, obj);
                     }
                 }
                 return lst;

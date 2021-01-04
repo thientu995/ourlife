@@ -11,10 +11,7 @@ import { Router, NavigationStart, NavigationEnd, NavigationError, NavigationCanc
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
-  message = {
-    name: "",
-    content: ""
-  }
+  message = null;
   isSendMessage = false;
 
   title = 'ourlife';
@@ -34,6 +31,7 @@ export class AppComponent {
     });
 
     this.dataService.getData<ISetting>({ collection: 'setting', typeMap: 'json' }).subscribe(data => {
+      console.log(data);
       this.dataService.setTitle(data.tagMeta.title);
       this.dataService.setMeta({ name: 'description', content: data.tagMeta.description });
 
@@ -45,6 +43,8 @@ export class AppComponent {
       this.footerText = data.footer.text;
 
       this.countdown(new Date(data.countdown.value), new Date());
+
+      this.message = data.footer.form;
     });
 
     this.router.events.subscribe((event) => {
@@ -111,36 +111,13 @@ export class AppComponent {
   }
 
   sendMessage() {
-    if (this.message.content.trim() != '' && this.message.name.trim() != '') {
-      let content = `<style>
-      table {
-         width: 100%;
-         border-collapse: collapse;
+    for (let i = 0; i < this.message.data.length; i++) {
+      if (this.message.data[i].value.trim() == '') {
+        return;
       }
-      th,
-      td {
-            border: 1px solid black;
-         }
-   </style>
-   <table><thead><tr><th style=""width:30%"">Variable</th><th>Value</th></tr></thead>
-   <tbody>`;
-      content += `<tr><td>` + 'Name' + `</td><td>` + this.message.name + `</td></tr>`;
-      content += `<tr><td>` + 'Content' + `</td><td>` + this.message.content + `</td></tr>`;
-      content += `</tbody></table>`;
-      this.dataService.setData({
-        category: 'message',
-        content: content,
-      }).subscribe(data => {
-        // footerText;
-        this.isSendMessage = true;
-      });
     }
-  }
-
-  resetMessage() {
-    this.message = {
-      name: "",
-      content: ""
-    };
+    this.dataService.setData({ data: JSON.stringify(this.message) }).subscribe(data => {
+      this.isSendMessage = true;
+    });
   }
 }

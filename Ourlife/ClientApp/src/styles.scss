@@ -4,7 +4,7 @@
 
 *,
 .uk-navbar-item,
-.uk-navbar-nav>li>a,
+.uk-navbar-nav > li > a,
 .uk-navbar-toggle {
   font-family: "Dancing Script";
   font-size: 20pt;
@@ -28,7 +28,7 @@ $material-icons-font-path: "~material-icons/iconfont/";
 @import "./assets/css/custom.scss";
 @import "./assets/css/countdownHeart.scss";
 
-.uk-button{
+.uk-button {
   text-transform: none;
   font-size: 100% !important;
 }
@@ -181,12 +181,23 @@ nav,
     left: 0;
     text-align: center;
     // padding-left: 100px !important;
-    background-image: none;
-    background-color: $bkg-green !important;
+    background: $bkg-green;
     height: 55px;
     width: 100% !important;
     line-height: 55px;
     z-index: 10;
+
+    &::before {
+      content: "";
+      background: url("/img/lotus/1.png") no-repeat center;
+      background-size: contain;
+      opacity: 0.1;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+    }
   }
 
   // &:before {
@@ -217,9 +228,9 @@ nav,
 }
 
 a,
-.uk-tab>*>a,
-.uk-navbar-nav>li>a,
-.uk-navbar-nav>li>a.uk-active,
+.uk-tab > * > a,
+.uk-navbar-nav > li > a,
+.uk-navbar-nav > li > a.uk-active,
 .uk-active,
 .uk-link-toggle,
 .uk-link {
@@ -238,12 +249,12 @@ a,
   }
 }
 
-.uk-navbar-nav>li>a.uk-active,
+.uk-navbar-nav > li > a.uk-active,
 .uk-active {
   color: $base-text-color-link-hover !important;
 }
 
-.uk-tab>.uk-active>a {
+.uk-tab > .uk-active > a {
   border-color: red;
 }
 
@@ -257,6 +268,7 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
   background-color: $bkg-main;
+
 }
 
 .loading {
@@ -272,15 +284,10 @@ body {
 
 main,
 .background-main {
-  // background-image: url('https://wallpapercave.com/wp/wp6786487.jpg');
-  // background-repeat: no-repeat;
-  // background-size: cover;
-  // background-position: center;
   background-color: $bkg-main !important;
 }
 
 progress {
-
   // background-color: $bkg-main !important;
   // color: $bkg-main !important;
   &::-webkit-progress-value {
@@ -386,8 +393,18 @@ footer {
   background-size: cover;
 
   section {
-    background-color: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.4);
     color: #fff;
+    &::before {
+      content: "";
+      background: transparent url("/img/lotus/11.png") no-repeat bottom right;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 150px;
+      height: 150px;
+      opacity: 0.1;
+    }
   }
 
   textarea {
@@ -398,6 +415,15 @@ footer {
 
   .uk-form-label {
     font-size: 100%;
+  }
+
+  .uk-button {
+    position: relative;
+    opacity: 0.9;
+    &:hover,
+    :focus {
+      opacity: 1;
+    }
   }
 }
 

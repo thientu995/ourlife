@@ -20,6 +20,7 @@ namespace Ourlife.Models
         const string formatDateTime = "yyyyMMdd";
         public ExceptionHandlerModel(HttpContext context)
         {
+            this.folderName = "Logs";
             httpcontext = context;
             RequestStatusCode = context.Response.StatusCode;
             RequestInformation = GetHTML();

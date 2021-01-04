@@ -11,7 +11,7 @@ namespace Ourlife.Controllers
     public class SaveDataController : Controller
     {
         [HttpPost("[action]")]
-        public IActionResult Index(SaveFileData data)
+        public IActionResult Index(string data)
         {
             new SaveFile(data).Save();
             return Ok();

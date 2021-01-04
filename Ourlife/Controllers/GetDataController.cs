@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Net.Http.Headers;
 using Newtonsoft.Json;
 using Ourlife.Commons;
 using Ourlife.Models;
@@ -31,7 +32,7 @@ namespace Ourlife.Controllers
             string key = "GetDataController_FirebaseDB_" + fileName;
 
             object cacheEntry;
-            if (!_cache.TryGetValue(key, out cacheEntry))
+            if (true || !_cache.TryGetValue(key, out cacheEntry))
             {
                 cacheEntry = JsonConvert.DeserializeObject(await new FirebaseModel().GetData(param, fileName));
                 _cache.Set(key, cacheEntry, new MemoryCacheEntryOptions().SetSlidingExpiration(expCache));
@@ -66,6 +67,8 @@ namespace Ourlife.Controllers
             {
                 Response.Headers.Add("Content-Cached", "true");
             }
+            //Response.Headers.Add(HeaderNames.Expires, expCache.ToString("R"));
+            Response.Headers.Add(HeaderNames.CacheControl, "public,max-age=" + (int)expCache.TotalSeconds);
             return File(cacheEntry, "image/jpeg");
         }
     }

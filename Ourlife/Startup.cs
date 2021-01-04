@@ -81,7 +81,7 @@ namespace Ourlife
             app.UseResponseCompression();
             app.UseStaticFiles(new StaticFileOptions
             {
-                ServeUnknownFileTypes = false,
+                ServeUnknownFileTypes = true,
                 OnPrepareResponse = ctx =>
                 {
                     const int durationInSeconds = 60 * 60 * 24;
@@ -91,7 +91,7 @@ namespace Ourlife
             });
             app.UseSpaStaticFiles(new StaticFileOptions
             {
-                ServeUnknownFileTypes = false,
+                ServeUnknownFileTypes = true,
                 OnPrepareResponse = ctx =>
                 {
                     const int durationInSeconds = 60 * 60 * 24;

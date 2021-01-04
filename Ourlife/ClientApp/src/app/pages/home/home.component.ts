@@ -2,6 +2,7 @@ import { ITimeline } from '../../interfaces/timeline';
 import { IPortfolio } from '../../interfaces/portfolio';
 import { GetDataService } from '../../services/get-data.service';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { IAlbum } from 'src/app/interfaces/album';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +13,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 export class HomeComponent implements OnInit {
   portfolio: IPortfolio[] = null;
   timeline: ITimeline[] = null;
+  imageWedding: IAlbum[] = null;
 
   constructor(private dataService: GetDataService) {
     dataService.getData<IPortfolio>({ collection: 'portfolio' }).subscribe(data => {
@@ -28,10 +30,10 @@ export class HomeComponent implements OnInit {
         orginTimeline[index].img = orginTimeline[index].img.getSizeImage(500);
         orginTimeline[index].date = new Date(value.date);
       });
-      this.timeline = orginTimeline;
-      // this.timeline = orginTimeline.sort((a, b) => {
-      //   return a.date.getTime() - b.date.getTime();
-      // });
+    });
+
+    this.dataService.getData<IAlbum>({ collection: 'album' }).subscribe(data => {
+      this.imageWedding = this.dataService.toList<IAlbum>(data).filter(x => x.isShowHome);
     });
   }
 

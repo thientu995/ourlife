@@ -12,6 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import './services/global.service';
 import { FormsModule } from '@angular/forms';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +24,7 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     HttpClientModule,
     LazyLoadImageModule,
-    PinchZoomModule
+    PinchZoomModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
