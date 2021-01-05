@@ -12,5 +12,12 @@ namespace Ourlife.Commons
                 Directory.GetCurrentDirectory(),
                 "wwwroot",
         };
+
+        public const string formatFolderName_DateTime = "yyyyMMdd";
+        public const string folderName_RootStore = "dataCache";
+        public const string folderName_Image = "image";
+        public const string folderName_Image_NoGroup = "_nogroup";
+        public const string folderName_Store = "store";
+        public const string folderName_Logs = "logs";
     }
 }

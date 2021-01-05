@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
       });
       orginTimeline.forEach((value, index) => {
         orginTimeline[index].selected = index == orginTimeline.length - 1;
-        orginTimeline[index].img = orginTimeline[index].img.getSizeImage(500);
+        orginTimeline[index].img = orginTimeline[index].img.getSizeImage(500, 'timeline');
         orginTimeline[index].date = new Date(value.date);
       });
       this.timeline = orginTimeline;

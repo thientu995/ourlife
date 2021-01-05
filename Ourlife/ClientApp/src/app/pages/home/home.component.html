@@ -15,8 +15,6 @@
         09 giờ, ngày 01 tháng 05 năm 2021,
         <br>tại <b>Tư Gia Nhà Gái</b>
       </p>
-      <!-- <agm-map [latitude]="lat" [longitude]="lng">
-			</agm-map> -->
     </div>
     <div class="uk-width-1-2@m uk-width-1-1@s">
       <h1 [innerHtml]="">Nhà trai - Tân Long</h1>
@@ -29,7 +27,6 @@
         09 giờ, ngày 02 tháng 05 năm 2021,
         <br>tại <b>Tuan Cong Palace</b> (Chợ Mới)
       </p>
-      <!-- <agm-map [latitude]="lat" [longitude]="lng"></agm-map> -->
     </div>
   </div>
 </section>
@@ -72,7 +69,7 @@
       <div *ngFor="let image of item.ListImage.slice(0, 12), let iImg = index">
         <a routerLink="/album/{{item.id}}/{{iImg}}"
           class="uk-card uk-card-default uk-card-body uk-card-hover uk-flex uk-flex-center">
-          <img data-srcset="{{image.getSrcSet()}}" [lazyLoad]="''.getSizeImage()">
+          <img data-srcset="{{image.getSrcSet()}}" [lazyLoad]="image.getSizeImageMin()">
         </a>
       </div>
     </div>

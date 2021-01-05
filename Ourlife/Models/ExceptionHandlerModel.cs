@@ -17,10 +17,9 @@ namespace Ourlife.Models
         public string RequestInformation { get; set; }
         //public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
         private HttpContext httpcontext;
-        const string formatDateTime = "yyyyMMdd";
         public ExceptionHandlerModel(HttpContext context)
         {
-            this.folderName = "dataLogs";
+            this.folderName = ConstValues.folderName_Logs;
             httpcontext = context;
             RequestStatusCode = context.Response.StatusCode;
             RequestInformation = GetHTML();
@@ -68,7 +67,7 @@ namespace Ourlife.Models
                 infoDetail.Append(@"<tr><td colspan=""2"">No details</td></tr>");
             }
             infoDetail.Append(@"</tbody></table>");
-            string folderLogDate = ConstFuncs.GetPathFolderRoot(this.folderName, DateTime.Now.ToString(formatDateTime));
+            string folderLogDate = ConstFuncs.GetPathFolderRoot(this.folderName, DateTime.Now.ToString(ConstValues.formatFolderName_DateTime));
             long RequestDateTime = DateTime.Now.Ticks;
             File.WriteAllTextAsync(Path.Combine(folderLogDate, RequestDateTime + ".html"), infoDetail.ToString());
             return "Error " + this.RequestStatusCode + " - " + RequestDateTime + "!";
@@ -91,7 +90,7 @@ namespace Ourlife.Models
         {
             try
             {
-                return File.ReadAllTextAsync(Path.Combine(ConstFuncs.GetPathFolderRoot(this.folderName, new DateTime(long.Parse(id.Substring(0, 18))).ToString(formatDateTime)), id));
+                return File.ReadAllTextAsync(Path.Combine(ConstFuncs.GetPathFolderRoot(this.folderName, new DateTime(long.Parse(id.Substring(0, 18))).ToString(ConstValues.formatFolderName_DateTime)), id));
             }
             catch (Exception)
             {

@@ -11,9 +11,9 @@ namespace Ourlife.Controllers
     public class SaveDataController : Controller
     {
         [HttpPost("[action]")]
-        public IActionResult Index(string data)
+        public async Task<IActionResult> Index(string data)
         {
-            new SaveFile(data).Save();
+            await new SaveFile(data).Save();
             return Ok();
         }
     }

@@ -23,7 +23,7 @@ namespace Ourlife.Models
         {
             this.data = Newtonsoft.Json.JsonConvert.DeserializeObject<SaveFileData>(data);
         }
-        public void Save()
+        public async Task<byte[]> Save()
         {
             WebClient client = new WebClient();
 
@@ -35,10 +35,7 @@ namespace Ourlife.Models
 
             Uri uri = new Uri("https://docs.google.com/forms/d/" + data.id + "/formResponse");
 
-            byte[] response = client.UploadValues(uri, "POST", keyValue);
-
-            //string folder = ConstFuncs.GetPathFolderRoot("data" + data.Category, DateTime.Now.ToString("yyyyMMdd"));
-            //File.WriteAllTextAsync(Path.Combine(folder, DateTime.Now.Ticks + ".html"),  this.data.Content);
+            return await client.UploadValuesTaskAsync(uri, "POST", keyValue);
         }
     }
 }

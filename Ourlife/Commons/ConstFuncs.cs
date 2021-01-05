@@ -11,6 +11,7 @@ namespace Ourlife.Commons
         public static string GetPathFolderRoot(params string[] path)
         {
             List<string> lst = new List<string>(ConstValues.lstFolderRoot);
+            lst.Add(ConstValues.folderName_RootStore);
             lst.AddRange(path ?? new string[] { "" });
             string pathFile = Path.Combine(lst.ToArray());
             if (!Directory.Exists(pathFile))

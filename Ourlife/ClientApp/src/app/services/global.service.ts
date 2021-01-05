@@ -2,6 +2,9 @@ export { }
 declare global {
   interface String {
     getSizeImage(width?: number, group?: string): string;
+    getSizeImageMin(group?: string): string;
+    getSizeImageMed(group?: string): string;
+    getSizeImageMax(group?: string): string;
     getSrcSet(): string;
   }
 
@@ -9,14 +12,6 @@ declare global {
     convertSecondsToDateTime(): string;
     pad(size): string;
   }
-
-  // interface Array<T> {
-  //   toObj(): Array<T>;
-  // }
-
-  // interface Object {
-  //   toList<T>(): T[];
-  // }
   function ConvertList<T>(): T[];
 }
 
@@ -26,6 +21,18 @@ String.prototype.getSizeImage = function (width: number = 2048, group: string = 
     return '/api/GetData/Image?group=' + group + '&id=' + encodeURIComponent(url);
   }
   return '/img/loading.gif';
+}
+
+String.prototype.getSizeImageMin = function (group: string = '_nogroup') {
+return this.getSizeImage(250, group);
+}
+
+String.prototype.getSizeImageMed = function (group: string = '_nogroup') {
+  return this.getSizeImage(1024, group);
+}
+
+String.prototype.getSizeImageMax = function (group: string = '_nogroup') {
+  return this.getSizeImage(2048, group);
 }
 
 String.prototype.getSrcSet = function (group: string = '_nogroup') {

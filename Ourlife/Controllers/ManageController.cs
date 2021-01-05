@@ -20,8 +20,8 @@ namespace Ourlife.Controllers
         [HttpPost("[action]")]
         public IActionResult ClearData()
         {
-            string dtCurrent = DateTime.Now.ToString("yyyyMMdd");
-            string pathStore = ConstFuncs.GetPathFolderRoot("dataStore", dtCurrent);
+            string dtCurrent = DateTime.Now.ToString(ConstValues.formatFolderName_DateTime);
+            string pathStore = ConstFuncs.GetPathFolderRoot(ConstValues.folderName_Store, dtCurrent);
             if (System.IO.Directory.Exists(pathStore))
             {
                 System.IO.Directory.Delete(pathStore, true);
@@ -39,7 +39,7 @@ namespace Ourlife.Controllers
         {
             try
             {
-                var model = new ExceptionHandlerModel("data" + category ?? "Logs");
+                var model = new ExceptionHandlerModel(category ?? ConstValues.folderName_Logs);
                 System.Text.StringBuilder sb = new System.Text.StringBuilder();
                 var allFiles = model.GetList();
                 bool showError = !string.IsNullOrWhiteSpace(id);

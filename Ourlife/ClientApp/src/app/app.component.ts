@@ -1,4 +1,3 @@
-import { style } from '@angular/animations';
 import { GetDataService } from './services/get-data.service';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ISetting } from './interfaces/setting';
@@ -11,26 +10,21 @@ import { Router, NavigationStart, NavigationEnd, NavigationError, NavigationCanc
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
-  message = null;
-  isSendMessage = false;
+  public message = null;
 
   title = 'ourlife';
   loadSuccess = false;
-  menu = null;
+  public menu = null;
 
-  footerImg = null;
-  footerText = null;
-  headerHero = '';
-  headerCountdown = '';
+  public footerImg = null;
+  public footerText = null;
+  public headerHero = '';
+  public valueCountdown = null;
   constructor(
     private dataService: GetDataService,
     private router: Router
   ) {
-    this.dataService.get('/json/menu.json').subscribe(data => {
-      this.menu = data;
-    });
-
-    this.dataService.getData<ISetting>({ collection: 'setting', typeMap: 'json' }).subscribe(data => {
+    this.dataService.getData<ISetting>({ collection: 'setting' }).subscribe(data => {
       this.dataService.setTitle(data.tagMeta.title);
       this.dataService.setMeta({ name: 'description', content: data.tagMeta.description });
 
@@ -41,7 +35,8 @@ export class AppComponent {
       }
       this.footerText = data.footer.text;
 
-      this.countdown(new Date(data.countdown.value), new Date());
+      this.valueCountdown = new Date(data.countdown.value);
+      // this.countdown(new Date(data.countdown.value), new Date());
 
       this.message = data.footer.form;
     });
@@ -55,69 +50,6 @@ export class AppComponent {
           this.loadSuccess = true;
         }, 500);
       }
-    });
-  }
-
-  countdown(value: Date, timeSr: Date) {
-    // Set the date we're counting down to
-    const countDownDate = value.getTime();
-    const v_msS = 1000;
-    const v_msM = v_msS * 60;
-    const v_msH = v_msM * 60;
-    const v_msD = v_msH * 24;
-    const timeInserval = 1000;
-    // Update the count down every 1 second
-    this.dataService.post('/api/GetData/Date').subscribe(data => {
-      // Get today's date and time
-      let dt = new Date(Number(data));
-      setInterval(() => {
-        // Find the distance between now and the count down date
-        dt = new Date(dt.getTime() + timeInserval);
-        const distance = countDownDate - dt.getTime();
-
-        let days = 0,
-          hours = 0,
-          minutes = 0,
-          seconds = 0;
-
-        if (distance <= 7) {
-          days = 0;
-          hours = dt.getHours();
-          minutes = dt.getMinutes();
-          seconds = dt.getSeconds();
-          this.headerCountdown = formatCountDown([hours.pad(2), minutes.pad(2), seconds.pad(2)]);
-        } else {
-          days = Math.floor(distance / (v_msD));
-          hours = Math.floor((distance % (v_msD)) / (v_msH));
-          minutes = Math.floor((distance % (v_msH)) / (v_msM));
-          seconds = Math.floor((distance % (v_msM)) / v_msS);
-          this.headerCountdown = formatCountDown([days.pad(2), hours.pad(2), minutes.pad(2), seconds.pad(2)]);
-        }
-      }, timeInserval);
-    });
-
-
-    let formatCountDown = function (arrValue) {
-      return arrValue.join(" : ");
-    }
-  }
-
-  keydownTextarea(event) {
-    setTimeout(() => {
-      event.target.style.height = "auto";
-      event.target.style.height = event.target.scrollHeight + "px";
-      window.dispatchEvent(new Event('resize'));
-    });
-  }
-
-  sendMessage() {
-    for (let i = 0; i < this.message.data.length; i++) {
-      if (this.message.data[i].value.trim() == '') {
-        return;
-      }
-    }
-    this.dataService.setData({ data: JSON.stringify(this.message) }).subscribe(data => {
-      this.isSendMessage = true;
     });
   }
 }

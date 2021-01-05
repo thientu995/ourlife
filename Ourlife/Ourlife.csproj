@@ -28,11 +28,13 @@
     <Compile Remove="wwwroot\dataLogs\**" />
     <Compile Remove="wwwroot\datamessage\**" />
     <Compile Remove="wwwroot\dataStore\**" />
+    <Compile Remove="wwwroot\data\**" />
     <Content Remove="$(SpaRoot)**" />
     <Content Remove="wwwroot\dataImage\**" />
     <Content Remove="wwwroot\dataLogs\**" />
     <Content Remove="wwwroot\datamessage\**" />
     <Content Remove="wwwroot\dataStore\**" />
+    <Content Remove="wwwroot\data\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
@@ -41,10 +43,12 @@
     <EmbeddedResource Remove="wwwroot\dataLogs\**" />
     <EmbeddedResource Remove="wwwroot\datamessage\**" />
     <EmbeddedResource Remove="wwwroot\dataStore\**" />
+    <EmbeddedResource Remove="wwwroot\data\**" />
     <None Remove="wwwroot\dataImage\**" />
     <None Remove="wwwroot\dataLogs\**" />
     <None Remove="wwwroot\datamessage\**" />
     <None Remove="wwwroot\dataStore\**" />
+    <None Remove="wwwroot\data\**" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

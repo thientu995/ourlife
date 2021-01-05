@@ -81,9 +81,9 @@ export class AlbumComponent implements OnInit {
       Object.assign({
         label: item.title,
         description: item.description,
-        small: value.getSizeImage(250, 'album_' + item.id),
-        medium: value.getSizeImage(1024, 'album_' + item.id),
-        big: value.getSizeImage(2048, 'album_' + item.id),
+        small: value.getSizeImageMin('album_' + item.id),
+        medium: value.getSizeImageMed('album_' + item.id),
+        big: value.getSizeImageMax('album_' + item.id),
         srcSet: value.getSrcSet('album_' + item.id),
         animation: this.getAnimation()
       })

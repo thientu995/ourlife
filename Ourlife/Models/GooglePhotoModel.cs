@@ -21,7 +21,7 @@ namespace Ourlife.Models
             {
                 //if (Uri.IsWellFormedUriString(urlOrigin, UriKind.Absolute))
                 {
-                    string pathFile = Path.Combine(ConstFuncs.GetPathFolderRoot("dataImage", group ?? "_nogroup"), md5.Encrypt(urlOrigin));
+                    string pathFile = Path.Combine(ConstFuncs.GetPathFolderRoot(ConstValues.folderName_Image, group ?? ConstValues.folderName_Image_NoGroup), md5.Encrypt(urlOrigin));
 
                     if (!File.Exists(pathFile))
                     {

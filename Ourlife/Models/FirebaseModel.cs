@@ -23,8 +23,8 @@ namespace Ourlife.Models
         public async Task<string> GetData(ParamFirebaseDB param, string fileName)
         {
             string result = string.Empty;
-            string dtCurrent = DateTime.Now.ToString("yyyyMMdd");
-            string pathStore = ConstFuncs.GetPathFolderRoot("dataStore", dtCurrent);
+            string dtCurrent = DateTime.Now.ToString(ConstValues.formatFolderName_DateTime);
+            string pathStore = ConstFuncs.GetPathFolderRoot(ConstValues.folderName_Store, dtCurrent);
             string pathFull = Path.Combine(pathStore, fileName);
             if (!Directory.Exists(pathStore))
             {
