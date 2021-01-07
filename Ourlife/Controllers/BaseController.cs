@@ -23,10 +23,15 @@ namespace Ourlife.Controllers
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            if ((string)Request.Headers["Referer"] == null && !Request.Headers["Referer"].ToString().StartsWith(Request.Scheme + "://" + Request.Host.Value))
-            {
-                context.Result = Redirect("/");
-            }
+            //string valueHeader = (string)Request.Headers["referer"];
+            //if (string.IsNullOrWhiteSpace(valueHeader))
+            //{
+            //    valueHeader = (string)Request.Headers["origin"];
+            //}
+            //if (!string.IsNullOrWhiteSpace(valueHeader) && !valueHeader.StartsWith(Request.Scheme + "://" + Request.Host.Value))
+            //{
+            //    context.Result = Redirect("/");
+            //}
             base.OnActionExecuting(context);
         }
 
@@ -43,10 +48,10 @@ namespace Ourlife.Controllers
             {
                 Response.Headers.Add("Content-Cached", "true");
             }
-            if ((string)Response.Headers[HeaderNames.CacheControl] == null)
-            {
-                Response.Headers.Add(HeaderNames.CacheControl, "public,max-age=" + (int)expCache.TotalSeconds);
-            }
+            //if ((string)Response.Headers[HeaderNames.CacheControl] == null)
+            //{
+            //    Response.Headers.Add(HeaderNames.CacheControl, "public,max-age=" + (int)expCache.TotalSeconds);
+            //}
             return cacheEntry;
         }
     }

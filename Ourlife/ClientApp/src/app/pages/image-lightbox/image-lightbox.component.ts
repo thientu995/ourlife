@@ -27,7 +27,7 @@ export class ImageLightboxComponent implements OnInit {
   isZoom: boolean = false;
   selector_Img: String = '';
   objPinch: any = null;
-  readonly timeAutoPlay = 10000;
+  readonly timeAutoPlay = 30000;
   constructor(
     private location: Location,
   ) { }

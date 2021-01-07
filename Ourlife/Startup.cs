@@ -52,6 +52,10 @@ namespace Ourlife
                 //configuration.RootPath = "ClientApp/dist";
                 configuration.RootPath = "ClientApp/dist/ClientApp/browser";
             });
+            services.AddResponseCaching(options =>
+            {
+                options.MaximumBodySize = long.MaxValue;
+            });
             services.AddMemoryCache();
             services.AddMvc(options =>
             {
@@ -84,6 +88,7 @@ namespace Ourlife
             }
 
             app.UseCookiePolicy();
+            app.UseResponseCaching();
             app.UseResponseCompression();
             app.UseStaticFiles(new StaticFileOptions
             {

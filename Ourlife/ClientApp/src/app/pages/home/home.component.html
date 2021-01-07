@@ -68,7 +68,7 @@
       <div *ngFor="let image of item.ListImage.slice(0, 12), let iImg = index">
         <a routerLink="/album/{{item.id}}/{{iImg}}"
           class="uk-card uk-card-default uk-card-body uk-card-hover uk-flex uk-flex-center">
-          <img data-srcset="{{image.getSrcSet()}}" [lazyLoad]="image.getSizeImageMin()">
+          <img data-srcset="{{image.getSrcSet('album_' + item.id)}}" [lazyLoad]="image.getSizeImageMin('album_' + item.id)">
         </a>
       </div>
     </div>

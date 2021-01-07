@@ -11,7 +11,7 @@
     "create": "ng g c -n --module=app",
     "dev:ssr": "ng run ClientApp:serve-ssr",
     "serve:ssr": "node dist/ClientApp/server/main.js",
-    "build:ssr": "ng build --prod && ng run ClientApp:server:production",
+    "build:ssr": "ng build --prod --aot && ng run ClientApp:server:production",
     "prerender": "ng run ClientApp:prerender"
   },
   "private": true,
