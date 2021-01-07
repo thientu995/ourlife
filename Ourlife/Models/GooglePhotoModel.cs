@@ -17,33 +17,31 @@ namespace Ourlife.Models
 
         public async Task<string> GetData(string urlOrigin, string group)
         {
-            try
+            return await Task.Run(() =>
             {
-                //if (Uri.IsWellFormedUriString(urlOrigin, UriKind.Absolute))
+                urlOrigin = "https://" + Uri.UnescapeDataString(urlOrigin);
+                string pathFile = Path.Combine(ConstFuncs.GetPathFolderRootStore(ConstValues.folderName_Image, group ?? ConstValues.folderName_Image_NoGroup), md5.Encrypt(urlOrigin));
+                string fullPath = pathFile + extention;
+                if (!File.Exists(pathFile))
                 {
-                    string pathFile = Path.Combine(ConstFuncs.GetPathFolderRoot(ConstValues.folderName_Image, group ?? ConstValues.folderName_Image_NoGroup), md5.Encrypt(urlOrigin));
-
-                    if (!File.Exists(pathFile))
+                    lock (this)
                     {
                         using (WebClient webClient = new WebClient())
                         {
-                            byte[] data = await webClient.DownloadDataTaskAsync(urlOrigin);
+                            byte[] data = webClient.DownloadData(urlOrigin);
 
                             string type = webClient.ResponseHeaders["content-type"];
                             if (type.IndexOf("image/") == 0)
                             {
-                                File.Create(pathFile + extention).Close();
-                                await File.WriteAllBytesAsync(pathFile + extention, data);
+                                //File.Create(fullPath).Close();
+
+                                File.WriteAllBytes(fullPath, data);
                             }
                         }
                     }
-                    return pathFile + extention;
                 }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+                return fullPath;
+            });
         }
 
 
@@ -84,6 +82,10 @@ namespace Ourlife.Models
                         string type = webClient.ResponseHeaders["content-type"];
                         if (type == "application/zip")
                         {
+                            //using (StreamWriter tw = new StreamWriter(pathFile, false))
+                            //{
+                            //    await tw.WriteAsync(data);
+                            //}
                             File.WriteAllBytes(pathFile, data);
                             if (!Directory.Exists(pathFile + "_unzip"))
                             {

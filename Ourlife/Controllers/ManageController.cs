@@ -21,7 +21,7 @@ namespace Ourlife.Controllers
         public IActionResult ClearData()
         {
             string dtCurrent = DateTime.Now.ToString(ConstValues.formatFolderName_DateTime);
-            string pathStore = ConstFuncs.GetPathFolderRoot(ConstValues.folderName_Store, dtCurrent);
+            string pathStore = ConstFuncs.GetPathFolderRootStore(ConstValues.folderName_Store, dtCurrent);
             if (System.IO.Directory.Exists(pathStore))
             {
                 System.IO.Directory.Delete(pathStore, true);

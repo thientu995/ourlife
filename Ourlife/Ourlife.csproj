@@ -24,12 +24,14 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="wwwroot\dataCache\**" />
     <Compile Remove="wwwroot\dataImage\**" />
     <Compile Remove="wwwroot\dataLogs\**" />
     <Compile Remove="wwwroot\datamessage\**" />
     <Compile Remove="wwwroot\dataStore\**" />
     <Compile Remove="wwwroot\data\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="wwwroot\dataCache\**" />
     <Content Remove="wwwroot\dataImage\**" />
     <Content Remove="wwwroot\dataLogs\**" />
     <Content Remove="wwwroot\datamessage\**" />
@@ -39,11 +41,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="wwwroot\dataCache\**" />
     <EmbeddedResource Remove="wwwroot\dataImage\**" />
     <EmbeddedResource Remove="wwwroot\dataLogs\**" />
     <EmbeddedResource Remove="wwwroot\datamessage\**" />
     <EmbeddedResource Remove="wwwroot\dataStore\**" />
     <EmbeddedResource Remove="wwwroot\data\**" />
+    <None Remove="wwwroot\dataCache\**" />
     <None Remove="wwwroot\dataImage\**" />
     <None Remove="wwwroot\dataLogs\**" />
     <None Remove="wwwroot\datamessage\**" />

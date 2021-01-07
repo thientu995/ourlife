@@ -19,7 +19,7 @@ export default createServerRenderer(params => {
     { provide: APP_BASE_HREF, useValue: params.baseUrl },
     { provide: 'BOOT_PARAMS', useValue: params },
     { provide: 'BASE_URL', useFactory: getBaseUrl, deps: ['BOOT_PARAMS'] },
-    { provide: 'SERVERSIDE', useValue: true },
+    // { provide: 'SERVERSIDE', useValue: true },
   ];
 
   const options = {

@@ -67,7 +67,7 @@ namespace Ourlife.Models
                 infoDetail.Append(@"<tr><td colspan=""2"">No details</td></tr>");
             }
             infoDetail.Append(@"</tbody></table>");
-            string folderLogDate = ConstFuncs.GetPathFolderRoot(this.folderName, DateTime.Now.ToString(ConstValues.formatFolderName_DateTime));
+            string folderLogDate = ConstFuncs.GetPathFolderRootStore(this.folderName, DateTime.Now.ToString(ConstValues.formatFolderName_DateTime));
             long RequestDateTime = DateTime.Now.Ticks;
             File.WriteAllTextAsync(Path.Combine(folderLogDate, RequestDateTime + ".html"), infoDetail.ToString());
             return "Error " + this.RequestStatusCode + " - " + RequestDateTime + "!";
@@ -76,7 +76,7 @@ namespace Ourlife.Models
         public Dictionary<string, List<string>> GetList()
         {
             Dictionary<string, List<string>> dic = new Dictionary<string, List<string>>();
-            IEnumerable<string> arrFolders = new List<string>(Directory.GetDirectories(ConstFuncs.GetPathFolderRoot(this.folderName))).OrderByDescending(X => X);
+            IEnumerable<string> arrFolders = new List<string>(Directory.GetDirectories(ConstFuncs.GetPathFolderRootStore(this.folderName))).OrderByDescending(X => X);
             string[] arrFiles = null;
             foreach (string folder in arrFolders)
             {
@@ -90,7 +90,7 @@ namespace Ourlife.Models
         {
             try
             {
-                return File.ReadAllTextAsync(Path.Combine(ConstFuncs.GetPathFolderRoot(this.folderName, new DateTime(long.Parse(id.Substring(0, 18))).ToString(ConstValues.formatFolderName_DateTime)), id));
+                return File.ReadAllTextAsync(Path.Combine(ConstFuncs.GetPathFolderRootStore(this.folderName, new DateTime(long.Parse(id.Substring(0, 18))).ToString(ConstValues.formatFolderName_DateTime)), id));
             }
             catch (Exception)
             {

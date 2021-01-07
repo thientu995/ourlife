@@ -10,6 +10,7 @@ namespace Ourlife.Controllers
     [Route("api/[controller]")]
     public class SaveDataController : Controller
     {
+        [ValidateAntiForgeryToken]
         [HttpPost("[action]")]
         public async Task<IActionResult> Index(string data)
         {

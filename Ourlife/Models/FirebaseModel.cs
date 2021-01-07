@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Ourlife.Models
@@ -22,32 +23,39 @@ namespace Ourlife.Models
 
         public async Task<string> GetData(ParamFirebaseDB param, string fileName)
         {
-            string result = string.Empty;
-            string dtCurrent = DateTime.Now.ToString(ConstValues.formatFolderName_DateTime);
-            string pathStore = ConstFuncs.GetPathFolderRoot(ConstValues.folderName_Store, dtCurrent);
-            string pathFull = Path.Combine(pathStore, fileName);
-            if (!Directory.Exists(pathStore))
+            return await Task.Run(() =>
             {
-                Directory.CreateDirectory(pathStore);
-            }
-            if (!System.IO.File.Exists(pathFull))
-            {
-                result = JsonConvert.SerializeObject(await GetDataFirebase(param));
-                await File.WriteAllTextAsync(pathFull, result);
-            }
-            else
-            {
-                result = await File.ReadAllTextAsync(pathFull);
-            }
-            return result;
+                 string result = string.Empty;
+                 string dtCurrent = DateTime.Now.ToString(ConstValues.formatFolderName_DateTime);
+                 string pathStore = ConstFuncs.GetPathFolderRootStore(ConstValues.folderName_Store, dtCurrent);
+                 string pathFull = Path.Combine(pathStore, fileName);
+                 if (!Directory.Exists(pathStore))
+                 {
+                     Directory.CreateDirectory(pathStore);
+                 }
+                 if (!File.Exists(pathFull))
+                 {
+                     lock (this)
+                     {
+                         result = JsonConvert.SerializeObject(GetDataFirebase(param));
+                         File.WriteAllText(pathFull, result);
+                     }
+                 }
+                //else
+                //{
+                //    result = await File.ReadAllTextAsync(pathFull);
+                //}
+                return pathFull;
+            });
         }
-        async Task<dynamic> GetDataFirebase(ParamFirebaseDB param)
+
+        dynamic GetDataFirebase(ParamFirebaseDB param)
         {
             FirestoreDb db = FirestoreDb.Create(projectId);
             CollectionReference coll = db.Collection(param.collection);
             if (!string.IsNullOrWhiteSpace(param.doc))
             {
-                DocumentSnapshot documentSnapshot = await coll.Document(param.doc).GetSnapshotAsync();
+                DocumentSnapshot documentSnapshot = coll.Document(param.doc).GetSnapshotAsync().Result;
                 if (documentSnapshot.Exists)
                 {
                     return ConvertToDictionary(documentSnapshot);
@@ -55,7 +63,7 @@ namespace Ourlife.Models
             }
             else
             {
-                QuerySnapshot snapshot = await coll.GetSnapshotAsync();
+                QuerySnapshot snapshot = coll.GetSnapshotAsync().Result;
                 Dictionary<string, object> lst = new Dictionary<string, object>();
                 foreach (DocumentSnapshot documentSnapshot in snapshot.Documents)
                 {

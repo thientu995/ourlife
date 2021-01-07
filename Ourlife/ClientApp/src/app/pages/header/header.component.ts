@@ -20,6 +20,12 @@ export class HeaderComponent implements AfterViewInit {
   }
 
   countdown(value: Date, timeSr: Date) {
+    if (value == null) {
+      setTimeout(() => {
+        this.countdown(value, timeSr);
+      });
+      return
+    }
     // Set the date we're counting down to
     const countDownDate = value.getTime();
     const v_msS = 1000;

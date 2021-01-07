@@ -8,7 +8,7 @@ namespace Ourlife.Commons
 {
     public class ConstFuncs
     {
-        public static string GetPathFolderRoot(params string[] path)
+        public static string GetPathFolderRootStore(params string[] path)
         {
             List<string> lst = new List<string>(ConstValues.lstFolderRoot);
             lst.Add(ConstValues.folderName_RootStore);

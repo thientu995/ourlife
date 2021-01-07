@@ -13,6 +13,7 @@ namespace Ourlife.Commons
                 "wwwroot",
         };
 
+        public const string symbol_spaceFolder = "_";
         public const string formatFolderName_DateTime = "yyyyMMdd";
         public const string folderName_RootStore = "dataCache";
         public const string folderName_Image = "image";

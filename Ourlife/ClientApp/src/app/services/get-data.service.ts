@@ -35,8 +35,10 @@ export class GetDataService {
       null,
       {
         params: param,
-        headers: headers
-      });
+        headers: headers, 
+        withCredentials: true
+      }
+    );
   }
 
   setData<T>(param) {
@@ -46,7 +48,8 @@ export class GetDataService {
       null,
       {
         params: param,
-        headers: headers
+        headers: headers, 
+        withCredentials: true
       });
   }
   setTitle(value) {

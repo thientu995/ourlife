@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -34,6 +35,7 @@ namespace Ourlife
                 options.EnableForHttps = true;
                 options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[] { "image/svg+xml" });
             });
+            services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
 
             //services.AddCors(options =>
             //{
@@ -51,11 +53,14 @@ namespace Ourlife
                 configuration.RootPath = "ClientApp/dist/ClientApp/browser";
             });
             services.AddMemoryCache();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IAntiforgery antiforgery)
         {
             //app.UseCors("CorsPolicy");
             if (false && env.IsDevelopment())
@@ -78,6 +83,7 @@ namespace Ourlife
                 app.UseHsts();
             }
 
+            app.UseCookiePolicy();
             app.UseResponseCompression();
             app.UseStaticFiles(new StaticFileOptions
             {
@@ -105,6 +111,17 @@ namespace Ourlife
             //);
 
 
+
+            app.Use(next => context =>
+            {
+                if (context.Request.Cookies["XSRF-TOKEN"] == null)
+                {
+                    //send the request token as a JavaScript-readable cookie, and Angular will use it by default
+                    AntiforgeryTokenSet tokens = antiforgery.GetAndStoreTokens(context);
+                    context.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken, new CookieOptions { HttpOnly = false, Secure = false });
+                }
+                return next(context);
+            });
 
             app.UseMvc(routes =>
             {
