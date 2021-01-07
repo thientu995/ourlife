@@ -27,6 +27,7 @@ export class HeaderComponent implements AfterViewInit {
       return
     }
     // Set the date we're counting down to
+    console.log(value)
     const countDownDate = value.getTime();
     const v_msS = 1000;
     const v_msM = v_msS * 60;
