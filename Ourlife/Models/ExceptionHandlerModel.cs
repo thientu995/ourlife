@@ -51,6 +51,7 @@ namespace Ourlife.Models
             infoDetail.Append(@"<table><thead><tr><th style=""width:30%"">Variable</th><th>Value</th></tr></thead>");
             infoDetail.Append(@"<tbody>");
             var exceptionFeature = httpcontext.Features.Get<Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature>();
+            string errorMessage = string.Empty;
             if (exceptionFeature != null)
             {
 
@@ -58,7 +59,7 @@ namespace Ourlife.Models
                     infoDetail.Append("<tr><td>" + item.Name + "</td><td>" + item.GetValue(exceptionFeature.Error, null) + "</td></tr>");
 
                 infoDetail.Append("<tr><td>Error Message: </td><td>" + exceptionFeature.Error.Message + "</td></tr>");
-
+                errorMessage = exceptionFeature.Error.Message;
                 if (!string.IsNullOrEmpty(exceptionFeature.Path))
                     infoDetail.Append("<tr><td>Path Error: </td><td>" + exceptionFeature.Path + "</td></tr>");
             }
@@ -70,7 +71,8 @@ namespace Ourlife.Models
             string folderLogDate = ConstFuncs.GetPathFolderRootStore(this.folderName, DateTime.Now.ToString(ConstValues.formatFolderName_DateTime));
             long RequestDateTime = DateTime.Now.Ticks;
             File.WriteAllTextAsync(Path.Combine(folderLogDate, RequestDateTime + ".html"), infoDetail.ToString());
-            return "Error " + this.RequestStatusCode + " - " + RequestDateTime + "!";
+            return "<h1>Error " + this.RequestStatusCode + " - " + RequestDateTime + "!</h1>"
+                +"<em>"+ errorMessage.Replace("\n","<br>") + "</em>";
         }
 
         public Dictionary<string, List<string>> GetList()

@@ -19,12 +19,13 @@ export class AppComponent {
   public footerImg = null;
   public footerText = null;
   public headerHero = '';
-  public valueCountdown = null;
+  public valueCountdown: Date = null;
   constructor(
     private dataService: GetDataService,
     private router: Router
   ) {
     this.dataService.getData<ISetting>({ collection: 'setting' }).subscribe(data => {
+      this.valueCountdown = new Date(data.countdown.value);
       this.dataService.setTitle(data.tagMeta.title);
       this.dataService.setMeta({ name: 'description', content: data.tagMeta.description });
 
@@ -34,9 +35,6 @@ export class AppComponent {
         'background-image': 'url("' + data.footer.src.getSizeImage() + '")'
       }
       this.footerText = data.footer.text;
-
-      this.valueCountdown = new Date(data.countdown.value);
-      // this.countdown(new Date(data.countdown.value), new Date());
 
       this.message = data.footer.form;
     });

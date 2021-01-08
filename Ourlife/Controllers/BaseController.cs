@@ -48,6 +48,28 @@ namespace Ourlife.Controllers
             {
                 Response.Headers.Add("Content-Cached", "true");
             }
+            if ((string)Response.Headers[HeaderNames.CacheControl] == null)
+            {
+                Response.Headers.Add(HeaderNames.CacheControl, "public,max-age=" + (int)expCache.TotalSeconds);
+                Response.Headers[HeaderNames.Expires] = new[] { expCache.TotalSeconds.ToString("R") }; // Format RFC1123
+            }
+            return cacheEntry;
+        }
+
+        protected T GetCache<T>(string key, Func<T> getValue)
+        {
+            key = string.Join(ConstValues.symbol_spaceFolder, this.ControllerContext.RouteData.Values) + "_" + key;
+            T cacheEntry;
+            if (!_cache.TryGetValue(key, out cacheEntry))
+            {
+                cacheEntry = getValue();
+                _cache.Set(key, cacheEntry, new MemoryCacheEntryOptions().SetSlidingExpiration(expCache));
+            }
+            else
+            {
+                Response.Headers.Add("Content-Cached", "true");
+            }
+            //Response.Headers.Add(HeaderNames.CacheControl, "no-cache");
             //if ((string)Response.Headers[HeaderNames.CacheControl] == null)
             //{
             //    Response.Headers.Add(HeaderNames.CacheControl, "public,max-age=" + (int)expCache.TotalSeconds);

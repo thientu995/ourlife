@@ -28,6 +28,17 @@ namespace Ourlife
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder => builder.WithOrigins("http://localhost:4200", "http://t4vn.com")
+                    .AllowCredentials()
+                    .AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                );
+            });
+
             services.Configure<GzipCompressionProviderOptions>(options => options.Level = CompressionLevel.Fastest);
             services.AddResponseCompression(options =>
             {
@@ -35,16 +46,7 @@ namespace Ourlife
                 options.EnableForHttps = true;
                 options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[] { "image/svg+xml" });
             });
-            services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
-
-            //services.AddCors(options =>
-            //{
-            //    options.AddPolicy("CorsPolicy", builder => builder.WithOrigins("http://localhost:4200")
-            //        .AllowAnyMethod()
-            //        .AllowAnyHeader()
-            //        .AllowCredentials()
-            //        .SetIsOriginAllowed((host) => true));
-            //});
+            services.AddAntiforgery(options => { options.Cookie.HttpOnly = false; options.HeaderName = "X-XSRF-TOKEN"; });
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -54,19 +56,24 @@ namespace Ourlife
             });
             services.AddResponseCaching(options =>
             {
+                options.SizeLimit = long.MaxValue;
                 options.MaximumBodySize = long.MaxValue;
             });
             services.AddMemoryCache();
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = Microsoft.AspNetCore.Http.SameSiteMode.None;
+            });
             services.AddMvc(options =>
             {
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IAntiforgery antiforgery)
         {
-            //app.UseCors("CorsPolicy");
             if (false && env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -87,43 +94,24 @@ namespace Ourlife
                 app.UseHsts();
             }
 
+            app.UseHttpsRedirection();
+
+            app.UseStaticFiles(StaticFileOptions(antiforgery));
+            app.UseSpaStaticFiles(StaticFileOptions(antiforgery));
+
+            app.UseCors();
+
             app.UseCookiePolicy();
+
             app.UseResponseCaching();
             app.UseResponseCompression();
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                ServeUnknownFileTypes = true,
-                OnPrepareResponse = ctx =>
-                {
-                    const int durationInSeconds = 60 * 60 * 24;
-                    ctx.Context.Response.Headers[HeaderNames.CacheControl] = "public,max-age=" + durationInSeconds;
-                    ctx.Context.Response.Headers[HeaderNames.Expires] = new[] { DateTime.UtcNow.AddSeconds(durationInSeconds).ToString("R") }; // Format RFC1123
-                }
-            });
-            app.UseSpaStaticFiles(new StaticFileOptions
-            {
-                ServeUnknownFileTypes = true,
-                OnPrepareResponse = ctx =>
-                {
-                    const int durationInSeconds = 60 * 60 * 24;
-                    ctx.Context.Response.Headers[HeaderNames.CacheControl] = "public,max-age=" + durationInSeconds;
-                    ctx.Context.Response.Headers[HeaderNames.Expires] = new[] { DateTime.UtcNow.AddSeconds(durationInSeconds).ToString("R") }; // Format RFC1123
-                }
-            });
-
-            //app.UseCors(
-            //    options => options.WithOrigins("http://localhost:4200").AllowAnyMethod()
-            //);
-
-
 
             app.Use(next => context =>
             {
-                if (context.Request.Cookies["XSRF-TOKEN"] == null)
+                string path = context.Request.Path.Value;
+                if (path != null && !path.ToLower().Contains("/api"))
                 {
-                    //send the request token as a JavaScript-readable cookie, and Angular will use it by default
-                    AntiforgeryTokenSet tokens = antiforgery.GetAndStoreTokens(context);
-                    context.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken, new CookieOptions { HttpOnly = false, Secure = false });
+                    SetHeaderValue(context, antiforgery);
                 }
                 return next(context);
             });
@@ -162,14 +150,41 @@ namespace Ourlife
                     options.ExcludeUrls = new[] { "/sockjs-node" };
                 });
 
-                if (env.IsDevelopment())
-                {
-                    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+                //if (env.IsDevelopment())
+                //{
+                //    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
 
-                    //spa.UseAngularCliServer(npmScript: "start");
-                    spa.Options.StartupTimeout = System.TimeSpan.FromSeconds(80);
-                }
+                //    //spa.UseAngularCliServer(npmScript: "start");
+                //    spa.Options.StartupTimeout = System.TimeSpan.FromSeconds(80);
+                //}
             });
+        }
+
+        private StaticFileOptions StaticFileOptions(IAntiforgery antiforgery)
+        {
+            return new StaticFileOptions
+            {
+                ServeUnknownFileTypes = true,
+                OnPrepareResponse = ctx =>
+                {
+                    var a = ctx.Context.Request.Path;
+                    SetHeaderValue(ctx.Context, antiforgery);
+                }
+            };
+        }
+
+        private void SetHeaderValue(HttpContext context, IAntiforgery antiforgery)
+        {
+            double durationInSeconds = DateTime.Now.AddDays(1).AddTicks(-1).TimeOfDay.TotalSeconds;
+            context.Response.Headers[HeaderNames.CacheControl] = "public,max-age=" + durationInSeconds;
+            context.Response.Headers[HeaderNames.Expires] = new[] { durationInSeconds.ToString("R") }; // Format RFC1123
+            SetHeaderCookie(context, antiforgery);
+        }
+
+        private void SetHeaderCookie(HttpContext context, IAntiforgery antiforgery)
+        {
+            AntiforgeryTokenSet tokens = antiforgery.GetAndStoreTokens(context);
+            context.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken, new CookieOptions { HttpOnly = false, Path = "/", });
         }
     }
 }

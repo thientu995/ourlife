@@ -15,33 +15,29 @@ namespace Ourlife.Models
         const string extention = ".jpg";
         static CipherSharp.Encryption md5 = new CipherSharp.Encryption(CipherSharp.Encryption.Name.MD5);
 
-        public async Task<string> GetData(string urlOrigin, string group)
+        public string GetData(string urlOrigin, string group)
         {
-            return await Task.Run(() =>
-            {
-                urlOrigin = "https://" + Uri.UnescapeDataString(urlOrigin);
+            //return await Task.Run(() =>
+            //{
+                urlOrigin = "https://" + urlOrigin;
                 string pathFile = Path.Combine(ConstFuncs.GetPathFolderRootStore(ConstValues.folderName_Image, group ?? ConstValues.folderName_Image_NoGroup), md5.Encrypt(urlOrigin));
                 string fullPath = pathFile + extention;
                 if (!File.Exists(pathFile))
                 {
-                    lock (this)
+                    File.Create(fullPath).Close();
+                    using (WebClient webClient = new WebClient())
                     {
-                        using (WebClient webClient = new WebClient())
+                        byte[] data = webClient.DownloadData(urlOrigin);
+                    
+                        string type = webClient.ResponseHeaders[Microsoft.Net.Http.Headers.HeaderNames.ContentType];
+                        if (type.IndexOf("image/") == 0)
                         {
-                            byte[] data = webClient.DownloadData(urlOrigin);
-
-                            string type = webClient.ResponseHeaders["content-type"];
-                            if (type.IndexOf("image/") == 0)
-                            {
-                                //File.Create(fullPath).Close();
-
-                                File.WriteAllBytes(fullPath, data);
-                            }
+                            File.WriteAllBytes(fullPath, data);
                         }
                     }
                 }
                 return fullPath;
-            });
+            //});
         }
 
 

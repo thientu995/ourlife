@@ -29,17 +29,17 @@ namespace Ourlife.Controllers
             {
                 return await new FirebaseModel().GetData(param, fileName);
             });
-            return PhysicalFile(cacheEntry, "application/json; charset=utf-8");
+            return File(await System.IO.File.ReadAllBytesAsync(cacheEntry), "application/json; charset=utf-8");
         }
 
         [HttpGet("[action]")]
         public async Task<IActionResult> Image(string id, string group)
         {
-            string cacheEntry = await GetCacheAsync(id, async () =>
+            string cacheEntry = GetCache(group + id, () =>
             {
-                return await new GooglePhotoModel().GetData(id, group);
+                return new GooglePhotoModel().GetData(id, group);
             });
-            return PhysicalFile(cacheEntry, "image/jpeg");
+            return File(await System.IO.File.ReadAllBytesAsync(cacheEntry), "image/jpeg");
         }
 
         [HttpPost("[action]")]

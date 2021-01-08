@@ -25,27 +25,27 @@ namespace Ourlife.Models
         {
             return await Task.Run(() =>
             {
-                 string result = string.Empty;
-                 string dtCurrent = DateTime.Now.ToString(ConstValues.formatFolderName_DateTime);
-                 string pathStore = ConstFuncs.GetPathFolderRootStore(ConstValues.folderName_Store, dtCurrent);
-                 string pathFull = Path.Combine(pathStore, fileName);
-                 if (!Directory.Exists(pathStore))
-                 {
-                     Directory.CreateDirectory(pathStore);
-                 }
-                 if (!File.Exists(pathFull))
-                 {
-                     lock (this)
-                     {
-                         result = JsonConvert.SerializeObject(GetDataFirebase(param));
-                         File.WriteAllText(pathFull, result);
-                     }
-                 }
-                //else
-                //{
-                //    result = await File.ReadAllTextAsync(pathFull);
-                //}
-                return pathFull;
+                lock (this)
+                {
+                    string result = string.Empty;
+                    string dtCurrent = DateTime.Now.ToString(ConstValues.formatFolderName_DateTime);
+                    string pathStore = ConstFuncs.GetPathFolderRootStore(ConstValues.folderName_Store, dtCurrent);
+                    string pathFull = Path.Combine(pathStore, fileName);
+                    if (!Directory.Exists(pathStore))
+                    {
+                        Directory.CreateDirectory(pathStore);
+                    }
+                    if (!File.Exists(pathFull))
+                    {
+                        result = JsonConvert.SerializeObject(GetDataFirebase(param));
+                        File.WriteAllText(pathFull, result);
+                    }
+                    //else
+                    //{
+                    //    result = await File.ReadAllTextAsync(pathFull);
+                    //}
+                    return pathFull;
+                }
             });
         }
 

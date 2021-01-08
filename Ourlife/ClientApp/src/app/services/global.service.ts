@@ -13,18 +13,22 @@ declare global {
     pad(size): string;
   }
   function ConvertList<T>(): T[];
+
 }
+
+String["linkAPI_Home"] = 'http://localhost:9037/';
+String["linkAPI"] = String["linkAPI_Home"]+ 'api/';
 
 String.prototype.getSizeImage = function (width: number = 2048, group: string = '_nogroup') {
   if (this && this != '') {
     let url = this.replace('https://', '').replace('http://', '') + '=s' + width + '-no';
-    return '/api/GetData/Image?group=' + group + '&id=' + encodeURIComponent(url);
+    return  String["linkAPI"] + 'GetData/Image?group=' + group + '&id=' + encodeURIComponent(url);
   }
-  return '/img/loading.gif';
+  return String["linkAPI_Home"] + 'img/loading.gif';
 }
 
 String.prototype.getSizeImageMin = function (group: string = '_nogroup') {
-return this.getSizeImage(250, group);
+  return this.getSizeImage(250, group);
 }
 
 String.prototype.getSizeImageMed = function (group: string = '_nogroup') {
@@ -56,7 +60,7 @@ String.prototype.getSrcSet = function (group: string = '_nogroup') {
       getSrc(3840),
     ].join(',');
   }
-  return '/img/loading.gif';
+  return String["linkAPI_Home"] + 'img/loading.gif';
 }
 
 Number.prototype.convertSecondsToDateTime = function () {
