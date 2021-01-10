@@ -50,7 +50,7 @@ namespace Ourlife.Controllers
             }
             if ((string)Response.Headers[HeaderNames.CacheControl] == null)
             {
-                Response.Headers.Add(HeaderNames.CacheControl, "public,max-age=" + (int)expCache.TotalSeconds);
+                Response.Headers[HeaderNames.CacheControl] = "public,max-age=" + (int)expCache.TotalSeconds + ",must-revalidate";
                 Response.Headers[HeaderNames.Expires] = new[] { expCache.TotalSeconds.ToString("R") }; // Format RFC1123
             }
             return cacheEntry;
@@ -69,11 +69,11 @@ namespace Ourlife.Controllers
             {
                 Response.Headers.Add("Content-Cached", "true");
             }
-            //Response.Headers.Add(HeaderNames.CacheControl, "no-cache");
-            //if ((string)Response.Headers[HeaderNames.CacheControl] == null)
-            //{
-            //    Response.Headers.Add(HeaderNames.CacheControl, "public,max-age=" + (int)expCache.TotalSeconds);
-            //}
+            if ((string)Response.Headers[HeaderNames.CacheControl] == null)
+            {
+                Response.Headers[HeaderNames.CacheControl] = "public,max-age=" + (int)expCache.TotalSeconds + ",must-revalidate";
+                Response.Headers[HeaderNames.Expires] = new[] { expCache.TotalSeconds.ToString("R") }; // Format RFC1123
+            }
             return cacheEntry;
         }
     }

@@ -25,21 +25,21 @@ namespace Ourlife.Controllers
                 return null;
             }
             string fileName = param.collection + ConstValues.symbol_spaceFolder + param.doc + ".json";
-            string cacheEntry = await GetCacheAsync(fileName, async () =>
+            string cacheEntry = await GetCacheAsync(fileName, () =>
             {
-                return await new FirebaseModel().GetData(param, fileName);
+                return new FirebaseModel().GetData(param, fileName);
             });
             return File(await System.IO.File.ReadAllBytesAsync(cacheEntry), "application/json; charset=utf-8");
         }
 
-        [HttpGet("[action]")]
-        public async Task<IActionResult> Image(string id, string group)
+        [HttpGet("[action]/{group?}/{name?}")]
+        public async Task<IActionResult> Image(string name,string id, string group)
         {
-            string cacheEntry = GetCache(group + id, () =>
+            byte[] cacheEntry = await GetCacheAsync(group + name, () =>
             {
                 return new GooglePhotoModel().GetData(id, group);
             });
-            return File(await System.IO.File.ReadAllBytesAsync(cacheEntry), "image/jpeg");
+            return File(cacheEntry, "image/jpeg");
         }
 
         [HttpPost("[action]")]

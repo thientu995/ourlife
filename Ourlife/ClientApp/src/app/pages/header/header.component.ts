@@ -10,6 +10,7 @@ import { GetDataService } from 'src/app/services/get-data.service';
 export class HeaderComponent implements AfterViewInit {
   menu = null;
   headerCountdown = '';
+  currentDate = '';
   constructor(private dataService: GetDataService, public appComponent: AppComponent) { }
 
   ngAfterViewInit(): void {
@@ -37,7 +38,7 @@ export class HeaderComponent implements AfterViewInit {
     this.dataService.post('/api/GetData/Date').subscribe(data => {
       // Get today's date and time
       let dt = new Date(Number(data));
-      let currentDate = [dt.getFullYear().pad(4), (dt.getMonth() + 1).pad(2), dt.getDay().pad(2)].join('/') + '<br>';
+      this.currentDate = [dt.getDate().pad(2), (dt.getMonth() + 1).pad(2), dt.getFullYear().pad(4)].join('/');
       setInterval(() => {
         // Find the distance between now and the count down date
         dt = new Date(dt.getTime() + timeInserval);
@@ -53,13 +54,13 @@ export class HeaderComponent implements AfterViewInit {
           hours = dt.getHours();
           minutes = dt.getMinutes();
           seconds = dt.getSeconds();
-          this.headerCountdown = currentDate + formatCountDown([hours.pad(2), minutes.pad(2), seconds.pad(2)]);
+          this.headerCountdown = formatCountDown([hours.pad(2), minutes.pad(2), seconds.pad(2)]);
         } else {
           days = Math.floor(distance / (v_msD));
           hours = Math.floor((distance % (v_msD)) / (v_msH));
           minutes = Math.floor((distance % (v_msH)) / (v_msM));
           seconds = Math.floor((distance % (v_msM)) / v_msS);
-          this.headerCountdown = currentDate + formatCountDown([days.pad(2), hours.pad(2), minutes.pad(2), seconds.pad(2)]);
+          this.headerCountdown = formatCountDown([days.pad(2), hours.pad(2), minutes.pad(2), seconds.pad(2)]);
         }
       }, timeInserval);
     });

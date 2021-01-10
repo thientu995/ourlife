@@ -1,41 +1,43 @@
 footer {
-    // min-height: 500px;
-    background-repeat: no-repeat;
-    background-position: left top;
-    background-size: cover;
-  
-    section {
-      background: rgba(0, 0, 0, 0.4);
-      color: #fff;
-      &::before {
-        content: "";
-        background: transparent url("/img/lotus/11.png") no-repeat bottom right;
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        width: 150px;
-        height: 150px;
-        opacity: 0.1;
-      }
-    }
-  
-    textarea {
-      // min-height: 250px;
-      resize: none;
-      overflow: hidden !important;
-    }
-  
-    .uk-form-label {
-      font-size: 100%;
-    }
-  
-    .uk-button {
-      position: relative;
-      opacity: 0.9;
-      &:hover,
-      :focus {
-        opacity: 1;
-      }
+  // min-height: 500px;
+  background-repeat: no-repeat;
+  background-position: left top;
+  background-size: cover;
+  background-attachment: fixed;
+
+  section {
+    background: rgba(0, 0, 0, 0.4);
+    color: #fff;
+
+    &::before {
+      content: "";
+      background: transparent url("/img/lotus/11.png") no-repeat bottom right;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 150px;
+      height: 150px;
+      opacity: 0.1;
     }
   }
-  
+
+  textarea {
+    // min-height: 250px;
+    resize: none;
+    overflow: hidden !important;
+  }
+
+  .uk-form-label {
+    font-size: 100%;
+  }
+
+  .uk-button {
+    position: relative;
+    opacity: 0.9;
+
+    &:hover,
+    :focus {
+      opacity: 1;
+    }
+  }
+}

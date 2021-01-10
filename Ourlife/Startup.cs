@@ -65,6 +65,10 @@ namespace Ourlife
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = Microsoft.AspNetCore.Http.SameSiteMode.None;
             });
+            services.AddHttpsRedirection(options =>
+            {
+                options.HttpsPort = 443;
+            });
             services.AddMvc(options =>
             {
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
@@ -74,7 +78,7 @@ namespace Ourlife
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IAntiforgery antiforgery)
         {
-            if (false && env.IsDevelopment())
+            if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
@@ -92,16 +96,11 @@ namespace Ourlife
                     }));
                 }));
                 app.UseHsts();
+                app.UseHttpsRedirection();
             }
-
-            app.UseHttpsRedirection();
-
-            app.UseStaticFiles(StaticFileOptions(antiforgery));
-            app.UseSpaStaticFiles(StaticFileOptions(antiforgery));
 
             app.UseCors();
 
-            app.UseCookiePolicy();
 
             app.UseResponseCaching();
             app.UseResponseCompression();
@@ -112,9 +111,13 @@ namespace Ourlife
                 if (path != null && !path.ToLower().Contains("/api"))
                 {
                     SetHeaderValue(context, antiforgery);
+                    SetHeaderCookie(context, antiforgery);
                 }
                 return next(context);
             });
+
+            app.UseStaticFiles(StaticFileOptions(antiforgery));
+            app.UseSpaStaticFiles(StaticFileOptions(antiforgery));
 
             app.UseMvc(routes =>
             {
@@ -167,7 +170,6 @@ namespace Ourlife
                 ServeUnknownFileTypes = true,
                 OnPrepareResponse = ctx =>
                 {
-                    var a = ctx.Context.Request.Path;
                     SetHeaderValue(ctx.Context, antiforgery);
                 }
             };
@@ -176,9 +178,8 @@ namespace Ourlife
         private void SetHeaderValue(HttpContext context, IAntiforgery antiforgery)
         {
             double durationInSeconds = DateTime.Now.AddDays(1).AddTicks(-1).TimeOfDay.TotalSeconds;
-            context.Response.Headers[HeaderNames.CacheControl] = "public,max-age=" + durationInSeconds;
+            context.Response.Headers[HeaderNames.CacheControl] = "public,max-age=" + (int)durationInSeconds + ",must-revalidate";
             context.Response.Headers[HeaderNames.Expires] = new[] { durationInSeconds.ToString("R") }; // Format RFC1123
-            SetHeaderCookie(context, antiforgery);
         }
 
         private void SetHeaderCookie(HttpContext context, IAntiforgery antiforgery)

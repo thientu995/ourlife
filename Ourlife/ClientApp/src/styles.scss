@@ -165,3 +165,20 @@ nav,
 .background-green {
   background-color: $bkg-green !important;
 }
+
+main img {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  margin: auto;
+}
+
+.loading {
+  position: fixed;
+  z-index: 99999;
+  height: 100%;
+  width: 100%;
+  background-color: $bkg-main;
+  background-image: url("/img/loading.gif");
+  background-repeat: no-repeat;
+  background-position: center;
+}

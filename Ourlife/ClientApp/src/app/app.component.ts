@@ -24,7 +24,10 @@ export class AppComponent {
     private dataService: GetDataService,
     private router: Router
   ) {
-    this.dataService.getData<ISetting>({ collection: 'setting' }).subscribe(data => {
+  }
+
+  ngOnInit(): void {
+    this.dataService.getDataAsync<ISetting>({ collection: 'setting' }, 'setting').then(data => {
       this.valueCountdown = new Date(data.countdown.value);
       this.dataService.setTitle(data.tagMeta.title);
       this.dataService.setMeta({ name: 'description', content: data.tagMeta.description });

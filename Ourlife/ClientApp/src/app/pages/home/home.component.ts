@@ -16,29 +16,36 @@ export class HomeComponent implements OnInit {
   imageWedding: IAlbum[] = null;
 
   constructor(private dataService: GetDataService) {
-    dataService.getData<IPortfolio>({ collection: 'portfolio' }).subscribe(data => {
-      this.portfolio = dataService.toList<IPortfolio>(data).sort((a, b) => {
-        return a.order - b.order
-      });
-    });
-    dataService.getData<ITimeline>({ collection: 'timeline' }).subscribe(data => {
-      let orginTimeline = dataService.toList<ITimeline>(data).sort((a, b) => {
-        return new Date(a.date).getTime() - new Date(b.date).getTime();
-      });
-      orginTimeline.forEach((value, index) => {
-        orginTimeline[index].selected = index == orginTimeline.length - 1;
-        orginTimeline[index].img = orginTimeline[index].img.getSizeImage(500, 'timeline');
-        orginTimeline[index].date = new Date(value.date);
-      });
-      this.timeline = orginTimeline;
-    });
-
-    this.dataService.getData<IAlbum>({ collection: 'album' }).subscribe(data => {
-      this.imageWedding = this.dataService.toList<IAlbum>(data).filter(x => x.isShowHome);
-    });
+    this.portfolio = null;
+    this.timeline = null;
+    this.imageWedding = null;
   }
 
   ngOnInit(): void {
+    this.dataService.toListAsync<IPortfolio>({ collection: 'portfolio' }, 'portfolio').then(data => {
+      this.portfolio = data.sort((a, b) => {
+        return a.order - b.order
+      });
+    });
+    this.dataService.toListAsync<ITimeline>({ collection: 'timeline' }, 'timeline').then(data => {
+      this.timeline = data.sort((a, b) => {
+        this.setValueImageTimeLime(a);
+        this.setValueImageTimeLime(b);
+        return new Date(a.date).getTime() - new Date(b.date).getTime();
+      });
+      this.timeline[0].selected = true;
+    });
+
+    this.dataService.toListAsync<IAlbum>({ collection: 'album' }, 'album').then(data => {
+      this.imageWedding = data.filter(x => x.isShowHome);
+    });
   }
 
+  private setValueImageTimeLime(data){
+    if (data.selected == null) {
+      data.selected = false;
+      data.img = data.img.getSizeImage(500, 'timeline');
+      data.date = new Date(data.date);
+    }
+  }
 }

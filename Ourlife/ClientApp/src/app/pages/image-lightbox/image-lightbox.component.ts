@@ -43,7 +43,7 @@ export class ImageLightboxComponent implements OnInit {
         return;
       }
       this.objPinch = this.myPinch.toArray();
-      document.body.style.overflowY = "hidden";
+      // document.body.style.overflowY = "hidden";
       this.resetValue();
       this.currentSlide(Number(index) + 1);
       this.resize();
@@ -52,7 +52,7 @@ export class ImageLightboxComponent implements OnInit {
 
   closeModal() {
     this.location.replaceState('/album');
-    document.body.style.overflowY = '';
+    // document.body.style.overflowY = '';
     this.isOpenModal = false;
   }
 

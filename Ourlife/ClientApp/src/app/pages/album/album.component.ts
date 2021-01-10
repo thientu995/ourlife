@@ -47,16 +47,22 @@ export class AlbumComponent implements OnInit {
     private router: Router,
     private activeRoute: ActivatedRoute,
     private dataService: GetDataService,
-  ) { }
+  ) { 
+    this.search = '';
+    this.albumCategory = null;
+    this.album = null;
+    this.result = null;
+    this.selectorAlbumCategory = '*';
+  }
 
 
   ngOnInit(): void {
-    this.dataService.getData<IAlbum>({ collection: 'albumCategory' }).subscribe(data => {
-      this.albumCategory = this.dataService.toList<IAlbum>(data);
+    this.dataService.toListAsync<IAlbum>({ collection: 'albumCategory' }, 'albumCategory').then(data => {
+      this.albumCategory = data;
     });
 
-    this.dataService.getData<IAlbum>({ collection: 'album' }).subscribe(data => {
-      this.album = this.dataService.toList<IAlbum>(data).map((item) => (Object.assign({
+    this.dataService.toListAsync<IAlbum>({ collection: 'album' }, 'album').then(data => {
+      this.album = data.map((item) => (Object.assign({
         album: item,
         galleryImages: this.getGalleryImages(item)
       })));

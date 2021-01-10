@@ -31,7 +31,7 @@
 </div>
 
 <div *ngIf="isOpenModal">
-  <div [id]="'imgModal'+id" class="slide-modal">
+  <div [id]="'imgModal'+id" class="slide-modal" (window:resize)="resize()">
     <progress [id]="'progressbar'+id" class="uk-position-top uk-progress" value="0" min="0" max="100"
       [hidden]="!isAutoPlay"></progress>
     <div class="slide-background" style="background-image: url({{selector_Img}})"></div>
@@ -55,7 +55,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
         <pinch-zoom [backgroundColor]="''" [transition-duration]="0" [disableZoomControl]="'disable'" [id]="'imgModal'+id+i" [attr.index]="i" class="img-slides"
           [ngClass]="image.animation" tabindex="0" [attr.src]="image.big" *ngFor="let image of images; let i = index">
-          <img [lazyLoad]="image.small" data-srcset="{{image.srcSet}}">
+          <img data-srcset="{{image.srcSet}}" src="{{image.small}}">
         </pinch-zoom>
         <div class="uk-light">
           <a class="btn-slide uk-position-center-left uk-position-small uk-button-large imgSlideshow" (click)="plusSlides(-1)"

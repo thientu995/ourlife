@@ -15,7 +15,7 @@ namespace Ourlife.Models
         const string extention = ".jpg";
         static CipherSharp.Encryption md5 = new CipherSharp.Encryption(CipherSharp.Encryption.Name.MD5);
 
-        public string GetData(string urlOrigin, string group)
+        public async Task<byte[]> GetData(string urlOrigin, string group)
         {
             //return await Task.Run(() =>
             //{
@@ -36,7 +36,7 @@ namespace Ourlife.Models
                         }
                     }
                 }
-                return fullPath;
+                return await System.IO.File.ReadAllBytesAsync(fullPath);
             //});
         }
 

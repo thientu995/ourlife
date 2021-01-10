@@ -1,44 +1,11 @@
-<h1 uk-sticky="bottom: true" class="section-title">Happy Wedding</h1>
-<div class="uk-text-center">
-  <img class="icon-funny" src="/img/lotus/4.png">
-</div>
-<section class="uk-section uk-section-xsmall">
-  <div class="uk-text-center" uk-grid>
-    <div class="uk-width-1-2@m uk-width-1-1@s">
-      <h1 [innerHtml]="">Nhà gái - Tân Quới</h1>
-      <h3 [innerHtml]="">
-        Ông:
-        <br>
-        Bà:
-      </h3>
-      <p [innerHtml]="">
-        09 giờ, ngày 01 tháng 05 năm 2021,
-        <br>tại <b>Tư Gia Nhà Gái</b>
-      </p>
-    </div>
-    <div class="uk-width-1-2@m uk-width-1-1@s">
-      <h1 [innerHtml]="">Nhà trai - Tân Long</h1>
-      <h3 [innerHtml]="">
-        Ông:
-        <br>
-        Bà:
-      </h3>
-      <p [innerHtml]="">
-        09 giờ, ngày 02 tháng 05 năm 2021,
-        <br>tại <b>Tuan Cong Palace</b> (Chợ Mới)
-      </p>
-    </div>
-  </div>
-</section>
-
-<h1 uk-sticky="bottom: true" class="section-title">Bride & Groom</h1>
+<h1 uk-sticky="bottom: true" class="section-title">Cô Dâu & Chú Rể</h1>
 <div class="uk-text-center">
   <img class="icon-funny" src="/img/lotus/11.png">
 </div>
 <section class="uk-section uk-section-xsmall">
   <div class="uk-text-center" uk-grid>
     <div *ngFor="let item of portfolio" class="uk-width-1-2@m uk-width-1-1@s">
-      <img [lazyLoad]="item.avatar.getSizeImage(300)" alt="{{item.name}}" style="max-height:100%; max-width: 100%;"
+      <img [lazyLoad]="item.avatar.getSizeImage(300)" alt="{{item.name}}"
         class="uk-responsive uk-border-circle uk-box-shadow-large" />
       <h1 [innerHtml]="item.name"></h1>
       <!-- <h3 [innerHtml]="item.birth"></h3> -->
@@ -47,7 +14,72 @@
   </div>
 </section>
 
-<h1 uk-sticky="bottom: true" class="section-title">Love Story</h1>
+<h1 uk-sticky="bottom: true" class="section-title">Tiệc Rượu</h1>
+<div class="uk-text-center">
+  <img class="icon-funny" src="/img/lotus/4.png">
+</div>
+<section class="uk-section uk-section-xsmall">
+  <div class="uk-text-center" uk-grid>
+    <div class="uk-width-1-2@m uk-width-1-1@s">
+      <h1 [innerHtml]="">Lễ Vu Quy</h1>
+      <p>
+        Hôn lễ được cử hành tại
+        <br><b>Tư Gia</b> (Tân Quới)
+      </p>
+      <div class="uk-child-width-1-3 uk-grid-small" uk-grid style="margin-left: 0;">
+        <div class="uk-card uk-card-small uk-card-default uk-card-body" style="padding-left: 0;padding-right: 0;">
+          <h2>09 <span class="uk-text-muted">giờ</span></h2>
+          <em class="uk-text-primary">Thứ Bảy</em>
+        </div>
+        <div class="uk-card uk-card-small uk-card-default uk-card-body" style="padding-left: 0;padding-right: 0;">
+          <h2>01</h2>
+          <em><span class="uk-text-muted">Tháng</span> 05</em>
+        </div>
+        <div class="uk-card uk-card-small uk-card-default uk-card-body" style="padding-left: 0;padding-right: 0;">
+          <span class="uk-text-muted">Năm</span>
+          <h2>2021</h2>
+        </div>
+      </div>
+      <em>(Nhằm ngày 20 tháng 3 năm Tân Sửu)</em>
+      <!-- <p [innerHtml]="">
+        Hôn lễ được cử hành lúc
+        <br>09 giờ, ngày 01 tháng 05 năm 2021,
+        <br>(Nhằm ngày 20 tháng 3 năm Tân Sửu)
+        <br>tại <b>Tư Gia Nhà Gái</b> (Tân Quới)
+      </p> -->
+    </div>
+    <div class="uk-width-1-2@m uk-width-1-1@s">
+      <h1 [innerHtml]="">Lễ Tân Hôn</h1>
+      <p>
+        Hôn lễ được cử hành tại
+        <br><b>Tuan Cong Palace</b> (Chợ Mới)
+      </p>
+      <div class="uk-child-width-1-3 uk-grid-small" uk-grid style="margin-left: 0;">
+        <div class="uk-card uk-card-small uk-card-default uk-card-body" style="padding-left: 0;padding-right: 0;">
+          <h2>09 <span class="uk-text-muted">giờ</span></h2>
+          <em class="uk-text-primary">Chủ Nhật</em>
+        </div>
+        <div class="uk-card uk-card-small uk-card-default uk-card-body" style="padding-left: 0;padding-right: 0;">
+          <h2>02</h2>
+          <em><span class="uk-text-muted">Tháng</span> 05</em>
+        </div>
+        <div class="uk-card uk-card-small uk-card-default uk-card-body" style="padding-left: 0;padding-right: 0;">
+          <span class="uk-text-muted">Năm</span>
+          <h2>2021</h2>
+        </div>
+      </div>
+      <em>(Nhằm ngày 21 tháng 3 năm Tân Sửu)</em>
+      <!-- <p [innerHtml]="">
+        Hôn lễ được cử hành lúc
+        <br>09 giờ, ngày 02 tháng 05 năm 2021,
+        <br>(Nhằm ngày 21 tháng 3 năm Tân Sửu)
+        <br>tại <b>Tuan Cong Palace</b> (Chợ Mới)
+      </p> -->
+    </div>
+  </div>
+</section>
+
+<h1 uk-sticky="bottom: true" class="section-title">Chuyện Tình</h1>
 <div class="uk-text-center">
   <img class="icon-funny" src="/img/lotus/9.png">
 </div>
@@ -67,8 +99,9 @@
     <div class="uk-grid-small uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l" uk-grid="masonry: true">
       <div *ngFor="let image of item.ListImage.slice(0, 12), let iImg = index">
         <a routerLink="/album/{{item.id}}/{{iImg}}"
-          class="uk-card uk-card-default uk-card-body uk-card-hover uk-flex uk-flex-center">
-          <img data-srcset="{{image.getSrcSet('album_' + item.id)}}" [lazyLoad]="image.getSizeImageMin('album_' + item.id)">
+          class="uk-card uk-card-default uk-card-body uk-card-hover uk-flex uk-flex-center uk-transition-toggle">
+          <img src="{{image.getSizeImageMin('album_' + item.id)}}" data-srcset="{{image.getSrcSet('album_' + item.id)}}"
+            class="uk-transition-scale-up uk-transition-opaque">
         </a>
       </div>
     </div>

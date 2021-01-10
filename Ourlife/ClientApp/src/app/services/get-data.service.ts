@@ -6,46 +6,61 @@ import { Title, Meta, MetaDefinition } from '@angular/platform-browser';
   providedIn: 'root'
 })
 export class GetDataService {
-
   constructor(
     private http: HttpClient,
     private titleService: Title,
     private metaService: Meta,
   ) { }
   readonly likApi = String["linkAPI"];
-  // readonly likApi = '/api/';
+  lstData: any = {};
 
   get(url) {
     return this.http.get(url);
   }
 
-  post(url) {
-    return this.http.post(url, null);
+  post<T>(url, param?) {
+    return this.http.post<T>(url, null, {
+      params: param,
+      headers: this.getHeader(),
+      withCredentials: true
+    });
   }
 
   head(url) {
     return this.http.head(url);
   }
 
-  getData<T>(param) {
-    return this.http.post<T>(this.likApi + 'GetData/FirebaseDB',
-      null,
-      {
-        params: param,
-        headers: this.getHeader(),
-        withCredentials: true
-      }
-    );
+  // getData<T>(param, key) {
+  //   if (typeof this.lstData[key] == 'undefined') {
+  //     this.lstData[key] = this.http.post<T>(this.likApi + 'GetData/FirebaseDB',
+  //       null,
+  //       {
+  //         params: param,
+  //         headers: this.getHeader(),
+  //         withCredentials: true
+  //       }
+  //     );
+  //   }
+  //   return this.lstData[key];
+  // }
+
+  async getDataAsync<T>(param, key) {
+    if (typeof this.lstData[key] == 'undefined') {
+      this.lstData[key] = await this.post<T>(this.likApi + 'GetData/FirebaseDB', param).toPromise();
+    }
+    return JSON.parse(JSON.stringify(this.lstData[key]));
+  }
+
+  async toListAsync<T>(param, key) {
+    if (typeof this.lstData[key] == 'undefined') {
+      let data = await this.getDataAsync(param, key);
+      this.lstData[key] = this.toList<T>(data);
+    }
+    return JSON.parse(JSON.stringify(this.lstData[key]));
   }
 
   setData<T>(param) {
-    return this.http.post<T>(this.likApi + 'SaveData/Index',
-      null,
-      {
-        params: param,
-        headers: this.getHeader(),
-        withCredentials: true
-      });
+    return this.http.post<T>(this.likApi + 'SaveData/Index', param);
   }
 
   setTitle(value) {
@@ -73,17 +88,17 @@ export class GetDataService {
     if (typeof document === 'undefined' || document === null) {
       return '';
     }
-      let ca: Array<string> = document.cookie.split(';');
-      let caLen: number = ca.length;
-      let cookieName = `${name}=`;
-      let c: string;
+    let ca: Array<string> = document.cookie.split(';');
+    let caLen: number = ca.length;
+    let cookieName = `${name}=`;
+    let c: string;
 
-      for (let i: number = 0; i < caLen; i += 1) {
-        c = ca[i].replace(/^\s+/g, '');
-        if (c.indexOf(cookieName) == 0) {
-          return c.substring(cookieName.length, c.length);
-        }
+    for (let i: number = 0; i < caLen; i += 1) {
+      c = ca[i].replace(/^\s+/g, '');
+      if (c.indexOf(cookieName) == 0) {
+        return c.substring(cookieName.length, c.length);
       }
+    }
     return '';
   }
 

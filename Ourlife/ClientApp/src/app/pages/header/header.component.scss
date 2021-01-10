@@ -1,23 +1,24 @@
 .countdown-heart {
-    font-size: 40px;
-    color: #fff;
-    animation: beatHeart infinite alternate;
-    transform-origin: center;
+  font-size: 40px;
+  color: #fff;
+  animation: beatHeart infinite alternate;
+  transform-origin: center;
+  position: relative;
 
-    &::after {
-        font-family: "Material Icons";
-        content: "\e87d";
-        left: calc(50% - 200px);
-        top: -180%;
-        position: absolute;
-        font-size: 400px;
-        opacity: 0.5;
-        z-index: -1;
-        color: #e00;
-        background: -webkit-linear-gradient(120deg, #f0506e, #f9c6d9);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        transform: scale(1);
-        // animation: changeLetter .5s linear infinite alternate;
-    }
+  &::after {
+    font-family: "Material Icons";
+    content: "\e87d";
+    left: calc(50% - 200px);
+    top: calc(50% - 200px);
+    position: absolute;
+    font-size: 400px;
+    opacity: 0.5;
+    z-index: -1;
+    color: #e00;
+    background: -webkit-linear-gradient(120deg, #f0506e, #f9c6d9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transform: scale(1);
+    // animation: changeLetter .5s linear infinite alternate;
+  }
 }
