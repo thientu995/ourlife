@@ -14,11 +14,26 @@ export class HomeComponent implements OnInit {
   portfolio: IPortfolio[] = null;
   timeline: ITimeline[] = null;
   imageWedding: IAlbum[] = null;
-
+  happyWedding: any = null;
+  arrDay = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
   constructor(private dataService: GetDataService) {
     this.portfolio = null;
     this.timeline = null;
     this.imageWedding = null;
+    this.happyWedding = [
+      {
+        title: 'Lễ Vu Quy',
+        address: '<b>Tư Gia</b> (Tân Quới)',
+        date: new Date(2021, 5, 1, 9, 0),
+        lunar: '(Ngày 20 tháng 03 năm Tân Sửu)',
+      },
+      {
+        title: 'Lễ Tân Hôn',
+        address: '<b>Tuan Cong Palace</b> (Chợ Mới)',
+        date: new Date(2021, 5, 2, 9, 0),
+        lunar: '(Ngày 21 tháng 03 năm Tân Sửu)',
+      },
+    ];
   }
 
   ngOnInit(): void {
@@ -27,6 +42,7 @@ export class HomeComponent implements OnInit {
         return a.order - b.order
       });
     });
+    
     this.dataService.toListAsync<ITimeline>({ collection: 'timeline' }, 'timeline').then(data => {
       this.timeline = data.sort((a, b) => {
         this.setValueImageTimeLime(a);
@@ -41,7 +57,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  private setValueImageTimeLime(data){
+  private setValueImageTimeLime(data) {
     if (data.selected == null) {
       data.selected = false;
       data.img = data.img.getSizeImage(500, 'timeline');

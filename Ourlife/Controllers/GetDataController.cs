@@ -29,7 +29,7 @@ namespace Ourlife.Controllers
             {
                 return new FirebaseModel().GetData(param, fileName);
             });
-            return File(await System.IO.File.ReadAllBytesAsync(cacheEntry), "application/json; charset=utf-8");
+            return Content(cacheEntry, "application/json; charset=utf-8");
         }
 
         [HttpGet("[action]/{group?}/{name?}")]

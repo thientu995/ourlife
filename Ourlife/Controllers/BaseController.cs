@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Antiforgery;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Caching.Memory;
@@ -13,7 +14,6 @@ namespace Ourlife.Controllers
 {
     public class BaseController : Controller
     {
-        protected readonly TimeSpan expCache = DateTime.Now.AddDays(1).AddTicks(-1).TimeOfDay;
         protected IMemoryCache _cache;
         protected BaseController(IMemoryCache memoryCache)
         {
@@ -42,17 +42,13 @@ namespace Ourlife.Controllers
             if (!_cache.TryGetValue(key, out cacheEntry))
             {
                 cacheEntry = await getValue();
-                _cache.Set(key, cacheEntry, new MemoryCacheEntryOptions().SetSlidingExpiration(expCache));
+                _cache.Set(key, cacheEntry, setMemoryOption());
             }
             else
             {
                 Response.Headers.Add("Content-Cached", "true");
             }
-            if ((string)Response.Headers[HeaderNames.CacheControl] == null)
-            {
-                Response.Headers[HeaderNames.CacheControl] = "public,max-age=" + (int)expCache.TotalSeconds + ",must-revalidate";
-                Response.Headers[HeaderNames.Expires] = new[] { expCache.TotalSeconds.ToString("R") }; // Format RFC1123
-            }
+            SetHeader();
             return cacheEntry;
         }
 
@@ -63,18 +59,29 @@ namespace Ourlife.Controllers
             if (!_cache.TryGetValue(key, out cacheEntry))
             {
                 cacheEntry = getValue();
-                _cache.Set(key, cacheEntry, new MemoryCacheEntryOptions().SetSlidingExpiration(expCache));
+                _cache.Set(key, cacheEntry, setMemoryOption());
             }
             else
             {
                 Response.Headers.Add("Content-Cached", "true");
             }
+            SetHeader();
+            return cacheEntry;
+        }
+
+        private MemoryCacheEntryOptions setMemoryOption()
+        {
+            return new MemoryCacheEntryOptions().SetSlidingExpiration(ConstValues.expCache);
+        }
+
+        private void SetHeader()
+        {
             if ((string)Response.Headers[HeaderNames.CacheControl] == null)
             {
-                Response.Headers[HeaderNames.CacheControl] = "public,max-age=" + (int)expCache.TotalSeconds + ",must-revalidate";
-                Response.Headers[HeaderNames.Expires] = new[] { expCache.TotalSeconds.ToString("R") }; // Format RFC1123
+                Response.Headers[HeaderNames.CacheControl] = "public,max-age=" + (int)ConstValues.expCache.TotalSeconds + ",must-revalidate";
+                Response.Headers[HeaderNames.Expires] = new[] { ConstValues.expCache.TotalSeconds.ToString("R") }; // Format RFC1123
+                Response.StatusCode = StatusCodes.Status200OK;
             }
-            return cacheEntry;
         }
     }
 }

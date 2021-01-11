@@ -20,33 +20,36 @@ namespace Ourlife.Models
     public class FirebaseModel
     {
         readonly string projectId = "ourlife-t4vn";
+        public readonly object locker = new object();
 
         public async Task<string> GetData(ParamFirebaseDB param, string fileName)
         {
-            return await Task.Run(() =>
+            string result = string.Empty;
+            string dtCurrent = DateTime.Now.ToString(ConstValues.formatFolderName_DateTime);
+            string pathStore = ConstFuncs.GetPathFolderRootStore(ConstValues.folderName_Store, dtCurrent);
+            string pathFull = Path.Combine(pathStore, fileName);
+            //if (!Directory.Exists(pathStore))
+            //{
+            //    Directory.CreateDirectory(pathStore);
+            //}
+            FileInfo file = new FileInfo(pathFull);
+            if (!file.Exists)
             {
-                lock (this)
+                using (FileStream fs = file.Create())
                 {
-                    string result = string.Empty;
-                    string dtCurrent = DateTime.Now.ToString(ConstValues.formatFolderName_DateTime);
-                    string pathStore = ConstFuncs.GetPathFolderRootStore(ConstValues.folderName_Store, dtCurrent);
-                    string pathFull = Path.Combine(pathStore, fileName);
-                    if (!Directory.Exists(pathStore))
-                    {
-                        Directory.CreateDirectory(pathStore);
-                    }
-                    if (!File.Exists(pathFull))
+                    //lock (locker)
                     {
                         result = JsonConvert.SerializeObject(GetDataFirebase(param));
-                        File.WriteAllText(pathFull, result);
+                        byte[] bytes = new UTF8Encoding(true).GetBytes(result);
+                        fs.Write(bytes, 0, bytes.Length);
                     }
-                    //else
-                    //{
-                    //    result = await File.ReadAllTextAsync(pathFull);
-                    //}
-                    return pathFull;
                 }
-            });
+            }
+            else
+            {
+                result = await File.ReadAllTextAsync(pathFull);
+            }
+            return result;
         }
 
         dynamic GetDataFirebase(ParamFirebaseDB param)

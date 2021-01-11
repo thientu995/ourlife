@@ -12,6 +12,7 @@ namespace Ourlife.Commons
                 Directory.GetCurrentDirectory(),
                 "wwwroot",
         };
+        public static readonly TimeSpan expCache = DateTime.Now.AddDays(1).AddTicks(-1).TimeOfDay;
 
         public const string symbol_spaceFolder = "_";
         public const string formatFolderName_DateTime = "yyyyMMdd";

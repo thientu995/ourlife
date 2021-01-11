@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Microsoft.Net.Http.Headers;
 namespace Ourlife.Commons
 {
-    public class ConstFuncs
+    public static class ConstFuncs
     {
         public static string GetPathFolderRootStore(params string[] path)
         {
@@ -19,6 +20,14 @@ namespace Ourlife.Commons
                 Directory.CreateDirectory(pathFile);
             }
             return pathFile;
+        }
+
+        public static void SetResponseHeader(HttpResponse res)
+        {
+            double durationInSeconds = ConstValues.expCache.TotalSeconds;
+            //res.StatusCode = StatusCodes.Status200OK;
+            res.Headers[HeaderNames.CacheControl] = "public,max-age=" + (int)durationInSeconds + ",must-revalidate";
+            res.Headers[HeaderNames.Expires] = new[] { durationInSeconds.ToString("R") }; // Format RFC1123
         }
     }
 }

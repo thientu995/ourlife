@@ -14,29 +14,42 @@ namespace Ourlife.Models
     {
         const string extention = ".jpg";
         static CipherSharp.Encryption md5 = new CipherSharp.Encryption(CipherSharp.Encryption.Name.MD5);
+        public readonly object locker = new object();
 
         public async Task<byte[]> GetData(string urlOrigin, string group)
         {
             //return await Task.Run(() =>
             //{
-                urlOrigin = "https://" + urlOrigin;
-                string pathFile = Path.Combine(ConstFuncs.GetPathFolderRootStore(ConstValues.folderName_Image, group ?? ConstValues.folderName_Image_NoGroup), md5.Encrypt(urlOrigin));
-                string fullPath = pathFile + extention;
-                if (!File.Exists(pathFile))
+            urlOrigin = "https://" + urlOrigin;
+            string pathFile = Path.Combine(ConstFuncs.GetPathFolderRootStore(ConstValues.folderName_Image, group ?? ConstValues.folderName_Image_NoGroup), md5.Encrypt(urlOrigin));
+            string fullPath = pathFile + extention;
+            byte[] data = null;
+            FileInfo file = new FileInfo(pathFile);
+            if (!file.Exists)
+            {
+                using (FileStream fs = file.Create())
                 {
-                    File.Create(fullPath).Close();
-                    using (WebClient webClient = new WebClient())
+                    //lock (locker)
                     {
-                        byte[] data = webClient.DownloadData(urlOrigin);
-                    
-                        string type = webClient.ResponseHeaders[Microsoft.Net.Http.Headers.HeaderNames.ContentType];
-                        if (type.IndexOf("image/") == 0)
+                        using (WebClient webClient = new WebClient())
                         {
-                            File.WriteAllBytes(fullPath, data);
+                            data = webClient.DownloadData(urlOrigin);
+
+                            string type = webClient.ResponseHeaders[Microsoft.Net.Http.Headers.HeaderNames.ContentType];
+                            if (type.IndexOf("image/") == 0)
+                            {
+                                fs.Write(data, 0, data.Length);
+                                //File.WriteAllBytes(fullPath, data);
+                            }
                         }
                     }
                 }
-                return await System.IO.File.ReadAllBytesAsync(fullPath);
+            }
+            else
+            {
+                data = await File.ReadAllBytesAsync(file.FullName);
+            }
+            return data;
             //});
         }
 

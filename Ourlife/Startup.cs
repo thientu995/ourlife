@@ -110,7 +110,7 @@ namespace Ourlife
                 string path = context.Request.Path.Value;
                 if (path != null && !path.ToLower().Contains("/api"))
                 {
-                    SetHeaderValue(context, antiforgery);
+                    Commons.ConstFuncs.SetResponseHeader(context.Response);
                     SetHeaderCookie(context, antiforgery);
                 }
                 return next(context);
@@ -170,16 +170,9 @@ namespace Ourlife
                 ServeUnknownFileTypes = true,
                 OnPrepareResponse = ctx =>
                 {
-                    SetHeaderValue(ctx.Context, antiforgery);
+                    Commons.ConstFuncs.SetResponseHeader(ctx.Context.Response);
                 }
             };
-        }
-
-        private void SetHeaderValue(HttpContext context, IAntiforgery antiforgery)
-        {
-            double durationInSeconds = DateTime.Now.AddDays(1).AddTicks(-1).TimeOfDay.TotalSeconds;
-            context.Response.Headers[HeaderNames.CacheControl] = "public,max-age=" + (int)durationInSeconds + ",must-revalidate";
-            context.Response.Headers[HeaderNames.Expires] = new[] { durationInSeconds.ToString("R") }; // Format RFC1123
         }
 
         private void SetHeaderCookie(HttpContext context, IAntiforgery antiforgery)
