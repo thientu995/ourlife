@@ -78,7 +78,7 @@ namespace Ourlife
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IAntiforgery antiforgery)
         {
-            if (env.IsDevelopment())
+            if (false && env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
@@ -95,8 +95,8 @@ namespace Ourlife
                         //await Task.CompletedTask.ConfigureAwait(false);
                     }));
                 }));
-                app.UseHsts();
-                app.UseHttpsRedirection();
+                //app.UseHsts();
+                //app.UseHttpsRedirection();
             }
 
             app.UseCors();
@@ -153,13 +153,13 @@ namespace Ourlife
                     options.ExcludeUrls = new[] { "/sockjs-node" };
                 });
 
-                //if (env.IsDevelopment())
-                //{
-                //    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+                if (env.IsDevelopment())
+                {
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
 
-                //    //spa.UseAngularCliServer(npmScript: "start");
-                //    spa.Options.StartupTimeout = System.TimeSpan.FromSeconds(80);
-                //}
+                    //spa.UseAngularCliServer(npmScript: "start");
+                    spa.Options.StartupTimeout = System.TimeSpan.FromSeconds(80);
+                }
             });
         }
 

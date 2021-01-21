@@ -1,9 +1,11 @@
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
 using Ourlife.Commons;
@@ -14,6 +16,19 @@ namespace Ourlife.Controllers
     [Route("api/[controller]")]
     public class GetDataController : BaseController
     {
+        private readonly object lockObject = new object();
+        public override void OnActionExecuting(ActionExecutingContext context)
+        {
+            Monitor.Enter(this.lockObject);
+            base.OnActionExecuting(context);
+        }
+
+        public override void OnActionExecuted(ActionExecutedContext context)
+        {
+            base.OnActionExecuted(context);
+            Monitor.Exit(this.lockObject);
+        }
+
         public GetDataController(IMemoryCache memoryCache) : base(memoryCache)
         { }
 

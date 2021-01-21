@@ -48,7 +48,7 @@ String.prototype.getSrcSet = function (group: string = '_nogroup') {
     }
     return null;
   }
-  let minWidthScreen = window.screen.width < 1024 ? 1024 : window.screen.width;
+  let minWidthScreen = Math.max(window.screen.width, 1024);
   if (this && this != '') {
     return [
       getSrc(640),
