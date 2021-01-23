@@ -8,14 +8,23 @@ namespace Ourlife.Commons
 {
     public class ConstValues
     {
+        public class UrlApi
+        {
+            public const string IPInfo = "http://ip-api.com/line/{0}";//{0}: Ip Address
+            public const string Weather = "http://weather.service.msn.com/data.aspx?weasearchstr={0}&culture={1}&weadegreetype=C&src=outlook";
+        }
+
         public static readonly List<string> lstFolderRoot = new List<string>() {
                 Directory.GetCurrentDirectory(),
                 "wwwroot",
         };
         public static readonly TimeSpan expCache = DateTime.Now.AddDays(1).AddTicks(-1).TimeOfDay;
 
+
+
         public const string symbol_spaceFolder = "_";
         public const string formatFolderName_DateTime = "yyyyMMdd";
+
         public const string folderName_RootStore = "dataCache";
         public const string folderName_Image = "image";
         public const string folderName_Image_NoGroup = "_nogroup";

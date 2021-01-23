@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
   portfolio: IPortfolio[] = null;
   timeline: ITimeline[] = null;
   imageWedding: IAlbum[] = null;
+  weatherData: any = [];
   happyWedding: any = null;
   arrDay = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
   constructor(private dataService: GetDataService) {
@@ -55,7 +56,21 @@ export class HomeComponent implements OnInit {
     this.dataService.toListAsync<IAlbum>({ collection: 'album' }, 'album').then(data => {
       this.imageWedding = data.filter(x => x.isShowHome);
     });
+
+    this.dataService.post<any>('/api/GetData/Weather').subscribe(data => {
+      this.getDataWeather(data.server.weather);
+      this.getDataWeather(data.client.weather);
+    });
   }
+
+private getDataWeather(data){
+  if(data != null && data.length > 0){
+    data = data[0];
+    console.log(data);
+    this.weatherData.push(data);
+  }
+  return null;
+}
 
   private setValueImageTimeLime(data) {
     if (data.selected == null) {

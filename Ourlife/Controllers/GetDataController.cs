@@ -16,17 +16,29 @@ namespace Ourlife.Controllers
     [Route("api/[controller]")]
     public class GetDataController : BaseController
     {
+        bool isLockObject = false;
         private readonly object lockObject = new object();
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            Monitor.Enter(this.lockObject);
-            base.OnActionExecuting(context);
+            if (Monitor.IsEntered(this.lockObject))
+            {
+                Thread.Sleep(1000);
+                OnActionExecuting(context);
+            }
+            else
+            {
+                Monitor.Enter(this.lockObject, ref isLockObject);
+                base.OnActionExecuting(context);
+            }
         }
 
         public override void OnActionExecuted(ActionExecutedContext context)
         {
             base.OnActionExecuted(context);
-            Monitor.Exit(this.lockObject);
+            if (isLockObject)
+            {
+                Monitor.Exit(this.lockObject);
+            }
         }
 
         public GetDataController(IMemoryCache memoryCache) : base(memoryCache)
@@ -48,7 +60,7 @@ namespace Ourlife.Controllers
         }
 
         [HttpGet("[action]/{group?}/{name?}")]
-        public async Task<IActionResult> Image(string name,string id, string group)
+        public async Task<IActionResult> Image(string name, string id, string group)
         {
             byte[] cacheEntry = await GetCacheAsync(group + name, () =>
             {
@@ -62,6 +74,20 @@ namespace Ourlife.Controllers
         {
             long UnixEpochTicks = (new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).Ticks;
             return Json((DateTime.Now.ToUniversalTime().Ticks - UnixEpochTicks) / 10000);
+        }
+
+        [HttpPost("[action]")]
+        public IActionResult Weather(string culture = "vi-VN")
+        {
+
+            weatherdata weatherServer = new WeatherProvider(string.Empty, culture).GetInfoWeather();
+            string ipAddress = Request.HttpContext.Connection.RemoteIpAddress?.ToString();
+            weatherdata weatherRequest = new WeatherProvider(ipAddress, "vi-VN").GetInfoWeather();
+            return Json(new
+            {
+                server = weatherServer ?? new weatherdata(),
+                client = weatherRequest ?? new weatherdata(),
+            });
         }
     }
 }

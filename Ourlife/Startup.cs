@@ -108,7 +108,7 @@ namespace Ourlife
             app.Use(next => context =>
             {
                 string path = context.Request.Path.Value;
-                if (path != null && !path.ToLower().Contains("/api"))
+                if (path != null && !string.Equals(path, "/api", StringComparison.OrdinalIgnoreCase))
                 {
                     Commons.ConstFuncs.SetResponseHeader(context.Response);
                     SetHeaderCookie(context, antiforgery);
@@ -116,6 +116,7 @@ namespace Ourlife
                 return next(context);
             });
 
+            app.UseDefaultFiles();
             app.UseStaticFiles(StaticFileOptions(antiforgery));
             app.UseSpaStaticFiles(StaticFileOptions(antiforgery));
 
