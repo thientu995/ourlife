@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using Ourlife.Commons;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,9 @@ namespace Ourlife.Models
         public string RequestInformation { get; set; }
         //public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
         private HttpContext httpcontext;
+        private Dictionary<string, string> dicError = new Dictionary<string, string>();
+        private StringBuilder infoDetail = new StringBuilder();
+
         public ExceptionHandlerModel(HttpContext context)
         {
             this.folderName = ConstValues.folderName_Logs;
@@ -35,7 +39,6 @@ namespace Ourlife.Models
 
         private string GetHTML()
         {
-            StringBuilder infoDetail = new StringBuilder();
             infoDetail.Append(@"
 <style>
    table {
@@ -56,23 +59,52 @@ namespace Ourlife.Models
             {
 
                 foreach (PropertyInfo item in exceptionFeature.Error.GetType().GetProperties())
-                    infoDetail.Append("<tr><td>" + item.Name + "</td><td>" + item.GetValue(exceptionFeature.Error, null) + "</td></tr>");
+                {
+                    addDictionaray("Exception__" + item.Name, item.GetValue(exceptionFeature.Error, null), item.PropertyType);
+                }
 
-                infoDetail.Append("<tr><td>Error Message: </td><td>" + exceptionFeature.Error.Message + "</td></tr>");
                 errorMessage = exceptionFeature.Error.Message;
                 if (!string.IsNullOrEmpty(exceptionFeature.Path))
-                    infoDetail.Append("<tr><td>Path Error: </td><td>" + exceptionFeature.Path + "</td></tr>");
+                {
+                    addDictionaray("Exception__" + nameof(exceptionFeature.Path), exceptionFeature.Path, exceptionFeature.Path.GetType());
+                }
             }
-            else
+            foreach (PropertyInfo item in httpcontext.Request.GetType().GetProperties())
             {
-                infoDetail.Append(@"<tr><td colspan=""2"">No details</td></tr>");
+                if (
+                    item.Name != nameof(HttpContext.Request.Form)
+                    && item.Name != nameof(HttpContext.Request.Query)
+                    && item.Name != nameof(HttpContext.Request.QueryString)
+                    && item.Name != nameof(HttpContext)
+                    && item.Name != nameof(HttpContext.Request.Body)
+                    )
+                {
+                    addDictionaray("Request__" + item.Name, item.GetValue(httpcontext.Request, null), item.PropertyType);
+                }
+                else
+                {
+                    if (httpcontext.Request.HasFormContentType && httpcontext.Request.Form != null)
+                    {
+                        addDictionaray("Request__" + nameof(httpcontext.Request.Form), httpcontext.Request.Form, httpcontext.Request.Form.GetType());
+                        addDictionaray("Request__" + nameof(httpcontext.Request.Query), httpcontext.Request.Query, httpcontext.Request.Query.GetType());
+                        addDictionaray("Request__" + nameof(httpcontext.Request.QueryString), httpcontext.Request.QueryString, httpcontext.Request.QueryString.GetType());
+                    }
+                }
             }
+
+            //else
+            //{
+            //    infoDetail.Append(@"<tr><td colspan=""2"">No details</td></tr>");
+            //}
+
+             ;
             infoDetail.Append(@"</tbody></table>");
             string folderLogDate = ConstFuncs.GetPathFolderRootStore(this.folderName, DateTime.Now.ToString(ConstValues.formatFolderName_DateTime));
             long RequestDateTime = DateTime.Now.Ticks;
             File.WriteAllTextAsync(Path.Combine(folderLogDate, RequestDateTime + ".html"), infoDetail.ToString());
+            File.WriteAllTextAsync(Path.Combine(folderLogDate, RequestDateTime + ".json"), DictionaryToJson(dicError));
             return "<h1>Error " + this.RequestStatusCode + " - " + RequestDateTime + "!</h1>"
-                +"<em>"+ errorMessage.Replace("\n","<br>") + "</em>";
+                + "<em>" + errorMessage.Replace("\n", "<br>") + "</em>";
         }
 
         public Dictionary<string, List<string>> GetList()
@@ -99,5 +131,30 @@ namespace Ourlife.Models
                 return Task.FromResult(string.Empty);
             }
         }
+
+        private void addDictionaray(string name, object value, Type type)
+        {
+            try
+            {
+                name = name + ":" + type.FullName;
+                value = JsonConvert.SerializeObject(value ?? string.Empty);
+                dicError.Add(name, (string)value);
+                infoDetail.Append("<tr><td>" + name + "</td><td>" + value + "</td></tr>");
+            }
+            catch (Exception ex)
+            {
+                name = "Log" + name;
+                dicError.Add(name, ex.Message);
+                infoDetail.Append("<tr><td>" + name + "</td><td>" + ex.Message + "</td></tr>");
+            }
+
+        }
+
+        private string DictionaryToJson(Dictionary<string, string> dict)
+        {
+            var entries = dict.Select(d => string.Format("{0}: {1}", JsonConvert.SerializeObject(d.Key), d.Value));
+            return "{" + string.Join(",", entries) + "}";
+        }
+
     }
 }

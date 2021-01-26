@@ -29,6 +29,7 @@
     "@nguniversal/express-engine": "^11.0.1",
     "aspnet-prerendering": "^3.0.1",
     "express": "^4.15.2",
+    "flickr-justified-gallery": "^1.0.7",
     "material-icons": "^0.3.1",
     "ng-lazyload-image": "^9.1.0",
     "ngx-pinch-zoom": "^2.5.4",

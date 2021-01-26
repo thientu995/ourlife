@@ -3,7 +3,7 @@ import { IPortfolio } from '../../interfaces/portfolio';
 import { GetDataService } from '../../services/get-data.service';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { IAlbum } from 'src/app/interfaces/album';
-
+import fjGallery from 'flickr-justified-gallery';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -43,7 +43,7 @@ export class HomeComponent implements OnInit {
         return a.order - b.order
       });
     });
-    
+
     this.dataService.toListAsync<ITimeline>({ collection: 'timeline' }, 'timeline').then(data => {
       this.timeline = data.sort((a, b) => {
         this.setValueImageTimeLime(a);
@@ -55,22 +55,28 @@ export class HomeComponent implements OnInit {
 
     this.dataService.toListAsync<IAlbum>({ collection: 'album' }, 'album').then(data => {
       this.imageWedding = data.filter(x => x.isShowHome);
+      setTimeout(()=>{
+        fjGallery(document.querySelectorAll('.fj-gallery'), {
+          itemSelector: '.fj-gallery-item',
+          rowHeight: 350,
+        });
+      }, 500);
     });
 
     this.dataService.post<any>('/api/GetData/Weather').subscribe(data => {
       this.getDataWeather(data.server.weather);
       this.getDataWeather(data.client.weather);
     });
+
   }
 
-private getDataWeather(data){
-  if(data != null && data.length > 0){
-    data = data[0];
-    console.log(data);
-    this.weatherData.push(data);
+  private getDataWeather(data) {
+    if (data != null && data.length > 0) {
+      data = data[0];
+      this.weatherData.push(data);
+    }
+    return null;
   }
-  return null;
-}
 
   private setValueImageTimeLime(data) {
     if (data.selected == null) {

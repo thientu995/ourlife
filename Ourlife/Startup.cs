@@ -78,26 +78,24 @@ namespace Ourlife
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IAntiforgery antiforgery)
         {
-            if (false && env.IsDevelopment())
+            if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                //app.UseDeveloperExceptionPage();
             }
             else
             {
-                app.UseExceptionHandler((Action<IApplicationBuilder>)(options =>
-                {
-                    options.Run((RequestDelegate)(async (context) =>
-                    {
-                        var error = new Models.ExceptionHandlerModel((HttpContext)context);
-                        context.Response.StatusCode = error.RequestStatusCode;
-                        await context.Response.WriteAsync(error.RequestInformation);
-                        //context.Response.Redirect("/");
-                        //await Task.CompletedTask.ConfigureAwait(false);
-                    }));
-                }));
-                //app.UseHsts();
-                //app.UseHttpsRedirection();
+                app.UseHsts();
+                app.UseHttpsRedirection();
             }
+            app.UseExceptionHandler((Action<IApplicationBuilder>)(options =>
+            {
+                options.Run((RequestDelegate)(async (context) =>
+                {
+                    var error = new Models.ExceptionHandlerModel((HttpContext)context);
+                    context.Response.StatusCode = error.RequestStatusCode;
+                    await context.Response.WriteAsync(error.RequestInformation);
+                }));
+            }));
 
             app.UseCors();
 

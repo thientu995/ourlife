@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
@@ -35,7 +38,7 @@ namespace Ourlife.Controllers
         public override void OnActionExecuted(ActionExecutedContext context)
         {
             base.OnActionExecuted(context);
-            if (isLockObject)
+            if (Monitor.IsEntered(this.lockObject))
             {
                 Monitor.Exit(this.lockObject);
             }
@@ -80,7 +83,7 @@ namespace Ourlife.Controllers
         public IActionResult Weather(string culture = "vi-VN")
         {
 
-            weatherdata weatherServer = new WeatherProvider(string.Empty, culture).GetInfoWeather();
+            weatherdata weatherServer = new WeatherProvider("default", culture).GetInfoWeather();
             string ipAddress = Request.HttpContext.Connection.RemoteIpAddress?.ToString();
             weatherdata weatherRequest = new WeatherProvider(ipAddress, "vi-VN").GetInfoWeather();
             return Json(new

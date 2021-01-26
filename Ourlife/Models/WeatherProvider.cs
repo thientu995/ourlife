@@ -99,13 +99,16 @@ namespace Ourlife.Models
 
         public weatherdata GetInfoWeather()
         {
-            if (!CheckIpLocal())
-            {
-                string query = this.location.ToString().Replace("(", string.Empty).Replace(")", string.Empty);
-                string output = GetDataFromWebApi(string.Format(ConstValues.UrlApi.Weather, query, this.culture));
-                return (weatherdata)new XmlSerializer(new weatherdata().GetType()).Deserialize(new MemoryStream(Encoding.Unicode.GetBytes(output)));
-            }
-            return null;
+            //if (!CheckIpLocal())
+            //{
+            string query = this.location.ToString().Replace("(", string.Empty).Replace(")", string.Empty);
+            string output = GetDataFromWebApi(string.Format(ConstValues.UrlApi.Weather, query, this.culture));
+            XmlSerializer ser = new XmlSerializer(new weatherdata().GetType());
+            MemoryStream stream = new MemoryStream(Encoding.Unicode.GetBytes(output));
+            object obj = ser.Deserialize(stream);
+            return (weatherdata)obj;
+            //}
+            //return null;
         }
 
         private (float, float) GetLatAndLonFromIPAddress()
@@ -113,11 +116,16 @@ namespace Ourlife.Models
 
             float lat = 0;
             float lon = 0;
-            if (!CheckIpLocal())
+            if (this.ipAddress == "default")
+            {
+                lat = ConstValues.lat_DongThap;
+                lon = ConstValues.lon_DongThap;
+            }
+            else
             {
                 try
                 {
-                    string[] dataIP = GetDataFromWebApi(string.Format(ConstValues.UrlApi.IPInfo, ipAddress)).Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+                    string[] dataIP = GetDataFromWebApi(string.Format(ConstValues.UrlApi.IPInfo, CheckIpLocal() ? string.Empty : this.ipAddress)).Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
                     float.TryParse(dataIP[7], out lat);
                     float.TryParse(dataIP[8], out lon);
                 }
@@ -149,8 +157,8 @@ namespace Ourlife.Models
                 case "127.0.0.1":
                 case "0.0.0.0":
                 case "localhost":
-                    return true;
                 case "":
+                    return true;
                 default:
                     return false;
             }
