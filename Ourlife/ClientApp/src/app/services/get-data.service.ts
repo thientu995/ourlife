@@ -73,7 +73,10 @@ export class GetDataService {
   }
 
   toList<T>(data: T) {
-    return Object.keys(data).map<T>((key) => (Object.assign({ id: key }, data[key])));
+    if (data) {
+      return Object.keys(data).map<T>((key) => (Object.assign({ id: key }, data[key])));
+    }
+    return null;
   }
 
   private getHeader() {

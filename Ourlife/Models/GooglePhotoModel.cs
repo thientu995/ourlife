@@ -25,7 +25,7 @@ namespace Ourlife.Models
             string fullPath = pathFile + extention;
             byte[] data = null;
             FileInfo file = new FileInfo(pathFile);
-            if (!file.Exists)
+            if (!file.Exists || file.Length == 0)
             {
                 using (FileStream fs = file.Create())
                 {

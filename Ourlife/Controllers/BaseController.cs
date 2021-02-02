@@ -37,36 +37,58 @@ namespace Ourlife.Controllers
 
         protected async Task<T> GetCacheAsync<T>(string key, Func<Task<T>> getValue)
         {
-            key = string.Join(ConstValues.symbol_spaceFolder, this.ControllerContext.RouteData.Values) + "_" + key;
-            T cacheEntry;
-            if (!_cache.TryGetValue(key, out cacheEntry))
+            try
             {
-                cacheEntry = await getValue();
-                _cache.Set(key, cacheEntry, setMemoryOption());
+                key = string.Join(ConstValues.symbol_spaceFolder, this.ControllerContext.RouteData.Values) + "_" + key;
+                T cacheEntry;
+                if (!_cache.TryGetValue(key, out cacheEntry))
+                {
+                    cacheEntry = await getValue();
+                    if (cacheEntry != null)
+                    {
+                        _cache.Set(key, cacheEntry, setMemoryOption());
+                    }
+                }
+                else
+                {
+                    Response.Headers.Add("Content-Cached", "true");
+                }
+                SetHeader();
+                return cacheEntry;
             }
-            else
+            catch (Exception ex)
             {
-                Response.Headers.Add("Content-Cached", "true");
+
+                throw;
             }
-            SetHeader();
-            return cacheEntry;
         }
 
         protected T GetCache<T>(string key, Func<T> getValue)
         {
-            key = string.Join(ConstValues.symbol_spaceFolder, this.ControllerContext.RouteData.Values) + "_" + key;
-            T cacheEntry;
-            if (!_cache.TryGetValue(key, out cacheEntry))
+            try
             {
-                cacheEntry = getValue();
-                _cache.Set(key, cacheEntry, setMemoryOption());
+                key = string.Join(ConstValues.symbol_spaceFolder, this.ControllerContext.RouteData.Values) + "_" + key;
+                T cacheEntry;
+                if (!_cache.TryGetValue(key, out cacheEntry))
+                {
+                    cacheEntry = getValue();
+                    if (cacheEntry != null)
+                    {
+                        _cache.Set(key, cacheEntry, setMemoryOption());
+                    }
+                }
+                else
+                {
+                    Response.Headers.Add("Content-Cached", "true");
+                }
+                SetHeader();
+                return cacheEntry;
             }
-            else
+            catch (Exception ex)
             {
-                Response.Headers.Add("Content-Cached", "true");
+
+                throw;
             }
-            SetHeader();
-            return cacheEntry;
         }
 
         private MemoryCacheEntryOptions setMemoryOption()

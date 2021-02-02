@@ -33,7 +33,7 @@ namespace Ourlife.Models
             //    Directory.CreateDirectory(pathStore);
             //}
             FileInfo file = new FileInfo(pathFull);
-            if (!file.Exists)
+            if (!file.Exists || file.Length == 0)
             {
                 using (FileStream fs = file.Create())
                 {
@@ -41,7 +41,14 @@ namespace Ourlife.Models
                     {
                         result = JsonConvert.SerializeObject(GetDataFirebase(param));
                         byte[] bytes = new UTF8Encoding(true).GetBytes(result);
-                        fs.Write(bytes, 0, bytes.Length);
+                        if (bytes != null && bytes.Length != 0)
+                        {
+                            fs.Write(bytes, 0, bytes.Length);
+                        }
+                        else
+                        {
+                            file.Delete();
+                        }
                     }
                 }
             }

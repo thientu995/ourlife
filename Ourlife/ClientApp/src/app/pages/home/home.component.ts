@@ -3,7 +3,8 @@ import { IPortfolio } from '../../interfaces/portfolio';
 import { GetDataService } from '../../services/get-data.service';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { IAlbum } from 'src/app/interfaces/album';
-import fjGallery from 'flickr-justified-gallery';
+const fjGallery = import('flickr-justified-gallery');
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -55,11 +56,11 @@ export class HomeComponent implements OnInit {
 
     this.dataService.toListAsync<IAlbum>({ collection: 'album' }, 'album').then(data => {
       this.imageWedding = data.filter(x => x.isShowHome);
-      setTimeout(()=>{
-        fjGallery(document.querySelectorAll('.fj-gallery'), {
+      setTimeout(() => {
+        fjGallery.then(fjGallery => fjGallery(document.querySelectorAll('.fj-gallery'), {
           itemSelector: '.fj-gallery-item',
           rowHeight: 350,
-        });
+        }));
       }, 500);
     });
 
