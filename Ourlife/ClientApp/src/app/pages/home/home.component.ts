@@ -57,10 +57,12 @@ export class HomeComponent implements OnInit {
     this.dataService.toListAsync<IAlbum>({ collection: 'album' }, 'album').then(data => {
       this.imageWedding = data.filter(x => x.isShowHome);
       setTimeout(() => {
-        fjGallery.then(fjGallery => fjGallery(document.querySelectorAll('.fj-gallery'), {
-          itemSelector: '.fj-gallery-item',
-          rowHeight: 350,
-        }));
+        fjGallery.then(obj => {
+          obj.default(document.querySelectorAll('.fj-gallery'), {
+            itemSelector: '.fj-gallery-item',
+            rowHeight: 350,
+          });
+        });
       }, 500);
     });
 
