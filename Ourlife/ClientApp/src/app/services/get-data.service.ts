@@ -60,7 +60,7 @@ export class GetDataService {
   }
 
   setData<T>(param) {
-    return this.http.post<T>(this.likApi + 'SaveData/Index', param);
+    return this.post<T>(this.likApi + 'SaveData/Index', param);
   }
 
   setTitle(value) {
