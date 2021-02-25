@@ -23,6 +23,7 @@ String["linkAPI"] = String["linkAPI_Home"] + 'api/';
 
 String.prototype.getSizeImage = function (width: number = 2048, group: string = '_nogroup') {
   if (this && this != '') {
+    return this;
     let url = this.replace('https://', '').replace('http://', '') + '=s' + width + '-no';
     return String["linkAPI"] + 'GetData/Image/' + group + '/' + url.md5() + '?id=' + encodeURIComponent(url);
   }

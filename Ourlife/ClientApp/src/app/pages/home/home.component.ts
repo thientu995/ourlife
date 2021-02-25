@@ -26,13 +26,13 @@ export class HomeComponent implements OnInit {
       {
         title: 'Lễ Vu Quy',
         address: '<b>Tư Gia</b> (Tân Quới)',
-        date: new Date(2021, 5, 1, 9, 0),
+        date: new Date(2021, 4, 1, 9, 0),
         lunar: '(Ngày 20 tháng 03 năm Tân Sửu)',
       },
       {
         title: 'Lễ Tân Hôn',
         address: '<b>Tuan Cong Palace</b> (Chợ Mới)',
-        date: new Date(2021, 5, 2, 9, 0),
+        date: new Date(2021, 4, 2, 10, 0),
         lunar: '(Ngày 21 tháng 03 năm Tân Sửu)',
       },
     ];
@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.dataService.toListAsync<IPortfolio>({ collection: 'portfolio' }, 'portfolio').then(data => {
       this.portfolio = data.sort((a, b) => {
-        return a.order - b.order
+        return b.order - a.order
       });
     });
 
