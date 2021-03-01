@@ -88,7 +88,7 @@
   </section>
 </div>
 
-<div *ngIf="1!=1">
+<div *ngIf="weatherData!=null && weatherData.length > 0">
   <h1 uk-sticky="bottom: true" class="section-title">Thời tiết</h1>
   <div class="uk-text-center">
     <img class="icon-funny" src="/img/lotus/20.png">

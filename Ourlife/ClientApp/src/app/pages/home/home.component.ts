@@ -66,10 +66,10 @@ export class HomeComponent implements OnInit {
       }, 500);
     });
 
-    this.dataService.post<any>('/api/GetData/Weather').subscribe(data => {
-      this.getDataWeather(data.server.weather);
-      this.getDataWeather(data.client.weather);
-    });
+    // this.dataService.post<any>('/api/GetData/Weather').subscribe(data => {
+    //   this.getDataWeather(data.server.weather);
+    //   this.getDataWeather(data.client.weather);
+    // });
 
   }
 
