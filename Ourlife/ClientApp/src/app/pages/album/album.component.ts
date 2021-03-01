@@ -4,10 +4,11 @@ import { GetDataService } from '../../services/get-data.service';
 
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnInit, ViewChildren, QueryList, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-album',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './album.component.html',
   styleUrls: ['./album.component.scss'],
   encapsulation: ViewEncapsulation.None
