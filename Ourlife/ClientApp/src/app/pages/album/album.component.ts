@@ -4,11 +4,10 @@ import { GetDataService } from '../../services/get-data.service';
 
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnInit, ViewChildren, QueryList, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-album',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './album.component.html',
   styleUrls: ['./album.component.scss'],
   encapsulation: ViewEncapsulation.None
@@ -48,7 +47,7 @@ export class AlbumComponent implements OnInit {
     private router: Router,
     private activeRoute: ActivatedRoute,
     private dataService: GetDataService,
-  ) { 
+  ) {
     this.search = '';
     this.albumCategory = null;
     this.album = null;
@@ -59,14 +58,18 @@ export class AlbumComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataService.toListAsync<IAlbum>({ collection: 'albumCategory' }, 'albumCategory').then(data => {
-      this.albumCategory = data;
+      this.albumCategory = data.sort((a, b) => {
+        return a.order - b.order
+      });
     });
 
     this.dataService.toListAsync<IAlbum>({ collection: 'album' }, 'album').then(data => {
       this.album = data.map((item) => (Object.assign({
         album: item,
         galleryImages: this.getGalleryImages(item)
-      })));
+      }))).sort((a, b) => {
+        return new Date(b.album.date).getTime() - new Date(a.album.date).getTime();
+      });
       this.result = this.album;
     });
   }

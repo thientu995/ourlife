@@ -1,4 +1,5 @@
 @import "./color.scss";
+
 .nav {
   position: absolute;
   top: 15px;
@@ -78,4 +79,9 @@
 
 .uk-icon {
   color: red !important;
+}
+
+.uk-button-danger, .uk-button-danger > *,
+.uk-button-danger:hover, .uk-button-danger:hover > *{
+  color: #fff !important;
 }

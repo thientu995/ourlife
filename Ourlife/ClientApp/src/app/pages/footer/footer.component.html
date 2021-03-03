@@ -7,7 +7,8 @@
         <h1 uk-sticky="bottom: true" class="section-title">Lời chúc</h1>
         <section class="uk-padding-small uk-section uk-section-xsmall uk-position-relative">
             <div class="uk-navbar-item uk-padding-small">
-                <div class="site-logo background-sub">Tứ <span>&amp;</span> Vy</div>
+                <div class="site-logo background-sub">Tứ <span class="material-icons">favorite</span> Vy</div>
+                <!-- <div class="site-logo background-sub">Tứ <span>&amp;</span> Vy</div> -->
             </div>
 
             <div class="uk-form-horizontal uk-light" *ngIf="appComponent.message != null && !isSendMessage">
@@ -27,7 +28,7 @@
                     </label>
                     <div class="uk-form-controls">
                         <div class="uk-inline uk-width-1-1">
-                            <textarea class="uk-textarea" type="text" placeholder="Nhập lời chúc..." rows="1"
+                            <textarea class="uk-textarea" type="text" placeholder="Nhập lời chúc..." rows="2"
                                 (keydown)="keydownTextarea($event)" [(ngModel)]="appComponent.message.data[1].value"
                                 required></textarea>
                         </div>
@@ -35,7 +36,7 @@
                 </div>
                 <div class="">
                     <button
-                        class="uk-button uk-button-large uk-button-danger uk-width-1-5@l uk-width-1-6@m  uk-width-1-1@s uk-float-right"
+                        class="uk-button uk-button-large uk-button-danger uk-width-1-5@l uk-width-1-6@m uk-width-1-1@s uk-float-right"
                         (click)="sendMessage()"><span class="material-icons">send</span> Gửi</button>
                     <!-- <button class="uk-button uk-button-large uk-button-secondary uk-width-1-2" (click)="resetMessage()"><span
                 class="material-icons">undo</span> Soạn lại</button> -->

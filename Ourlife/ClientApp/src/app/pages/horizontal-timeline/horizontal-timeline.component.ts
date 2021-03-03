@@ -217,11 +217,14 @@ export class HorizontalTimelineComponent implements AfterViewInit {
     this.initView();
   }
 
-  onScrollClick(event: Event, forward: boolean) {
+  onScrollClick(event: Event, forward: boolean, scroll: boolean = false) {
     event.preventDefault();
     // this.updateSlide(this.eventsWrapperWidth, forward);
     this.showNewContent(event, forward);
     this._cdr.detectChanges();
+    if(scroll){
+      this.eventsWrapper.nativeElement.scrollIntoView();
+    }
   }
 
   showNewContent(event: Event, forward: boolean) {

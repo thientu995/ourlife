@@ -7,7 +7,7 @@ import { AlbumComponent } from './album.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LazyLoadImageModule } from 'ng-lazyload-image'; 
 import { FormsModule } from '@angular/forms';
-import { ImageLightboxComponent } from '../image-lightbox/image-lightbox.component';
+import { ImageLightboxComponent } from './../image-lightbox/image-lightbox.component';
 import { PinchZoomModule } from 'ngx-pinch-zoom';
 
 @NgModule({

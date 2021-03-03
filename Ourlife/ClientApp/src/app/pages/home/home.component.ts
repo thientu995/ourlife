@@ -56,6 +56,20 @@ export class HomeComponent implements OnInit {
 
     this.dataService.toListAsync<IAlbum>({ collection: 'album' }, 'album').then(data => {
       this.imageWedding = data.filter(x => x.isShowHome);
+      this.imageWedding.forEach((value, index) => {
+        let temp = value.ListImage.slice();
+        let lstImg = [];
+        value.ListImage.slice(0, 12).forEach((value, index) => {
+          let indexImg = this.randomIndexImageAlbum(temp);
+          let obj = temp[indexImg];
+          temp = temp.filter(x => x != obj);
+          lstImg.push({
+            index: indexImg,
+            obj: indexImg + '::' + obj
+          });
+        });
+        value.ListImage = lstImg.sort((a, b) => { return a.index - b.index }).map(x => x.obj);
+      });
       setTimeout(() => {
         fjGallery.then(obj => {
           obj.default(document.querySelectorAll('.fj-gallery'), {
@@ -87,5 +101,9 @@ export class HomeComponent implements OnInit {
       data.img = data.img.getSizeImage(500, 'timeline');
       data.date = new Date(data.date);
     }
+  }
+
+  private randomIndexImageAlbum(ListImage) {
+    return Math.floor(Math.random() * (ListImage.length + 1));
   }
 }
