@@ -39,6 +39,7 @@ export class ImageLightboxComponent implements OnInit {
     this.isOpenModal = true;
     this.idModal = 'imgModal' + this.id;
     this.slideIndex = Number(index);
+    this.resetValue();
     setTimeout(() => {
       // UIkit.modal('#' + this.idModal).show();
       this.slideshow = UIkit.slideshow('#' + this.idModal, {
@@ -111,7 +112,6 @@ export class ImageLightboxComponent implements OnInit {
       }
     }
     let progressbar = () => {
-      const currentIndex = this.slideIndex;
       const startDate = new Date().getTime();
       proBar.setAttribute('value', 0 + '');
       animate = setInterval(() => {

@@ -1,5 +1,21 @@
 @import "./color.scss";
 
+.uk-offcanvas-overlay::before {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.uk-icon,
+.material-icons {
+  color: red !important;
+}
+
+.uk-button-danger,
+.uk-button-danger>*,
+.uk-button-danger:hover,
+.uk-button-danger:hover>* {
+  color: #fff !important;
+}
+
 .nav {
   position: absolute;
   top: 15px;
@@ -14,7 +30,7 @@
   // border-radius: 100%;
   padding: 5px;
   margin-right: 5px;
-  // color: black
+  color: #FFF !important
 }
 
 .uk-sticky-placeholder {
@@ -39,7 +55,7 @@
   transition: height 0.25s;
 }
 
-.uk-subnav-pill > * > :first-child {
+.uk-subnav-pill>*> :first-child {
   padding: 0.5rem 1rem;
   background-color: rgba(0, 0, 0, 0.04);
 }
@@ -71,20 +87,4 @@
   width: 60px;
   margin: 0 auto;
   filter: grayscale(0);
-}
-
-.uk-offcanvas-overlay::before {
-  background: rgba(0, 0, 0, 0.5);
-}
-
-.uk-icon,
-.material-icons {
-  color: red !important;
-}
-
-.uk-button-danger,
-.uk-button-danger > *,
-.uk-button-danger:hover,
-.uk-button-danger:hover > * {
-  color: #fff !important;
 }

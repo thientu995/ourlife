@@ -29,21 +29,22 @@
 
   .slide-modal-icon {
     text-align: center;
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
     // background-color: $bkg-main;
     opacity: 0.85;
     color: white !important;
     padding: 5px;
     border-radius: 5px;
 
-    .slide-modal-function .material-icons {
-      margin: 0;
-      height: 100%;
-      display: flex;
-      align-items: center;
+    .material-icons {
+      //   margin: 0;
+      //   height: 100%;
+      //   display: flex;
+      //   align-items: center;
     }
+
     // &.close {
     //   background-color: red;
     // }
@@ -66,11 +67,20 @@
     }
   }
 
+  .slide-modal-function .material-icons {
+    margin-top: -10px;
+    vertical-align: middle;
+  }
+
   .slide-modal-content {
     position: relative;
     margin: auto;
     padding: 0;
     background-color: rgba(0, 0, 0, 0.4);
+
+    .material-icons {
+      font-size: 40px;
+    }
   }
 
   .slide-modal-img-slides {

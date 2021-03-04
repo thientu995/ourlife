@@ -16,6 +16,11 @@ $material-icons-font-path: "~material-icons/iconfont/";
 // @import "~material-icons/css/material-icons.scss";
 .material-icons {
   vertical-align: middle;
+  // font-size: 100%
+}
+
+.uk-button .material-icons {
+  vertical-align: initial;
 }
 
 @import "~uikit/dist/css/uikit.css";
@@ -28,9 +33,11 @@ $material-icons-font-path: "~material-icons/iconfont/";
   background: $base-bkg-main;
   color: $base-bkg-sub;
 }
+
 .uk-flex {
   display: flex;
 }
+
 .uk-button {
   text-transform: none;
   font-size: 100% !important;

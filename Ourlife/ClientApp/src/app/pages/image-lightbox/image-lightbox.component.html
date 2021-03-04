@@ -36,11 +36,11 @@
       [hidden]="!isAutoPlay"></progress>
     <div class="slide-background" [ngStyle]="{'background-image': 'url(' + selector_Img + ')'}"></div>
     <div class="uk-position-relative">
-      <div class="slide-modal-function uk-position-z-index uk-position-top-right uk-position-small uk-margin-medium-right">
-        <a class="slide-modal-icon uk-margin-small-right" (click)="autoPlay()">
+      <div class="slide-modal-function uk-position-z-index uk-position-top-right uk-position-small uk-margin-large-right">
+        <!-- <a class="slide-modal-icon uk-margin-small-right uk-button-default" (click)="autoPlay()">
           <span class="material-icons">{{isAutoPlay ? 'music_note' : 'music_off'}}</span>
-        </a>
-        <a class="slide-modal-icon uk-margin-small-right" (click)="autoPlay()">
+        </a> -->
+        <a class="slide-modal-icon uk-margin-small-right uk-button-default" (click)="autoPlay()">
           <span class="material-icons">{{isAutoPlay ? 'pause_circle_outline' : 'play_circle_outline'}}</span>
         </a>
         <a class="slide-modal-icon uk-margin-small-right uk-button-danger" (click)="closeModal()" routerLink="/album">
@@ -67,11 +67,11 @@
           <div class="uk-light">
             <a class="slide-modal-icon slide-modal-navigate uk-position-center-left"
               uk-slideshow-item="previous">
-              <span class="material-icons uk-position-small">navigate_before</span>
+              <span class="material-icons">navigate_before</span>
             </a>
             <a class="slide-modal-icon slide-modal-navigate uk-position-center-right"
               uk-slideshow-item="next">
-              <span class="material-icons uk-position-small">navigate_next</span>
+              <span class="material-icons">navigate_next</span>
             </a>
           </div>
         </div>

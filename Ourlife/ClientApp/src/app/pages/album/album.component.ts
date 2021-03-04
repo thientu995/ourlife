@@ -87,9 +87,9 @@ export class AlbumComponent implements OnInit {
     if (idRoute) {
       let index = this.activeRoute.snapshot.params['index'] || 0;
       this.imgLightBox.changes.subscribe(() => {
-        // setTimeout(() => {
-        this.viewAlbum(idRoute, index);
-        // });
+        setTimeout(() => {
+          this.viewAlbum(idRoute, index);
+        });
       });
     }
   }
