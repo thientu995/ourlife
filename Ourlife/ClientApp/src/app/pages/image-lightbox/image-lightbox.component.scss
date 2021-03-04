@@ -27,37 +27,42 @@
     user-select: none;
   }
 
-  .uk-icon {
+  .slide-modal-icon {
     text-align: center;
     width: 30px;
     height: 30px;
-    line-height: 20px;
+    line-height: 30px;
     // background-color: $bkg-main;
-    opacity: .85;
+    opacity: 0.85;
     color: white !important;
     padding: 5px;
     border-radius: 5px;
 
-    // &.close {
-    //   background-color: red;
-    // }
-
-    &.btn-slide {
-      background-color: rgb(0, 0, 0, .05);
-      color: red !important;
-      padding: 10px;
-
-      &:hover {
-        background-color: rgb(0, 0, 0, .5);
-      }
-    }
-
-    &.imgSlideshow {
+    .slide-modal-function .material-icons {
       margin: 0;
       height: 100%;
       display: flex;
       align-items: center;
+    }
+    // &.close {
+    //   background-color: red;
+    // }
 
+    &.slide-modal-navigate {
+      background-color: rgb(0, 0, 0, 0.03);
+      color: $bkg-main !important;
+      padding: 10px;
+
+      &:hover {
+        background-color: rgb(0, 0, 0, 0.5);
+      }
+    }
+
+    &.slide-modal-navigate {
+      margin: 0;
+      height: 100%;
+      display: flex;
+      align-items: center;
     }
   }
 
@@ -68,7 +73,7 @@
     background-color: rgba(0, 0, 0, 0.4);
   }
 
-  .img-slides {
+  .slide-modal-img-slides {
     text-align: center;
     max-height: 100vh !important;
     max-width: 100vw !important;
@@ -86,43 +91,6 @@
     border-radius: 0;
   }
 
-  .thumbnailalbum {
-    height: 95px;
-    // min-height: 50px;
-    background-size: contain;
-
-    &:before,
-    &:after {
-      content: "";
-      width: 25px;
-      height: 25px;
-      position: absolute;
-      border: 2px solid #fff;
-    }
-
-    &:before {
-      top: 0;
-      left: 0;
-      border-right-width: 0;
-      border-bottom-width: 0;
-    }
-
-    &:after {
-      bottom: 0;
-      right: 0;
-      border-left-width: 0;
-      border-top-width: 0;
-    }
-  }
-
-  .uk-active:nth-child(odd) .thumbnailalbum {
-
-    &::before,
-    &::after {
-      border-color: red;
-    }
-  }
-
   .slide-background {
     position: absolute;
     width: 100%;
@@ -134,7 +102,7 @@
     -webkit-filter: blur(50px);
   }
 
-  .img-group-slides{
+  .slide-modal-img-group-slides {
     // width: 100vw;
     height: 101vh;
   }

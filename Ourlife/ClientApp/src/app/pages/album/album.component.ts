@@ -5,6 +5,7 @@ import { GetDataService } from '../../services/get-data.service';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, ViewChildren, QueryList, ViewEncapsulation } from '@angular/core';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-album',
@@ -43,6 +44,7 @@ export class AlbumComponent implements OnInit {
   @ViewChildren(ImageLightboxComponent) imgLightBox: QueryList<ImageLightboxComponent>;
 
   constructor(
+    private appComponent: AppComponent,
     private location: Location,
     private router: Router,
     private activeRoute: ActivatedRoute,
@@ -74,14 +76,20 @@ export class AlbumComponent implements OnInit {
     });
   }
 
+
   ngAfterViewInit() {
+    this.RoutePage();
+    this.appComponent.loadComplete();
+  }
+
+  RoutePage() {
     let idRoute = this.activeRoute.snapshot.params['id'];
     if (idRoute) {
       let index = this.activeRoute.snapshot.params['index'] || 0;
       this.imgLightBox.changes.subscribe(() => {
-        setTimeout(() => {
-          this.viewAlbum(idRoute, index);
-        });
+        // setTimeout(() => {
+        this.viewAlbum(idRoute, index);
+        // });
       });
     }
   }

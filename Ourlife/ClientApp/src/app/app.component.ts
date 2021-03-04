@@ -1,5 +1,5 @@
 import { GetDataService } from './services/get-data.service';
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ISetting } from './interfaces/setting';
 import { Router, NavigationStart, NavigationEnd, NavigationError, NavigationCancel, RoutesRecognized } from '@angular/router';
 
@@ -10,6 +10,7 @@ import { Router, NavigationStart, NavigationEnd, NavigationError, NavigationCanc
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
+  @ViewChild('content') content: ElementRef;
   public message = null;
 
   title = 'ourlife';
@@ -45,12 +46,24 @@ export class AppComponent {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         this.loadSuccess = false;
+        this.content.nativeElement.scrollIntoView();
       }
       else if (event instanceof NavigationEnd) {
-        setTimeout(() => {
-          this.loadSuccess = true;
-        }, 500);
+        // setTimeout(() => {
+        //   this.loadComplete();
+        //   this.content.nativeElement.scrollIntoView();
+        // }, 500);
       }
     });
+  }
+
+  // ngAfterViewInit() {
+  //   this.loadComplete();
+  // }
+
+  public loadComplete() {
+    setTimeout(() => {
+          this.loadSuccess = true;
+    }, 500);
   }
 }

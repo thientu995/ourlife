@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap");
-@import "./assets/css/color.scss";
 
 *,
 .uk-navbar-item,
@@ -11,11 +10,6 @@
   min-height: auto;
 }
 
-::selection {
-  background: $base-bkg-main;
-  color: $base-bkg-sub;
-}
-
 $material-icons-font-path: "~material-icons/iconfont/";
 @import "~material-icons/iconfont/material-icons.scss";
 
@@ -24,9 +18,19 @@ $material-icons-font-path: "~material-icons/iconfont/";
   vertical-align: middle;
 }
 
+@import "~uikit/dist/css/uikit.css";
+
+@import "./assets/css/color.scss";
 @import "./assets/css/animation.scss";
 @import "./assets/css/custom.scss";
 
+::selection {
+  background: $base-bkg-main;
+  color: $base-bkg-sub;
+}
+.uk-flex {
+  display: flex;
+}
 .uk-button {
   text-transform: none;
   font-size: 100% !important;

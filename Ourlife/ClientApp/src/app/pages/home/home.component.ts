@@ -1,3 +1,4 @@
+import { AppComponent } from 'src/app/app.component';
 import { ITimeline } from '../../interfaces/timeline';
 import { IPortfolio } from '../../interfaces/portfolio';
 import { GetDataService } from '../../services/get-data.service';
@@ -18,7 +19,10 @@ export class HomeComponent implements OnInit {
   weatherData: any = [];
   happyWedding: any = null;
   arrDay = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
-  constructor(private dataService: GetDataService) {
+  constructor(
+    private appComponent: AppComponent,
+    private dataService: GetDataService
+  ) {
     this.portfolio = null;
     this.timeline = null;
     this.imageWedding = null;
@@ -85,6 +89,10 @@ export class HomeComponent implements OnInit {
     //   this.getDataWeather(data.client.weather);
     // });
 
+  }
+
+  ngAfterViewInit() {
+    this.appComponent.loadComplete();
   }
 
   private getDataWeather(data) {

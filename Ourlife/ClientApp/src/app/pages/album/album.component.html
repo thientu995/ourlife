@@ -4,7 +4,8 @@
 </div>
 <section class="uk-section uk-section-xsmall">
   <div class="uk-margin-bottom uk-inline uk-width-1-1">
-    <span class="uk-form-icon uk-form-icon-flip uk-icon" data-uk-icon="icon: search"></span>
+    <span class="material-icons uk-form-icon uk-form-icon-flip uk-flex">search</span>
+    <!-- <span class="uk-form-icon uk-form-icon-flip uk-icon" data-uk-icon="icon: search"></span> -->
     <input class="uk-input uk-border-pill uk-padding-small" placeholder="Tìm kiếm album" type="text" [ngModel]="search"
       (ngModelChange)="filterAlbum($event)" />
   </div>
@@ -26,7 +27,9 @@
           <div class="uk-grid uk-child-width-1-2">
             <h3 class="uk-text-left">{{item.album.title}}</h3>
             <div class="uk-text-right" style="font-size: 20px;line-height: 35px;">
-              <span uk-icon="calendar"></span>&nbsp;
+              <span class="material-icons">calendar_today</span>
+              <!-- <span uk-icon="calendar"></span> -->
+              &nbsp;
               <span style="vertical-align: middle; height: 100%;">{{item.album.date | date:'yyyy/MM/dd'}}&nbsp;</span>
             </div>
           </div>

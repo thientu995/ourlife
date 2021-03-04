@@ -28,7 +28,6 @@
               "src/assets"
             ],
             "styles": [
-              "./node_modules/uikit/dist/css/uikit.min.css",
               "src/styles.scss"
             ],
             "scripts": [

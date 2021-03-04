@@ -14,7 +14,7 @@
           </li>
         </ul>
       </div>
-      <div class="uk-hidden@s uk-light">
+      <!-- <div class="uk-hidden@s uk-light">
         <a class="uk-position-center-left uk-position-small uk-icon" href="#" uk-slidenav-previous
           uk-slider-item="previous"></a>
         <a class="uk-position-center-right uk-position-small uk-icon" href="#" uk-slidenav-next
@@ -25,7 +25,7 @@
           uk-slider-item="previous"></a>
         <a class="uk-position-center-right-out uk-position-small uk-icon" href="#" uk-slidenav-next
           uk-slider-item="next"></a>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
@@ -36,35 +36,43 @@
       [hidden]="!isAutoPlay"></progress>
     <div class="slide-background" [ngStyle]="{'background-image': 'url(' + selector_Img + ')'}"></div>
     <div class="uk-position-relative">
-      <div class="uk-position-z-index uk-position-top-right uk-position-small uk-margin-medium-right">
-        <a class="uk-margin-small-right" (click)="autoPlay()">
-          <span [attr.uk-icon]="isAutoPlay ? 'pause-circle' : 'play-circle'"
-            [attr.uk-tooltip]="'title: Slideshow; pos: bottom'"></span>
+      <div class="slide-modal-function uk-position-z-index uk-position-top-right uk-position-small uk-margin-medium-right">
+        <a class="slide-modal-icon uk-margin-small-right" (click)="autoPlay()">
+          <span class="material-icons">{{isAutoPlay ? 'music_note' : 'music_off'}}</span>
         </a>
-        <a class="uk-margin-small-right" (click)="closeModal()" routerLink="/album">
-          <span class="uk-button-danger close" uk-icon="close"></span>
+        <a class="slide-modal-icon uk-margin-small-right" (click)="autoPlay()">
+          <span class="material-icons">{{isAutoPlay ? 'pause_circle_outline' : 'play_circle_outline'}}</span>
+        </a>
+        <a class="slide-modal-icon uk-margin-small-right uk-button-danger" (click)="closeModal()" routerLink="/album">
+          <span class="material-icons">close</span>
         </a>
       </div>
 
       <div class="slide-modal-content">
-        <div class="img-group-slides">
+        <div class="slide-modal-img-group-slides">
           <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
           <ul class="uk-slideshow-items" style="width:100%;height:100%">
-            <li *ngFor="let image of images; let i = index" [attr.index]="i" style="margin: 0;height: 100vh;width: 100vw;">
+            <li *ngFor="let image of images; let i = index" [attr.index]="i"
+              style="margin: 0;height: 100vh;width: 100vw;">
               <div class="uk-position-center">
-                <img data-srcset="{{image.srcSet}}" src="{{image.small}}" class="img-slides">
+                <img data-srcset="{{image.srcSet}}" src="{{image.small}}" class="slide-modal-img-slides">
               </div>
-              <div class="uk-overlay uk-overlay-primary uk-position-bottom-center uk-padding-small uk-text-center uk-transition-slide-bottom">
+              <div
+                class="uk-overlay uk-overlay-primary uk-position-bottom-center uk-padding-small uk-text-center uk-transition-slide-bottom">
                 <p class="uk-margin-remove">{{i + 1}} / {{images.length}}</p>
-            </div>
+              </div>
 
             </li>
           </ul>
           <div class="uk-light">
-            <a class="btn-slide uk-position-center-left uk-position-small uk-button-large imgSlideshow"
-              uk-slidenav-previous uk-slideshow-item="previous"></a>
-            <a class="btn-slide uk-position-center-right uk-position-small uk-button-large imgSlideshow"
-              uk-slidenav-next uk-slideshow-item="next"></a>
+            <a class="slide-modal-icon slide-modal-navigate uk-position-center-left"
+              uk-slideshow-item="previous">
+              <span class="material-icons uk-position-small">navigate_before</span>
+            </a>
+            <a class="slide-modal-icon slide-modal-navigate uk-position-center-right"
+              uk-slideshow-item="next">
+              <span class="material-icons uk-position-small">navigate_next</span>
+            </a>
           </div>
         </div>
       </div>
