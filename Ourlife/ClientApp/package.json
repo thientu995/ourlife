@@ -4,14 +4,14 @@
   "scripts": {
     "ng": "ng",
     "start": "echo Starting && ng serve --no-live-reload",
-    "build": "ng build",
+    "build": "ng build --prod --aot --optimization --build-optimizer --vendor-chunk --common-chunk --extract-licenses --extract-css --source-map=false",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "create": "ng g c -n --module=app",
     "dev:ssr": "ng run ClientApp:serve-ssr",
     "serve:ssr": "node dist/ClientApp/server/main.js",
-    "build:ssr": "ng build --prod --aot && ng run ClientApp:server:production",
+    "build:ssr": "npm run build && ng run ClientApp:server:production",
     "prerender": "ng run ClientApp:prerender"
   },
   "private": true,
