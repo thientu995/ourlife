@@ -38,7 +38,7 @@
       <div class="uk-width-1-1">
         <i class="uk-text-muted uk-text-meta">{{item.album.description}}</i>
       </div>
-      <app-image-lightbox [images]="item.galleryImages" [id]="'Album_'+item.album.id" style="width:100%">
+      <app-image-lightbox [objImg]="item" [id]="'Album_'+item.album.id" style="width:100%">
       </app-image-lightbox>
     </div>
   </div>

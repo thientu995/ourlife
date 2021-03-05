@@ -76,29 +76,28 @@ export class AlbumComponent implements OnInit {
     });
   }
 
-
   ngAfterViewInit() {
     this.RoutePage();
-    this.appComponent.loadComplete();
   }
 
   RoutePage() {
     let idRoute = this.activeRoute.snapshot.params['id'];
     if (idRoute) {
       let index = this.activeRoute.snapshot.params['index'] || 0;
-      this.imgLightBox.changes.subscribe(() => {
+      this.imgLightBox.changes.subscribe((e) => {
         setTimeout(() => {
           this.viewAlbum(idRoute, index);
         });
       });
+    }
+    else {
+      this.appComponent.loadComplete();
     }
   }
 
   getGalleryImages(item) {
     return item.ListImage.map((value) => (
       Object.assign({
-        label: item.title,
-        description: item.description,
         small: value.getSizeImageMin('album_' + item.id),
         medium: value.getSizeImageMed('album_' + item.id),
         big: value.getSizeImageMax('album_' + item.id),
@@ -142,6 +141,7 @@ export class AlbumComponent implements OnInit {
     }
     else {
       this.closePreviewAlbum();
+      this.appComponent.loadComplete();
     }
   }
 

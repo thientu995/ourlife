@@ -1,5 +1,6 @@
 import { Location } from '@angular/common';
-import { Component, OnInit, ViewEncapsulation, Input, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input, ViewChildren, QueryList, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { AppComponent } from 'src/app/app.component';
 // import { PinchZoomComponent } from 'ngx-pinch-zoom';
 declare var UIkit: any;
 
@@ -13,7 +14,7 @@ export class ImageLightboxComponent implements OnInit {
   // @ViewChildren(PinchZoomComponent) myPinch: QueryList<PinchZoomComponent>;
 
   @Input()
-  images = [];
+  objImg: any;
 
   @Input()
   id = '';
@@ -21,115 +22,132 @@ export class ImageLightboxComponent implements OnInit {
   @Input()
   slideIndex = 0;
 
-  isOpenModal: boolean = false;
-  isAutoPlay: boolean = false;
-  idModal: string = '';
-  selector_Img: String = '';
-  slideshow: any;
-  slides: any;
+  options = {
+    isOpenModal: false,
+    isAutoPlay: false,
+    isAudio: false,
+    isDraggable: false,
+  }
+
+  settings = {
+    idModal: '',
+    selector_Img: '',
+    slideshow: null,
+    slides: null,
+    audio: null,
+    workerAutoPlay: null
+  };
+
   readonly timeAutoPlay = 10000;
   constructor(
+    private appComponent: AppComponent,
     private location: Location,
   ) { }
 
   ngOnInit(): void {
   }
 
-  openModal(index: number) {
-    this.isOpenModal = true;
-    this.idModal = 'imgModal' + this.id;
-    this.slideIndex = Number(index);
+  processSlideShow() {
     this.resetValue();
-    setTimeout(() => {
-      // UIkit.modal('#' + this.idModal).show();
-      this.slideshow = UIkit.slideshow('#' + this.idModal, {
+    if (this.options.isOpenModal) {
+      // UIkit.modal('#' + this.settings.idModal).show();
+      this.settings.slideshow = UIkit.slideshow('#' + this.settings.idModal, {
         autoplayInterval: this.timeAutoPlay,
         pauseOnHover: false,
         index: this.slideIndex,
+        draggable: !this.options.isAutoPlay,
         // minHeight: 200,
         // maxHeight: window.innerHeight
       });
-      this.slides = this.slideshow.slides;
+      this.settings.slides = this.settings.slideshow.slides;
+      if (this.objImg.album.audioLink != null && this.objImg.album.audioLink != '') {
+        this.settings.audio = this.appComponent.setAudio(this.objImg.album.audioLink);
+      }
+      else{
+        this.settings.audio = null;
+      }
       this.regisSlideShow();
+      this.appComponent.loadComplete();
+    }
+  }
+
+  openModal(index: number) {
+    this.options.isOpenModal = true;
+    this.settings.idModal = 'imgModal' + this.id;
+    this.slideIndex = Number(index);
+    setTimeout(() => {
+      this.processSlideShow();
     });
   }
 
   regisSlideShow() {
     this.setIndexImg();
-    UIkit.util.on('#' + this.idModal, 'itemshown', () => {
+    UIkit.util.on('#' + this.settings.idModal, 'itemshown', () => {
       this.setIndexImg();
     });
+    this.initWorkerAutoPlay();
   }
 
   setIndexImg() {
-    this.slideIndex = this.slideshow.index;
-    this.selector_Img = this.slides[this.slideIndex].childNodes[0].childNodes[0].getAttribute('src');
+    this.slideIndex = this.settings.slideshow.index;
+    this.settings.selector_Img = this.objImg.galleryImages[this.slideIndex].medium;
     this.location.replaceState('/album/' + this.id.replace('Album_', '') + '/' + this.slideIndex);
   }
 
   closeModal() {
     this.location.replaceState('/album');
-    this.isOpenModal = false;
-    this.slideshow = null;
-    this.slides = [];
+    this.options.isOpenModal = false;
+    this.dispose();
   }
 
-  resetValue(name: string = null, value: any = null) {
-    this.isAutoPlay = false;
-    if (name) {
-      this[name] = value;
-    }
-  }
-
-  plusSlides(n) {
+  dispose() {
+    this.settings.slideshow = null;
+    this.settings.audio = null;
+    this.settings.slides = [];
+    this.settings.workerAutoPlay.terminate();
     this.resetValue();
-    this.showSlides(this.slideIndex += n);
+    UIkit.slideshow('#' + this.settings.idModal).$destroy(true);
   }
 
-  currentSlide(n) {
-    this.resetValue();
-    this.showSlides(this.slideIndex = n);
+  resetValue() {
+    this.options.isAutoPlay = false;
+    this.options.isAudio = false;
   }
 
   showSlides(n: number) {
-    if (n > this.slides.length) { this.slideIndex = 1 }
-    if (n < 1) { this.slideIndex = this.slides.length }
-    UIkit.slideshow('#' + this.idModal).show(this.slideIndex);
+    if (n > this.settings.slides.length) { this.slideIndex = 1 }
+    if (n < 1) { this.slideIndex = this.settings.slides.length }
+    UIkit.slideshow('#' + this.settings.idModal).show(this.slideIndex);
   }
 
   autoPlay() {
-    this.resetValue('isAutoPlay', !this.isAutoPlay);
-    const proBar = document.getElementById('progressbar' + this.id);
-    let animate = null;
-    let next = () => {
-      clearInterval(animate);
-      if (this.isAutoPlay) {
-        this.showSlides(this.slideIndex += 1);
-        proBar.setAttribute('value', 0 + '');
-        setTimeout(() => {
-          progressbar();
-        }, 1000);
-      }
+    this.options.isAutoPlay = !this.options.isAutoPlay;
+    this.settings.workerAutoPlay.postMessage({ status: this.options.isAutoPlay ? 'run' : 'stop' });
+  }
+
+  playAudio() {
+    this.options.isAudio = !this.options.isAudio;
+    if (this.options.isAudio) {
+      this.settings.audio.play().then(x => { });
     }
-    let progressbar = () => {
-      const startDate = new Date().getTime();
-      proBar.setAttribute('value', 0 + '');
-      animate = setInterval(() => {
-        if (!this.isAutoPlay) {
-          this.isAutoPlay = false;
-          clearInterval(animate);
-        }
-        else {
-          const currentDate = new Date().getTime();
-          const percentage = currentDate - startDate;
-          proBar.setAttribute('value', ((percentage / this.timeAutoPlay) * 100).toFixed(0));
-          if (percentage > this.timeAutoPlay) {
-            proBar.setAttribute('value', 100 + '');
-            next();
-          }
-        }
-      }, 60);
+    else {
+      this.settings.audio.pause();
     }
-    progressbar();
+  }
+
+  initWorkerAutoPlay() {
+    if (this.settings.workerAutoPlay == null) {
+      this.settings.workerAutoPlay = new Worker('./image-lightbox.worker', { type: 'module' });
+      this.settings.workerAutoPlay.onmessage = ({ data }) => {
+        if (data == -1) {
+          this.showSlides(this.slideIndex += 1);
+        }
+        document.getElementById('progressbar' + this.id).setAttribute('value', data + '');
+        if (!this.options.isAutoPlay) {
+          this.settings.workerAutoPlay.postMessage({ status: 'stop' });
+        }
+      };
+      this.settings.workerAutoPlay.postMessage({ status: 'create', timeAutoPlay: this.timeAutoPlay });
+    }
   }
 }
