@@ -60,10 +60,10 @@ export class ImageLightboxComponent implements OnInit {
         // maxHeight: window.innerHeight
       });
       this.settings.slides = this.settings.slideshow.slides;
-      if (this.objImg.album.audioLink != null && this.objImg.album.audioLink != '') {
-        this.settings.audio = this.appComponent.setAudio(this.objImg.album.audioLink);
+      if (this.objImg.album.audioLinks != null && this.objImg.album.audioLinks != '') {
+        this.settings.audio = this.appComponent.setAudio(this.objImg.album.audioLinks);
       }
-      else{
+      else {
         this.settings.audio = null;
       }
       this.regisSlideShow();
@@ -85,6 +85,12 @@ export class ImageLightboxComponent implements OnInit {
     UIkit.util.on('#' + this.settings.idModal, 'itemshown', () => {
       this.setIndexImg();
     });
+    document.addEventListener('visibilitychange', () => {
+      if (this.options.isAutoPlay && document.visibilityState == 'visible') {
+        UIkit.slideshow('#' + this.settings.idModal).show(this.slideIndex);
+      }
+    });
+
     this.initWorkerAutoPlay();
   }
 
@@ -115,9 +121,10 @@ export class ImageLightboxComponent implements OnInit {
   }
 
   showSlides(n: number) {
-    if (n > this.settings.slides.length) { this.slideIndex = 1 }
-    if (n < 1) { this.slideIndex = this.settings.slides.length }
-    UIkit.slideshow('#' + this.settings.idModal).show(this.slideIndex);
+    this.slideIndex = n.getIndexLimited(this.settings.slides.length - 1);
+    if (document.visibilityState == 'visible') {
+      UIkit.slideshow('#' + this.settings.idModal).show(this.slideIndex);
+    }
   }
 
   autoPlay() {
@@ -128,7 +135,7 @@ export class ImageLightboxComponent implements OnInit {
   playAudio() {
     this.options.isAudio = !this.options.isAudio;
     if (this.options.isAudio) {
-      this.settings.audio.play().then(x => { });
+      this.appComponent.playAudio();
     }
     else {
       this.settings.audio.pause();

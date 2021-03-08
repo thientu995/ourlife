@@ -12,13 +12,15 @@ import { Router, NavigationStart, NavigationEnd, NavigationError, NavigationCanc
 export class AppComponent {
   @ViewChild('audio') audio: ElementRef;
   @ViewChild('content') content: ElementRef;
-  
+
   public message = null;
 
   title = 'ourlife';
   loadSuccess = false;
-  public menu = null;
+  lstAudio: string[] = null;
+  indexAudio: number = 0;
 
+  public menu = null;
   public footerImg = null;
   public footerText = null;
   public headerHero = '';
@@ -57,11 +59,12 @@ export class AppComponent {
         // }, 500);
       }
     });
+
   }
 
-  // ngAfterViewInit() {
-  //   this.loadComplete();
-  // }
+  ngAfterViewInit() {
+    setTimeout(() => { this.regsAudio() });
+  }
 
   public loadComplete() {
     setTimeout(() => {
@@ -69,10 +72,56 @@ export class AppComponent {
     }, 1000);
   }
 
-  public setAudio(src) {
+  regsAudio() {
     let audio = this.audio.nativeElement;
-    audio.src = src;
-    audio.load();
+    audio.addEventListener("ended", (e) => {
+      this.playAudioIndex(1);
+    });
+    audio.addEventListener("error", (e) => {
+      console.log("error", e)
+    });
+    audio.addEventListener("canplay", (e) => {
+      // console.log("canplay", e)
+    });
+    audio.addEventListener("loadeddata", () => {
+
+    });
+  }
+
+  loadAudio(src: string) {
+    let audio = this.audio.nativeElement;
+    if (src != null && src != '') {
+      // audio.crossOrigin = 'anonymous';
+      audio.src = src;
+      audio.currentTime = 0;
+      setTimeout(() => {
+        audio.load();
+      });
+    }
     return audio;
   }
+
+  playAudio() {
+    this.audio.nativeElement.play()
+      .then(x => { })
+      .catch((error) => {
+        this.playAudioIndex(1);
+      });
+  }
+
+  playAudioIndex(value: number) {
+    let audio = this.setIndexAudio(this.indexAudio += value);
+    this.playAudio();
+  }
+
+  setIndexAudio(index: number) {
+    this.indexAudio = index.getIndexLimited(this.lstAudio.length - 1);
+    return this.loadAudio(this.lstAudio[this.indexAudio]);
+  }
+
+  public setAudio(lstSrc: string[]) {
+    this.lstAudio = new String().randomOverlap(lstSrc).map(x => x.obj);
+    return this.setIndexAudio(0);
+  }
+
 }

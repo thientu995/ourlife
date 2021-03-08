@@ -9,7 +9,7 @@
           <div class="uk-navbar-left">
             <div class="uk-navbar-item uk-padding-remove-horizontal">
               <a class="uk-logo" title="Logo" routerLink="/">
-                <div class="site-logo">Tứ <span class="material-icons">favorite</span> Vy</div>
+                <div class="site-logo">Tứ <span class="material-icons" translate="no">favorite</span> Vy</div>
               </a>
             </div>
           </div>
@@ -18,7 +18,7 @@
             <ul class="uk-navbar-nav uk-navbar-toggle">
               <li routerLinkActive="uk-hidden" *ngFor="let item of menu" class="uk-navbar-item" style="padding: 0;">
                 <a routerLink="{{item.url}}" title="{{item.text}}" routerLinkActive="uk-active">
-                  <span class="icon-menu material-icons">{{item.icon}}</span> <span
+                  <span class="icon-menu material-icons" translate="no">{{item.icon}}</span> <span
                     class="uk-visible@m">{{item.text}}</span>
                 </a>
               </li>
@@ -39,7 +39,7 @@
                 <li routerLinkActive="uk-hidden" *ngFor="let item of menu" class="uk-padding-small">
                   <a routerLink="{{item.url}}" title="{{item.text}}" routerLinkActive="uk-active"
                     class="uk-offcanvas-close uk-position-relative">
-                    <span class="material-icons">{{item.icon}}</span> {{item.text}}
+                    <span class="material-icons" translate="no">{{item.icon}}</span> {{item.text}}
                   </a>
                 </li>
               </ul>
@@ -56,7 +56,7 @@
       <div class="uk-container uk-flex-auto top-container uk-position-relative"
         data-uk-parallax="y: 0,50; easing:0; opacity:0.2">
         <div data-uk-scrollspy="cls: uk-animation-slide-right-medium; target: > *; delay: 150">
-          <h1 class="uk-text-center">
+          <h1 class="uk-text-center" translate="no">
             <h3>Nguyễn Thiên Tứ</h3>
             <div class="countdown-heart" [ngStyle]="headerCountdown != null ? {'animation-duration': '.5s'} : {}"
               [innerHTML]="headerCountdown"></div>

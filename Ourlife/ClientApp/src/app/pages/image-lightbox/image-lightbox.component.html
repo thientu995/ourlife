@@ -40,40 +40,44 @@
         class="slide-modal-function uk-position-z-index uk-position-top-right uk-position-small uk-margin-large-right">
         <a class="slide-modal-icon uk-margin-small-right uk-button-default" (click)="playAudio()"
           *ngIf="settings.audio != null">
-          <span class="material-icons">{{options.isAudio ? 'music_note' : 'music_off'}}</span>
+          <span class="material-icons" translate="no">
+            {{options.isAudio ? 'music_note' : 'music_off'}}
+          </span>
         </a>
         <a class="slide-modal-icon uk-margin-small-right uk-button-default" (click)="autoPlay()">
-          <span class="material-icons">{{options.isAutoPlay ? 'pause_circle_outline' : 'play_circle_outline'}}</span>
+          <span class="material-icons" translate="no">
+            {{options.isAutoPlay ? 'pause_circle_outline' : 'play_circle_outline'}}
+          </span>
         </a>
         <a class="slide-modal-icon uk-margin-small-right uk-button-danger" (click)="closeModal()" routerLink="/album">
-          <span class="material-icons">close</span>
+          <span class="material-icons" translate="no">close</span>
         </a>
       </div>
 
       <!-- [attr.uk-slideshow]="{index: slideIndex, autoplayInterval: timeAutoPlay, draggable: !isAutoPlay}" -->
       <div class="slide-modal-content">
-        <div class="slide-modal-img-group-slides"
+        <div class="slide-modal-img-group-slides uk-animation"
           [attr.uk-slideshow]="'index:'+ slideIndex + '; draggable:'+ !options.isAutoPlay">
           <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
           <ul class="uk-slideshow-items" style="width:100%;height:100%">
-            <li *ngFor="let image of objImg.galleryImages; let i = index" [attr.index]="i"
+            <li *ngFor="let image of objImg.galleryImages; let i = index" [attr.index]="i" [ngClass]="image.animation"
               style="margin: 0;height: 100vh;width: 100vw;">
               <div class="uk-position-center">
                 <img data-srcset="{{image.srcSet}}" [lazyLoad]="image.small" class="slide-modal-img-slides">
               </div>
               <div
                 class="uk-overlay uk-overlay-primary uk-position-bottom-center uk-padding-small uk-text-center uk-transition-slide-bottom">
-                <p class="uk-margin-remove">{{i + 1}} / {{objImg.galleryImages.length}}</p>
+                <p class="uk-margin-remove" translate="no">{{i + 1}} / {{objImg.galleryImages.length}}</p>
               </div>
 
             </li>
           </ul>
           <div class="uk-light" *ngIf="!options.isAutoPlay">
             <a class="slide-modal-icon slide-modal-navigate uk-position-center-left" uk-slideshow-item="previous">
-              <span class="material-icons">navigate_before</span>
+              <span class="material-icons" translate="no">navigate_before</span>
             </a>
             <a class="slide-modal-icon slide-modal-navigate uk-position-center-right" uk-slideshow-item="next">
-              <span class="material-icons">navigate_next</span>
+              <span class="material-icons" translate="no">navigate_next</span>
             </a>
           </div>
         </div>

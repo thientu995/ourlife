@@ -1,4 +1,7 @@
-export { }
+export interface IObjRandom {
+  index: number,
+  obj: any,
+}
 declare global {
   interface String {
     getSizeImage(width?: number, group?: string): string;
@@ -7,12 +10,15 @@ declare global {
     getSizeImageMax(group?: string): string;
     getSrcSet(): string;
     md5(): string;
+    randomOverlap<T>(list: string[], count?: number): IObjRandom[];
   }
 
   interface Number {
     convertSecondsToDateTime(): string;
     pad(size): string;
+    getIndexLimited(max: number, min?: number): number;
   }
+
   function ConvertList<T>(): T[];
 
 }
@@ -279,6 +285,35 @@ Number.prototype.pad = function (size) {
   let s = String(this);
   while (s.length < (size || 2)) { s = "0" + s; }
   return s;
+}
+
+Number.prototype.getIndexLimited = function (max, min = 0) {
+  let s = Number(this);
+  if (s > max) { s = min }
+  else if (s < min) { s = max }
+  return s;
+}
+
+String.prototype.randomOverlap = function (list: string[], count?: number) {
+  function randomIndexImageAlbum(lst) {
+    return Math.floor(Math.random() * (lst.length + 1));
+  }
+
+  count = count || list.length;
+  let temp = list.slice();
+  let result: IObjRandom[] = [];
+  list.slice(0, count).forEach((value, index) => {
+    let indexImg = randomIndexImageAlbum(temp);
+    let obj = temp[indexImg];
+    temp = temp.filter(x => x != obj);
+    if (temp != null) {
+      result.push({
+        index: list.indexOf(obj),
+        obj: obj
+      });
+    }
+  });
+  return result;
 }
 
 // declare function ConvertList<T>(data: any) {

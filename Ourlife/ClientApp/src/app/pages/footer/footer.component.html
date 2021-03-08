@@ -7,14 +7,14 @@
         <h1 uk-sticky="bottom: true" class="section-title">Lời chúc</h1>
         <section class="uk-padding-small uk-section uk-section-xsmall uk-position-relative">
             <div class="uk-navbar-item uk-padding-small">
-                <div class="site-logo background-sub">Tứ <span class="material-icons">favorite</span> Vy</div>
+                <div class="site-logo background-sub">Tứ <span class="material-icons" translate="no">favorite</span> Vy</div>
                 <!-- <div class="site-logo background-sub">Tứ <span>&amp;</span> Vy</div> -->
             </div>
 
             <div class="uk-form-horizontal uk-light" *ngIf="appComponent.message != null && !isSendMessage">
                 <div class="uk-margin">
                     <label class="uk-form-label" for="form-horizontal-text">
-                        <span class="material-icons">how_to_reg</span> Tên</label>
+                        <span class="material-icons" translate="no">how_to_reg</span> Tên</label>
                     <div class="uk-form-controls">
                         <div class="uk-inline uk-width-1-1">
                             <input class="uk-input" type="text" placeholder="Nhập tên..."
@@ -24,7 +24,7 @@
                 </div>
                 <div class="uk-margin">
                     <label class="uk-form-label" for="form-horizontal-text">
-                        <span class="material-icons">forum</span> Lời chúc
+                        <span class="material-icons" translate="no">forum</span> Lời chúc
                     </label>
                     <div class="uk-form-controls">
                         <div class="uk-inline uk-width-1-1">
@@ -37,9 +37,9 @@
                 <div class="">
                     <button
                         class="uk-button uk-button-large uk-button-danger uk-width-1-5@l uk-width-1-6@m uk-width-1-1@s uk-float-right"
-                        (click)="sendMessage()"><span class="material-icons">send</span> Gửi</button>
+                        (click)="sendMessage()"><span class="material-icons" translate="no">send</span> Gửi</button>
                     <!-- <button class="uk-button uk-button-large uk-button-secondary uk-width-1-2" (click)="resetMessage()"><span
-                class="material-icons">undo</span> Soạn lại</button> -->
+                class="material-icons" translate="no">undo</span> Soạn lại</button> -->
                 </div>
             </div>
             <div class="uk-text-center uk-light" *ngIf="isSendMessage">
