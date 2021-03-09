@@ -38,18 +38,23 @@
     <div class="uk-position-relative">
       <div
         class="slide-modal-function uk-position-z-index uk-position-top-right uk-position-small uk-margin-large-right">
-        <a class="slide-modal-icon uk-margin-small-right uk-button-default" (click)="playAudio()"
-          *ngIf="settings.audio != null">
+        <a class="slide-modal-icon uk-button-default" (click)="playAudioIndex(-1)" *ngIf="objImg.album.audioLinks.length > 1 && options.isAudio">
+          <span class="material-icons" translate="no">skip_previous</span>
+        </a>
+        <a class="slide-modal-icon uk-button-default" (click)="playAudioIndex(1)" *ngIf="objImg.album.audioLinks.length > 1 && options.isAudio">
+          <span class="material-icons" translate="no">skip_next</span>
+        </a>
+        <a class="slide-modal-icon uk-button-default" (click)="playAudio()" *ngIf="settings.audio != null">
           <span class="material-icons" translate="no">
             {{options.isAudio ? 'music_note' : 'music_off'}}
           </span>
         </a>
-        <a class="slide-modal-icon uk-margin-small-right uk-button-default" (click)="autoPlay()">
+        <a class="slide-modal-icon uk-button-default" (click)="slideshow()">
           <span class="material-icons" translate="no">
             {{options.isAutoPlay ? 'pause_circle_outline' : 'play_circle_outline'}}
           </span>
         </a>
-        <a class="slide-modal-icon uk-margin-small-right uk-button-danger" (click)="closeModal()" routerLink="/album">
+        <a class="slide-modal-icon uk-button-danger" (click)="closeModal()" routerLink="/album">
           <span class="material-icons" translate="no">close</span>
         </a>
       </div>

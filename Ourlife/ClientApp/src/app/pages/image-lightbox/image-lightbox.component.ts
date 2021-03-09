@@ -127,12 +127,19 @@ export class ImageLightboxComponent implements OnInit {
     }
   }
 
-  autoPlay() {
+  slideshow() {
     this.options.isAutoPlay = !this.options.isAutoPlay;
     this.settings.workerAutoPlay.postMessage({ status: this.options.isAutoPlay ? 'run' : 'stop' });
+    this.playAudio(true);
   }
 
-  playAudio() {
+  playAudio(playOnly?: boolean) {
+    if(playOnly != null 
+    && playOnly
+    && playOnly == this.options.isAudio
+    ){
+      return;
+    }
     this.options.isAudio = !this.options.isAudio;
     if (this.options.isAudio) {
       this.appComponent.playAudio();
@@ -140,6 +147,10 @@ export class ImageLightboxComponent implements OnInit {
     else {
       this.settings.audio.pause();
     }
+  }
+
+  playAudioIndex(index: number){
+    this.appComponent.playAudioIndex(index);
   }
 
   initWorkerAutoPlay() {

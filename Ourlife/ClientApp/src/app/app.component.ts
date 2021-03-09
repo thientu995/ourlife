@@ -78,13 +78,14 @@ export class AppComponent {
       this.playAudioIndex(1);
     });
     audio.addEventListener("error", (e) => {
-      console.log("error", e)
+      console.error("error audio", e)
     });
     audio.addEventListener("canplay", (e) => {
+      console.log("canplay", e)
       // console.log("canplay", e)
     });
-    audio.addEventListener("loadeddata", () => {
-
+    audio.addEventListener("loadeddata", (e) => {
+      console.log("loadeddata", e)
     });
   }
 
@@ -92,17 +93,16 @@ export class AppComponent {
     let audio = this.audio.nativeElement;
     if (src != null && src != '') {
       // audio.crossOrigin = 'anonymous';
-      audio.src = src;
-      audio.currentTime = 0;
-      setTimeout(() => {
+        audio.src = src;
+        audio.currentTime = 0;
         audio.load();
-      });
     }
     return audio;
   }
 
   playAudio() {
-    this.audio.nativeElement.play()
+    let audio = this.audio.nativeElement;
+    audio.play()
       .then(x => { })
       .catch((error) => {
         this.playAudioIndex(1);
@@ -110,13 +110,17 @@ export class AppComponent {
   }
 
   playAudioIndex(value: number) {
-    let audio = this.setIndexAudio(this.indexAudio += value);
-    this.playAudio();
+    let audio = this.setIndexAudio(this.indexAudio += value)
+    if(audio){
+      audio.pause();
+      audio.currentTime = 0;
+      this.playAudio();
+    }
   }
 
   setIndexAudio(index: number) {
     this.indexAudio = index.getIndexLimited(this.lstAudio.length - 1);
-    return this.loadAudio(this.lstAudio[this.indexAudio]);
+return this.loadAudio(this.lstAudio[this.indexAudio]);
   }
 
   public setAudio(lstSrc: string[]) {

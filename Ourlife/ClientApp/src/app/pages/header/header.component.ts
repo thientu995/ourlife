@@ -37,7 +37,6 @@ export class HeaderComponent implements AfterViewInit {
 
       let worker = new Worker('./header.worker', { type: 'module' });
       worker.onmessage = ({ data }) => {
-        console.log(data)
         this.headerCountdown = data;
       };
       worker.postMessage({
