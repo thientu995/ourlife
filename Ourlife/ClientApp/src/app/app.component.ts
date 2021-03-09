@@ -10,7 +10,7 @@ import { Router, NavigationStart, NavigationEnd, NavigationError, NavigationCanc
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
-  @ViewChild('audio') audio: ElementRef;
+  @ViewChild('audio') audio: ElementRef<HTMLAudioElement>;
   @ViewChild('content') content: ElementRef;
 
   public message = null;
@@ -63,7 +63,8 @@ export class AppComponent {
   }
 
   ngAfterViewInit() {
-    setTimeout(() => { this.regsAudio() });
+    this.regsAudio();
+    // setTimeout(() => { this.regsAudio() });
   }
 
   public loadComplete() {

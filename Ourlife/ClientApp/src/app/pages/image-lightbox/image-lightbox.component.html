@@ -38,10 +38,10 @@
     <div class="uk-position-relative">
       <div
         class="slide-modal-function uk-position-z-index uk-position-top-right uk-position-small uk-margin-large-right">
-        <a class="slide-modal-icon uk-button-default" (click)="playAudioIndex(-1)" *ngIf="objImg.album.audioLinks.length > 1 && options.isAudio">
+        <a class="slide-modal-icon uk-button-default" (click)="playAudioIndex(-1)" *ngIf="objImg.album.audioLinks != null && objImg.album.audioLinks.length > 1 && options.isAudio">
           <span class="material-icons" translate="no">skip_previous</span>
         </a>
-        <a class="slide-modal-icon uk-button-default" (click)="playAudioIndex(1)" *ngIf="objImg.album.audioLinks.length > 1 && options.isAudio">
+        <a class="slide-modal-icon uk-button-default" (click)="playAudioIndex(1)" *ngIf="objImg.album.audioLinks != null && objImg.album.audioLinks.length > 1 && options.isAudio">
           <span class="material-icons" translate="no">skip_next</span>
         </a>
         <a class="slide-modal-icon uk-button-default" (click)="playAudio()" *ngIf="settings.audio != null">

@@ -60,7 +60,7 @@ export class ImageLightboxComponent implements OnInit {
         // maxHeight: window.innerHeight
       });
       this.settings.slides = this.settings.slideshow.slides;
-      if (this.objImg.album.audioLinks != null && this.objImg.album.audioLinks != '') {
+      if (this.objImg.album.audioLinks != null) {
         this.settings.audio = this.appComponent.setAudio(this.objImg.album.audioLinks);
       }
       else {
@@ -107,11 +107,11 @@ export class ImageLightboxComponent implements OnInit {
   }
 
   dispose() {
+    this.resetValue();
     this.settings.slideshow = null;
     this.settings.audio = null;
     this.settings.slides = [];
     this.settings.workerAutoPlay.terminate();
-    this.resetValue();
     UIkit.slideshow('#' + this.settings.idModal).$destroy(true);
   }
 
@@ -155,7 +155,7 @@ export class ImageLightboxComponent implements OnInit {
 
   initWorkerAutoPlay() {
     if (this.settings.workerAutoPlay == null) {
-      this.settings.workerAutoPlay = new Worker('./image-lightbox.worker', { type: 'module' });
+      this.settings.workerAutoPlay = new Worker('./image-lightbox.worker', { type: 'module', name: 'image-lightbox.worker' });
       this.settings.workerAutoPlay.onmessage = ({ data }) => {
         if (data == -1) {
           this.showSlides(this.slideIndex += 1);
