@@ -76,7 +76,7 @@
         <div class="fj-gallery-item" *ngFor="let image of item.ListImage.slice(0, 12), let iImg = index">
           <!-- {{randomIndexImageAlbum(item.ListImage)}} -->
           <a routerLink="/album/{{item.id}}/{{image.split('::')[0]}}">
-            <img [lazyLoad]="image.split('::')[1].getSizeImageMin('album_' + item.id)"
+            <img class="uk-box-shadow-large" [lazyLoad]="image.split('::')[1].getSizeImageMin('album_' + item.id)"
               data-srcset="{{image.split('::')[1].getSrcSet('album_' + item.id)}}">
           </a>
         </div>

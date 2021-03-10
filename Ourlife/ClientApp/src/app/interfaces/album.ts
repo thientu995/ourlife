@@ -1,6 +1,7 @@
 export interface IAlbum {
     ListImage: string[],
     albumCategory: string,
+    albumAlbum: string,
     audioLink: string,
     isShowHome: boolean,
     createDateLink: any,
@@ -9,4 +10,9 @@ export interface IAlbum {
     id: string,
     title: string,
     order: number,
+}
+
+export interface IAlbumAudio {
+    links: string[],
+    title: string,
 }

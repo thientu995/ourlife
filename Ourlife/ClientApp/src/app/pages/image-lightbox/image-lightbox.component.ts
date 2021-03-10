@@ -1,6 +1,8 @@
 import { Location } from '@angular/common';
 import { Component, OnInit, ViewEncapsulation, Input, ViewChildren, QueryList, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { AppComponent } from 'src/app/app.component';
+import { IAlbumAudio } from 'src/app/interfaces/album';
+import { GetDataService } from 'src/app/services/get-data.service';
 // import { PinchZoomComponent } from 'ngx-pinch-zoom';
 declare var UIkit: any;
 
@@ -15,6 +17,9 @@ export class ImageLightboxComponent implements OnInit {
 
   @Input()
   objImg: any;
+
+  @Input()
+  audio: any;
 
   @Input()
   id = '';
@@ -35,13 +40,16 @@ export class ImageLightboxComponent implements OnInit {
     slideshow: null,
     slides: null,
     audio: null,
+    audioLinks: [],
     workerAutoPlay: null
   };
+  albumAudio: any = null;
 
   readonly timeAutoPlay = 10000;
   constructor(
     private appComponent: AppComponent,
     private location: Location,
+    private dataService: GetDataService
   ) { }
 
   ngOnInit(): void {
@@ -60,12 +68,13 @@ export class ImageLightboxComponent implements OnInit {
         // maxHeight: window.innerHeight
       });
       this.settings.slides = this.settings.slideshow.slides;
-      if (this.objImg.album.audioLinks != null) {
-        this.settings.audio = this.appComponent.setAudio(this.objImg.album.audioLinks);
+      if (this.objImg.audio != null && this.objImg.audio.links != null && this.objImg.audio.links.length > 0) {
+        this.settings.audioLinks = this.objImg.audio.links;
       }
       else {
-        this.settings.audio = null;
+        this.appComponent.disposeAudio();
       }
+      this.settings.audio = this.appComponent.setAudio(this.settings.audioLinks);
       this.regisSlideShow();
       this.appComponent.loadComplete();
     }
@@ -102,7 +111,6 @@ export class ImageLightboxComponent implements OnInit {
 
   closeModal() {
     this.location.replaceState('/album');
-    this.options.isOpenModal = false;
     this.dispose();
   }
 
@@ -110,13 +118,18 @@ export class ImageLightboxComponent implements OnInit {
     this.resetValue();
     this.settings.slideshow = null;
     this.settings.audio = null;
+    this.settings.audioLinks = [];
     this.settings.slides = [];
     this.settings.workerAutoPlay.terminate();
     UIkit.slideshow('#' + this.settings.idModal).$destroy(true);
+    this.options.isOpenModal = false;
   }
 
   resetValue() {
-    this.options.isAutoPlay = false;
+    if (this.options.isAudio) {
+      this.options.isAutoPlay = false;
+      this.appComponent.disposeAudio();
+    }
     this.options.isAudio = false;
   }
 
@@ -134,10 +147,10 @@ export class ImageLightboxComponent implements OnInit {
   }
 
   playAudio(playOnly?: boolean) {
-    if(playOnly != null 
-    && playOnly
-    && playOnly == this.options.isAudio
-    ){
+    if (playOnly != null
+      && playOnly
+      && playOnly == this.options.isAudio
+    ) {
       return;
     }
     this.options.isAudio = !this.options.isAudio;
@@ -149,12 +162,12 @@ export class ImageLightboxComponent implements OnInit {
     }
   }
 
-  playAudioIndex(index: number){
+  playAudioIndex(index: number) {
     this.appComponent.playAudioIndex(index);
   }
 
   initWorkerAutoPlay() {
-    if (this.settings.workerAutoPlay == null) {
+    // if (this.settings.workerAutoPlay == null) {
       this.settings.workerAutoPlay = new Worker('./image-lightbox.worker', { type: 'module', name: 'image-lightbox.worker' });
       this.settings.workerAutoPlay.onmessage = ({ data }) => {
         if (data == -1) {
@@ -166,6 +179,6 @@ export class ImageLightboxComponent implements OnInit {
         }
       };
       this.settings.workerAutoPlay.postMessage({ status: 'create', timeAutoPlay: this.timeAutoPlay });
-    }
+    // }
   }
 }

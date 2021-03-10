@@ -94,9 +94,9 @@ export class AppComponent {
     let audio = this.audio.nativeElement;
     if (src != null && src != '') {
       // audio.crossOrigin = 'anonymous';
-        audio.src = src;
-        audio.currentTime = 0;
-        audio.load();
+      audio.src = src;
+      audio.currentTime = 0;
+      audio.load();
     }
     return audio;
   }
@@ -112,7 +112,7 @@ export class AppComponent {
 
   playAudioIndex(value: number) {
     let audio = this.setIndexAudio(this.indexAudio += value)
-    if(audio){
+    if (audio) {
       audio.pause();
       audio.currentTime = 0;
       this.playAudio();
@@ -120,8 +120,11 @@ export class AppComponent {
   }
 
   setIndexAudio(index: number) {
-    this.indexAudio = index.getIndexLimited(this.lstAudio.length - 1);
-return this.loadAudio(this.lstAudio[this.indexAudio]);
+    if (this.lstAudio.length > 0) {
+      this.indexAudio = index.getIndexLimited(this.lstAudio.length - 1);
+      return this.loadAudio(this.lstAudio[this.indexAudio]);
+    }
+    return null;
   }
 
   public setAudio(lstSrc: string[]) {
@@ -129,4 +132,9 @@ return this.loadAudio(this.lstAudio[this.indexAudio]);
     return this.setIndexAudio(0);
   }
 
+  public disposeAudio() {
+    let audio = this.audio.nativeElement;
+    audio.pause();
+    audio.src = '';
+  }
 }

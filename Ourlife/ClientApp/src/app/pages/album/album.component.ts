@@ -1,5 +1,5 @@
 import { ImageLightboxComponent } from './../image-lightbox/image-lightbox.component';
-import { IAlbum } from '../../interfaces/album';
+import { IAlbum, IAlbumAudio } from '../../interfaces/album';
 import { GetDataService } from '../../services/get-data.service';
 
 import { Location } from '@angular/common';
@@ -37,6 +37,7 @@ export class AlbumComponent implements OnInit {
 
   search: string = '';
   albumCategory: any = null;
+  albumAudio: any = null;
   album: any = null;
   result: any = null;
   selectorAlbumCategory: string = '*';
@@ -52,6 +53,7 @@ export class AlbumComponent implements OnInit {
   ) {
     this.search = '';
     this.albumCategory = null;
+    this.albumAudio = null;
     this.album = null;
     this.result = null;
     this.selectorAlbumCategory = '*';
@@ -59,20 +61,24 @@ export class AlbumComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.dataService.toListAsync<IAlbumAudio>({ collection: 'albumAudio' }, 'albumAudio').then(data => {
+      this.albumAudio = data;
+      this.dataService.toListAsync<IAlbum>({ collection: 'album' }, 'album').then(data => {
+        this.album = data.map((item) => (Object.assign({
+          album: item,
+          audio: this.albumAudio.find(x => x.id == item.albumAudio),
+          galleryImages: this.getGalleryImages(item)
+        }))).sort((a, b) => {
+          return new Date(b.album.date).getTime() - new Date(a.album.date).getTime();
+        });
+        this.result = this.album;
+      });
+    });
+
     this.dataService.toListAsync<IAlbum>({ collection: 'albumCategory' }, 'albumCategory').then(data => {
       this.albumCategory = data.sort((a, b) => {
         return a.order - b.order
       });
-    });
-
-    this.dataService.toListAsync<IAlbum>({ collection: 'album' }, 'album').then(data => {
-      this.album = data.map((item) => (Object.assign({
-        album: item,
-        galleryImages: this.getGalleryImages(item)
-      }))).sort((a, b) => {
-        return new Date(b.album.date).getTime() - new Date(a.album.date).getTime();
-      });
-      this.result = this.album;
     });
   }
 

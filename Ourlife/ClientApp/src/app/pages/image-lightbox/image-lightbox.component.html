@@ -38,10 +38,12 @@
     <div class="uk-position-relative">
       <div
         class="slide-modal-function uk-position-z-index uk-position-top-right uk-position-small uk-margin-large-right">
-        <a class="slide-modal-icon uk-button-default" (click)="playAudioIndex(-1)" *ngIf="objImg.album.audioLinks != null && objImg.album.audioLinks.length > 1 && options.isAudio">
+        <a class="slide-modal-icon uk-button-default" (click)="playAudioIndex(-1)"
+          *ngIf="settings.audioLinks != null && settings.audioLinks.length > 1 && options.isAudio">
           <span class="material-icons" translate="no">skip_previous</span>
         </a>
-        <a class="slide-modal-icon uk-button-default" (click)="playAudioIndex(1)" *ngIf="objImg.album.audioLinks != null && objImg.album.audioLinks.length > 1 && options.isAudio">
+        <a class="slide-modal-icon uk-button-default" (click)="playAudioIndex(1)"
+          *ngIf="settings.audioLinks != null && settings.audioLinks.length > 1 && options.isAudio">
           <span class="material-icons" translate="no">skip_next</span>
         </a>
         <a class="slide-modal-icon uk-button-default" (click)="playAudio()" *ngIf="settings.audio != null">
@@ -65,13 +67,14 @@
           [attr.uk-slideshow]="'index:'+ slideIndex + '; draggable:'+ !options.isAutoPlay">
           <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
           <ul class="uk-slideshow-items" style="width:100%;height:100%">
-            <li *ngFor="let image of objImg.galleryImages; let i = index" [attr.index]="i" [ngClass]="image.animation"
+            <li *ngFor="let image of objImg.galleryImages; let i = index" [attr.index]="i"
               style="margin: 0;height: 100vh;width: 100vw;">
               <div class="uk-position-center">
-                <img data-srcset="{{image.srcSet}}" [lazyLoad]="image.small" class="slide-modal-img-slides">
+                <img data-srcset="{{image.srcSet}}" [lazyLoad]="image.small"
+                  class="slide-modal-img-slides uk-box-shadow-large">
               </div>
               <div
-                class="uk-overlay uk-overlay-primary uk-position-bottom-center uk-padding-small uk-text-center uk-transition-slide-bottom">
+                class="uk-overlay uk-overlay-primary uk-position-bottom uk-padding-remove uk-text-center uk-transition-slide-bottom">
                 <p class="uk-margin-remove" translate="no">{{i + 1}} / {{objImg.galleryImages.length}}</p>
               </div>
 
