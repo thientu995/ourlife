@@ -91,7 +91,15 @@ export class ImageLightboxComponent implements OnInit {
 
   regisSlideShow() {
     this.setIndexImg();
+    let dateItemShow = new Date();
     UIkit.util.on('#' + this.settings.idModal, 'itemshown', () => {
+      if (new Date().getTime()- dateItemShow.getTime() < 1000) {// lap lai 2 lan
+        if (this.options.isAutoPlay) {
+          this.slideshow();
+        }
+        return;
+      }
+      dateItemShow = new Date();
       this.setIndexImg();
     });
     document.addEventListener('visibilitychange', () => {
@@ -163,22 +171,21 @@ export class ImageLightboxComponent implements OnInit {
   }
 
   playAudioIndex(index: number) {
+    //BUG: VUA SLIDESHOW + NHAN BUTTON CHUYEN BAI LIEN TUC BI DUNG?
     this.appComponent.playAudioIndex(index);
   }
 
   initWorkerAutoPlay() {
-    // if (this.settings.workerAutoPlay == null) {
-      this.settings.workerAutoPlay = new Worker('./image-lightbox.worker', { type: 'module', name: 'image-lightbox.worker' });
-      this.settings.workerAutoPlay.onmessage = ({ data }) => {
-        if (data == -1) {
-          this.showSlides(this.slideIndex += 1);
-        }
-        document.getElementById('progressbar' + this.id).setAttribute('value', data + '');
-        if (!this.options.isAutoPlay) {
-          this.settings.workerAutoPlay.postMessage({ status: 'stop' });
-        }
-      };
-      this.settings.workerAutoPlay.postMessage({ status: 'create', timeAutoPlay: this.timeAutoPlay });
-    // }
+    this.settings.workerAutoPlay = new Worker('./image-lightbox.worker', { type: 'module', name: 'image-lightbox.worker' });
+    this.settings.workerAutoPlay.onmessage = ({ data }) => {
+      if (data == -1) {
+        this.showSlides(this.slideIndex += 1);
+      }
+      document.getElementById('progressbar' + this.id).setAttribute('value', data + '');
+      if (!this.options.isAutoPlay) {
+        this.settings.workerAutoPlay.postMessage({ status: 'stop' });
+      }
+    };
+    this.settings.workerAutoPlay.postMessage({ status: 'create', timeAutoPlay: this.timeAutoPlay });
   }
 }

@@ -296,7 +296,7 @@ Number.prototype.getIndexLimited = function (max, min = 0) {
 
 String.prototype.randomOverlap = function (list: string[], count?: number) {
   function randomIndexImageAlbum(lst) {
-    return Math.floor(Math.random() * (lst.length + 1));
+    return Math.floor(Math.random() * (lst.length));
   }
 
   count = count || list.length;
@@ -305,12 +305,12 @@ String.prototype.randomOverlap = function (list: string[], count?: number) {
   list.slice(0, count).forEach((value, index) => {
     let indexImg = randomIndexImageAlbum(temp);
     let obj = temp[indexImg];
-    temp = temp.filter(x => x != obj);
-    if (temp != null) {
+    if (obj != null) {
       result.push({
         index: list.indexOf(obj),
         obj: obj
       });
+      temp = temp.filter(x => x != obj);
     }
   });
   return result;

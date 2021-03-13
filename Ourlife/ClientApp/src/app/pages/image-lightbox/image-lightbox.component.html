@@ -39,11 +39,11 @@
       <div
         class="slide-modal-function uk-position-z-index uk-position-top-right uk-position-small uk-margin-large-right">
         <a class="slide-modal-icon uk-button-default" (click)="playAudioIndex(-1)"
-          *ngIf="settings.audioLinks != null && settings.audioLinks.length > 1 && options.isAudio">
+          *ngIf="false &&settings.audioLinks != null && settings.audioLinks.length > 1 && options.isAudio">
           <span class="material-icons" translate="no">skip_previous</span>
         </a>
         <a class="slide-modal-icon uk-button-default" (click)="playAudioIndex(1)"
-          *ngIf="settings.audioLinks != null && settings.audioLinks.length > 1 && options.isAudio">
+          *ngIf="false && settings.audioLinks != null && settings.audioLinks.length > 1 && options.isAudio">
           <span class="material-icons" translate="no">skip_next</span>
         </a>
         <a class="slide-modal-icon uk-button-default" (click)="playAudio()" *ngIf="settings.audio != null">
@@ -64,7 +64,7 @@
       <!-- [attr.uk-slideshow]="{index: slideIndex, autoplayInterval: timeAutoPlay, draggable: !isAutoPlay}" -->
       <div class="slide-modal-content">
         <div class="slide-modal-img-group-slides uk-animation"
-          [attr.uk-slideshow]="'index:'+ slideIndex + '; draggable:'+ !options.isAutoPlay">
+          [attr.uk-slideshow]="{index: slideIndex,draggable: !options.isAutoPlay}">
           <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
           <ul class="uk-slideshow-items" style="width:100%;height:100%">
             <li *ngFor="let image of objImg.galleryImages; let i = index" [attr.index]="i"
