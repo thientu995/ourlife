@@ -10,7 +10,7 @@ export class AudioControlComponent implements OnInit {
   private links: string[];
   private indexAudio: number = 0;
 
-  public audio = new Audio();
+  public audio;
   // public funcMediaMetadata: any;
   public isReady = {
     play: false,
@@ -31,6 +31,9 @@ export class AudioControlComponent implements OnInit {
   }
 
   private createAudio() {
+    if (typeof Audio == "undefined") {
+      return;
+    }
     this.audio = new Audio();
     // this.audio.loop = true;
     //this.audio.crossOrigin = 'anonymous';
