@@ -10,15 +10,12 @@ import { Router, NavigationStart, NavigationEnd, NavigationError, NavigationCanc
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
-  @ViewChild('audio') audio: ElementRef<HTMLAudioElement>;
   @ViewChild('content') content: ElementRef;
 
   public message = null;
 
   title = 'ourlife';
   loadSuccess = false;
-  lstAudio: string[] = null;
-  indexAudio: number = 0;
 
   public menu = null;
   public footerImg = null;
@@ -33,6 +30,7 @@ export class AppComponent {
 
   ngOnInit(): void {
     this.dataService.getDataAsync<ISetting>({ collection: 'setting' }, 'setting').then(data => {
+      this.title = data.tagMeta.title;
       this.valueCountdown = new Date(data.countdown.value);
       this.dataService.setTitle(data.tagMeta.title);
       this.dataService.setMeta({ name: 'description', content: data.tagMeta.description });
@@ -63,8 +61,6 @@ export class AppComponent {
   }
 
   ngAfterViewInit() {
-    this.regsAudio();
-    // setTimeout(() => { this.regsAudio() });
   }
 
   public loadComplete() {
@@ -73,68 +69,4 @@ export class AppComponent {
     }, 1000);
   }
 
-  regsAudio() {
-    let audio = this.audio.nativeElement;
-    audio.addEventListener("ended", (e) => {
-      this.playAudioIndex(1);
-    });
-    audio.addEventListener("error", (e) => {
-      console.error("error audio", e)
-    });
-    audio.addEventListener("canplay", (e) => {
-      console.log("canplay", e)
-      // console.log("canplay", e)
-    });
-    audio.addEventListener("loadeddata", (e) => {
-      console.log("loadeddata", e)
-    });
-  }
-
-  loadAudio(src: string) {
-    let audio = this.audio.nativeElement;
-    if (src != null && src != '') {
-      // audio.crossOrigin = 'anonymous';
-      audio.src = src;
-      audio.currentTime = 0;
-      audio.load();
-    }
-    return audio;
-  }
-
-  playAudio() {
-    let audio = this.audio.nativeElement;
-    audio.play()
-      .then(x => { })
-      .catch((error) => {
-        this.playAudioIndex(1);
-      });
-  }
-
-  playAudioIndex(value: number) {
-    let audio = this.setIndexAudio(this.indexAudio += value)
-    if (audio) {
-      audio.pause();
-      audio.currentTime = 0;
-      this.playAudio();
-    }
-  }
-
-  setIndexAudio(index: number) {
-    if (this.lstAudio.length > 0) {
-      this.indexAudio = index.getIndexLimited(this.lstAudio.length - 1);
-      return this.loadAudio(this.lstAudio[this.indexAudio]);
-    }
-    return null;
-  }
-
-  public setAudio(lstSrc: string[]) {
-    this.lstAudio = new String().randomOverlap(lstSrc).map(x => x.obj);
-    return this.setIndexAudio(0);
-  }
-
-  public disposeAudio() {
-    let audio = this.audio.nativeElement;
-    audio.pause();
-    audio.src = '';
-  }
 }

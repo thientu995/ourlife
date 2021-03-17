@@ -1,10 +1,9 @@
-import { Location } from '@angular/common';
-import { Component, OnInit, ViewEncapsulation, Input, ViewChildren, QueryList, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { AppComponent } from 'src/app/app.component';
-import { IAlbumAudio } from 'src/app/interfaces/album';
-import { GetDataService } from 'src/app/services/get-data.service';
-// import { PinchZoomComponent } from 'ngx-pinch-zoom';
+import { AudioControlComponent } from '../audio-control/audio-control.component';
+import { Location } from '@angular/common';
+import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 declare var UIkit: any;
+declare var MediaMetadata: any;
 
 @Component({
   selector: 'app-image-lightbox',
@@ -13,7 +12,6 @@ declare var UIkit: any;
   encapsulation: ViewEncapsulation.None
 })
 export class ImageLightboxComponent implements OnInit {
-  // @ViewChildren(PinchZoomComponent) myPinch: QueryList<PinchZoomComponent>;
 
   @Input()
   objImg: any;
@@ -30,7 +28,6 @@ export class ImageLightboxComponent implements OnInit {
   options = {
     isOpenModal: false,
     isAutoPlay: false,
-    isAudio: false,
     isDraggable: false,
   }
 
@@ -48,8 +45,8 @@ export class ImageLightboxComponent implements OnInit {
   readonly timeAutoPlay = 10000;
   constructor(
     private appComponent: AppComponent,
+    public audioControlComponent: AudioControlComponent,
     private location: Location,
-    private dataService: GetDataService
   ) { }
 
   ngOnInit(): void {
@@ -72,11 +69,27 @@ export class ImageLightboxComponent implements OnInit {
         this.settings.audioLinks = this.objImg.audio.links;
       }
       else {
-        this.appComponent.disposeAudio();
+        this.audioControlComponent.disposeAudio();
       }
-      this.settings.audio = this.appComponent.setAudio(this.settings.audioLinks);
+      this.settings.audio = this.audioControlComponent.setAudio(this.settings.audioLinks);
       this.regisSlideShow();
       this.appComponent.loadComplete();
+    }
+  }
+
+  getMediaMetadata(src) {
+    if (MediaMetadata) {
+      return new MediaMetadata({
+        title: this.appComponent.title,
+        artist: this.objImg.album.title,
+        album: this.objImg.album.title,
+        artwork: [
+          { src: src },
+        ]
+      });
+    }
+    else {
+      return null;
     }
   }
 
@@ -93,10 +106,7 @@ export class ImageLightboxComponent implements OnInit {
     this.setIndexImg();
     let dateItemShow = new Date();
     UIkit.util.on('#' + this.settings.idModal, 'itemshown', () => {
-      if (new Date().getTime()- dateItemShow.getTime() < 1000) {// lap lai 2 lan
-        if (this.options.isAutoPlay) {
-          this.slideshow();
-        }
+      if (new Date().getTime() - dateItemShow.getTime() < 1000) {// lap lai 2 lan
         return;
       }
       dateItemShow = new Date();
@@ -104,7 +114,7 @@ export class ImageLightboxComponent implements OnInit {
     });
     document.addEventListener('visibilitychange', () => {
       if (this.options.isAutoPlay && document.visibilityState == 'visible') {
-        UIkit.slideshow('#' + this.settings.idModal).show(this.slideIndex);
+        this.settings.slideshow.show(this.slideIndex);
       }
     });
 
@@ -115,6 +125,7 @@ export class ImageLightboxComponent implements OnInit {
     this.slideIndex = this.settings.slideshow.index;
     this.settings.selector_Img = this.objImg.galleryImages[this.slideIndex].medium;
     this.location.replaceState('/album/' + this.id.replace('Album_', '') + '/' + this.slideIndex);
+    this.audioControlComponent.setMediaSessionMetadata(() => { return this.getMediaMetadata(this.settings.selector_Img) });
   }
 
   closeModal() {
@@ -134,18 +145,21 @@ export class ImageLightboxComponent implements OnInit {
   }
 
   resetValue() {
-    if (this.options.isAudio) {
-      this.options.isAutoPlay = false;
-      this.appComponent.disposeAudio();
-    }
-    this.options.isAudio = false;
+    this.options.isAutoPlay = false;
+    this.audioControlComponent.disposeAudio();
   }
 
   showSlides(n: number) {
     this.slideIndex = n.getIndexLimited(this.settings.slides.length - 1);
+    this.audioControlComponent.setMediaSessionMetadata(() => { return this.getMediaMetadata(this.objImg.galleryImages[this.slideIndex].medium) });
     if (document.visibilityState == 'visible') {
-      UIkit.slideshow('#' + this.settings.idModal).show(this.slideIndex);
+      this.settings.slideshow.show(this.slideIndex);
     }
+  }
+
+  showPreNext(n: number) {
+    this.slideIndex = this.slideIndex + n;
+    this.showSlides(this.slideIndex);
   }
 
   slideshow() {
@@ -157,29 +171,23 @@ export class ImageLightboxComponent implements OnInit {
   playAudio(playOnly?: boolean) {
     if (playOnly != null
       && playOnly
-      && playOnly == this.options.isAudio
+      && playOnly == !this.audioControlComponent.audio.paused
     ) {
       return;
     }
-    this.options.isAudio = !this.options.isAudio;
-    if (this.options.isAudio) {
-      this.appComponent.playAudio();
-    }
-    else {
-      this.settings.audio.pause();
-    }
+    this.audioControlComponent.playAudio();
   }
 
   playAudioIndex(index: number) {
     //BUG: VUA SLIDESHOW + NHAN BUTTON CHUYEN BAI LIEN TUC BI DUNG?
-    this.appComponent.playAudioIndex(index);
+    this.audioControlComponent.playAudioIndex(index);
   }
 
   initWorkerAutoPlay() {
     this.settings.workerAutoPlay = new Worker('./image-lightbox.worker', { type: 'module', name: 'image-lightbox.worker' });
     this.settings.workerAutoPlay.onmessage = ({ data }) => {
       if (data == -1) {
-        this.showSlides(this.slideIndex += 1);
+        this.showPreNext(1);
       }
       document.getElementById('progressbar' + this.id).setAttribute('value', data + '');
       if (!this.options.isAutoPlay) {

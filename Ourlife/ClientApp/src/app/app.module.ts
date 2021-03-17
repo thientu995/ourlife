@@ -1,3 +1,4 @@
+import { AudioControlComponent } from './pages/audio-control/audio-control.component';
 // import { HomeModule } from './pages/home/home.module';
 import { LazyLoadImageModule } from 'ng-lazyload-image'; 
 import { PinchZoomModule } from 'ngx-pinch-zoom';
@@ -20,6 +21,7 @@ import { FooterComponent } from './pages/footer/footer.component';
     AppComponent,
     HeaderComponent,
     FooterComponent,
+    AudioControlComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -30,7 +32,7 @@ import { FooterComponent } from './pages/footer/footer.component';
     LazyLoadImageModule,
     PinchZoomModule,
   ],
-  providers: [],
+  providers: [AudioControlComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { 

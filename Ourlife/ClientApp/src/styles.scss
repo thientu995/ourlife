@@ -3,7 +3,7 @@
 
 *,
 .uk-navbar-item,
-.uk-navbar-nav>li>a,
+.uk-navbar-nav > li > a,
 .uk-navbar-toggle {
   font-family: "Dancing Script";
   font-size: 20pt;
@@ -41,6 +41,10 @@ $material-icons-font-path: "~material-icons/iconfont/";
 .uk-button {
   text-transform: none;
   font-size: 100% !important;
+}
+
+.disable-event {
+  pointer-events: none;
 }
 
 html,
