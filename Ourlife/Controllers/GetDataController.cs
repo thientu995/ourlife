@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -91,6 +93,29 @@ namespace Ourlife.Controllers
                 server = weatherServer ?? new weatherdata(),
                 client = weatherRequest ?? new weatherdata(),
             });
+        }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> DownloadUrl(string url)
+        {
+            byte[] cacheEntry = await GetCacheAsync(url, () =>
+            {
+                using (var client = new WebClient())
+                {
+                    return client.DownloadDataTaskAsync(new Uri(url));
+                }
+            });
+            return File(cacheEntry, "audio/mpeg");
+        }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetIconSvg(int size = 512)
+        {
+            string pathStore = ConstFuncs.GetPathFolderRoot("icons");
+            string pathFull = Path.Combine(pathStore, "icon.svg");
+            string str = await System.IO.File.ReadAllTextAsync(pathFull);
+            str = str.Replace(@"width=""512""", $@"width=""{size}""").Replace(@"height=""512""", $@"height=""{size}""");
+            return File(str, "image/svg+xml");
         }
     }
 }

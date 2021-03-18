@@ -1,0 +1,20 @@
+{
+  "name": "Tu & Vy - Love Story",
+  "short_name": "Love Story",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f0bed2",
+  "theme_color": "#f0506e",
+  "icons": [
+    {
+     "src": "/icons/icon-144x144.svg",
+     "sizes": "144x144"
+    },
+    {
+     "src": "/icons/icon-512x512.svg",
+     "sizes": "512x512"
+    }
+   ],
+  "splash_pages": null
+}

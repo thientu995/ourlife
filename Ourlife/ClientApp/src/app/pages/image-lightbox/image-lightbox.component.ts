@@ -80,11 +80,16 @@ export class ImageLightboxComponent implements OnInit {
   getMediaMetadata(src) {
     if (MediaMetadata) {
       return new MediaMetadata({
-        title: this.appComponent.title,
-        artist: this.objImg.album.title,
-        album: this.objImg.album.title,
+        title: this.objImg.album.title,
+        artist: this.appComponent.title,
+        album: this.objImg.category.title,
         artwork: [
-          { src: src },
+          { src: src, type: 'image/jpeg', sizes: '96x96' },
+          { src: src, type: 'image/jpeg', sizes: '128x128' },
+          { src: src, type: 'image/jpeg', sizes: '192x192' },
+          { src: src, type: 'image/jpeg', sizes: '256x256' },
+          { src: src, type: 'image/jpeg', sizes: '384x384' },
+          { src: src, type: 'image/jpeg', sizes: '512x512' }
         ]
       });
     }

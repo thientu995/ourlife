@@ -17,6 +17,14 @@ if (environment.production) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  platformBrowserDynamic(providers).bootstrapModule(AppModule)
-  .catch(err => console.error(err));
+  platformBrowserDynamic(providers).bootstrapModule(AppModule).then(() => {
+    if ('serviceWorker' in navigator && environment.production) {
+      navigator.serviceWorker.register('/ngsw-worker.js').then(function (registration) {
+        console.log('Service Worker registration successful with scope: ', registration.scope);
+        registration.unregister().then(function(boolean) {});
+      }).catch(function (err) {
+        console.log('Service Worker registration failed: ', err)
+      })
+    }
+  }).catch(err => console.error(err));
 });

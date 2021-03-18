@@ -47,6 +47,10 @@ $material-icons-font-path: "~material-icons/iconfont/";
   pointer-events: none;
 }
 
+.enable-event {
+  pointer-events: all;
+}
+
 html,
 body,
 div,

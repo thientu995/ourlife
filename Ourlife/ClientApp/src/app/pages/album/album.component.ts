@@ -3,7 +3,7 @@ import { IAlbum, IAlbumAudio } from '../../interfaces/album';
 import { GetDataService } from '../../services/get-data.service';
 
 import { Location } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, ViewChildren, QueryList, ViewEncapsulation } from '@angular/core';
 import { AppComponent } from 'src/app/app.component';
 
@@ -47,7 +47,6 @@ export class AlbumComponent implements OnInit {
   constructor(
     private appComponent: AppComponent,
     private location: Location,
-    private router: Router,
     private activeRoute: ActivatedRoute,
     private dataService: GetDataService,
   ) {
@@ -63,23 +62,25 @@ export class AlbumComponent implements OnInit {
   ngOnInit(): void {
     this.dataService.toListAsync<IAlbumAudio>({ collection: 'albumAudio' }, 'albumAudio').then(data => {
       this.albumAudio = data;
-      this.dataService.toListAsync<IAlbum>({ collection: 'album' }, 'album').then(data => {
-        this.album = data.map((item) => (Object.assign({
-          album: item,
-          audio: this.albumAudio.find(x => x.id == item.albumAudio),
-          galleryImages: this.getGalleryImages(item)
-        }))).sort((a, b) => {
-          return new Date(b.album.date).getTime() - new Date(a.album.date).getTime();
+      this.dataService.toListAsync<IAlbum>({ collection: 'albumCategory' }, 'albumCategory').then(data => {
+        this.albumCategory = data.sort((a, b) => {
+          return a.order - b.order
         });
-        this.result = this.album;
+        this.dataService.toListAsync<IAlbum>({ collection: 'album' }, 'album').then(data => {
+          this.album = data.map((item) => (Object.assign({
+            album: item,
+            audio: this.albumAudio.find(x => x.id == item.albumAudio),
+            category: this.albumCategory.find(x => x.id == item.albumCategory),
+            galleryImages: this.getGalleryImages(item)
+          }))).sort((a, b) => {
+            return new Date(b.album.date).getTime() - new Date(a.album.date).getTime();
+          });
+          this.result = this.album;
+        });
       });
     });
 
-    this.dataService.toListAsync<IAlbum>({ collection: 'albumCategory' }, 'albumCategory').then(data => {
-      this.albumCategory = data.sort((a, b) => {
-        return a.order - b.order
-      });
-    });
+
   }
 
   ngAfterViewInit() {

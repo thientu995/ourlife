@@ -7,7 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +16,7 @@ import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from './pages/header/header.component';
 import { FooterComponent } from './pages/footer/footer.component';
 
+import { environment } from '../environments/environment';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,6 +32,9 @@ import { FooterComponent } from './pages/footer/footer.component';
     HttpClientModule,
     LazyLoadImageModule,
     PinchZoomModule,
+    ServiceWorkerModule.register('/ngsw-worker.js', {
+      enabled: environment.production
+    })
   ],
   providers: [AudioControlComponent],
   bootstrap: [AppComponent]

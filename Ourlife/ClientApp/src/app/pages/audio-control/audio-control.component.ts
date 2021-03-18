@@ -32,12 +32,19 @@ export class AudioControlComponent implements OnInit {
 
   private createAudio() {
     if (typeof Audio == "undefined") {
+      this.setAllValue(false);
       return;
     }
     this.audio = new Audio();
+    this.audio.preload = 'auto';
+    this.audio.type = 'audio/mpeg';
     // this.audio.loop = true;
-    //this.audio.crossOrigin = 'anonymous';
+    this.audio.crossOrigin = 'use-credentials';
+    this.regEvent();
+    this.regMediaSession();
+  }
 
+  private regEvent() {
     /**
      * lINK EVENT AUDIO: https://html.spec.whatwg.org/multipage/media.html#event-media-canplay
      */
@@ -56,6 +63,9 @@ export class AudioControlComponent implements OnInit {
     this.audio.addEventListener("canplaythrough", (e) => {
       this.isReady.next = this.isReady.prev = this.links.length > 2;
     }, false);
+  }
+
+  private regMediaSession() {
     if ('mediaSession' in navigator) {
       navigator.mediaSession.setActionHandler('previoustrack', () => {
         this.playAudioIndex(-1);
@@ -80,10 +90,9 @@ export class AudioControlComponent implements OnInit {
 
   private loadAudio(src: string) {
     if (src != null && src != '') {
-      // this.setMediaSessionMetadata();
-      this.audio.src = src;
+      this.audio.src = String["linkAPI"] + 'GetData/DownloadUrl?url=' + encodeURIComponent(src);
       this.audio.currentTime = 0;
-      this.audio.load();
+      // this.audio.load();
     }
     return this.audio;
   }
