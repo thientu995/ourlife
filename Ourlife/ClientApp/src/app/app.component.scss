@@ -25,7 +25,7 @@
 
     &::before {
       content: "";
-      background: url("/img/lotus/1.png") no-repeat center;
+      background: url("/assets/img/lotus/1.png") no-repeat center;
       background-size: contain;
       opacity: 0.1;
       position: absolute;
@@ -39,7 +39,7 @@
   // &:before {
   //   border: 2px solid #fff;
   //   border-radius: 100%;
-  //   background: $bkg-main url(/img/lotus.png) no-repeat center center;
+  //   background: $bkg-main url(/assets/img/lotus.png) no-repeat center center;
   //   background-size: contain;
   //   content: "";
   //   position: absolute;
@@ -52,7 +52,7 @@
   // &:after {
   //   border: 2px solid #fff;
   //   border-radius: 100%;
-  //   background: $bkg-main url(/img/lotus.png) no-repeat center center;
+  //   background: $bkg-main url(/assets/img/lotus.png) no-repeat center center;
   //   background-size: contain;
   //   content: "";
   //   position: absolute;
@@ -64,9 +64,9 @@
 }
 
 a,
-.uk-tab>*>a,
-.uk-navbar-nav>li>a,
-.uk-navbar-nav>li>a.uk-active,
+.uk-tab > * > a,
+.uk-navbar-nav > li > a,
+.uk-navbar-nav > li > a.uk-active,
 .uk-active,
 .uk-link-toggle,
 .uk-link {
@@ -85,12 +85,12 @@ a,
   }
 }
 
-.uk-navbar-nav>li>a.uk-active,
+.uk-navbar-nav > li > a.uk-active,
 .uk-active {
   color: $base-text-color-link-hover !important;
 }
 
-.uk-tab>.uk-active>a {
+.uk-tab > .uk-active > a {
   border-color: red;
 }
 
@@ -104,7 +104,6 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
   background-color: $bkg-main;
-
 }
 
 main,
@@ -113,7 +112,6 @@ main,
 }
 
 progress {
-
   // background-color: $bkg-main !important;
   // color: $bkg-main !important;
   &::-webkit-progress-value {
@@ -211,7 +209,7 @@ progress {
 .img-line {
   width: 100%;
   height: 5px;
-  background: url("/img/line.png") repeat-x;
+  background: url("/assets/img/line.png") repeat-x;
   position: absolute;
   z-index: 9;
 }
@@ -223,5 +221,15 @@ progress {
 // }
 
 .icon-funny {
+  display: block;
   height: 100px;
+
+  @for $i from 1 through 20 {
+    &.lotus#{$i} {
+      background-image: url("/assets/img/lotus/#{$i}.png");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+    }
+  }
 }

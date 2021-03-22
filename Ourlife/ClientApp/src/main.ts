@@ -19,9 +19,15 @@ if (environment.production) {
 document.addEventListener('DOMContentLoaded', () => {
   platformBrowserDynamic(providers).bootstrapModule(AppModule).then(() => {
     if ('serviceWorker' in navigator && environment.production) {
+      navigator.serviceWorker.getRegistrations().then(function (registrations) {
+        for (let registration of registrations) {
+          registration.unregister()
+        }
+      });
+
       navigator.serviceWorker.register('/ngsw-worker.js').then(function (registration) {
         console.log('Service Worker registration successful with scope: ', registration.scope);
-        registration.unregister().then(function(boolean) {});
+        registration.unregister().then(function (boolean) { });
       }).catch(function (err) {
         console.log('Service Worker registration failed: ', err)
       })

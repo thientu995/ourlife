@@ -64,7 +64,7 @@
   height: 2px;
   /* width will be set using JavaScript */
   // background: #dfdfdf;
-  background: url("/img/line.png") repeat-x center;
+  background: url("/assets/img/line.png") repeat-x center;
   -webkit-transition: -webkit-transform 0.4s;
   -moz-transition: -moz-transform 0.4s;
   transition: transform 0.4s;
@@ -216,7 +216,7 @@
   -ms-transform: translateX(-50%) translateY(-50%);
   -o-transform: translateX(-50%) translateY(-50%);
   transform: translateX(-50%) translateY(-50%);
-  // background: url(/img/arrow.svg) no-repeat 0 0;
+  // background: url(/assets/img/arrow.svg) no-repeat 0 0;
   // background-size: cover;
 }
 

@@ -33,7 +33,7 @@ String.prototype.getSizeImage = function (width: number = 2048, group: string = 
     let url = this.replace('https://', '').replace('http://', '') + '=s' + width + '-no';
     return String["linkAPI"] + 'GetData/Image/' + group + '/' + url.md5() + '?id=' + encodeURIComponent(url);
   }
-  return String["linkAPI_Home"] + 'img/loading.gif';
+  return String["linkAPI_Home"] + 'assets/img/loading.gif';
 }
 
 String.prototype.getSizeImageMin = function (group: string = '_nogroup') {
@@ -73,7 +73,7 @@ String.prototype.getSrcSet = function (group: string = '_nogroup') {
       getSrc(3840),
     ].filter(x => x != null).join(',');
   }
-  return String["linkAPI_Home"] + 'img/loading.gif';
+  return String["linkAPI_Home"] + 'assets/img/loading.gif';
 }
 
 String.prototype.md5 = function () {
