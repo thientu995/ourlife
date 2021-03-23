@@ -51,10 +51,12 @@ export class AppComponent {
         this.content.nativeElement.scrollIntoView();
       }
       else if (event instanceof NavigationEnd) {
-        // setTimeout(() => {
-        //   this.loadComplete();
-        //   this.content.nativeElement.scrollIntoView();
-        // }, 500);
+        setTimeout(() => {
+          if (!this.loadSuccess) {
+            this.loadComplete();
+          }
+          //   this.content.nativeElement.scrollIntoView();
+        }, 2000);
       }
     });
 

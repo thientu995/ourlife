@@ -18,19 +18,20 @@ if (environment.production) {
 
 document.addEventListener('DOMContentLoaded', () => {
   platformBrowserDynamic(providers).bootstrapModule(AppModule).then(() => {
-    if ('serviceWorker' in navigator && environment.production) {
+    if ('serviceWorker' in navigator) {
       navigator.serviceWorker.getRegistrations().then(function (registrations) {
         for (let registration of registrations) {
-          registration.unregister()
+          registration.unregister();
+        }
+        if (environment.production) {
+          navigator.serviceWorker.register('/ngsw-worker.js').then(function (registration) {
+            console.log('Service Worker registration successful with scope: ', registration.scope);
+            registration.unregister().then(function (boolean) { });
+          }).catch(function (err) {
+            console.log('Service Worker registration failed: ', err)
+          });
         }
       });
-
-      navigator.serviceWorker.register('/ngsw-worker.js').then(function (registration) {
-        console.log('Service Worker registration successful with scope: ', registration.scope);
-        registration.unregister().then(function (boolean) { });
-      }).catch(function (err) {
-        console.log('Service Worker registration failed: ', err)
-      })
     }
   }).catch(err => console.error(err));
 });
