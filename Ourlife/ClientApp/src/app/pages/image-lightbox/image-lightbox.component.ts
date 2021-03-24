@@ -189,7 +189,7 @@ export class ImageLightboxComponent implements OnInit {
   }
 
   initWorkerAutoPlay() {
-    this.settings.workerAutoPlay = new Worker('./image-lightbox.worker', { type: 'module', name: 'image-lightbox.worker' });
+    this.settings.workerAutoPlay = new Worker('./image-lightbox.worker', { type: 'module', name: 'image-lightbox' });
     this.settings.workerAutoPlay.onmessage = ({ data }) => {
       if (data == -1) {
         this.showPreNext(1);

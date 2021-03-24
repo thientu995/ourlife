@@ -35,7 +35,7 @@ export class HeaderComponent implements AfterViewInit {
       let dt = new Date(Number(data));
       this.currentDate = [dt.getDate().pad(2), (dt.getMonth() + 1).pad(2), dt.getFullYear().pad(4)].join('/');
 
-      let worker = new Worker('./header.worker', { type: 'module', name: 'header.worker' });
+      let worker = new Worker('./header.worker', { type: 'module', name: 'header' });
       worker.onmessage = ({ data }) => {
         this.headerCountdown = data;
       };

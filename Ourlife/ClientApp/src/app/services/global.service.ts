@@ -10,6 +10,8 @@ declare global {
     getSizeImageMax(group?: string): string;
     getSrcSet(): string;
     md5(): string;
+    GUID(): string;
+    replaceAll(strTarget: string, strSubString: string): string;
     randomOverlap<T>(list: string[], count?: number): IObjRandom[];
   }
 
@@ -26,6 +28,10 @@ declare global {
 // String["linkAPI_Home"] = 'http://localhost:9037/';
 String["linkAPI_Home"] = '/';
 String["linkAPI"] = String["linkAPI_Home"] + 'api/';
+
+/**
+ * GROUP STRING
+ */
 
 String.prototype.getSizeImage = function (width: number = 2048, group: string = '_nogroup') {
   if (this && this != '') {
@@ -277,23 +283,6 @@ String.prototype.md5 = function () {
   return temp.toLowerCase();
 }
 
-Number.prototype.convertSecondsToDateTime = function () {
-  return new Date(this * 1e3).toLocaleDateString("en-US");
-}
-
-Number.prototype.pad = function (size) {
-  let s = String(this);
-  while (s.length < (size || 2)) { s = "0" + s; }
-  return s;
-}
-
-Number.prototype.getIndexLimited = function (max, min = 0) {
-  let s = Number(this);
-  if (s > max) { s = min }
-  else if (s < min) { s = max }
-  return s;
-}
-
 String.prototype.randomOverlap = function (list: string[], count?: number) {
   function randomIndexImageAlbum(lst) {
     return Math.floor(Math.random() * (lst.length));
@@ -314,6 +303,81 @@ String.prototype.randomOverlap = function (list: string[], count?: number) {
     }
   });
   return result;
+}
+
+String.prototype.GUID = function () {
+  const unique = (typeof (window.crypto) != 'undefined' &&
+    typeof (window.crypto.getRandomValues) != 'undefined') ?
+    function () {
+      // If we have a cryptographically secure PRNG, use that
+      // https://stackoverflow.com/questions/6906916/collisions-when-generating-uuids-in-javascript
+      var buf = new Uint16Array(8);
+      window.crypto.getRandomValues(buf);
+      var S4 = function (num) {
+        var ret = num.toString(16);
+        while (ret.length < 4) {
+          ret = "0" + ret;
+        }
+        return ret;
+      };
+      return (S4(buf[0]) + S4(buf[1]) + "-" + S4(buf[2]) + "-" + S4(buf[3]) + "-" + S4(buf[4]) + "-" + S4(buf[5]) + S4(buf[6]) + S4(buf[7]));
+    }
+
+    :
+
+    function () {
+      // Otherwise, just use Math.random
+      // https://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript/2117523#2117523
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+    };
+
+  return (this != '-') ? unique().replaceAll('-', this) : unique()
+}
+
+String.prototype.replaceAll = function (
+  strTarget, // The substring you want to replace
+  strSubString // The string you want to replace in.
+) {
+  var strText = this;
+  var intIndexOfMatch = strText.indexOf(strTarget);
+
+  // Keep looping while an instance of the target string
+  // still exists in the string.
+  while (intIndexOfMatch != -1) {
+    // Relace out the current instance.
+    strText = strText.replace(strTarget, strSubString)
+
+    // Get the index of any next matching substring.
+    intIndexOfMatch = strText.indexOf(strTarget);
+  }
+
+  // Return the updated string with ALL the target strings
+  // replaced out with the new substring.
+  return (strText);
+}
+
+/**
+ * GROUP NUMBER
+ */
+
+Number.prototype.convertSecondsToDateTime = function () {
+  return new Date(this * 1e3).toLocaleDateString("en-US");
+}
+
+Number.prototype.pad = function (size) {
+  let s = String(this);
+  while (s.length < (size || 2)) { s = "0" + s; }
+  return s;
+}
+
+Number.prototype.getIndexLimited = function (max, min = 0) {
+  let s = Number(this);
+  if (s > max) { s = min }
+  else if (s < min) { s = max }
+  return s;
 }
 
 // declare function ConvertList<T>(data: any) {
