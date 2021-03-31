@@ -1,7 +1,8 @@
 import { GetDataService } from './services/get-data.service';
-import { Component, ElementRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, Inject, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ISetting } from './interfaces/setting';
 import { Router, NavigationStart, NavigationEnd, NavigationError, NavigationCancel, RoutesRecognized } from '@angular/router';
+import { makeStateKey, TransferState } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,7 @@ export class AppComponent {
   @ViewChild('content') content: ElementRef;
 
   public message = null;
-
+  data = '';
   title = 'ourlife';
   loadSuccess = false;
 
@@ -24,8 +25,15 @@ export class AppComponent {
   public valueCountdown: Date = null;
   constructor(
     private dataService: GetDataService,
-    private router: Router
+    private router: Router,
+    private state: TransferState,
+    @Inject('MESSAGE') dataInj: any
   ) {
+    this.data = this.state.get(makeStateKey("MESSAGE"), null as any);
+    if (!this.data) {
+      this.state.set(makeStateKey("MESSAGE"), dataInj as any);
+    }
+    console.log(this.data)
   }
 
   ngOnInit(): void {

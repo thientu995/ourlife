@@ -4,7 +4,7 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { PinchZoomModule } from 'ngx-pinch-zoom';
 
 import { HttpClientModule } from '@angular/common/http';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, BrowserTransferStateModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -26,6 +26,7 @@ import { environment } from '../environments/environment';
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    BrowserTransferStateModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,

@@ -69,6 +69,9 @@ namespace Ourlife
             {
                 options.HttpsPort = 443;
             });
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromHours(1);
+            });
             services.AddMvc(options =>
             {
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
@@ -118,6 +121,8 @@ namespace Ourlife
             app.UseStaticFiles(StaticFileOptions(antiforgery));
             app.UseSpaStaticFiles(StaticFileOptions(antiforgery));
 
+            app.UseSession();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -150,6 +155,12 @@ namespace Ourlife
                     options.BootModuleBuilder = null;
 
                     options.ExcludeUrls = new[] { "/sockjs-node" };
+
+                    // This method cannot be async anymore
+                    options.SupplyData = (context, data) =>
+                    {
+                        data.Add("message", context.Session.GetString("GUID"));
+                    };
                 });
 
                 //if (env.IsDevelopment())

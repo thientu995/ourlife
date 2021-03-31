@@ -14,12 +14,12 @@ const getBaseUrl = (params: BootFuncParams) => {
 
 export default createServerRenderer(params => {
   const { AppServerModule, AppServerModuleNgFactory, LAZY_MODULE_MAP } = (module as any).exports;
-
   const providers: StaticProvider[] = [
     { provide: APP_BASE_HREF, useValue: params.baseUrl },
     { provide: 'BOOT_PARAMS', useValue: params },
     { provide: 'BASE_URL', useFactory: getBaseUrl, deps: ['BOOT_PARAMS'] },
-    // { provide: 'SERVERSIDE', useValue: true },
+    { provide: 'SERVERSIDE', useValue: true },
+    { provide: 'MESSAGE', useValue: 'message' in params.data ? params.data['message'] : null },
   ];
 
   const options = {
