@@ -103,8 +103,12 @@ namespace Ourlife.Models
             long RequestDateTime = DateTime.Now.Ticks;
             File.WriteAllTextAsync(Path.Combine(folderLogDate, RequestDateTime + ".html"), infoDetail.ToString());
             File.WriteAllTextAsync(Path.Combine(folderLogDate, RequestDateTime + ".json"), DictionaryToJson(dicError));
-            return "<h1>Error " + this.RequestStatusCode + " - " + RequestDateTime + "!</h1>"
-                + "<em>" + errorMessage.Replace("\n", "<br>") + "</em>";
+            string contentShowError = "<h1>Error " + this.RequestStatusCode + " - " + RequestDateTime + "!</h1>";
+            if (!errorMessage.Contains(Directory.GetCurrentDirectory()))
+            {
+                contentShowError += "<em>" + errorMessage.Replace("\n", "<br>") + "</em>";
+            }
+            return contentShowError;
         }
 
         public Dictionary<string, List<string>> GetList()
