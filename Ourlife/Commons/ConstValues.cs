@@ -18,7 +18,16 @@ namespace Ourlife.Commons
                 Directory.GetCurrentDirectory(),
                 "wwwroot",
         };
-        public static readonly TimeSpan expCache = DateTime.Now.AddDays(1).AddTicks(-1).TimeOfDay;
+
+        public static TimeSpan tsExpCache
+        {
+            get { return ConstValues.dtExpCache.TimeOfDay; }
+        }
+
+        public static DateTime dtExpCache
+        {
+            get { return DateTime.Now.Date.AddDays(1).AddTicks(-1); }
+        }
 
         public const float lat_DongThap = 10.5826829f;
         public const float lon_DongThap = 105.3834025f;

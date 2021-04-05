@@ -77,6 +77,10 @@ namespace Ourlife.Controllers
         [HttpPost("[action]")]
         public IActionResult Date()
         {
+            if (string.IsNullOrWhiteSpace(HttpContext.Session.GetString("GUID")))//Test Session
+            {
+                HttpContext.Session.SetString("GUID", Guid.NewGuid().ToString());
+            }
             long UnixEpochTicks = (new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).Ticks;
             return Json((DateTime.Now.ToUniversalTime().Ticks - UnixEpochTicks) / 10000);
         }

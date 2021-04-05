@@ -93,15 +93,15 @@ namespace Ourlife.Controllers
 
         private MemoryCacheEntryOptions setMemoryOption()
         {
-            return new MemoryCacheEntryOptions().SetSlidingExpiration(ConstValues.expCache);
+            return new MemoryCacheEntryOptions().SetSlidingExpiration(ConstValues.tsExpCache);
         }
 
         private void SetHeader()
         {
             if ((string)Response.Headers[HeaderNames.CacheControl] == null)
             {
-                Response.Headers[HeaderNames.CacheControl] = "public,max-age=" + (int)ConstValues.expCache.TotalSeconds + ",must-revalidate";
-                Response.Headers[HeaderNames.Expires] = new[] { ConstValues.expCache.TotalSeconds.ToString("R") }; // Format RFC1123
+                Response.Headers[HeaderNames.CacheControl] = "public,max-age=" + (int)ConstValues.tsExpCache.TotalSeconds + ",must-revalidate";
+                Response.Headers[HeaderNames.Expires] = new[] { ConstValues.tsExpCache.TotalSeconds.ToString("R") }; // Format RFC1123
                 Response.StatusCode = StatusCodes.Status200OK;
             }
         }
