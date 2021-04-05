@@ -21,7 +21,10 @@ export class AppComponent {
   public menu = null;
   public footerImg = null;
   public footerText = null;
-  public headerHero = '';
+  public headerHero = {
+    img: '',
+    videoMP4: ''
+  };
   public valueCountdown: Date = null;
   constructor(
     private dataService: GetDataService,
@@ -43,8 +46,9 @@ export class AppComponent {
       this.dataService.setTitle(data.tagMeta.title);
       this.dataService.setMeta({ name: 'description', content: data.tagMeta.description });
 
-      this.headerHero = data.hero.src;
-
+      this.headerHero.img = data.hero.src;
+      this.headerHero.videoMP4 = data.hero.srcVideoMP4 || null;
+      
       this.footerImg = {
         'background-image': 'url("' + data.footer.src.getSizeImage() + '")'
       }

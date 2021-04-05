@@ -66,10 +66,19 @@
       </div>
       <!-- /TOP CONTAINER -->
 
-      <!-- TOP IMAGE -->
-      <img src="{{appComponent.headerHero.getSizeImageMin()}}" data-srcset="{{appComponent.headerHero.getSrcSet()}}"
-          data-sizes="100vw" alt="" data-uk-cover data-uk-img data-uk-parallax="opacity: 1,0.1; easing:0">
-      <!-- /TOP IMAGE -->
+      <!-- TOP MEDIA -->
+      <img *ngIf="appComponent.headerHero.videoMP4 == null" [src]="appComponent.headerHero.img.getSizeImageMin()"
+        [attr.dataSrcset]="appComponent.headerHero.img.getSrcSet()" data-sizes="100vw" alt="" data-uk-cover data-uk-img
+        data-uk-parallax="opacity: 1,0.1; easing:0">
+
+      <video *ngIf="appComponent.headerHero.videoMP4 != null" preload="auto" muted loop autoplay
+        [attr.poster]="appComponent.headerHero.img.getSizeImageMed()" [src]="appComponent.headerHero.videoMP4"
+        data-uk-cover data-uk-img data-uk-parallax="opacity: 1,0.1; easing:0" style="object-fit: cover;">
+        <img [src]="appComponent.headerHero.img.getSizeImageMin()"
+          [attr.dataSrcset]="appComponent.headerHero.img.getSrcSet()" data-sizes="100vw" alt="" data-uk-cover
+          data-uk-img data-uk-parallax="opacity: 1,0.1; easing:0">
+      </video>
+      <!-- /TOP MEDIA -->
 
     </div>
     <div class="uk-position-bottom-center uk-position-medium uk-position-z-index uk-text-center" style="z-index: 99;">
