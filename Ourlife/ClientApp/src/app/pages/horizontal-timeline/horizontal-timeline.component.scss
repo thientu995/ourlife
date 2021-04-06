@@ -238,7 +238,7 @@
 }
 
 .cd-timeline-navigation a.inactive {
-  // cursor: not-allowed;
+  cursor: not-allowed !important;
 }
 
 .cd-timeline-navigation a.inactive::after {

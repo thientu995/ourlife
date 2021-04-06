@@ -46,17 +46,17 @@
   <div class="timeline">
     <ul class="uk-grid">
       <li class="uk-width-1-2@m uk-width-1-1@s uk-text-left">
-        <a href="#" (click)="onScrollClick($event, false, true)" [ngClass]="{'inactive':prevLinkInactive}"
+        <button (click)="onScrollClick($event, false, true)" [ngClass]="{'inactive':prevLinkInactive}" [disabled]="prevLinkInactive"
           class="uk-button uk-button-large uk-button-danger" style="width: 100%">
           <span class="material-icons" translate="no">arrow_back_ios</span> Quay lại
-        </a>
+        </button>
       </li>
       <li class="uk-hidden@m uk-margin-bottom"></li>
       <li class="uk-width-1-2@m uk-width-1-1@s uk-text-right">
-        <a href="#" (click)="onScrollClick($event, true, true)" [ngClass]="{'inactive':nextLinkInactive}"
+        <button (click)="onScrollClick($event, true, true)" [ngClass]="{'inactive':nextLinkInactive}" [disabled]="nextLinkInactive"
           class="uk-button uk-button-large uk-button-danger" style="width: 100%">
           Đọc tiếp <span class="material-icons" translate="no">arrow_forward_ios</span>
-        </a>
+        </button>
       </li>
     </ul>
   </div>

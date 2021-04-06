@@ -222,7 +222,7 @@ export class HorizontalTimelineComponent implements AfterViewInit {
     // this.updateSlide(this.eventsWrapperWidth, forward);
     this.showNewContent(event, forward);
     this._cdr.detectChanges();
-    if(scroll){
+    if (scroll) {
       this.eventsWrapper.nativeElement.scrollIntoView();
     }
   }
@@ -263,6 +263,11 @@ export class HorizontalTimelineComponent implements AfterViewInit {
     });
     this.selectedIndex = this._timelineElements.indexOf(selectedItem);
     selectedItem.selected = true;
+
+    // update navigation arrows visibility
+    this.prevLinkInactive = this.selectedIndex == 0;
+    this.nextLinkInactive = this.selectedIndex == this._timelineElements.length - 1;
+    
     this.updateFilling(element);
     this._cdr.detectChanges();
   }
@@ -306,9 +311,7 @@ export class HorizontalTimelineComponent implements AfterViewInit {
     // value = Math.abs(value) > window.innerWidth ? value - (window.innerWidth / 2) : value;
 
     HorizontalTimelineComponent.setTransformValue(this.eventsWrapper.nativeElement, 'translateX', value + 'px');
-    // update navigation arrows visibility
-    this.prevLinkInactive = value === 0;
-    this.nextLinkInactive = value === totWidth;
+    
     window.dispatchEvent(new Event('resize'));
   }
 
