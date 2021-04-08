@@ -35,22 +35,29 @@ namespace Ourlife.Models
             FileInfo file = new FileInfo(pathFull);
             if (!file.Exists || file.Length == 0)
             {
-                using (FileStream fs = file.Create())
+                using (var tw = new StreamWriter(pathFull, false))
                 {
-                    //lock (locker)
-                    {
-                        result = JsonConvert.SerializeObject(GetDataFirebase(param));
-                        byte[] bytes = new UTF8Encoding(true).GetBytes(result);
-                        if (bytes != null && bytes.Length != 0)
-                        {
-                            fs.Write(bytes, 0, bytes.Length);
-                        }
-                        else
-                        {
-                            file.Delete();
-                        }
-                    }
+                    result = JsonConvert.SerializeObject(GetDataFirebase(param));
+                    await tw.WriteLineAsync(result);
                 }
+
+                //using (FileStream fs = file.Create())
+                //{
+                //    //lock (locker)
+                //    {
+                //        byte[] bytes = new UTF8Encoding(true).GetBytes(result);
+                //        if (bytes != null && bytes.Length != 0)
+                //        {
+                //            fs.Write(bytes, 0, bytes.Length);
+                //        }
+                //        else
+                //        {
+                //            file.Delete();
+                //        }
+                //        fs.Close();
+                //        fs.Dispose();
+                //    }
+                //}
             }
             else
             {

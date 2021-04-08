@@ -1,6 +1,20 @@
 {
-    "index": "/index.html",
-    "assetGroups": [{
+  "index": "/index.html",
+  "dataGroups": [
+    {
+      "name": "api",
+      "urls": [
+        "/api"
+      ],
+      "cacheConfig": {
+        "maxSize": 0,
+        "maxAge": "0u",
+        "strategy": "freshness"
+      }
+    }
+  ],
+  "assetGroups": [
+    {
       "name": "app",
       "installMode": "lazy",
       "resources": {
@@ -8,7 +22,8 @@
           "/index.html"
         ]
       }
-    }, {
+    },
+    {
       "name": "assets",
       "installMode": "lazy",
       "updateMode": "prefetch",
@@ -16,8 +31,8 @@
         "files": [
           "/assets/**"
         ],
-        "urls": [
-        ]
+        "urls": []
       }
-    }]
-  }
+    }
+  ]
+}

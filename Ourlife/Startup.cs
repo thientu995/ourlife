@@ -38,7 +38,7 @@ namespace Ourlife
                     .AllowAnyMethod()
                 );
             });
-
+            services.AddDistributedMemoryCache();
             services.Configure<GzipCompressionProviderOptions>(options => options.Level = CompressionLevel.Fastest);
             services.AddResponseCompression(options =>
             {
@@ -69,8 +69,10 @@ namespace Ourlife
             {
                 options.HttpsPort = 443;
             });
-            services.AddSession(options => {
+            services.AddSession(options =>
+            {
                 options.IdleTimeout = TimeSpan.FromHours(1);
+                options.Cookie = new CookieBuilder { Name = "sid", SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Strict };
             });
             services.AddMvc(options =>
             {
@@ -101,8 +103,7 @@ namespace Ourlife
             }));
 
             app.UseCors();
-
-
+            app.UseSession();
             app.UseResponseCaching();
             app.UseResponseCompression();
 
@@ -121,39 +122,20 @@ namespace Ourlife
             app.UseStaticFiles(StaticFileOptions(antiforgery));
             app.UseSpaStaticFiles(StaticFileOptions(antiforgery));
 
-            app.UseSession();
-
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "api/{controller}/{action=Index}/{id?}");
             });
-            //app.UseCors("AllowAllHeaders");
 
             app.UseSpa(spa =>
             {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=864501
-
                 spa.Options.SourcePath = "ClientApp";
-
                 spa.UseSpaPrerendering(options =>
                 {
-                    // This is the path where angular generates the server build result
-                    // This path would be different when using React or Vue
                     options.BootModulePath = $"{spa.Options.SourcePath}/dist/ClientApp/server/main.js";
-
-                    // During development, let angular run the build:ssr command on each build.
-                    // Check the package.json to see what this command does.
-                    // When deploying your application on a production server, the ng build:ssr command will be executed to generate the server build.
-                    // Check the csproj file to see what commands are being run on publish.
-                    // The PublishRunWebpack target runs `npm install` `npm run build -- --prod` and `npm run build:ssr`
-                    //options.BootModuleBuilder = env.IsDevelopment()
-                    //    ? new AngularCliBuilder(npmScript: "build:ssr")
-                    //    : null;
                     options.BootModuleBuilder = null;
-
                     options.ExcludeUrls = new[] { "/sockjs-node" };
 
                     // This method cannot be async anymore
