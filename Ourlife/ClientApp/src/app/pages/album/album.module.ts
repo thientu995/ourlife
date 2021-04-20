@@ -1,3 +1,4 @@
+import { PipesModule } from './../../services/pipes.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -18,7 +19,8 @@ import { PinchZoomModule } from 'ngx-pinch-zoom';
     HttpClientModule,
     AlbumRoutingModule,
     LazyLoadImageModule,
-    PinchZoomModule
+    PipesModule,
+    PinchZoomModule,
   ]
 })
 export class AlbumModule { }

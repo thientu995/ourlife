@@ -25,7 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
           registration.unregister();
         }
         if (environment.production) {
-          navigator.serviceWorker.register('/ngsw-worker.js').then(function (registration) {
+          navigator.serviceWorker.register('/ngsw-worker.js', {
+            scope: '/'
+          }).then(function (registration) {
             console.log('Service Worker registration successful with scope: ', registration.scope);
             registration.unregister().then(function (boolean) { });
           }).catch(function (err) {

@@ -1,11 +1,12 @@
+import { PipesModule } from './services/pipes.module';
 import { AudioControlComponent } from './pages/audio-control/audio-control.component';
 // import { HomeModule } from './pages/home/home.module';
-import { LazyLoadImageModule } from 'ng-lazyload-image'; 
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { PinchZoomModule } from 'ngx-pinch-zoom';
 
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule, BrowserTransferStateModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
@@ -17,6 +18,7 @@ import { HeaderComponent } from './pages/header/header.component';
 import { FooterComponent } from './pages/footer/footer.component';
 
 import { environment } from '../environments/environment';
+import { CustomErrorHandler } from './services/error-log.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,13 +35,20 @@ import { environment } from '../environments/environment';
     HttpClientModule,
     LazyLoadImageModule,
     PinchZoomModule,
+    PipesModule,
     ServiceWorkerModule.register('/ngsw-worker.js', {
       enabled: environment.production
     })
   ],
-  providers: [AudioControlComponent],
+  providers: [
+    AudioControlComponent,
+    // {
+    //   provide: ErrorHandler,
+    //   useClass: CustomErrorHandler,
+    // },
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { 
-  
+export class AppModule {
+
 }

@@ -55,7 +55,8 @@ export class AudioControlComponent implements OnInit {
     }, false);
     this.audio.addEventListener("error", (e) => {
       this.setAllValue(false);
-      console.error("error audio", e)
+      throw e;
+      // console.error("error audio", e)
     }, false);
     this.audio.addEventListener("canplay", (e) => {
       this.isReady.play = true;

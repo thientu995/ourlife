@@ -7,8 +7,8 @@
     <div *ngFor="let item of portfolio" class="uk-width-1-2@m uk-width-1-1@s">
       <img [lazyLoad]="item.avatar.getSizeImage(300)" alt="{{item.name}}"
         class="uk-responsive uk-border-circle uk-box-shadow-large" />
-      <h1 [innerHtml]="item.name"></h1>
-      <p [innerHtml]="item.bio"></p>
+      <h1 [innerHtml]="item.name | safeHtml"></h1>
+      <p [innerHtml]="item.bio | safeHtml"></p>
     </div>
   </div>
 </section>
@@ -20,33 +20,33 @@
 <section class="uk-section uk-section-xsmall">
   <div class="uk-text-center" uk-grid>
     <div class="uk-width-1-2@m uk-width-1-1@s" *ngFor="let item of happyWedding">
-      <h1 [innerHtml]="item.title"></h1>
+      <h1 [innerHtml]="item.title | safeHtml"></h1>
       <p>
         được cử hành tại
-        <br><span [innerHTML]="item.address"></span>
+        <br><span [innerHTML]="item.address | safeHtml"></span>
       </p>
-      <div class="uk-child-width-1-3 uk-grid-small" uk-grid style="margin-left: 0;">
-        <div class="uk-card uk-card-small uk-card-default uk-card-body" style="padding-left: 0;padding-right: 0;">
+      <div class="uk-child-width-1-3 uk-grid-small uk-margin-remove-left" uk-grid>
+        <div class="uk-card uk-card-small uk-card-default uk-card-body uk-padding-remove-left uk-padding-remove-right">
           <h2>
-            <span [innerHTML]="item.date.getHours().pad(2)"></span>
-            <span *ngIf="item.date.getMinutes() != 0" [innerHTML]="' : ' + item.date.getMinutes().pad(2)"></span>
+            <span [innerHTML]="item.date.getHours().pad(2) | safeHtml"></span>
+            <span *ngIf="item.date.getMinutes() != 0" [innerHTML]="' : ' + item.date.getMinutes().pad(2) | safeHtml"></span>
             <span class="uk-text-muted" *ngIf="item.date.getMinutes() == 0"> giờ</span>
           </h2>
-          <em class="uk-text-primary" [innerHTML]="arrDay[item.date.getDay()]"></em>
+          <em class="uk-text-primary" [innerHTML]="arrDay[item.date.getDay()] | safeHtml"></em>
         </div>
-        <div class="uk-card uk-card-small uk-card-default uk-card-body" style="padding-left: 0;padding-right: 0;">
-          <h2 [innerHTML]="item.date.getDate().pad(2)"></h2>
+        <div class="uk-card uk-card-small uk-card-default uk-card-body uk-padding-remove-left uk-padding-remove-right">
+          <h2 [innerHTML]="item.date.getDate().pad(2) | safeHtml"></h2>
           <em>
             <span class="uk-text-muted">Tháng </span>
-            <span [innerHTML]="(item.date.getMonth() + 1).pad(2)"></span>
+            <span [innerHTML]="(item.date.getMonth() + 1).pad(2) | safeHtml"></span>
           </em>
         </div>
-        <div class="uk-card uk-card-small uk-card-default uk-card-body" style="padding-left: 0;padding-right: 0;">
+        <div class="uk-card uk-card-small uk-card-default uk-card-body uk-padding-remove-left uk-padding-remove-right">
           <span class="uk-text-muted">Năm</span>
-          <h2 [innerHTML]="item.date.getFullYear()"></h2>
+          <h2 [innerHTML]="item.date.getFullYear() | safeHtml"></h2>
         </div>
       </div>
-      <em [innerHTML]="item.lunar"></em>
+      <em [innerHTML]="item.lunar | safeHtml"></em>
     </div>
   </div>
 </section>

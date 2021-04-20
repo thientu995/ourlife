@@ -44,7 +44,7 @@
                 </div>
             </div>
             <div class="uk-text-center uk-light" *ngIf="isSendMessage">
-                <h1 class="" [innerHTML]="appComponent.footerText"></h1>
+                <h1 class="" [innerHTML]="appComponent.footerText | safeHtml"></h1>
                 <span class="icon-funny lotus3"></span>
             </div>
         </section>

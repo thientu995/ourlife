@@ -36,7 +36,7 @@ namespace Ourlife.Commons
 
         public static void SetResponseHeader(HttpResponse res)
         {
-            double durationInSeconds = ConstValues.tsExpCache.TotalSeconds;
+            double durationInSeconds = ConstValues.EndOfDaySpan.TotalSeconds;
             //res.StatusCode = StatusCodes.Status200OK;
             res.Headers[HeaderNames.CacheControl] = "public,max-age=" + (int)durationInSeconds + ",must-revalidate";
             res.Headers[HeaderNames.Expires] = new[] { durationInSeconds.ToString("R") }; // Format RFC1123

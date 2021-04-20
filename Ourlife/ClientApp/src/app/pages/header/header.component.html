@@ -16,7 +16,7 @@
           <div class="uk-navbar-right">
             <!-- <ul class="uk-navbar-nav uk-navbar-toggle uk-visible@s"> -->
             <ul class="uk-navbar-nav uk-navbar-toggle">
-              <li routerLinkActive="uk-hidden" *ngFor="let item of menu" class="uk-navbar-item" style="padding: 0;">
+              <li routerLinkActive="uk-hidden" *ngFor="let item of menu" class="uk-navbar-item uk-padding-remove">
                 <a routerLink="{{item.url}}" title="{{item.text}}" routerLinkActive="uk-active">
                   <span class="icon-menu material-icons" translate="no">{{item.icon}}</span> <span
                     class="uk-visible@m">{{item.text}}</span>
@@ -59,7 +59,7 @@
           <h1 class="uk-text-center" translate="no">
             <h3>Nguyễn Thiên Tứ</h3>
             <div class="countdown-heart" [ngStyle]="headerCountdown != null ? {'animation-duration': '.5s'} : {}"
-              [innerHTML]="headerCountdown"></div>
+              [innerHTML]="headerCountdown | safeHtml"></div>
             <h3>Dương Thúy Vy</h3>
           </h1>
         </div>

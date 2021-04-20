@@ -67,8 +67,8 @@
           <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
           <ul class="uk-slideshow-items" style="width:100%;height:100%"
             [ngClass]="options.isAutoPlay ? 'disable-event' : ''">
-            <li *ngFor="let image of objImg.galleryImages; let i = index" [attr.index]="i"
-              style="margin: 0;height: 100vh;width: 100vw;">
+            <li *ngFor="let image of objImg.galleryImages; let i = index" [attr.index]="i" class="uk-margin-remove"
+              style="height: 100vh;width: 100vw;">
               <div class="uk-position-center">
                 <img data-srcset="{{image.srcSet}}" [lazyLoad]="image.small"
                   class="slide-modal-img-slides uk-box-shadow-large">

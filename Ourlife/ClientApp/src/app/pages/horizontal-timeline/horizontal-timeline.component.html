@@ -30,13 +30,13 @@
     <ol>
       <li *ngFor="let item of timelineElements; let index = index" [ngClass]="item.selected ? 'selected' : ''">
         <!-- [@contentState]="item.selected ? 'active' : (index < selectedIndex ? 'left' : 'right')"> -->
-        <h2 [innerHTML]="item.title"></h2>
-        <em [innerHTML]="item.description"></em>
+        <h2 [innerHTML]="item.title | safeHtml"></h2>
+        <em [innerHTML]="item.description | safeHtml"></em>
         <div>
           <div class="uk-width-1-4@m uk-width-1-1@s">
             <img [lazyLoad]="item.img" class="uk-align-left@m uk-box-shadow-large" style="width:100%" />
           </div>
-          <p class="uk-text-justify uk-dropcap" [innerHTML]="item.content"></p>
+          <p class="uk-text-justify uk-dropcap" [innerHTML]="item.content | safeHtml"></p>
         </div>
       </li>
     </ol>

@@ -19,15 +19,26 @@ namespace Ourlife.Commons
                 "wwwroot",
         };
 
-        public static TimeSpan tsExpCache
+        public static DateTime EndOfDay
         {
-            get { return ConstValues.dtExpCache.TimeOfDay; }
+            get { return StartOfDay.AddDays(1).AddTicks(-1); }
         }
 
-        public static DateTime dtExpCache
+        public static TimeSpan EndOfDaySpan
         {
-            get { return DateTime.Now.Date.AddDays(1).AddTicks(-1); }
+            get { return EndOfDay - DateTime.Now; }
         }
+
+        public static DateTime StartOfDay
+        {
+            get { return DateTime.Now.Date; }
+        }
+
+        public static TimeSpan StartOfDaySpan
+        {
+            get { return DateTime.Now - StartOfDay; }
+        }
+
 
         public const float lat_DongThap = 10.5826829f;
         public const float lon_DongThap = 105.3834025f;

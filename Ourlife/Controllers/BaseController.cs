@@ -51,7 +51,8 @@ namespace Ourlife.Controllers
                 }
                 else
                 {
-                    Response.Headers.Add("Content-Cached", "true");
+                    Response.Headers.Add("Expires-Caching", (DateTime.Now + ConstValues.EndOfDaySpan).ToString("yyyy/MM/dd hh:mm:ss tt"));
+                    //Response.Headers.Add("Content-Cached", "true");
                 }
                 SetHeader();
                 return cacheEntry;
@@ -79,7 +80,8 @@ namespace Ourlife.Controllers
                 }
                 else
                 {
-                    Response.Headers.Add("Content-Cached", "true");
+                    Response.Headers.Add("Expires-Caching", (DateTime.Now + ConstValues.EndOfDaySpan).ToString("yyyy/MM/dd hh:mm:ss tt"));
+                    //Response.Headers.Add("Cached-Date", new DateTime(ConstValues.tsExpCache.Ticks).ToLongDateString());
                 }
                 SetHeader();
                 return cacheEntry;
@@ -93,15 +95,15 @@ namespace Ourlife.Controllers
 
         private MemoryCacheEntryOptions setMemoryOption()
         {
-            return new MemoryCacheEntryOptions().SetSlidingExpiration(ConstValues.tsExpCache);
+            return new MemoryCacheEntryOptions().SetSlidingExpiration(ConstValues.EndOfDaySpan);
         }
 
         private void SetHeader()
         {
             if ((string)Response.Headers[HeaderNames.CacheControl] == null)
             {
-                Response.Headers[HeaderNames.CacheControl] = "public,max-age=" + (int)ConstValues.tsExpCache.TotalSeconds + ",must-revalidate";
-                Response.Headers[HeaderNames.Expires] = new[] { ConstValues.tsExpCache.TotalSeconds.ToString("R") }; // Format RFC1123
+                Response.Headers[HeaderNames.CacheControl] = "public,max-age=" + (int)ConstValues.EndOfDaySpan.TotalSeconds + ",must-revalidate";
+                Response.Headers[HeaderNames.Expires] = new[] { ConstValues.EndOfDaySpan.TotalSeconds.ToString("R") }; // Format RFC1123
                 Response.StatusCode = StatusCodes.Status200OK;
             }
         }
