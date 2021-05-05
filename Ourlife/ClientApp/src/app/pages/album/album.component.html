@@ -25,7 +25,13 @@
       <div class="uk-width-expand header-card uk-margin-small-bottom">
         <a (click)="viewAlbum(item.album.id)">
           <div class="uk-grid uk-child-width-1-2">
-            <h3 class="uk-text-left">{{item.album.title}}</h3>
+            <h3 class="uk-text-left">
+              <span [ngSwitch]="item.album.albumType">
+                <span *ngSwitchCase="'video'" class="material-icons">tv</span>
+                <span *ngSwitchDefault class="material-icons">image</span>
+              </span>
+              <span> {{item.album.title}}</span>
+            </h3>
             <div class="uk-text-right" style="font-size: 20px;line-height: 35px;">
               <span class="material-icons" translate="no">calendar_today</span>
               <!-- <span uk-icon="calendar"></span> -->

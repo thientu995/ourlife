@@ -2,6 +2,7 @@ import { AppComponent } from 'src/app/app.component';
 import { AudioControlComponent } from '../audio-control/audio-control.component';
 import { Location } from '@angular/common';
 import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
+
 declare var UIkit: any;
 declare var MediaMetadata: any;
 
@@ -50,6 +51,7 @@ export class ImageLightboxComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log(this.objImg)
   }
 
   processSlideShow() {
@@ -79,19 +81,24 @@ export class ImageLightboxComponent implements OnInit {
 
   getMediaMetadata(src) {
     if (MediaMetadata) {
-      return new MediaMetadata({
-        title: this.objImg.album.title,
-        artist: this.appComponent.title,
-        album: this.objImg.category.title,
-        artwork: [
-          { src: src, type: 'image/jpeg', sizes: '96x96' },
-          { src: src, type: 'image/jpeg', sizes: '128x128' },
-          { src: src, type: 'image/jpeg', sizes: '192x192' },
-          { src: src, type: 'image/jpeg', sizes: '256x256' },
-          { src: src, type: 'image/jpeg', sizes: '384x384' },
-          { src: src, type: 'image/jpeg', sizes: '512x512' }
-        ]
-      });
+      if (this.objImg.album.albumType != 'video') {
+        return new MediaMetadata({
+          title: this.objImg.album.title,
+          artist: this.appComponent.title,
+          album: this.objImg.category.title,
+          artwork: [
+            { src: src, type: 'image/jpeg', sizes: '96x96' },
+            { src: src, type: 'image/jpeg', sizes: '128x128' },
+            { src: src, type: 'image/jpeg', sizes: '192x192' },
+            { src: src, type: 'image/jpeg', sizes: '256x256' },
+            { src: src, type: 'image/jpeg', sizes: '384x384' },
+            { src: src, type: 'image/jpeg', sizes: '512x512' }
+          ]
+        });
+      }
+      else {
+
+      }
     }
     else {
       return null;
@@ -127,7 +134,12 @@ export class ImageLightboxComponent implements OnInit {
   }
 
   setIndexImg() {
-    this.slideIndex = this.settings.slideshow.index;
+    if (this.objImg.album.albumType != 'video') {
+      this.slideIndex = this.settings.slideshow.index;
+    }
+    else {
+      this.slideIndex = 1;
+    }
     this.settings.selector_Img = this.objImg.galleryImages[this.slideIndex].medium;
     this.location.replaceState('/album/' + this.id.replace('Album_', '') + '/' + this.slideIndex);
     this.audioControlComponent.setMediaSessionMetadata(() => { return this.getMediaMetadata(this.settings.selector_Img) });

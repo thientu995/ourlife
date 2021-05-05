@@ -1,12 +1,21 @@
 <div class="uk-width-1-1">
   <div [attr.ukSlider]="{'draggable':false}">
     <div class="uk-position-relative">
-      <div class="uk-slider-container uk-light">
-        <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-4@m">
+      <div class="uk-slider-container uk-light" [ngSwitch]="objImg.album.albumType">
+        <div *ngSwitchCase="'video'">
+          <a (click)="openModal(0)" style="height: 250px;width: 100%;">
+            <div class="thumbnailalbum" style="background-image: url({{objImg.galleryImages[1].small}})"></div>
+            <div class="uk-position-center uk-panel">
+              <span class="uk-badge uk-label-warning">
+                <span class="material-icons">play_arrow</span>
+              </span>
+            </div>
+          </a>
+        </div>
+        <ul *ngSwitchDefault class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-4@m">
           <li *ngFor="let image of objImg.galleryImages.slice(0, 4); let i = index">
             <a (click)="openModal(i)">
-              <div class="thumbnailalbum" style="background-image: url({{image.small}})">
-              </div>
+              <div class="thumbnailalbum" style="background-image: url({{image.small}})"></div>
               <!-- <div class="uk-position-center uk-panel">
                 <span class="uk-badge uk-label-warning">{{i+1}}</span>
               </div> -->
@@ -14,18 +23,6 @@
           </li>
         </ul>
       </div>
-      <!-- <div class="uk-hidden@s uk-light">
-        <a class="uk-position-center-left uk-position-small uk-icon" href="#" uk-slidenav-previous
-          uk-slider-item="previous"></a>
-        <a class="uk-position-center-right uk-position-small uk-icon" href="#" uk-slidenav-next
-          uk-slider-item="next"></a>
-      </div>
-      <div class="uk-visible@s">
-        <a class="uk-position-center-left-out uk-position-small uk-icon" href="#" uk-slidenav-previous
-          uk-slider-item="previous"></a>
-        <a class="uk-position-center-right-out uk-position-small uk-icon" href="#" uk-slidenav-next
-          uk-slider-item="next"></a>
-      </div> -->
     </div>
   </div>
 </div>
@@ -35,61 +32,79 @@
     <progress [id]="'progressbar'+id" class="uk-position-top uk-progress" value="0" min="0" max="100"
       [hidden]="!options.isAutoPlay"></progress>
     <div class="slide-background" [ngStyle]="{'background-image': 'url(' + settings.selector_Img + ')'}"></div>
-    <div class="uk-position-relative">
-      <div
-        class="slide-modal-function uk-position-z-index uk-position-top-right uk-position-small uk-margin-large-right">
-        <a class="slide-modal-icon uk-button-default" (click)="playAudioIndex(-1)"
-          *ngIf="audioControlComponent.isReady.play && audioControlComponent.isReady.prev">
-          <span class="material-icons" translate="no">skip_previous</span>
-        </a>
-        <a class="slide-modal-icon uk-button-default" (click)="playAudioIndex(1)"
-          *ngIf="audioControlComponent.isReady.play && audioControlComponent.isReady.next">
-          <span class="material-icons" translate="no">skip_next</span>
-        </a>
-        <a class="slide-modal-icon uk-button-default" (click)="playAudio()" *ngIf="audioControlComponent.isReady.play">
-          <span class="material-icons" translate="no">
-            {{audioControlComponent.audio.paused ? 'music_off' : 'music_note'}}
-          </span>
-        </a>
-        <a class="slide-modal-icon uk-button-default" (click)="slideshow()">
-          <span class="material-icons" translate="no">
-            {{options.isAutoPlay ? 'pause_circle_outline' : 'play_circle_outline'}}
-          </span>
-        </a>
-        <a class="slide-modal-icon uk-button-danger" (click)="closeModal()" routerLink="/album">
-          <span class="material-icons" translate="no">close</span>
-        </a>
+    <div [ngSwitch]="objImg.album.albumType">
+      <div *ngSwitchCase="'video'" class="uk-position-relative">
+        <div
+          class="slide-modal-function uk-position-z-index uk-position-top-right uk-position-small uk-margin-large-right">
+          <a class="slide-modal-icon uk-button-danger" (click)="closeModal()" routerLink="/album">
+            <span class="material-icons" translate="no">close</span>
+          </a>
+        </div>
+        <div class="slide-modal-content">
+          <div class="slide-modal-img-group-slides uk-animation">
+            <video src="https://onedrive.live.com/download?cid=B8472F70698B2C1B&resid=B8472F70698B2C1B%21110996&authkey=AFk6dhwuR1N4qeg" controls autoplay style="width:100%;height:100%"></video>
+            <!-- <iframe src="{{objImg.galleryImages[0].small}}" frameborder="0" scrolling="no" autoplay style="width:100%;height:100%"></iframe> -->
+          </div>
+        </div>
       </div>
+      <div *ngSwitchDefault class="uk-position-relative">
+        <div
+          class="slide-modal-function uk-position-z-index uk-position-top-right uk-position-small uk-margin-large-right">
+          <a class="slide-modal-icon uk-button-default" (click)="playAudioIndex(-1)"
+            *ngIf="audioControlComponent.isReady.play && audioControlComponent.isReady.prev">
+            <span class="material-icons" translate="no">skip_previous</span>
+          </a>
+          <a class="slide-modal-icon uk-button-default" (click)="playAudioIndex(1)"
+            *ngIf="audioControlComponent.isReady.play && audioControlComponent.isReady.next">
+            <span class="material-icons" translate="no">skip_next</span>
+          </a>
+          <a class="slide-modal-icon uk-button-default" (click)="playAudio()"
+            *ngIf="audioControlComponent.isReady.play">
+            <span class="material-icons" translate="no">
+              {{audioControlComponent.audio.paused ? 'music_off' : 'music_note'}}
+            </span>
+          </a>
+          <a class="slide-modal-icon uk-button-default" (click)="slideshow()">
+            <span class="material-icons" translate="no">
+              {{options.isAutoPlay ? 'pause_circle_outline' : 'play_circle_outline'}}
+            </span>
+          </a>
+          <a class="slide-modal-icon uk-button-danger" (click)="closeModal()" routerLink="/album">
+            <span class="material-icons" translate="no">close</span>
+          </a>
+        </div>
 
-      <!-- [attr.uk-slideshow]="{index: slideIndex, autoplayInterval: timeAutoPlay, draggable: !isAutoPlay}" -->
-      <div class="slide-modal-content">
-        <div class="slide-modal-img-group-slides uk-animation">
-          <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
-          <ul class="uk-slideshow-items" style="width:100%;height:100%"
-            [ngClass]="options.isAutoPlay ? 'disable-event' : ''">
-            <li *ngFor="let image of objImg.galleryImages; let i = index" [attr.index]="i" class="uk-margin-remove"
-              style="height: 100vh;width: 100vw;">
-              <div class="uk-position-center">
-                <img data-srcset="{{image.srcSet}}" [lazyLoad]="image.small"
-                  class="slide-modal-img-slides uk-box-shadow-large">
-              </div>
-              <div
-                class="uk-overlay uk-overlay-primary uk-position-bottom uk-padding-remove uk-text-center uk-transition-slide-bottom">
-                <p class="uk-margin-remove" translate="no">{{i + 1}} / {{objImg.galleryImages.length}}</p>
-              </div>
+        <!-- [attr.uk-slideshow]="{index: slideIndex, autoplayInterval: timeAutoPlay, draggable: !isAutoPlay}" -->
+        <div class="slide-modal-content">
+          <div class="slide-modal-img-group-slides uk-animation">
+            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+            <ul class="uk-slideshow-items" style="width:100%;height:100%"
+              [ngClass]="options.isAutoPlay ? 'disable-event' : ''">
+              <li *ngFor="let image of objImg.galleryImages; let i = index" [attr.index]="i" class="uk-margin-remove"
+                style="height: 100vh;width: 100vw;">
+                <div class="uk-position-center">
+                  <img data-srcset="{{image.srcSet}}" [lazyLoad]="image.small"
+                    class="slide-modal-img-slides uk-box-shadow-large">
+                </div>
+                <div
+                  class="uk-overlay uk-overlay-primary uk-position-bottom uk-padding-remove uk-text-center uk-transition-slide-bottom">
+                  <p class="uk-margin-remove" translate="no">{{i + 1}} / {{objImg.galleryImages.length}}</p>
+                </div>
 
-            </li>
-          </ul>
-          <div class="uk-light" *ngIf="!options.isAutoPlay">
-            <a class="slide-modal-icon slide-modal-navigate uk-position-center-left" (click)="showPreNext(-1)">
-              <span class="material-icons" translate="no">navigate_before</span>
-            </a>
-            <a class="slide-modal-icon slide-modal-navigate uk-position-center-right" (click)="showPreNext(1)">
-              <span class="material-icons" translate="no">navigate_next</span>
-            </a>
+              </li>
+            </ul>
+            <div class="uk-light" *ngIf="!options.isAutoPlay">
+              <a class="slide-modal-icon slide-modal-navigate uk-position-center-left" (click)="showPreNext(-1)">
+                <span class="material-icons" translate="no">navigate_before</span>
+              </a>
+              <a class="slide-modal-icon slide-modal-navigate uk-position-center-right" (click)="showPreNext(1)">
+                <span class="material-icons" translate="no">navigate_next</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
 </div>

@@ -2,6 +2,7 @@ export interface IAlbum {
     ListImage: string[],
     albumCategory: string,
     albumAlbum: string,
+    albumType: string,
     audioLink: string,
     isShowHome: boolean,
     createDateLink: any,

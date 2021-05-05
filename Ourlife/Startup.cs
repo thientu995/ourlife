@@ -145,13 +145,13 @@ namespace Ourlife
                     };
                 });
 
-                //if (env.IsDevelopment())
-                //{
-                //    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+                if (env.IsDevelopment())
+                {
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
 
-                //    //spa.UseAngularCliServer(npmScript: "start");
-                //    spa.Options.StartupTimeout = System.TimeSpan.FromSeconds(80);
-                //}
+                    //spa.UseAngularCliServer(npmScript: "start");
+                    spa.Options.StartupTimeout = System.TimeSpan.FromSeconds(80);
+                }
             });
         }
 
