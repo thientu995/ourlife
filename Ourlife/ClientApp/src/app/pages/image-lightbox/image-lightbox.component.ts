@@ -51,7 +51,6 @@ export class ImageLightboxComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.objImg)
   }
 
   processSlideShow() {
