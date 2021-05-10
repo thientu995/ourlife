@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http.Headers;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -100,7 +101,7 @@ namespace Ourlife.Controllers
         }
 
         [HttpGet("[action]")]
-        public async Task<IActionResult> DownloadUrl(string url)
+        public async Task<IActionResult> DownloadUrl(string url, string type)
         {
             byte[] cacheEntry = await GetCacheAsync(url, () =>
             {
@@ -109,7 +110,7 @@ namespace Ourlife.Controllers
                     return client.DownloadDataTaskAsync(new Uri(url));
                 }
             });
-            return File(cacheEntry, "audio/mpeg");
+            return File(cacheEntry, new MediaTypeHeaderValue(type).MediaType, true);
         }
 
         [HttpGet("[action]")]

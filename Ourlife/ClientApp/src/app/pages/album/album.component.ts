@@ -108,7 +108,9 @@ export class AlbumComponent implements OnInit {
         small: value.getSizeImageMin('album_' + item.id),
         medium: value.getSizeImageMed('album_' + item.id),
         big: value.getSizeImageMax('album_' + item.id),
+        src: value,
         srcSet: value.getSrcSet('album_' + item.id),
+        srcDownload: String["linkAPI"] + 'GetData/DownloadUrl?url=' + encodeURIComponent(value) + '&type=' + (item.albumType == 'video' ? 'video/mp4' : 'image/jpeg'),
         animation: this.getAnimation()
       })
     )

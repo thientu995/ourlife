@@ -72,7 +72,9 @@ export class ImageLightboxComponent implements OnInit {
       else {
         this.audioControlComponent.disposeAudio();
       }
-      this.settings.audio = this.audioControlComponent.setAudio(this.settings.audioLinks);
+      if (this.objImg.album.albumType != 'video') {
+        this.settings.audio = this.audioControlComponent.setAudio(this.settings.audioLinks);
+      }
       this.regisSlideShow();
       this.appComponent.loadComplete();
     }
@@ -80,24 +82,19 @@ export class ImageLightboxComponent implements OnInit {
 
   getMediaMetadata(src) {
     if (MediaMetadata) {
-      if (this.objImg.album.albumType != 'video') {
-        return new MediaMetadata({
-          title: this.objImg.album.title,
-          artist: this.appComponent.title,
-          album: this.objImg.category.title,
-          artwork: [
-            { src: src, type: 'image/jpeg', sizes: '96x96' },
-            { src: src, type: 'image/jpeg', sizes: '128x128' },
-            { src: src, type: 'image/jpeg', sizes: '192x192' },
-            { src: src, type: 'image/jpeg', sizes: '256x256' },
-            { src: src, type: 'image/jpeg', sizes: '384x384' },
-            { src: src, type: 'image/jpeg', sizes: '512x512' }
-          ]
-        });
-      }
-      else {
-
-      }
+      return new MediaMetadata({
+        title: this.objImg.album.title,
+        artist: this.appComponent.title,
+        album: this.objImg.category.title,
+        artwork: [
+          { src: src, type: 'image/jpeg', sizes: '96x96' },
+          { src: src, type: 'image/jpeg', sizes: '128x128' },
+          { src: src, type: 'image/jpeg', sizes: '192x192' },
+          { src: src, type: 'image/jpeg', sizes: '256x256' },
+          { src: src, type: 'image/jpeg', sizes: '384x384' },
+          { src: src, type: 'image/jpeg', sizes: '512x512' }
+        ]
+      });
     }
     else {
       return null;

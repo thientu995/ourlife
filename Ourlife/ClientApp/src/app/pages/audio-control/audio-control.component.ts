@@ -91,7 +91,7 @@ export class AudioControlComponent implements OnInit {
 
   private loadAudio(src: string) {
     if (src != null && src != '') {
-      this.audio.src = String["linkAPI"] + 'GetData/DownloadUrl?url=' + encodeURIComponent(src);
+      this.audio.src = String["linkAPI"] + 'GetData/DownloadUrl?url=' + encodeURIComponent(src) + '&type=audio/mpeg';
       this.audio.currentTime = 0;
       // this.audio.load();
     }
