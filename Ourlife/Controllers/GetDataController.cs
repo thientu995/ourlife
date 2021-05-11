@@ -114,6 +114,16 @@ namespace Ourlife.Controllers
         }
 
         [HttpGet("[action]")]
+        public IActionResult GetRedirectUrl(string url)
+        {
+            HttpWebRequest myHttpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+            myHttpWebRequest.MaximumAutomaticRedirections = 1;
+            myHttpWebRequest.AllowAutoRedirect = true;
+            HttpWebResponse myHttpWebResponse = (HttpWebResponse)myHttpWebRequest.GetResponse();
+            return Redirect(myHttpWebResponse.ResponseUri.ToString());
+        }
+
+        [HttpGet("[action]")]
         public async Task<IActionResult> GetIconSvg(int size = 512)
         {
             string pathStore = ConstFuncs.GetPathFolderRoot("icons");

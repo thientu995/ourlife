@@ -56,26 +56,26 @@ export class ImageLightboxComponent implements OnInit {
   processSlideShow() {
     this.resetValue();
     if (this.options.isOpenModal) {
-      // UIkit.modal('#' + this.settings.idModal).show();
-      this.settings.slideshow = UIkit.slideshow('#' + this.settings.idModal, {
-        autoplayInterval: this.timeAutoPlay,
-        pauseOnHover: false,
-        index: this.slideIndex,
-        draggable: !this.options.isAutoPlay,
-        // minHeight: 200,
-        // maxHeight: window.innerHeight
-      });
-      this.settings.slides = this.settings.slideshow.slides;
-      if (this.objImg.audio != null && this.objImg.audio.links != null && this.objImg.audio.links.length > 0) {
-        this.settings.audioLinks = this.objImg.audio.links;
-      }
-      else {
-        this.audioControlComponent.disposeAudio();
-      }
       if (this.objImg.album.albumType != 'video') {
+        // UIkit.modal('#' + this.settings.idModal).show();
+        this.settings.slideshow = UIkit.slideshow('#' + this.settings.idModal, {
+          autoplayInterval: this.timeAutoPlay,
+          pauseOnHover: false,
+          index: this.slideIndex,
+          draggable: !this.options.isAutoPlay,
+          // minHeight: 200,
+          // maxHeight: window.innerHeight
+        });
+        this.settings.slides = this.settings.slideshow.slides;
+        if (this.objImg.audio != null && this.objImg.audio.links != null && this.objImg.audio.links.length > 0) {
+          this.settings.audioLinks = this.objImg.audio.links;
+        }
+        else {
+          this.audioControlComponent.disposeAudio();
+        }
         this.settings.audio = this.audioControlComponent.setAudio(this.settings.audioLinks);
+        this.regisSlideShow();
       }
-      this.regisSlideShow();
       this.appComponent.loadComplete();
     }
   }
@@ -152,8 +152,12 @@ export class ImageLightboxComponent implements OnInit {
     this.settings.audio = null;
     this.settings.audioLinks = [];
     this.settings.slides = [];
-    this.settings.workerAutoPlay.terminate();
-    UIkit.slideshow('#' + this.settings.idModal).$destroy(true);
+    if (this.settings.workerAutoPlay) {
+      this.settings.workerAutoPlay.terminate();
+    }
+    if (UIkit.slideshow('#' + this.settings.idModal)) {
+      UIkit.slideshow('#' + this.settings.idModal).$destroy(true);
+    }
     this.options.isOpenModal = false;
   }
 
@@ -208,5 +212,18 @@ export class ImageLightboxComponent implements OnInit {
       }
     };
     this.settings.workerAutoPlay.postMessage({ status: 'create', timeAutoPlay: this.timeAutoPlay });
+  }
+
+  onKeydownEvent(event: KeyboardEvent) {
+    switch (event.keyCode) {
+      case 37: //left
+        this.showPreNext(-1);
+        break;
+      case 39: //right
+        this.showPreNext(1);
+        break;
+      default:
+        break;
+    }
   }
 }

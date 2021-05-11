@@ -76,6 +76,7 @@ export class AlbumComponent implements OnInit {
             return new Date(b.album.date).getTime() - new Date(a.album.date).getTime();
           });
           this.result = this.album;
+
         });
       });
     });
@@ -110,7 +111,7 @@ export class AlbumComponent implements OnInit {
         big: value.getSizeImageMax('album_' + item.id),
         src: value,
         srcSet: value.getSrcSet('album_' + item.id),
-        srcDownload: String["linkAPI"] + 'GetData/DownloadUrl?url=' + encodeURIComponent(value) + '&type=' + (item.albumType == 'video' ? 'video/mp4' : 'image/jpeg'),
+        srcDownload: String["linkAPI"] + 'GetData/GetRedirectUrl?url=' + encodeURIComponent(value),
         animation: this.getAnimation()
       })
     )
