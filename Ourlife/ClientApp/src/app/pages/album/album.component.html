@@ -36,7 +36,7 @@
               <span class="material-icons" translate="no">calendar_today</span>
               <!-- <span uk-icon="calendar"></span> -->
               &nbsp;
-              <span style="vertical-align: middle; height: 100%;">{{item.album.date | date:'yyyy/MM/dd'}}&nbsp;</span>
+              <span style="vertical-align: middle" class="uk-height-1-1">{{item.album.date | date:'yyyy/MM/dd'}}&nbsp;</span>
             </div>
           </div>
         </a>
@@ -44,7 +44,7 @@
       <div class="uk-width-1-1">
         <i class="uk-text-muted uk-text-meta">{{item.album.description}}</i>
       </div>
-      <app-image-lightbox [objImg]="item" [id]="'Album_'+item.album.id" style="width:100%">
+      <app-image-lightbox [objImg]="item" [id]="'Album_'+item.album.id" class="uk-width-1-1">
       </app-image-lightbox>
     </div>
   </div>

@@ -51,6 +51,20 @@ $material-icons-font-path: "~material-icons/iconfont/";
   pointer-events: all;
 }
 
+body {
+  min-height: 100vh;
+  /* mobile viewport bug fix */
+  min-height: -webkit-fill-available;
+  min-height: -moz-available;
+  min-height: -fill-available;
+}
+
+html {
+  height: -webkit-fill-available;
+  height: -moz-available;
+  height: -fill-available;
+}
+
 html,
 body,
 div,
@@ -200,4 +214,12 @@ main img {
   background-image: url("/assets/img/loading.gif");
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.min-height-100vh {
+  min-height: 100vh;
+  /* mobile viewport bug fix */
+  min-height: -webkit-fill-available;
+  min-height: -moz-available;
+  min-height: -fill-available;
 }

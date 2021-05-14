@@ -1,7 +1,7 @@
 import { AppComponent } from 'src/app/app.component';
 import { AudioControlComponent } from '../audio-control/audio-control.component';
 import { Location } from '@angular/common';
-import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input, HostListener } from '@angular/core';
 
 declare var UIkit: any;
 declare var MediaMetadata: any;
@@ -13,6 +13,17 @@ declare var MediaMetadata: any;
   encapsulation: ViewEncapsulation.None
 })
 export class ImageLightboxComponent implements OnInit {
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll($event) {
+    this.onResize();
+    // /* iOS re-orientation fix */
+    // if (navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i)) {
+    //   /* iOS hides Safari address bar */
+    //   setTimeout(function () {
+    //     window.scrollTo(0, 1);
+    //   }, 1000);
+    // }
+  }
 
   @Input()
   objImg: any;
@@ -63,8 +74,7 @@ export class ImageLightboxComponent implements OnInit {
           pauseOnHover: false,
           index: this.slideIndex,
           draggable: !this.options.isAutoPlay,
-          // minHeight: 200,
-          // maxHeight: window.innerHeight
+          ratio: false,
         });
         this.settings.slides = this.settings.slideshow.slides;
         if (this.objImg.audio != null && this.objImg.audio.links != null && this.objImg.audio.links.length > 0) {
@@ -75,6 +85,9 @@ export class ImageLightboxComponent implements OnInit {
         }
         this.settings.audio = this.audioControlComponent.setAudio(this.settings.audioLinks);
         this.regisSlideShow();
+      }
+      else {
+        this.setIndexImg();
       }
       this.appComponent.loadComplete();
     }
@@ -105,6 +118,7 @@ export class ImageLightboxComponent implements OnInit {
     this.options.isOpenModal = true;
     this.settings.idModal = 'imgModal' + this.id;
     this.slideIndex = Number(index);
+    this.hiddenScrollBody(true);
     setTimeout(() => {
       this.processSlideShow();
     });
@@ -143,6 +157,7 @@ export class ImageLightboxComponent implements OnInit {
 
   closeModal() {
     this.location.replaceState('/album');
+    this.hiddenScrollBody(false);
     this.dispose();
   }
 
@@ -225,5 +240,23 @@ export class ImageLightboxComponent implements OnInit {
       default:
         break;
     }
+  }
+
+  hiddenScrollBody(isHidden: boolean) {
+    return;
+    document.querySelector('body').style.position = isHidden ? 'relative' : '';
+    document.querySelector('body').style.overflow = isHidden ? 'hidden' : '';
+  }
+
+  onResizeTimeOut = null
+  onResize() {
+    if (this.onResizeTimeOut) {
+      clearTimeout(this.onResizeTimeOut);
+    }
+    this.onResizeTimeOut = setTimeout(() => {
+      if(document.getElementById(this.settings.idModal)){
+        document.getElementById(this.settings.idModal).style.height = window.innerHeight + 'px';
+      }
+    }, 1000);
   }
 }

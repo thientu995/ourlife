@@ -31,7 +31,7 @@
 </div>
 
 <div *ngIf="options.isOpenModal">
-  <div [id]="'imgModal'+id" class="slide-modal">
+  <div [id]="settings.idModal" class="slide-modal min-height-100vh">
     <meta name="viewport"
       content="viewport-fit=cover, user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
     <progress [id]="'progressbar'+id" class="uk-position-top uk-progress" value="0" min="0" max="100"
@@ -48,12 +48,13 @@
         </div>
         <div class="slide-modal-content">
           <div class="slide-modal-img-group-slides uk-animation">
-            <video [src]="objImg.galleryImages[0].srcDownload" [attr.poster]="objImg.galleryImages[1].small"
-              controls="true" preload="auto" controlsList="nodownload" playsinline style="width:100%;height:100%;padding: 40px 0">
+            <video [src]="objImg.galleryImages[0].srcDownload" type="video/mp4"
+              [attr.poster]="objImg.galleryImages[1].small" controls="true" preload="auto" controlsList="nodownload"
+              playsinline class="uk-width-1-1 uk-height-1-1">
               Your browser doesn't support video. Try updating your browser or using a different one.
             </video>
             <!-- <iframe src="https://onedrive.live.com/embed?cid=B8472F70698B2C1B&resid=B8472F70698B2C1B%21110996&authkey=AFk6dhwuR1N4qeg&em=2&Embed=1" width="320" height="180" frameborder="0" scrolling="no" allowfullscreen sandbox="allow-same-origin allow-scripts allow-top-navigation"></iframe> -->
-            <!-- <iframe src="{{objImg.galleryImages[0].srcDownload}}" frameborder="0" scrolling="no" autoplay style="width:100%;height:100%"></iframe> -->
+            <!-- <iframe src="{{objImg.galleryImages[0].srcDownload}}" frameborder="0" scrolling="no" autoplay class="uk-width-1-1 uk-height-1-1"></iframe> -->
           </div>
         </div>
       </div>
@@ -88,10 +89,9 @@
         <!-- [attr.uk-slideshow]="{index: slideIndex, autoplayInterval: timeAutoPlay, draggable: !isAutoPlay}" -->
         <div class="slide-modal-content">
           <div class="slide-modal-img-group-slides uk-animation">
-            <ul class="uk-slideshow-items" style="width:100%;height:100%"
+            <ul class="uk-slideshow-items uk-width-1-1 uk-height-1-1"
               [ngClass]="options.isAutoPlay ? 'disable-event' : ''">
-              <li *ngFor="let image of objImg.galleryImages; let i = index" [attr.index]="i" class="uk-margin-remove"
-                style="height: 100vh;width: 100vw;">
+              <li *ngFor="let image of objImg.galleryImages; let i = index" [attr.index]="i" class="uk-margin-remove uk-width-1-1 uk-height-1-1">
                 <div class="uk-position-center">
                   <img data-srcset="{{image.srcSet}}" [lazyLoad]="image.small"
                     class="slide-modal-img-slides uk-box-shadow-large">
@@ -100,7 +100,6 @@
                   class="uk-overlay uk-overlay-primary uk-position-bottom uk-padding-remove uk-text-center uk-transition-slide-bottom">
                   <p class="uk-margin-remove" translate="no">{{i + 1}} / {{objImg.galleryImages.length}}</p>
                 </div>
-
               </li>
             </ul>
             <div class="uk-light" *ngIf="!options.isAutoPlay">
