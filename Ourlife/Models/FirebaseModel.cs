@@ -15,6 +15,8 @@ namespace Ourlife.Models
         public string collection { get; set; }
         public string doc { get; set; }
         public string typeMap { get; set; }
+        public int page { get; set; } = 1;
+        public int limit { get; set; }
     }
 
     public class FirebaseModel
@@ -28,45 +30,28 @@ namespace Ourlife.Models
             string dtCurrent = DateTime.Now.ToString(ConstValues.formatFolderName_DateTime);
             string pathStore = ConstFuncs.GetPathFolderRootStore(ConstValues.folderName_Store, dtCurrent);
             string pathFull = Path.Combine(pathStore, fileName);
-            //if (!Directory.Exists(pathStore))
-            //{
-            //    Directory.CreateDirectory(pathStore);
-            //}
+
+            Dictionary<string, object> dataObjOutput = new Dictionary<string, object>();
             FileInfo file = new FileInfo(pathFull);
             if (!file.Exists || file.Length == 0)
             {
                 using (var tw = new StreamWriter(pathFull, false))
                 {
-                    result = JsonConvert.SerializeObject(GetDataFirebase(param));
+                    dataObjOutput = GetDataFirebase(param);
+                    result = JsonConvert.SerializeObject(dataObjOutput);
                     await tw.WriteLineAsync(result);
                 }
-
-                //using (FileStream fs = file.Create())
-                //{
-                //    //lock (locker)
-                //    {
-                //        byte[] bytes = new UTF8Encoding(true).GetBytes(result);
-                //        if (bytes != null && bytes.Length != 0)
-                //        {
-                //            fs.Write(bytes, 0, bytes.Length);
-                //        }
-                //        else
-                //        {
-                //            file.Delete();
-                //        }
-                //        fs.Close();
-                //        fs.Dispose();
-                //    }
-                //}
             }
             else
             {
                 result = await File.ReadAllTextAsync(pathFull);
+                dataObjOutput = JsonConvert.DeserializeObject<Dictionary<string, object>>(result);
+                result = JsonConvert.SerializeObject(dataObjOutput);
             }
             return result;
         }
 
-        dynamic GetDataFirebase(ParamFirebaseDB param)
+        Dictionary<string, object> GetDataFirebase(ParamFirebaseDB param)
         {
             FirestoreDb db = FirestoreDb.Create(projectId);
             CollectionReference coll = db.Collection(param.collection);
