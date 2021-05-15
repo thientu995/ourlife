@@ -120,6 +120,7 @@ export class ImageLightboxComponent implements OnInit {
     this.slideIndex = Number(index);
     this.hiddenScrollBody(true);
     setTimeout(() => {
+      this.onResize();
       this.processSlideShow();
     });
   }
@@ -248,15 +249,17 @@ export class ImageLightboxComponent implements OnInit {
     document.querySelector('body').style.overflow = isHidden ? 'hidden' : '';
   }
 
-  onResizeTimeOut = null
+  onResizeTimeOut = null;
+  heightModal = window.innerHeight + 'px';
   onResize() {
     if (this.onResizeTimeOut) {
       clearTimeout(this.onResizeTimeOut);
     }
-    this.onResizeTimeOut = setTimeout(() => {
-      if(document.getElementById(this.settings.idModal)){
-        document.getElementById(this.settings.idModal).style.height = window.innerHeight + 'px';
-      }
-    }, 1000);
+    // this.onResizeTimeOut = setTimeout(() => {
+    if (document.getElementById(this.settings.idModal)) {
+      // document.getElementById(this.settings.idModal).style.height = window.innerHeight + 'px';
+      this.heightModal = window.innerHeight + 'px';
+    }
+    // }, 1000);
   }
 }
