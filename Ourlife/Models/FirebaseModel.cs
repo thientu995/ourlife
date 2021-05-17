@@ -15,8 +15,9 @@ namespace Ourlife.Models
         public string collection { get; set; }
         public string doc { get; set; }
         public string typeMap { get; set; }
-        public int page { get; set; } = 1;
-        public int limit { get; set; }
+        //public string filter { get; set; }
+        //public int page { get; set; } = 1;
+        //public int limit { get; set; } = 5;
     }
 
     public class FirebaseModel
@@ -33,21 +34,35 @@ namespace Ourlife.Models
 
             Dictionary<string, object> dataObjOutput = new Dictionary<string, object>();
             FileInfo file = new FileInfo(pathFull);
-            if (!file.Exists || file.Length == 0)
+            bool isWriteFile = !file.Exists || file.Length == 0;
+            if (isWriteFile)
             {
-                using (var tw = new StreamWriter(pathFull, false))
+
+                dataObjOutput = GetDataFirebase(param);
+                result = JsonConvert.SerializeObject(dataObjOutput);
+                try
                 {
-                    dataObjOutput = GetDataFirebase(param);
-                    result = JsonConvert.SerializeObject(dataObjOutput);
-                    await tw.WriteLineAsync(result);
+                    using (var tw = new StreamWriter(pathFull, false))
+                    {
+                        await tw.WriteLineAsync(result);
+                        GC.Collect();
+                    }
+                }
+                catch (IOException)
+                {
                 }
             }
             else
             {
                 result = await File.ReadAllTextAsync(pathFull);
                 dataObjOutput = JsonConvert.DeserializeObject<Dictionary<string, object>>(result);
-                result = JsonConvert.SerializeObject(dataObjOutput);
             }
+            //if (param.limit != 0)
+            //{
+            //    dataObjOutput = new Dictionary<string, object>(dataObjOutput.Skip(param.limit * (param.page - 1)).Take(param.limit));
+            //}
+            result = JsonConvert.SerializeObject(dataObjOutput);
+
             return result;
         }
 

@@ -36,7 +36,7 @@ import { CustomErrorHandler } from './services/error-log.service';
     LazyLoadImageModule,
     PinchZoomModule,
     PipesModule,
-    ServiceWorkerModule.register('/ngsw-worker.js', {
+    ServiceWorkerModule.register('/assets/js/ngsw-worker-custom.js', {
       enabled: environment.production
     })
   ],

@@ -24,16 +24,16 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let registration of registrations) {
           registration.unregister();
         }
-        if (environment.production) {
-          navigator.serviceWorker.register('/ngsw-worker.js', {
-            scope: '/'
-          }).then(function (registration) {
-            console.log('Service Worker registration successful with scope: ', registration.scope);
-            registration.unregister().then(function (boolean) { });
-          }).catch(function (err) {
-            console.log('Service Worker registration failed: ', err)
-          });
-        }
+        // if (environment.production) {
+        //   navigator.serviceWorker.register('/assets/js/ngsw-worker-custom.js', {
+        //     scope: '/'
+        //   }).then(function (registration) {
+        //     console.log('Service Worker registration successful with scope: ', registration.scope);
+        //     registration.unregister().then(function (boolean) { });
+        //   }).catch(function (err) {
+        //     console.log('Service Worker registration failed: ', err)
+        //   });
+        // }
       });
     }
   }).catch(err => console.error(err));

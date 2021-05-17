@@ -6,6 +6,7 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, ViewChildren, QueryList, ViewEncapsulation } from '@angular/core';
 import { AppComponent } from 'src/app/app.component';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-album',
@@ -60,43 +61,65 @@ export class AlbumComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.dataService.toListAsync<IAlbumAudio>({ collection: 'albumAudio' }, 'albumAudio').then(data => {
-      this.albumAudio = data;
-      this.dataService.toListAsync<IAlbum>({ collection: 'albumCategory' }, 'albumCategory').then(data => {
-        this.albumCategory = data.sort((a, b) => {
-          return a.order - b.order
-        });
-        this.dataService.toListAsync<IAlbum>({ collection: 'album' }, 'album').then(data => {
-          this.album = data.map((item) => (Object.assign({
-            album: item,
-            audio: this.albumAudio.find(x => x.id == item.albumAudio),
-            category: this.albumCategory.find(x => x.id == item.albumCategory),
-            galleryImages: this.getGalleryImages(item)
-          }))).sort((a, b) => {
-            return new Date(b.album.date).getTime() - new Date(a.album.date).getTime();
-          });
-          this.result = this.album;
+    forkJoin([
+      this.requestAlbumAudio(),
+      this.requestAlbumCategory(),
+      this.requestAlbum(1)
+    ]).subscribe(result => {
+      this.albumAudio = result[0];
 
-        });
+      result[1].push({
+        id: '*',
+        title: 'Tất cả',
+        order: 0
+      })
+      this.albumCategory = result[1].sort((a, b) => {
+        return a.order - b.order
       });
+
+      this.result = this.album = result[2].map((item) => (Object.assign({
+        album: item,
+        audio: this.albumAudio.find(x => x.id == item.albumAudio),
+        category: this.albumCategory.find(x => x.id == item.albumCategory),
+        galleryImages: this.getGalleryImages(item)
+      }))).sort((a, b) => {
+        return new Date(b.album.date).getTime() - new Date(a.album.date).getTime();
+      });
+
+      this.RoutePage();
     });
-
-
   }
 
   ngAfterViewInit() {
-    this.RoutePage();
+  }
+
+  requestAlbumAudio() {
+    return this.dataService.toListAsync<IAlbumAudio>({ collection: 'albumAudio' }, 'albumAudio');
+  }
+
+  requestAlbumCategory() {
+    return this.dataService.toListAsync<IAlbum>({ collection: 'albumCategory' }, 'albumCategory');
+  }
+
+  requestAlbum(page: number) {
+    return this.dataService.toListAsync<IAlbum>({ collection: 'album', page: page, limit: 0 }, 'album');
   }
 
   RoutePage() {
     let idRoute = this.activeRoute.snapshot.params['id'];
     if (idRoute) {
-      let index = this.activeRoute.snapshot.params['index'] || 0;
-      this.imgLightBox.changes.subscribe((e) => {
-        setTimeout(() => {
-          this.viewAlbum(idRoute, index);
+      if (idRoute.toLowerCase() != 'group') {
+        let index = this.activeRoute.snapshot.params['index'] || 0;
+        this.imgLightBox.changes.subscribe((e) => {
+          setTimeout(() => {
+            this.viewAlbum(idRoute, index);
+          });
         });
-      });
+      }
+      else {
+        let value = this.activeRoute.snapshot.params['index'] || '*';
+        this.filterAlbumCategory(value);
+      }
     }
     else {
       this.appComponent.loadComplete();
@@ -134,9 +157,16 @@ export class AlbumComponent implements OnInit {
     this.selectorAlbumCategory = value;
     if (value == '*') {
       this.result = this.album;
+      this.location.replaceState('/album');
     }
     else {
       this.result = this.album.filter(x => x.album.albumCategory == value);
+      if (this.result.length == 0) {
+        this.filterAlbumCategory('*');
+      }
+      else {
+        this.location.replaceState('/album/group/' + value);
+      }
     }
     window.dispatchEvent(new Event('resize'));
   }

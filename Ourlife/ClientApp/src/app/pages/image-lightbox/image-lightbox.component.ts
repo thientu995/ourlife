@@ -1,7 +1,7 @@
 import { AppComponent } from 'src/app/app.component';
 import { AudioControlComponent } from '../audio-control/audio-control.component';
 import { Location } from '@angular/common';
-import { Component, OnInit, ViewEncapsulation, Input, HostListener } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input, HostListener, ViewChildren, QueryList, ElementRef, ViewChild } from '@angular/core';
 
 declare var UIkit: any;
 declare var MediaMetadata: any;
@@ -55,6 +55,7 @@ export class ImageLightboxComponent implements OnInit {
   albumAudio: any = null;
 
   readonly timeAutoPlay = 10000;
+  @ViewChild('videoElement') videoElement: ElementRef;
   constructor(
     private appComponent: AppComponent,
     public audioControlComponent: AudioControlComponent,
@@ -261,5 +262,15 @@ export class ImageLightboxComponent implements OnInit {
       this.heightModal = window.innerHeight + 'px';
     }
     // }, 1000);
+  }
+
+  toggleVideo(event) {
+    event.stopPropagation();
+    event.preventDefault();
+    if(!this.videoElement.nativeElement.controls){
+      this.videoElement.nativeElement.play();
+      this.videoElement.nativeElement.controls = true;
+      event.srcElement.style.display = 'none';
+    }
   }
 }

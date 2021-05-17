@@ -27,6 +27,12 @@ const routes: Routes = [
     loadChildren: () => import('./pages/album/album.module').then(mod => mod.AlbumModule),
     data: { preload: true }
   },
+  {
+    path: 'album/group/:id',
+    // component: AlbumComponent,
+    loadChildren: () => import('./pages/album/album.module').then(mod => mod.AlbumModule),
+    data: { preload: true }
+  },
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];

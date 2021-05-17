@@ -17,6 +17,13 @@ export class SafeUrlPipe implements PipeTransform {
     constructor(private _sanitizer: DomSanitizer) { }
 
     transform(value: string): SafeHtml {
+        if(value.indexOf('/') == 0){
+        }
+        else{
+            var url = new URL(value);
+            url.searchParams.append('ngsw-bypass', 'true');
+            value = url.toString();
+        }
         return this._sanitizer.bypassSecurityTrustResourceUrl(value);
     }
 }

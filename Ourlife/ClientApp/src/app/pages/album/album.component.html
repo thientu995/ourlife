@@ -12,8 +12,10 @@
 
   <div class="uk-margin-bottom uk-inline uk-width-1-1">
     <ul class="uk-tab" uk-tab>
-      <li class="uk-active"><a (click)="filterAlbumCategory('*')">Tất cả (All)</a></li>
-      <li *ngFor="let item of albumCategory"><a (click)="filterAlbumCategory(item.id)">{{item.title}}</a></li>
+      <li [ngClass]="selectorAlbumCategory == item.id ? 'uk-active': ''" class="uk-width-1-1@s uk-width-auto@m"
+        *ngFor="let item of albumCategory">
+        <a (click)="filterAlbumCategory(item.id)">{{item.title}}</a>
+      </li>
     </ul>
   </div>
 
@@ -33,7 +35,8 @@
           </h3>
         </a>
       </div>
-      <div class="uk-width-1-1 uk-padding-remove-right uk-padding-remove-top uk-padding-remove-bottom" style="font-size: 15px">
+      <div class="uk-width-1-1 uk-padding-remove-right uk-padding-remove-top uk-padding-remove-bottom"
+        style="font-size: 15px">
         <div class="uk-grid uk-grid-small uk-child-width-1-2">
           <div>
             <span class="material-icons" translate="no" style="font-size: 15px">category</span>
