@@ -48,7 +48,7 @@
         </div>
         <div class="slide-modal-content" [style.height]="heightModal">
           <div class="slide-modal-img-group-slides uk-animation">
-            <video #videoElement [src]="objImg.galleryImages[0].srcDownload | safeUrl" type="video/mp4"
+            <video #videoElement [src]="objImg.galleryImages[0].src | safeUrl" type="video/mp4"
               [attr.poster]="objImg.galleryImages[1].small" preload="auto"
               controlsList="nodownload nofullscreen noremoteplayback" class="uk-width-1-1 uk-height-1-1">
               Your browser doesn't support video. Try updating your browser or using a different one.
