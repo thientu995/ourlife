@@ -10,9 +10,10 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { FormsModule } from '@angular/forms';
 import { ImageLightboxComponent } from './../image-lightbox/image-lightbox.component';
 import { PinchZoomModule } from 'ngx-pinch-zoom';
+import { VideoPlayerComponent } from '../video-player/video-player.component';
 
 @NgModule({
-  declarations: [AlbumComponent, ImageLightboxComponent],
+  declarations: [AlbumComponent, ImageLightboxComponent, VideoPlayerComponent],
   imports: [
     CommonModule,
     FormsModule,

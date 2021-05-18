@@ -1,0 +1,34 @@
+<div class="slide-modal-function uk-position-z-index uk-position-top-left uk-position-small"
+      [hidden]="tagVideo.paused ? 'uk-hidden' : ''">
+  <a class="slide-modal-icon uk-button-default" (click)="toggleVolume($event)">
+    <span class="material-icons" translate="no">
+      {{tagVideo.muted ? 'volume_off' : 'volume_up' }}
+    </span>
+  </a>
+  <a class="slide-modal-icon uk-button-default" (click)="toggleVideo($event)">
+    <span class="material-icons" translate="no">
+      {{tagVideo.paused ? 'play_circle_outline' : 'pause_circle_outline'}}
+    </span>
+  </a>
+</div>
+<div class="slide-modal-content" [style.height]="heightModal">
+  <div class="slide-modal-img-group-slides uk-animation">
+    <video uk-video="autoplay:false" #videoElement playsinline [src]="source | safeUrl" [attr.poster]="poster"
+      (timeupdate)="timeUpdate($event)" preload="auto" controlsList="nodownload nofullscreen noremoteplayback"
+      crossOrigin="anonymous" class="uk-width-1-1 uk-height-1-1">
+      Your browser doesn't support video. Try updating your browser or using a different one.
+    </video>
+    <a class="uk-position-z-index uk-position-center" [hidden]="tagVideo.paused ? '' : 'uk-hidden'"
+      (click)="toggleVideo($event)">
+      <div class="slide-modal-icon">
+        <span class="material-icons" translate="no">{{tagVideo.paused ? 'play_circle_outline' :
+          'pause_circle_outline'}}</span>
+      </div>
+    </a>
+    <div class="uk-overlay uk-overlay-primary uk-padding-remove uk-position-bottom uk-margin-remove uk-text-meta uk-text-center" translate="no" [hidden]="tagVideo.paused ? 'uk-hidden' : ''">
+      <div [style.width]="widthModal" class="uk-display-inline-block uk-text-right">{{convertTimeToTimeDate(tagVideo.currentTime)}}</div>
+      <span>/</span>
+      <div [style.width]="widthModal" class="uk-display-inline-block uk-text-left">{{convertTimeToTimeDate(tagVideo.duration)}}</div>
+    </div>
+  </div>
+</div>

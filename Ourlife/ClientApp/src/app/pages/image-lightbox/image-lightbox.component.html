@@ -34,41 +34,27 @@
   <div [id]="settings.idModal" class="slide-modal" [style.height]="heightModal">
     <meta name="viewport"
       content="viewport-fit=cover, user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
-    <progress [id]="'progressbar'+id" class="uk-position-top uk-progress" value="0" min="0" max="100"
-      [hidden]="!options.isAutoPlay"></progress>
     <div class="slide-background" [ngStyle]="{'background-image': 'url(' + settings.selector_Img + ')'}"></div>
-    <div [ngSwitch]="objImg.album.albumType" (keydown)="onKeydownEvent($event)">
-
-      <div *ngSwitchCase="'video'" class="uk-position-relative">
-        <div
+<div
           class="slide-modal-function uk-position-z-index uk-position-top-right uk-position-small uk-margin-large-right">
           <a class="slide-modal-icon uk-button-danger" (click)="closeModal()" routerLink="/album">
             <span class="material-icons" translate="no">close</span>
           </a>
-        </div>
-        <div class="slide-modal-content" [style.height]="heightModal">
-          <div class="slide-modal-img-group-slides uk-animation">
-            <video #videoElement [src]="objImg.galleryImages[0].src | safeUrl" type="video/mp4"
-              [attr.poster]="objImg.galleryImages[1].small" preload="auto"
-              controlsList="nodownload nofullscreen noremoteplayback" class="uk-width-1-1 uk-height-1-1">
-              Your browser doesn't support video. Try updating your browser or using a different one.
-            </video>
-            <a class="uk-position-center uk-position-z-index" (click)="toggleVideo($event)">
-              <div class="slide-modal-icon">
-                <span class="material-icons" translate="no">
-                  {{options.isAutoPlay ? 'pause_circle_outline' : 'play_circle_outline'}}
-                </span>
-              </div>
-            </a>
-            <!-- <iframe src="https://onedrive.live.com/embed?cid=B8472F70698B2C1B&resid=B8472F70698B2C1B%21110996&authkey=AFk6dhwuR1N4qeg&em=2&Embed=1" width="320" height="180" frameborder="0" scrolling="no" allowfullscreen sandbox="allow-same-origin allow-scripts allow-top-navigation"></iframe> -->
-            <!-- <iframe src="{{objImg.galleryImages[0].srcDownload}}" frameborder="0" scrolling="no" autoplay class="uk-width-1-1 uk-height-1-1"></iframe> -->
           </div>
-        </div>
+    <div [ngSwitch]="objImg.album.albumType" (keydown)="onKeydownEvent($event)">
+
+      <div *ngSwitchCase="'video'" class="uk-position-relative">
+        <progress [id]="'progressbar'+id" class="uk-position-top uk-position-z-index uk-progress" value="0" min="0"
+          max="100"></progress>
+        <app-video-player [heightModal]="heightModal" [idObj]="id" [source]="objImg.galleryImages[0].srcDownload"
+          [poster]="objImg.galleryImages[1].small"></app-video-player>
       </div>
 
       <div *ngSwitchDefault class="uk-position-relative">
+        <progress [id]="'progressbar'+id" class="uk-position-top uk-position-z-index uk-progress" value="0" min="0"
+          max="100" [hidden]="!options.isAutoPlay"></progress>
         <div
-          class="slide-modal-function uk-position-z-index uk-position-top-right uk-position-small uk-margin-large-right">
+          class="slide-modal-function uk-position-z-index uk-position-top-left uk-position-small">
           <a class="slide-modal-icon uk-button-default" (click)="playAudioIndex(-1)"
             *ngIf="audioControlComponent.isReady.play && audioControlComponent.isReady.prev">
             <span class="material-icons" translate="no">skip_previous</span>
@@ -88,9 +74,6 @@
               {{options.isAutoPlay ? 'pause_circle_outline' : 'play_circle_outline'}}
             </span>
           </a>
-          <a class="slide-modal-icon uk-button-danger" (click)="closeModal()" routerLink="/album">
-            <span class="material-icons" translate="no">close</span>
-          </a>
         </div>
 
         <!-- [attr.uk-slideshow]="{index: slideIndex, autoplayInterval: timeAutoPlay, draggable: !isAutoPlay}" -->
@@ -105,8 +88,8 @@
                     class="slide-modal-img-slides uk-box-shadow-large">
                 </div>
                 <div
-                  class="uk-overlay uk-overlay-primary uk-position-bottom uk-padding-remove uk-text-center uk-transition-slide-bottom">
-                  <p class="uk-margin-remove" translate="no">{{i + 1}} / {{objImg.galleryImages.length}}</p>
+                  class="uk-overlay uk-overlay-primary uk-padding-remove uk-position-bottom uk-margin-remove uk-text-meta uk-text-center uk-transition-slide-bottom">
+                  <span translate="no">{{i + 1}} / {{objImg.galleryImages.length}}</span>
                 </div>
               </li>
             </ul>
