@@ -1,5 +1,6 @@
 import { style } from '@angular/animations';
-import { Component, OnInit, ViewEncapsulation, Input, HostListener, ViewChildren, QueryList, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
+declare var videojs: any;
 
 @Component({
   selector: 'app-video-player',
@@ -23,6 +24,7 @@ export class VideoPlayerComponent implements OnInit {
   widthModal: string = '40px';
   tagVideo: any;
   timeVideo: string;
+  player: any = null;
   constructor(
   ) { }
 
@@ -30,12 +32,30 @@ export class VideoPlayerComponent implements OnInit {
     this.tagVideo = document.querySelector('video');
   }
 
+  ngAfterViewInit() {
+    this.player = videojs(document.getElementById('video-player'), {
+      fluid: false,
+      controlBar: {
+        volumePanel: false,
+      }
+    }, function onPlayerReady() {
+      this.on('loadedmetadata', () => { });
+      this.on('timeupdate', () => { });
+      this.on('loadeddata', () => { });
+    });
+  }
+
   timeUpdate(event) {
-    const totalSec = this.tagVideo.duration;
-    const curreSec = this.tagVideo.currentTime;
-    const totalPercent = 100;
-    let percent = (curreSec * totalPercent) / totalSec;
-    document.getElementById('progressbar' + this.idObj).setAttribute('value', Math.floor(percent) + '');
+    const percent = Math.floor((100 / this.tagVideo.duration) * this.tagVideo.currentTime)
+    document.getElementById('progressbar' + this.idObj).setAttribute('value', percent + '');
+  }
+
+  loadedmetadata(event) {
+
+  }
+
+  load(event) {
+    console.log('load', event);
   }
 
   convertTimeToTimeDate(valueSec) {
@@ -44,7 +64,7 @@ export class VideoPlayerComponent implements OnInit {
     }
     const time = new Date(valueSec * 1000);
     const isoStr = time.toISOString();
-    if (time.getUTCHours() == 0){
+    if (time.getUTCHours() == 0) {
       this.widthModal = '40px';
       return isoStr.substr(14, 5);
     }
@@ -55,9 +75,10 @@ export class VideoPlayerComponent implements OnInit {
   toggleVideo(event) {
     event.stopPropagation();
     event.preventDefault();
+    event.srcElement.style.display = 'none';
     if (this.tagVideo.paused) {
       this.tagVideo.play().then(() => {
-        this.tagVideo.volume = 1;
+
       }).catch(function (error) {
       });
     }
