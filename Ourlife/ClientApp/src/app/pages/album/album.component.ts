@@ -46,7 +46,7 @@ export class AlbumComponent implements OnInit {
   @ViewChildren(ImageLightboxComponent) imgLightBox: QueryList<ImageLightboxComponent>;
 
   constructor(
-    private appComponent: AppComponent,
+    public appComponent: AppComponent,
     private location: Location,
     private activeRoute: ActivatedRoute,
     private dataService: GetDataService,

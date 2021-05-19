@@ -1,7 +1,7 @@
 import { GetDataService } from './services/get-data.service';
-import { Component, ElementRef, Inject, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, HostListener, Inject, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ISetting } from './interfaces/setting';
-import { Router, NavigationStart, NavigationEnd, NavigationError, NavigationCancel, RoutesRecognized } from '@angular/router';
+import { Router, NavigationStart, NavigationEnd } from '@angular/router';
 import { makeStateKey, TransferState } from '@angular/platform-browser';
 
 @Component({
@@ -11,6 +11,23 @@ import { makeStateKey, TransferState } from '@angular/platform-browser';
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
+  public readonly ukSticky: string = 'show-on-up:true; bottom: true; animation: uk-animation-slide-top';
+
+  lastScrollTop: number = 0;
+  hiddenNavigation: boolean = false;
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll($event) {
+    this.hiddenNavbar();
+  }
+
+  hiddenNavbar(){
+    const tagBody = document.querySelector('html');
+    const scrollTop = Math.round(tagBody.scrollTop);
+    this.hiddenNavigation = scrollTop > window.innerHeight && (scrollTop >= this.lastScrollTop);
+    this.lastScrollTop = scrollTop;
+  }
+
+
   @ViewChild('content') content: ElementRef;
 
   public message = null;
@@ -48,7 +65,7 @@ export class AppComponent {
 
       this.headerHero.img = data.hero.src;
       this.headerHero.videoMP4 = data.hero.srcVideoMP4 || null;
-      
+
       this.footerImg = {
         'background-image': 'url("' + data.footer.src.getSizeImage() + '")'
       }
@@ -75,10 +92,12 @@ export class AppComponent {
   }
 
   ngAfterViewInit() {
+    
   }
 
   public loadComplete() {
     setTimeout(() => {
+      this.hiddenNavbar();
       this.loadSuccess = true;
     }, 1000);
   }

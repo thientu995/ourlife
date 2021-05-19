@@ -1,4 +1,4 @@
-<h1 uk-sticky="bottom: true" class="section-title">Cô Dâu & Chú Rể</h1>
+<h1 [attr.uk-sticky]="appComponent.ukSticky" class="section-title">Cô Dâu & Chú Rể</h1>
 <div class="uk-text-center">
   <span class="icon-funny lotus11"></span>
 </div>
@@ -13,7 +13,7 @@
   </div>
 </section>
 
-<h1 uk-sticky="bottom: true" class="section-title">Tiệc Rượu</h1>
+<h1 [attr.uk-sticky]="appComponent.ukSticky" class="section-title">Tiệc Rượu</h1>
 <div class="uk-text-center">
   <span class="icon-funny lotus4"></span>
 </div>
@@ -29,7 +29,8 @@
         <div class="uk-card uk-card-small uk-card-default uk-card-body uk-padding-remove-left uk-padding-remove-right">
           <h2>
             <span [innerHTML]="item.date.getHours().pad(2) | safeHtml"></span>
-            <span *ngIf="item.date.getMinutes() != 0" [innerHTML]="' : ' + item.date.getMinutes().pad(2) | safeHtml"></span>
+            <span *ngIf="item.date.getMinutes() != 0"
+              [innerHTML]="' : ' + item.date.getMinutes().pad(2) | safeHtml"></span>
             <span class="uk-text-muted" *ngIf="item.date.getMinutes() == 0"> giờ</span>
           </h2>
           <em class="uk-text-primary" [innerHTML]="arrDay[item.date.getDay()] | safeHtml"></em>
@@ -51,7 +52,7 @@
   </div>
 </section>
 
-<h1 uk-sticky="bottom: true" class="section-title">Chuyện Tình</h1>
+<h1 [attr.uk-sticky]="appComponent.ukSticky" class="section-title">Chuyện Tình</h1>
 <div class="uk-text-center">
   <span class="icon-funny lotus9"></span>
 </div>
@@ -62,7 +63,7 @@
 </section>
 
 <div *ngIf="imageWedding != null && imageWedding.length > 0">
-  <h1 uk-sticky="bottom: true" class="section-title">Album</h1>
+  <h1 [attr.uk-sticky]="appComponent.ukSticky" class="section-title">Album</h1>
   <div class="uk-text-center">
     <span class="icon-funny lotus3"></span>
   </div>
@@ -96,7 +97,7 @@
 </div>
 
 <div *ngIf="weatherData!=null && weatherData.length > 0">
-  <h1 uk-sticky="bottom: true" class="section-title">Thời tiết</h1>
+  <h1 [attr.uk-sticky]="appComponent.ukSticky" class="section-title">Thời tiết</h1>
   <div class="uk-text-center">
     <span class="icon-funny lotus20"></span>
   </div>

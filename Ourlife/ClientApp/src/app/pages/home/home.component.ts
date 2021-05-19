@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
   happyWedding: any = null;
   arrDay = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
   constructor(
-    private appComponent: AppComponent,
+    public appComponent: AppComponent,
     private dataService: GetDataService
   ) {
     this.portfolio = null;
