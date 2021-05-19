@@ -37,6 +37,7 @@
     "rxjs": "~6.5.4",
     "tslib": "^1.14.1",
     "uikit": "^3.6.5",
+    "video.js": "^7.11.8",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
