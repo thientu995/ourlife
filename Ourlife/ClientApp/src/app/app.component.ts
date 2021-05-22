@@ -11,7 +11,7 @@ import { makeStateKey, TransferState } from '@angular/platform-browser';
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
-  public readonly ukSticky: string = 'show-on-up:true; bottom: true; animation: uk-animation-slide-top';
+  public readonly ukSticky: string = 'bottom: true; animation: uk-animation-slide-top';
 
   lastScrollTop: number = 0;
   hiddenNavigation: boolean = false;

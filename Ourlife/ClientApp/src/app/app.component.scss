@@ -10,6 +10,14 @@
   padding: 0;
   position: relative;
 
+  &.uk-sticky.uk-invisible {
+    visibility: visible !important;
+  }
+
+  &.uk-sticky.uk-invisible.uk-active {
+    visibility: hidden !important;
+  }
+
   &.uk-sticky.uk-active {
     font-size: 20px;
     left: 0;
@@ -35,7 +43,6 @@
       bottom: 0;
     }
   }
-
   // &:before {
   //   border: 2px solid #fff;
   //   border-radius: 100%;
@@ -64,9 +71,9 @@
 }
 
 a,
-.uk-tab > * > a,
-.uk-navbar-nav > li > a,
-.uk-navbar-nav > li > a.uk-active,
+.uk-tab>*>a,
+.uk-navbar-nav>li>a,
+.uk-navbar-nav>li>a.uk-active,
 .uk-active,
 .uk-link-toggle,
 .uk-link {
@@ -85,12 +92,12 @@ a,
   }
 }
 
-.uk-navbar-nav > li > a.uk-active,
+.uk-navbar-nav>li>a.uk-active,
 .uk-active {
   color: $base-text-color-link-hover !important;
 }
 
-.uk-tab > .uk-active > a {
+.uk-tab>.uk-active>a {
   border-color: red;
 }
 
@@ -112,6 +119,7 @@ main,
 }
 
 progress {
+
   // background-color: $bkg-main !important;
   // color: $bkg-main !important;
   &::-webkit-progress-value {
