@@ -44,9 +44,9 @@
     <div [ngSwitch]="objImg.album.albumType" (keydown)="onKeydownEvent($event)">
 
       <div *ngSwitchCase="'video'" class="uk-position-relative">
-        <progress [id]="'progressbar'+id" class="uk-position-top uk-position-z-index uk-progress" value="0" min="0"
-          max="100"></progress>
-        <app-video-player [heightModal]="heightModal" [idObj]="id" [source]="objImg.galleryImages[0].srcDownload"
+        <!-- <progress [id]="'progressbar'+id" class="uk-position-top uk-position-z-index uk-progress" value="0" min="0"
+          max="100"></progress> -->
+        <app-video-player [heightModal]="heightModal" [idObj]="id" [source]="objImg.galleryImages[0].src"
           [poster]="objImg.galleryImages[1].small"></app-video-player>
       </div>
 

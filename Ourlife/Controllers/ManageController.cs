@@ -20,7 +20,7 @@ namespace Ourlife.Controllers
         [HttpPost("[action]")]
         public IActionResult ClearData()
         {
-            string dtCurrent = DateTime.Now.ToString(ConstValues.formatFolderName_DateTime);
+            string dtCurrent = "";//DateTime.Now.ToString(ConstValues.formatFolderName_DateTime);
             string pathStore = ConstFuncs.GetPathFolderRootStore(ConstValues.folderName_Store, dtCurrent);
             if (System.IO.Directory.Exists(pathStore))
             {

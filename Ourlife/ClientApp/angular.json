@@ -34,8 +34,7 @@
             ],
             "scripts": [
               "./node_modules/uikit/dist/js/uikit.min.js",
-              "./node_modules/uikit/dist/js/uikit-icons.min.js",
-              "./node_modules/video.js/dist/video.min.js"
+              "./node_modules/uikit/dist/js/uikit-icons.min.js"
             ],
             "webWorkerTsConfig": "tsconfig.worker.json"
           },
